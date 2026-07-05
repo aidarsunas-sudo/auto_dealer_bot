@@ -110,6 +110,19 @@ def _lookup_codes(brand: str, model: str) -> dict | None:
     return {"car_type": car_type, "manufacturer_ko": brand_ko, "model_group": model_match}
 
 
+def _extract_photos(item: dict) -> list:
+    """
+    Список поиска отдаёт item["Photos"] — уже полный массив фото объявления
+    (не только "витринные" 4, как было в раннем тестовом скрипте) — доп.
+    запрос на детальную карточку не нужен.
+    """
+    return [
+        f"{PHOTO_CDN_BASE}{p['location']}"
+        for p in (item.get("Photos") or [])
+        if p.get("location")
+    ]
+
+
 def _normalize_item(item: dict, target: dict) -> dict:
     manufacturer = item.get("Manufacturer", "")
     model_text = item.get("Model", "")
@@ -134,8 +147,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
     fuel_code = spec.fuel if spec else None
 
     external_id = item.get("Id")
-    photo_base = item.get("Photo") or ""
-    photos = [f"{PHOTO_CDN_BASE}{photo_base}001.jpg"] if photo_base else []
+    photos = _extract_photos(item)
 
     return {
         "brand": target["brand"],
@@ -232,8 +244,7 @@ def _normalize_broad_item(item: dict) -> dict:
     fuel_code = spec.fuel if spec else None
 
     external_id = item.get("Id")
-    photo_base = item.get("Photo") or ""
-    photos = [f"{PHOTO_CDN_BASE}{photo_base}001.jpg"] if photo_base else []
+    photos = _extract_photos(item)
 
     return {
         "brand": from_korean(manufacturer),

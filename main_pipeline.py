@@ -75,7 +75,14 @@ def run() -> None:
         action="store_true",
         help="Не публиковать по-настоящему, только показать, что получилось бы",
     )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=POST_LIMIT,
+        help=f"Сколько постов максимум публиковать за этот запуск (по умолчанию {POST_LIMIT})",
+    )
     args = parser.parse_args()
+    post_limit = args.limit
 
     log = setup_logging()
     log.info("=== Запуск main_pipeline ===")
@@ -118,12 +125,12 @@ def run() -> None:
     # одного источника (см. разбор бага: при первом запуске у всех кандидатов
     # почти одинаковый first_seen, и порядок вырождается в порядок сбора,
     # где один источник может отдать десятки объявлений одной модели подряд).
-    candidates = diversify(candidates, POST_LIMIT, MAX_PER_MODEL)
+    candidates = diversify(candidates, post_limit, MAX_PER_MODEL)
 
     posted_count = 0
     for car in candidates:
-        if posted_count >= POST_LIMIT:
-            log.info(f"Достигнут лимит {POST_LIMIT} постов за запуск — останавливаюсь")
+        if posted_count >= post_limit:
+            log.info(f"Достигнут лимит {post_limit} постов за запуск — останавливаюсь")
             break
 
         post_text = build_lead_post(car, rates)
@@ -131,7 +138,7 @@ def run() -> None:
             continue  # не хватает данных для честной цены под ключ — пропускаем
 
         try:
-            ok = publish_post(post_text, dry_run=args.dry_run)
+            ok = publish_post(post_text, photos=car.get("photos"), dry_run=args.dry_run)
         except Exception as error:
             log.error(f"Не удалось опубликовать {car.get('brand', '?')} {car.get('model', '?')}: {error}")
             continue
@@ -139,7 +146,7 @@ def run() -> None:
         if ok:
             mark_posted(pub_log, car["url"])
             posted_count += 1
-            log.info(f"[{posted_count}/{POST_LIMIT}] Опубликовано: {car.get('brand', '')} "
+            log.info(f"[{posted_count}/{post_limit}] Опубликовано: {car.get('brand', '')} "
                       f"{car.get('model', '')} {car.get('trim', '')}")
             time.sleep(2)
 

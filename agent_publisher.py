@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-agent_publisher.py — "агент-публикатор" в мультиагентном пайплайне (orchestrator.py).
+agent_publisher.py — "агент-публикатор" в мультиагентном пайплайне (orchestrator.py)
+и в main_pipeline.py.
 
-publish_post() — тонкая обёртка над telegram_publisher.send_to_telegram(),
-существует здесь только для единообразия имён агентов в orchestrator.py.
+publish_post() — тонкая обёртка над telegram_publisher: без фото —
+send_to_telegram() (как раньше, orchestrator.py его так и вызывает — без
+изменений), с фото — sendPhoto/sendMediaGroup в зависимости от количества.
 
-send_video_to_telegram() — новая функция, использующая метод Bot API
-sendVideo. Сейчас её никто не вызывает (scraper.py не собирает видео с
-сайтов дилеров) — это задел на будущее, точка расширения.
+send_video_to_telegram() — использует метод Bot API sendVideo. Сейчас её
+никто не вызывает (scraper.py не собирает видео с сайтов дилеров) — это
+задел на будущее, точка расширения.
 """
 
 import logging
@@ -16,14 +18,43 @@ import os
 import requests
 
 import config
-from telegram_publisher import send_to_telegram
+from telegram_publisher import send_to_telegram, send_photo_to_telegram, send_media_group_to_telegram
 
 logger = logging.getLogger("agent_publisher")
 
 
-def publish_post(text: str, dry_run: bool = False) -> bool:
-    """Публикует готовый текст поста — обёртка над telegram_publisher.send_to_telegram()."""
-    return send_to_telegram(text, dry_run=dry_run)
+def publish_post(text: str, photos: list | None = None, dry_run: bool = False) -> bool:
+    """
+    Публикует готовый текст поста — обёртка над telegram_publisher.
+
+    Args:
+        text: готовый текст поста.
+        photos: список URL фото (может быть пустым/None — тогда обычный
+                текст, как и раньше). 1 фото -> sendPhoto с caption=text,
+                >1 -> sendMediaGroup (первое с caption, остальные без).
+        dry_run: не публиковать по-настоящему, только показать в консоли.
+
+    Returns:
+        True при успехе. Если отправка с фото не удалась (например, битая
+        ссылка на изображение) — не проваливаем публикацию целиком,
+        откатываемся на обычный текст, чтобы отсутствие/поломка фото
+        никогда не блокировала пост.
+    """
+    photos = photos or []
+
+    if not photos:
+        return send_to_telegram(text, dry_run=dry_run)
+
+    if len(photos) == 1:
+        ok = send_photo_to_telegram(photos[0], text, dry_run=dry_run)
+    else:
+        ok = send_media_group_to_telegram(photos, text, dry_run=dry_run)
+
+    if not ok:
+        logger.warning("Не удалось опубликовать с фото — публикую обычным текстом")
+        return send_to_telegram(text, dry_run=dry_run)
+
+    return True
 
 
 def send_video_to_telegram(video: str, caption: str = "", dry_run: bool = False) -> bool:

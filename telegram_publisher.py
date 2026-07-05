@@ -23,6 +23,20 @@ import config
 
 logger = logging.getLogger("telegram_publisher")
 
+# Telegram: подпись к фото/альбому — максимум 1024 символа (у обычного
+# текстового сообщения лимит другой, 4096) — если текст поста длиннее,
+# аккуратно обрезаем, а не падаем с ошибкой API.
+CAPTION_MAX_LENGTH = 1024
+
+# Telegram: альбом (sendMediaGroup) — от 2 до 10 файлов за раз.
+MEDIA_GROUP_MAX_ITEMS = 10
+
+
+def _safe_caption(text: str) -> str:
+    if len(text) <= CAPTION_MAX_LENGTH:
+        return text
+    return text[: CAPTION_MAX_LENGTH - 1] + "…"
+
 
 def send_to_telegram(text: str, dry_run: bool = False) -> bool:
     """
@@ -79,3 +93,75 @@ def send_to_telegram(text: str, dry_run: bool = False) -> bool:
         # именно он ответил, чтобы можно было понять причину.
         logger.error(f"❌ Telegram вернул ошибку: {response.status_code} — {response.text}")
         return False
+
+
+def send_photo_to_telegram(photo_url: str, caption: str, dry_run: bool = False) -> bool:
+    """
+    Отправляет ОДНО фото с подписью (caption = текст поста) методом sendPhoto.
+    photo_url — прямая ссылка на изображение (Telegram сам её скачает),
+    локальные файлы сюда не передаются (все источники отдают только URL).
+    """
+    caption = _safe_caption(caption)
+
+    if dry_run:
+        print("═" * 50)
+        print(f"ТЕСТОВЫЙ РЕЖИМ (фото не отправлено). photo={photo_url}")
+        print("═" * 50)
+        print(caption)
+        print("═" * 50)
+        return True
+
+    telegram_api_url = f"https://api.telegram.org/bot{config.BOT_TOKEN}/sendPhoto"
+    request_data = {"chat_id": config.TELEGRAM_CHAT_ID, "photo": photo_url, "caption": caption}
+
+    try:
+        response = requests.post(telegram_api_url, json=request_data, timeout=30)
+    except requests.RequestException as error:
+        logger.error(f"Не удалось отправить фото в Telegram: {error}")
+        return False
+
+    if response.ok:
+        logger.info("✅ Фото с подписью успешно отправлено в Telegram")
+        return True
+    logger.error(f"❌ Telegram вернул ошибку (sendPhoto): {response.status_code} — {response.text}")
+    return False
+
+
+def send_media_group_to_telegram(photo_urls: list, caption: str, dry_run: bool = False) -> bool:
+    """
+    Отправляет НЕСКОЛЬКО фото одним альбомом (sendMediaGroup) — первое фото
+    с подписью (caption = текст поста), остальные без подписи (так их
+    видит Telegram-канал — одна подпись на весь альбом, не на каждое фото).
+    """
+    photo_urls = photo_urls[:MEDIA_GROUP_MAX_ITEMS]
+    caption = _safe_caption(caption)
+
+    if dry_run:
+        print("═" * 50)
+        print(f"ТЕСТОВЫЙ РЕЖИМ (альбом из {len(photo_urls)} фото не отправлен)")
+        print("═" * 50)
+        print(caption)
+        print("═" * 50)
+        return True
+
+    telegram_api_url = f"https://api.telegram.org/bot{config.BOT_TOKEN}/sendMediaGroup"
+    media = []
+    for i, url in enumerate(photo_urls):
+        item = {"type": "photo", "media": url}
+        if i == 0:
+            item["caption"] = caption
+        media.append(item)
+
+    request_data = {"chat_id": config.TELEGRAM_CHAT_ID, "media": media}
+
+    try:
+        response = requests.post(telegram_api_url, json=request_data, timeout=30)
+    except requests.RequestException as error:
+        logger.error(f"Не удалось отправить альбом в Telegram: {error}")
+        return False
+
+    if response.ok:
+        logger.info(f"✅ Альбом из {len(photo_urls)} фото успешно отправлен в Telegram")
+        return True
+    logger.error(f"❌ Telegram вернул ошибку (sendMediaGroup): {response.status_code} — {response.text}")
+    return False

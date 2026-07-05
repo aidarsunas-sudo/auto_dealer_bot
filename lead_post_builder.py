@@ -60,7 +60,10 @@ def build_lead_post(car: dict, rates: dict) -> str | None:
         "customs_rub": _format_number(details["customs_rub"]),
         "extra_costs_rub": _format_number(details["extra_costs_rub"]),
         "total_rub": _format_number(details["total_rub"]),
-        "url": car.get("url", ""),
+        # ВАЖНО: car["url"] (ссылка на объявление-источник) сюда НЕ
+        # подставляется намеренно — пользователю в посте она видна быть не
+        # должна (площадка-источник должна остаться незаметной). url
+        # используется только внутри published_log.py как ключ дедупа.
         "cta_bot": CTA_BOT,
     }
 

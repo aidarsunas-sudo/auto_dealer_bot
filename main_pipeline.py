@@ -32,6 +32,7 @@ import traceback
 import config
 from target_collector import collect_target_model_cars
 from published_log import load_log, save_log, select_candidates, mark_posted
+from candidate_diversity import diversify, MAX_PER_MODEL
 from lead_post_builder import build_lead_post
 from agent_publisher import publish_post
 from rates import fetch_cbr_rates
@@ -89,6 +90,12 @@ def run() -> None:
     if not candidates:
         log.info("Публиковать нечего")
         return
+
+    # Без этого шага все POST_LIMIT постов могут оказаться одной моделью с
+    # одного источника (см. разбор бага: при первом запуске у всех кандидатов
+    # почти одинаковый first_seen, и порядок вырождается в порядок сбора,
+    # где один источник может отдать десятки объявлений одной модели подряд).
+    candidates = diversify(candidates, POST_LIMIT, MAX_PER_MODEL)
 
     posted_count = 0
     for car in candidates:

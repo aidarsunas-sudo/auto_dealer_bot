@@ -172,3 +172,109 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
 
     log.info(f"onbid: {target['brand']} {target['model']} -> найдено {len(all_items)} (после фильтров)")
     return all_items
+
+
+def _normalize_broad_item(item: dict) -> dict | None:
+    """Как _normalize_item(), но без target — onbidCltrNm свободный текст
+    (не структурированные brand/model), поэтому brand оставляем пустым, а
+    полное название — в model (тот же приём, что в used_car_scraper.py для
+    kbchachacha: 'brand': '', 'model': title)."""
+    category = item.get("ctgrNm")
+    if category not in PASSENGER_CATEGORIES:
+        return None
+
+    title = item.get("onbidCltrNm", "")
+    year_text = item.get("nrtpNm", "")
+    year = _parse_int(year_text)
+    mileage_km = _parse_int(item.get("drvDstcNm"))
+    cc_from_site = _parse_int(item.get("fuelContDsvlmNm"))
+
+    spec = find_spec(title, year)
+    cc = cc_from_site or (spec.cc if spec else None)
+    hp = spec.hp if spec else None
+    fuel_code = spec.fuel if spec else None
+
+    external_id = item.get("onbidCltrno")
+    price = item.get("lowstBidPrc")
+
+    return {
+        "brand": "",
+        "model": title,
+        "trim": title,
+        "external_id": external_id,
+        "year": year,
+        "mileage_km": mileage_km,
+        "cc": cc,
+        "hp": hp,
+        "fuel_code": fuel_code,
+        "price": price,
+        "specs": f"{cc} см³, {hp} л.с." if cc and hp else "",
+        "url": f"https://www.onbid.co.kr/op/cltrpbancinf/cltrpbanc/CltrPbancDetail.do?onbidCltrno={external_id}",
+        "source": "onbid",
+        "category": category,
+        "bid_status": item.get("pbancPbctCltrStatNm"),
+        "appraisal_value_krw": item.get("cltrApslEvlAvgAmt"),
+    }
+
+
+def browse_broad(config: dict, log: logging.Logger) -> list:
+    """
+    Широкий поиск (Режим 2, см. broad_collector.py) — srchVhcMkr/
+    srchVhcMdlNm оставляем пустыми (уже подтверждено вживую: работает,
+    отдаёт все категории вперемешку — фильтруем по PASSENGER_CATEGORIES,
+    как обычно). Фильтр по max_hp — см. docstring charancha_scraper.
+    browse_broad.
+    """
+    max_hp = config.get("max_hp")
+    max_pages = config.get("max_pages_per_source", 5)
+
+    all_items = []
+    for page_index in range(1, max_pages + 1):
+        form_data = {
+            **BASE_FORM,
+            "pageIndex": str(page_index),
+            "pageUnit": str(PAGE_UNIT),
+            "srchVhcMkr": "",
+            "srchVhcMdlNm": "",
+        }
+        try:
+            resp = requests.post(LIST_URL, data=form_data, headers=HEADERS, timeout=25)
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as error:
+            log.error(f"onbid (broad): страница {page_index}: {error}")
+            break
+
+        items = data.get("cltrInfVOList", [])
+        total_count = data.get("totalCount", 0)
+        if not items:
+            break
+
+        for item in items:
+            normalized = _normalize_broad_item(item)
+            if normalized is None:
+                continue
+
+            if normalized.get("hp") is None:
+                continue
+            if max_hp is not None and normalized["hp"] > max_hp:
+                continue
+
+            year = normalized.get("year")
+            if config.get("year_from") is not None and year is not None and year < config["year_from"]:
+                continue
+            mileage_km = normalized.get("mileage_km")
+            if config.get("mileage_max") is not None and mileage_km is not None and mileage_km > config["mileage_max"]:
+                continue
+            fuel_types = config.get("fuel_types")
+            if fuel_types is not None and normalized.get("fuel_code") not in fuel_types:
+                continue
+
+            all_items.append(normalized)
+
+        if page_index * PAGE_UNIT >= total_count:
+            break
+        time.sleep(0.5)
+
+    log.info(f"onbid (broad): найдено {len(all_items)} машин с hp<={max_hp}")
+    return all_items

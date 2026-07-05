@@ -263,3 +263,57 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
 
     log.info(f"kbchachacha: {target['brand']} {target['model']} -> найдено {len(deduped)} (после фильтров)")
     return deduped
+
+
+def browse_broad(config: dict, log: logging.Logger) -> list:
+    """
+    Широкий поиск (Режим 2) — без makerCode/classCode/carCode вообще
+    (подтверждено вживую: работает, отдаёт объявления вперемешку по всем
+    маркам). Резолвер/кэш здесь не нужны — марка не фиксирована.
+
+    used_car_scraper.parse_all_pages() уже кладёт полное описание (марка +
+    модель + комплектация) в car["model"], а car["trim"] — car_seq (числовой
+    ID) — brand оставляем пустым (как и для остальных источников без
+    структурированного brand/model в свободном тексте), model = полное
+    описание с сайта.
+
+    Фильтр по max_hp — см. docstring charancha_scraper.browse_broad
+    (машины с неопределённым hp отбрасываются, а не пропускаются).
+    """
+    max_hp = config.get("max_hp")
+    max_pages = config.get("max_pages_per_source", 5)
+
+    try:
+        cars = parse_all_pages({}, max_pages=max_pages, delay=0.5)
+    except Exception as error:
+        log.error(f"kbchachacha (broad): ошибка поиска: {error}")
+        return []
+
+    all_cars = []
+    for car in cars:
+        if car.get("hp") is None:
+            continue
+        if max_hp is not None and car["hp"] > max_hp:
+            continue
+
+        year = car.get("year")
+        if config.get("year_from") is not None and year is not None and year < config["year_from"]:
+            continue
+        mileage_km = car.get("mileage_km")
+        if config.get("mileage_max") is not None and mileage_km is not None and mileage_km > config["mileage_max"]:
+            continue
+        fuel_types = config.get("fuel_types")
+        if fuel_types is not None and car.get("fuel_code") not in fuel_types:
+            continue
+
+        # used_car_scraper.parse_all_pages() кладёт car_seq (числовой ID) в
+        # car["trim"] — как и в search_target_model(), это не то, что можно
+        # показать в посте. В broad-режиме canonical model из target'а нет,
+        # так что просто убираем trim (car["model"] и так содержит полное
+        # описание с сайта — марка+модель+комплектация).
+        car["trim"] = ""
+        car["source"] = "kbchachacha"
+        all_cars.append(car)
+
+    log.info(f"kbchachacha (broad): найдено {len(all_cars)} машин с hp<={max_hp}")
+    return all_cars

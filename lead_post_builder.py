@@ -28,6 +28,25 @@ def _format_number(value) -> str:
     return f"{int(value):,}".replace(",", " ")
 
 
+def _build_title(car: dict) -> str:
+    """
+    Собирает заголовок из brand/model/trim, отбрасывая пустые и повторяющиеся
+    куски. Нужно из-за двух разных сценариев в normalized-объекте:
+    - targeted-режим (target_models.json): brand/model — канонические
+      (Audi/Q3), trim — описание с сайта. Раздельные, не пересекаются.
+    - broad-режим (без target): у части источников (onbid, kbchachacha)
+      brand пустой, а model/trim могут быть тем же самым сырым текстом с
+      сайта целиком — без дедупа заголовок дублировался бы или показывал
+      "  модель trim" с лишним пробелом от пустого brand.
+    """
+    parts = []
+    for value in (car.get("brand"), car.get("model"), car.get("trim")):
+        value = (value or "").strip()
+        if value and value not in parts:
+            parts.append(value)
+    return " ".join(parts)
+
+
 def build_lead_post(car: dict, rates: dict) -> str | None:
     """
     Возвращает готовый текст поста, или None, если данных не хватает для
@@ -48,6 +67,7 @@ def build_lead_post(car: dict, rates: dict) -> str | None:
         return None
 
     fields = {
+        "title": _build_title(car),
         "brand": car.get("brand", ""),
         "model": car.get("model", ""),
         "trim": car.get("trim", ""),

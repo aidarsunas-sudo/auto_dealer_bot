@@ -3,8 +3,10 @@
 # 6 часов, на серверах GitHub (даже когда твой компьютер выключен).
 #
 # main_pipeline.py — ОТДЕЛЬНЫЙ от main.py/orchestrator.py пайплайн: собирает
-# объявления по target_models.json (4 источника без логина), считает точную
-# цену под ключ и публикует лидогенерирующий пост с CTA в @auto_generals.
+# объявления (4 источника без логина) в одном из двух режимов — targeted
+# (target_models.json) и/или broad (любые модели с hp<=160, см.
+# broad_search_config.json) — переключается через SEARCH_MODE ниже; считает
+# точную цену под ключ и публикует лидогенерирующий пост с CTA в @auto_generals.
 #
 # Как и в run_bot.yml (main.py): каждый запуск — на ЧИСТОЙ виртуальной
 # машине, поэтому в конце прогона сохраняем обновлённый published_log.json
@@ -61,6 +63,9 @@ jobs:
           BANK_COMMISSION_PCT: ${{ secrets.BANK_COMMISSION_PCT }}
           IMPORTER_TYPE: ${{ secrets.IMPORTER_TYPE }}
           LOG_FILE_PATH: logs/main_pipeline.log
+          # Не секрет (просто режим работы) — задаётся прямо здесь, не через
+          # GitHub Secrets. Поменяй на "targeted"/"broad", если нужно.
+          SEARCH_MODE: both
         run: python main_pipeline.py
 
       - name: Сохранить журнал публикаций и лог

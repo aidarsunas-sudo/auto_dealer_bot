@@ -20,7 +20,7 @@ import time
 
 import requests
 
-from brand_names_ko import to_korean, model_to_korean
+from brand_names_ko import to_korean, model_to_korean, from_korean
 from engine_filter import engine_fuel_hint, FUEL_NAME_KO
 from model_specs import find_spec
 from target_model_resolver import resolve
@@ -169,4 +169,108 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
         time.sleep(0.3)
 
     log.info(f"charancha: {target['brand']} {target['model']} -> найдено {len(all_items)} (после фильтров)")
+    return all_items
+
+
+def _normalize_broad_item(item: dict) -> dict:
+    """
+    Как _normalize_item(), но БЕЗ фиксированного target — brand/model берём
+    из самих данных площадки (для broad-режима, см. broad_collector.py), а
+    не из target_models.json (там его просто нет).
+    """
+    image = item.get("image") or {}
+    raw_title = f"{item.get('makerName', '')} {item.get('modelName', '')} {item.get('modelDetailName', '')}".strip()
+
+    cc_from_site = item.get("displacement")
+    year = item.get("releaseYear")
+    year_int = int(year) if year and str(year).isdigit() else None
+
+    spec = find_spec(raw_title, year_int)
+    cc = cc_from_site or (spec.cc if spec else None)
+    hp = spec.hp if spec else None
+    fuel_code = spec.fuel if spec else None
+
+    external_id = item.get("carId")
+
+    return {
+        "brand": from_korean(item.get("makerName", "")),
+        "model": item.get("modelName", ""),
+        "trim": item.get("gradeDetailName") or raw_title,
+        "external_id": external_id,
+        "year": year_int,
+        "mileage_km": item.get("mileage"),
+        "cc": cc,
+        "hp": hp,
+        "fuel_code": fuel_code,
+        "price": (item.get("sellPrice") or 0) * 10000,  # 만원 -> вон
+        "specs": f"{cc} см³, {hp} л.с." if cc and hp else "",
+        "url": f"https://www.charancha.com/cars/{external_id}",
+        "source": "charancha",
+        "photos": image.get("images") or [],
+        "is_accident": item.get("isAccident"),
+        "is_seizure": item.get("isSeizure"),
+    }
+
+
+def browse_broad(config: dict, log: logging.Logger) -> list:
+    """
+    Широкий поиск (Режим 2, см. broad_collector.py) — БЕЗ привязки к
+    конкретной марке/модели, только фильтр по max_hp (+ опционально
+    fuel_types/year_from/mileage_max из broad_search_config.json).
+
+    hp по-прежнему берётся только через model_specs.find_spec() (Charancha
+    его не отдаёт напрямую) — машины с неопределённым hp здесь ОТБРАСЫВАЮТСЯ
+    сразу (в отличие от targeted-режима, где допустимо запостить машину без
+    hp и просто пропустить расчёт цены): смысл broad-режима — заведомо
+    подтверждённая льгота по утильсбору, гадать нельзя.
+    """
+    max_hp = config.get("max_hp")
+    max_pages = config.get("max_pages_per_source", 5)
+
+    all_items = []
+    cursor = None
+
+    for _ in range(max_pages):
+        params = {"size": PAGE_SIZE}
+        if cursor:
+            params["cursor"] = cursor
+
+        try:
+            resp = requests.get(SEARCH_URL, params=params, headers=HEADERS, timeout=25)
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as error:
+            log.error(f"charancha (broad): ошибка запроса: {error}")
+            break
+
+        items = data.get("data", [])
+        if not items:
+            break
+
+        for item in items:
+            normalized = _normalize_broad_item(item)
+
+            if normalized.get("hp") is None:
+                continue  # не смогли подтвердить мощность — не рискуем
+            if max_hp is not None and normalized["hp"] > max_hp:
+                continue
+
+            year = normalized.get("year")
+            if config.get("year_from") is not None and year is not None and year < config["year_from"]:
+                continue
+            mileage_km = normalized.get("mileage_km")
+            if config.get("mileage_max") is not None and mileage_km is not None and mileage_km > config["mileage_max"]:
+                continue
+            fuel_types = config.get("fuel_types")
+            if fuel_types is not None and normalized.get("fuel_code") not in fuel_types:
+                continue
+
+            all_items.append(normalized)
+
+        if not data.get("hasNext"):
+            break
+        cursor = data.get("nextCursor")
+        time.sleep(0.3)
+
+    log.info(f"charancha (broad): найдено {len(all_items)} машин с hp<={max_hp}")
     return all_items

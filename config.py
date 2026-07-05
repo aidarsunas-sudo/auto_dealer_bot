@@ -67,6 +67,14 @@ BANK_COMMISSION_PCT: float = float(os.getenv("BANK_COMMISSION_PCT", "0.025"))
 #          ставки без льгот).
 IMPORTER_TYPE: str = os.getenv("IMPORTER_TYPE", "phys")
 
+# --- Режим поиска для main_pipeline.py ---
+# 'targeted' — только конкретные модели из target_models.json.
+# 'broad'    — только широкий поиск любых моделей с hp<=max_hp (см.
+#              broad_search_config.json) — максимум разнообразия контента.
+# 'both'     — оба режима сразу, результаты смешиваются в один пул перед
+#              round-robin отбором (см. candidate_diversity.py). Дефолт.
+SEARCH_MODE: str = os.getenv("SEARCH_MODE", "both")
+
 # --- Заголовки для запросов к сайтам ---
 # Это "представление" нашей программы сайту — мы говорим "я обычный браузер
 # Chrome", чтобы сайт не отказывал нам в ответе. Без этого некоторые сайты

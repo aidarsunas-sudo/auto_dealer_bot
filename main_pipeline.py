@@ -1,17 +1,28 @@
 # -*- coding: utf-8 -*-
 """
 main_pipeline.py — сквозной автоматический пайплайн для лидогенерирующих
-постов по target_models.json (Telegram-only, канал @auto_generals).
+постов (Telegram-only, канал @auto_generals).
 
     сбор (4 источника без логина) → дедуп/фильтр актуальности →
-    расчёт цены под ключ → генерация поста по внешнему шаблону → публикация
+    round-robin разнообразие → расчёт цены под ключ →
+    генерация поста по внешнему шаблону → публикация
+
+Два независимых режима поиска (см. config.SEARCH_MODE — 'targeted' |
+'broad' | 'both', дефолт 'both'):
+- targeted — конкретные модели из target_models.json (target_collector.py).
+- broad    — любые модели с hp<=max_hp (см. broad_search_config.json,
+             broad_collector.py) — порог льготного утильсбора для физлиц,
+             максимум разнообразия контента, без привязки к брендам.
+В режиме 'both' результаты обоих режимов складываются в один пул ДО
+diversify() — round-robin по (brand, model) работает одинаково для машин
+из любого режима, без искусственного приоритета одного над другим.
 
 Это ОТДЕЛЬНАЯ точка входа от orchestrator.py: orchestrator.py публикует
 обзорные посты по WATCHLIST/USED_CAR_SEARCHES через мультиагентную цепочку
-(agent_analyst → agent_copywriter → agent_editor), а main_pipeline.py — по
-target_models.json, лидогенерирующим постом с CTA на @korea_auto_kazan_bot.
-target_models.json обрабатывается ТОЛЬКО здесь (не в orchestrator.py) — иначе
-одна и та же машина публиковалась бы в канал дважды в разных форматах.
+(agent_analyst → agent_copywriter → agent_editor), а main_pipeline.py —
+лидогенерирующим постом с CTA на @korea_auto_kazan_bot. target_models.json
+обрабатывается ТОЛЬКО здесь (не в orchestrator.py) — иначе одна и та же
+машина публиковалась бы в канал дважды в разных форматах.
 
 Запускается точно так же, как main.py/orchestrator.py:
 
@@ -31,6 +42,7 @@ import traceback
 
 import config
 from target_collector import collect_target_model_cars
+from broad_collector import collect_broad_cars
 from published_log import load_log, save_log, select_candidates, mark_posted
 from candidate_diversity import diversify, MAX_PER_MODEL
 from lead_post_builder import build_lead_post
@@ -72,9 +84,20 @@ def run() -> None:
 
     rates = fetch_cbr_rates()
 
-    cars = collect_target_model_cars(log)
+    search_mode = config.SEARCH_MODE
+    if search_mode not in ("targeted", "broad", "both"):
+        log.warning(f"Неизвестный SEARCH_MODE={search_mode!r}, использую 'both'")
+        search_mode = "both"
+    log.info(f"Режим поиска: {search_mode}")
+
+    cars = []
+    if search_mode in ("targeted", "both"):
+        cars += collect_target_model_cars(log)
+    if search_mode in ("broad", "both"):
+        cars += collect_broad_cars(log)
+
     if not cars:
-        log.warning("Ничего не найдено ни по одной целевой модели из target_models.json")
+        log.warning("Ничего не найдено ни в одном из активных режимов поиска")
         return
 
     pub_log = load_log()

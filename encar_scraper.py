@@ -36,7 +36,7 @@ import time
 import requests
 from playwright.sync_api import sync_playwright
 
-from brand_names_ko import to_korean, model_to_korean
+from brand_names_ko import to_korean, model_to_korean, from_korean
 from engine_filter import engine_fuel_hint, FUEL_NAME_KO
 from model_specs import find_spec
 from target_model_resolver import resolve
@@ -209,4 +209,106 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
         time.sleep(0.3)
 
     log.info(f"encar: {target['brand']} {target['model']} -> найдено {len(all_items)} (после фильтров)")
+    return all_items
+
+
+def _normalize_broad_item(item: dict) -> dict:
+    """Как _normalize_item(), но без фиксированного target — brand/model
+    берём из самих данных площадки (см. broad_collector.py)."""
+    manufacturer = item.get("Manufacturer", "")
+    model_text = item.get("Model", "")
+    badge = item.get("Badge", "")
+    raw_title = f"{manufacturer} {model_text} {badge}".strip()
+
+    form_year = item.get("FormYear")
+    year_int = int(form_year) if form_year and str(form_year).isdigit() else None
+
+    mileage = item.get("Mileage")
+    mileage_km = int(mileage) if mileage is not None else None
+
+    spec = find_spec(raw_title, year_int)
+    cc = spec.cc if spec else None
+    hp = spec.hp if spec else None
+    fuel_code = spec.fuel if spec else None
+
+    external_id = item.get("Id")
+    photo_base = item.get("Photo") or ""
+    photos = [f"{PHOTO_CDN_BASE}{photo_base}001.jpg"] if photo_base else []
+
+    return {
+        "brand": from_korean(manufacturer),
+        "model": model_text,
+        "trim": badge or raw_title,
+        "external_id": external_id,
+        "year": year_int,
+        "mileage_km": mileage_km,
+        "cc": cc,
+        "hp": hp,
+        "fuel_code": fuel_code,
+        "price": (item.get("Price") or 0) * 10000,  # 만원 -> вон
+        "specs": f"{cc} см³, {hp} л.с." if cc and hp else "",
+        "url": DETAIL_URL_TEMPLATE.format(id=external_id),
+        "source": "encar",
+        "photos": photos,
+    }
+
+
+def browse_broad(config: dict, log: logging.Logger) -> list:
+    """
+    Широкий поиск (Режим 2, см. broad_collector.py) — БЕЗ марки/модели,
+    просто "(And.Hidden.N.)" (подтверждено вживую: работает, ~220k записей
+    суммарно и по отечественным, и по импортным маркам сразу — CarType
+    указывать не обязательно). Фильтр по max_hp (+ опционально
+    fuel_types/year_from/mileage_max) — см. docstring charancha_scraper.
+    browse_broad для объяснения, почему машины с неопределённым hp
+    отбрасываются, а не пропускаются с пустым hp.
+    """
+    max_hp = config.get("max_hp")
+    max_pages = config.get("max_pages_per_source", 5)
+
+    all_items = []
+    offset = 0
+    for _ in range(max_pages):
+        try:
+            resp = requests.get(
+                SEARCH_URL,
+                params={"count": "true", "q": "(And.Hidden.N.)", "sr": f"|ModifiedDate|{offset}|{PAGE_SIZE}"},
+                headers=HEADERS, timeout=25,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as error:
+            log.error(f"encar (broad): ошибка запроса: {error}")
+            break
+
+        results = data.get("SearchResults", [])
+        if not results:
+            break
+
+        for item in results:
+            normalized = _normalize_broad_item(item)
+
+            if normalized.get("hp") is None:
+                continue
+            if max_hp is not None and normalized["hp"] > max_hp:
+                continue
+
+            year = normalized.get("year")
+            if config.get("year_from") is not None and year is not None and year < config["year_from"]:
+                continue
+            mileage_km = normalized.get("mileage_km")
+            if config.get("mileage_max") is not None and mileage_km is not None and mileage_km > config["mileage_max"]:
+                continue
+            fuel_types = config.get("fuel_types")
+            if fuel_types is not None and normalized.get("fuel_code") not in fuel_types:
+                continue
+
+            all_items.append(normalized)
+
+        offset += PAGE_SIZE
+        if offset >= data.get("Count", 0):
+            break
+        time.sleep(0.3)
+
+    log.info(f"encar (broad): найдено {len(all_items)} машин с hp<={max_hp}")
     return all_items

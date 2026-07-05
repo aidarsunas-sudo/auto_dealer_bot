@@ -1,0 +1,96 @@
+# -*- coding: utf-8 -*-
+"""
+published_log.py — лёгкий журнал "видели/публиковали" для main_pipeline.py,
+отдельный от data/cars.db (та база заточена под другую задачу — отслеживание
+изменения цены для мультиагентного пайплайна orchestrator.py, а здесь нужна
+простая, независимая логика: не публиковать одно и то же объявление дважды,
+и не публиковать объявление, которое видим уже дольше N дней).
+
+Ключ записи — url объявления (стабилен и уникален в рамках источника, есть
+у всех 4 адаптеров target_collector.py).
+
+Формат published_log.json:
+    {
+        "<url>": {"first_seen": "2026-07-05T12:00:00", "posted_at": "2026-07-05T18:00:00" | null}
+    }
+"""
+
+import json
+import logging
+from datetime import datetime, timedelta
+from pathlib import Path
+
+LOG_PATH = Path(__file__).resolve().parent / "published_log.json"
+
+logger = logging.getLogger("published_log")
+
+
+def load_log() -> dict:
+    if not LOG_PATH.exists():
+        return {}
+    try:
+        return json.loads(LOG_PATH.read_text(encoding="utf-8"))
+    except Exception as error:
+        logger.error(f"Не удалось прочитать {LOG_PATH.name}: {error} — начинаю с пустого журнала")
+        return {}
+
+
+def save_log(log: dict) -> None:
+    try:
+        LOG_PATH.write_text(json.dumps(log, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as error:
+        logger.warning(f"Не удалось сохранить {LOG_PATH.name}: {error}")
+
+
+def select_candidates(cars: list, freshness_days: int, log: dict) -> list:
+    """
+    Регистрирует новые объявления в журнале (first_seen = сейчас) и
+    возвращает те, что подходят для публикации: ещё не публиковались и не
+    старше freshness_days (считая от нашего first_seen, а не от даты на
+    сайте — не все источники её вообще отдают).
+
+    Мутирует переданный log (добавляет новые url) — сохранить на диск
+    (save_log) должен вызывающий код, после того как решит, что публиковать.
+
+    Returns:
+        Список машин-кандидатов на публикацию, отсортированный по first_seen
+        по возрастанию (сначала самые "старые" непроверенные объявления —
+        чтобы не копился бесконечно растущий необработанный хвост).
+    """
+    now = datetime.now()
+    candidates = []
+    seen_urls = set()
+
+    for car in cars:
+        url = car.get("url")
+        if not url:
+            continue
+        if url in seen_urls:
+            continue  # тот же url уже встретился в ЭТОМ вызове — источники
+                       # иногда отдают один и тот же физический автомобиль
+                       # дважды (например, под двумя пересекающимися
+                       # generation-фильтрами) — не показываем его дважды
+        seen_urls.add(url)
+
+        entry = log.get(url)
+        if entry is None:
+            entry = {"first_seen": now.isoformat(timespec="seconds"), "posted_at": None}
+            log[url] = entry
+
+        if entry["posted_at"] is not None:
+            continue  # уже публиковали это объявление — не дублируем
+
+        first_seen = datetime.fromisoformat(entry["first_seen"])
+        if now - first_seen > timedelta(days=freshness_days):
+            continue  # видим уже слишком давно — считаем неактуальным
+
+        candidates.append((first_seen, car))
+
+    candidates.sort(key=lambda pair: pair[0])
+    return [car for _, car in candidates]
+
+
+def mark_posted(log: dict, url: str) -> None:
+    entry = log.get(url)
+    if entry is not None:
+        entry["posted_at"] = datetime.now().isoformat(timespec="seconds")

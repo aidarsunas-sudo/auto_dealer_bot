@@ -1,0 +1,182 @@
+{
+  "kbchachacha:Audi:Q3": {
+    "result": {
+      "makerCode": 109,
+      "classCode": 1959,
+      "car_codes": [
+        {
+          "code": 3090,
+          "text": "The New Q3(F3) (20년~현재)",
+          "year_from": 2020,
+          "year_to": 9999
+        },
+        {
+          "code": 2661,
+          "text": "NEW Q3 (15년~20년)",
+          "year_from": 2015,
+          "year_to": 2020
+        },
+        {
+          "code": 2045,
+          "text": "Q3 (11년~15년)",
+          "year_from": 2011,
+          "year_to": 2015
+        }
+      ]
+    },
+    "resolved_at": "2026-07-05T00:26:57"
+  },
+  "kbchachacha:Volkswagen:Tiguan": {
+    "result": {
+      "makerCode": 112,
+      "classCode": 1983,
+      "car_codes": [
+        {
+          "code": 2941,
+          "text": "티구안 올스페이스 (18년~현재)",
+          "year_from": 2018,
+          "year_to": 9999
+        },
+        {
+          "code": 2925,
+          "text": "더 뉴 티구안 (18년~현재)",
+          "year_from": 2018,
+          "year_to": 9999
+        },
+        {
+          "code": 2053,
+          "text": "뉴 티구안 (11년~16년)",
+          "year_from": 2011,
+          "year_to": 2016
+        },
+        {
+          "code": 1610,
+          "text": "티구안 (07년~11년)",
+          "year_from": 2007,
+          "year_to": 2011
+        }
+      ]
+    },
+    "resolved_at": "2026-07-05T10:57:00"
+  },
+  "kbchachacha:Kia:K3": {
+    "result": {
+      "makerCode": 102,
+      "classCode": 1240,
+      "car_codes": [
+        {
+          "code": 3175,
+          "text": "더 뉴 K3(BD) (21년~현재)",
+          "year_from": 2021,
+          "year_to": 9999
+        },
+        {
+          "code": 3176,
+          "text": "더 뉴 K3 GT(BD) (21년~현재)",
+          "year_from": 2021,
+          "year_to": 9999
+        },
+        {
+          "code": 2937,
+          "text": "올 뉴 K3 (18년~21년)",
+          "year_from": 2018,
+          "year_to": 2021
+        },
+        {
+          "code": 2954,
+          "text": "올 뉴 K3 GT (18년~21년)",
+          "year_from": 2018,
+          "year_to": 2021
+        },
+        {
+          "code": 2756,
+          "text": "더 뉴 K3 (15년~18년)",
+          "year_from": 2015,
+          "year_to": 2018
+        },
+        {
+          "code": 3009,
+          "text": "더 뉴 K3 유로 (16년~18년)",
+          "year_from": 2016,
+          "year_to": 2018
+        },
+        {
+          "code": 2763,
+          "text": "더 뉴 K3 디젤 (15년~18년)",
+          "year_from": 2015,
+          "year_to": 2018
+        },
+        {
+          "code": 1480,
+          "text": "K3 쿱 (13년~16년)",
+          "year_from": 2013,
+          "year_to": 2016
+        },
+        {
+          "code": 1481,
+          "text": "K3 유로 (13년~16년)",
+          "year_from": 2013,
+          "year_to": 2016
+        },
+        {
+          "code": 1448,
+          "text": "K3 (12년~15년)",
+          "year_from": 2012,
+          "year_to": 2015
+        },
+        {
+          "code": 1485,
+          "text": "K3 디젤 (12년~15년)",
+          "year_from": 2012,
+          "year_to": 2015
+        }
+      ]
+    },
+    "resolved_at": "2026-07-05T10:57:38"
+  },
+  "encar:Audi:Q3": {
+    "result": {
+      "car_type": "A",
+      "manufacturer_ko": "아우디",
+      "model_group": "Q3"
+    },
+    "resolved_at": "2026-07-05T11:12:49"
+  },
+  "encar:Volkswagen:Tiguan": {
+    "result": {
+      "car_type": "A",
+      "manufacturer_ko": "폭스바겐",
+      "model_group": "티구안"
+    },
+    "resolved_at": "2026-07-05T11:13:04"
+  },
+  "encar:Kia:K3": {
+    "result": {
+      "car_type": "Y",
+      "manufacturer_ko": "기아",
+      "model_group": "K3"
+    },
+    "resolved_at": "2026-07-05T11:13:23"
+  },
+  "charancha:Volkswagen:Tiguan": {
+    "result": {
+      "makerCode": "060",
+      "modelCode": "0618"
+    },
+    "resolved_at": "2026-07-05T11:14:14"
+  },
+  "charancha:Audi:Q3": {
+    "result": {
+      "makerCode": "041",
+      "modelCode": "0433"
+    },
+    "resolved_at": "2026-07-05T11:15:26"
+  },
+  "charancha:Kia:K3": {
+    "result": {
+      "makerCode": "004",
+      "modelCode": "0039"
+    },
+    "resolved_at": "2026-07-05T11:15:35"
+  }
+}

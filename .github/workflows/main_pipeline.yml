@@ -1,0 +1,73 @@
+# ═══════════════════════════════════════════════════════════════════
+# GitHub Actions workflow — запускает main_pipeline.py АВТОМАТИЧЕСКИ, каждые
+# 6 часов, на серверах GitHub (даже когда твой компьютер выключен).
+#
+# main_pipeline.py — ОТДЕЛЬНЫЙ от main.py/orchestrator.py пайплайн: собирает
+# объявления по target_models.json (4 источника без логина), считает точную
+# цену под ключ и публикует лидогенерирующий пост с CTA в @auto_generals.
+#
+# Как и в run_bot.yml (main.py): каждый запуск — на ЧИСТОЙ виртуальной
+# машине, поэтому в конце прогона сохраняем обновлённый published_log.json
+# (журнал "видели/публиковали", см. published_log.py) и лог обратно в
+# репозиторий — иначе следующий запуск не будет "помнить", что уже
+# опубликовано, и станет дублировать посты.
+#
+# Подробная инструкция по настройке (создание репозитория, GitHub Secrets,
+# первый push) — в файле SETUP_GITHUB_ACTIONS.md.
+# ═══════════════════════════════════════════════════════════════════
+
+name: Main Pipeline (target_models.json)
+
+on:
+  schedule:
+    # "0 */6 * * *" — в 00:00, 06:00, 12:00, 18:00 по UTC (у Казани UTC+3,
+    # прибавляй 3 часа мысленно, чтобы понять "по-нашему").
+    - cron: "0 */6 * * *"
+
+  # Плюс ручной запуск в любой момент — вкладка "Actions" -> "Main Pipeline
+  # (target_models.json)" -> "Run workflow".
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-main-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Скачать код проекта
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Установить браузеры Playwright (нужны kbchachacha/encar резолверу)
+        run: python -m playwright install --with-deps chromium
+
+      - name: Запустить main_pipeline
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
+          LOGISTICS_RUB: ${{ secrets.LOGISTICS_RUB }}
+          BROKER_FEE_RUB: ${{ secrets.BROKER_FEE_RUB }}
+          MARGIN_RUB: ${{ secrets.MARGIN_RUB }}
+          BANK_COMMISSION_PCT: ${{ secrets.BANK_COMMISSION_PCT }}
+          IMPORTER_TYPE: ${{ secrets.IMPORTER_TYPE }}
+          LOG_FILE_PATH: logs/main_pipeline.log
+        run: python main_pipeline.py
+
+      - name: Сохранить журнал публикаций и лог
+        if: always()  # сохраняем, даже если прогон упал — лог полезен для диагностики
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add published_log.json logs/main_pipeline.log target_models_cache.json
+          git diff --staged --quiet || git commit -m "Автообновление published_log.json [skip ci]"
+          git push

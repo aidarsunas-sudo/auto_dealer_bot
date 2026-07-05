@@ -1,0 +1,135 @@
+# -*- coding: utf-8 -*-
+"""
+main_pipeline.py — сквозной автоматический пайплайн для лидогенерирующих
+постов по target_models.json (Telegram-only, канал @auto_generals).
+
+    сбор (4 источника без логина) → дедуп/фильтр актуальности →
+    расчёт цены под ключ → генерация поста по внешнему шаблону → публикация
+
+Это ОТДЕЛЬНАЯ точка входа от orchestrator.py: orchestrator.py публикует
+обзорные посты по WATCHLIST/USED_CAR_SEARCHES через мультиагентную цепочку
+(agent_analyst → agent_copywriter → agent_editor), а main_pipeline.py — по
+target_models.json, лидогенерирующим постом с CTA на @korea_auto_kazan_bot.
+target_models.json обрабатывается ТОЛЬКО здесь (не в orchestrator.py) — иначе
+одна и та же машина публиковалась бы в канал дважды в разных форматах.
+
+Запускается точно так же, как main.py/orchestrator.py:
+
+    python main_pipeline.py
+    python main_pipeline.py --dry-run
+
+Расписание: каждые 6 часов (см. cron/GitHub Actions). Свежесть объявления —
+14 дней от даты, когда МЫ САМИ его впервые увидели (published_log.json;
+не все источники отдают дату размещения на сайте). Лимит — 5 постов за
+один запуск (см. FRESHNESS_DAYS / POST_LIMIT ниже).
+"""
+
+import argparse
+import logging
+import time
+import traceback
+
+import config
+from target_collector import collect_target_model_cars
+from published_log import load_log, save_log, select_candidates, mark_posted
+from lead_post_builder import build_lead_post
+from agent_publisher import publish_post
+from rates import fetch_cbr_rates
+from notifier import notify_error
+
+FRESHNESS_DAYS = 14
+POST_LIMIT = 5
+
+LOG_FILE_PATH = "logs/main_pipeline.log"
+
+
+def setup_logging() -> logging.Logger:
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[
+            logging.FileHandler(LOG_FILE_PATH, encoding="utf-8"),
+            logging.StreamHandler(),
+        ],
+    )
+    return logging.getLogger("main_pipeline")
+
+
+def run() -> None:
+    parser = argparse.ArgumentParser(description="Лидогенерирующий пайплайн по target_models.json")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Не публиковать по-настоящему, только показать, что получилось бы",
+    )
+    args = parser.parse_args()
+
+    log = setup_logging()
+    log.info("=== Запуск main_pipeline ===")
+
+    config.check_config()
+
+    rates = fetch_cbr_rates()
+
+    cars = collect_target_model_cars(log)
+    if not cars:
+        log.warning("Ничего не найдено ни по одной целевой модели из target_models.json")
+        return
+
+    pub_log = load_log()
+    # select_candidates мутирует pub_log (регистрирует first_seen новых
+    # объявлений) — сохраняем сразу, чтобы не потерять это, даже если
+    # дальше что-то упадёт при генерации постов/публикации.
+    candidates = select_candidates(cars, FRESHNESS_DAYS, pub_log)
+    save_log(pub_log)
+
+    log.info(f"Найдено {len(cars)} объявлений, кандидатов на публикацию (новые, не старше "
+              f"{FRESHNESS_DAYS} дн., ещё не опубликованные): {len(candidates)}")
+
+    if not candidates:
+        log.info("Публиковать нечего")
+        return
+
+    posted_count = 0
+    for car in candidates:
+        if posted_count >= POST_LIMIT:
+            log.info(f"Достигнут лимит {POST_LIMIT} постов за запуск — останавливаюсь")
+            break
+
+        post_text = build_lead_post(car, rates)
+        if post_text is None:
+            continue  # не хватает данных для честной цены под ключ — пропускаем
+
+        try:
+            ok = publish_post(post_text, dry_run=args.dry_run)
+        except Exception as error:
+            log.error(f"Не удалось опубликовать {car.get('brand', '?')} {car.get('model', '?')}: {error}")
+            continue
+
+        if ok:
+            mark_posted(pub_log, car["url"])
+            posted_count += 1
+            log.info(f"[{posted_count}/{POST_LIMIT}] Опубликовано: {car.get('brand', '')} "
+                      f"{car.get('model', '')} {car.get('trim', '')}")
+            time.sleep(2)
+
+    save_log(pub_log)
+    log.info(f"=== Готово: опубликовано {posted_count} постов ===")
+
+
+def main() -> None:
+    """Тот же контракт, что и у main.py/orchestrator.py: любая непойманная
+    ошибка логируется, отправляется уведомление, процесс завершается с кодом
+    ошибки (важно для cron/GitHub Actions)."""
+    try:
+        run()
+    except Exception as error:
+        error_details = traceback.format_exc()
+        logging.getLogger("main_pipeline").critical(f"КРИТИЧЕСКАЯ ОШИБКА:\n{error_details}")
+        notify_error(f"Критическая ошибка, main_pipeline остановился:\n{error}\n\n"
+                      f"Подробности — в logs/main_pipeline.log")
+        raise
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,15 @@
+requests
+beautifulsoup4
+python-dotenv
+
+# Нужен main_pipeline.py (kbchachacha_target_adapter.py, encar_scraper.py) —
+# одноразовый Playwright-резолвинг кодов марки/модели по target_models.json.
+# На GitHub Actions ещё нужен отдельный шаг "playwright install --with-deps
+# chromium" (см. .github/workflows/main_pipeline.yml) — pip install сам
+# браузер не ставит.
+playwright
+
+# Опционально — для "умной" генерации постов через Claude API
+# (post_generator.py). Если не нужна умная генерация — можно не ставить,
+# бот тогда будет использовать обычный шаблонный post_builder.py.
+anthropic

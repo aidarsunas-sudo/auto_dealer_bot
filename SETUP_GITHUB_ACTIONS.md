@@ -73,10 +73,15 @@ git push -u origin main
 | `BOT_TOKEN` | токен бота от @BotFather |
 | `TELEGRAM_CHAT_ID` | `@auto_generals` (или твой канал) |
 | `ADMIN_CHAT_ID` | твой личный chat_id для уведомлений об ошибках |
-| `LOGISTICS_RUB` | сумма доставки, например `300000` |
-| `BROKER_FEE_RUB` | сумма услуг брокера, например `100000` |
+| `LOGISTICS_RUB` | сумма доставки, например `190000` |
+| `BROKER_FEE_RUB` | сумма услуг брокера, например `90000` |
 | `MARGIN_RUB` | твоя комиссия, например `150000` |
+| `BANK_COMMISSION_PCT` | комиссия банка за перевод (доля от 0 до 1), например `0.025` (это 2.5%) |
 | `IMPORTER_TYPE` | `phys` |
+
+Эти секреты нужны ОБОИМ workflow-файлам (`run_bot.yml` для `main.py` и
+`main_pipeline.yml` для `main_pipeline.py`) — настраиваются один раз, общие
+для всего репозитория.
 
 ## Шаг 6. Проверь, что всё работает
 

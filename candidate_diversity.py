@@ -79,3 +79,19 @@ def diversify(candidates: list, limit: int, max_per_model: int = MAX_PER_MODEL) 
             active_models.append(model_key)  # ещё есть что взять — на следующий круг
 
     return result
+
+
+def filter_recent_models(candidates: list, recent_models: set) -> list:
+    """
+    Убирает кандидатов моделей (brand, model), которые уже публиковались
+    недавно (см. published_log.recently_posted_models) — ЕСЛИ после этого
+    остаются другие кандидаты. Если после фильтра список пуст (то есть
+    доступны ТОЛЬКО недавно опубликованные модели, альтернатив нет) —
+    возвращает исходный список без изменений: лучше повтор модели, чем
+    вообще не публиковать ничего за весь прогон.
+    """
+    if not recent_models:
+        return candidates
+
+    filtered = [c for c in candidates if (c.get("brand"), c.get("model")) not in recent_models]
+    return filtered if filtered else candidates

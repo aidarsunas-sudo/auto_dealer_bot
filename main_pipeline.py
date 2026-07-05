@@ -3,9 +3,9 @@
 main_pipeline.py — сквозной автоматический пайплайн для лидогенерирующих
 постов (Telegram-only, канал @auto_generals).
 
-    сбор (4 источника без логина) → дедуп/фильтр актуальности →
-    round-robin разнообразие → расчёт цены под ключ →
-    генерация поста по внешнему шаблону → публикация
+    сбор (4 источника без логина) → дедуп/фильтр актуальности/пробега →
+    фильтр недавно опубликованных моделей → round-robin разнообразие →
+    расчёт цены под ключ → генерация поста по внешнему шаблону → публикация
 
 Два независимых режима поиска (см. config.SEARCH_MODE — 'targeted' |
 'broad' | 'both', дефолт 'both'):
@@ -43,8 +43,8 @@ import traceback
 import config
 from target_collector import collect_target_model_cars
 from broad_collector import collect_broad_cars
-from published_log import load_log, save_log, select_candidates, mark_posted
-from candidate_diversity import diversify, MAX_PER_MODEL
+from published_log import load_log, save_log, select_candidates, mark_posted, recently_posted_models
+from candidate_diversity import diversify, filter_recent_models, MAX_PER_MODEL
 from lead_post_builder import build_lead_post
 from agent_publisher import publish_post
 from rates import fetch_cbr_rates
@@ -122,6 +122,17 @@ def run() -> None:
         log.info("Публиковать нечего")
         return
 
+    # Модели, опубликованные за последние RECENT_MODEL_DAYS дней, — убираем,
+    # если есть альтернативы (fallback внутри filter_recent_models: если
+    # ВСЕ кандидаты окажутся недавно опубликованными моделями — разрешаем
+    # повтор, а не пропускаем прогон целиком).
+    recent_models = recently_posted_models(pub_log, config.RECENT_MODEL_DAYS)
+    before_recent_filter = len(candidates)
+    candidates = filter_recent_models(candidates, recent_models)
+    if len(candidates) < before_recent_filter:
+        log.info(f"Отфильтровано {before_recent_filter - len(candidates)} кандидатов недавно "
+                  f"опубликованных моделей (за последние {config.RECENT_MODEL_DAYS} дн.): {recent_models}")
+
     # Без этого шага все POST_LIMIT постов могут оказаться одной моделью с
     # одного источника (см. разбор бага: при первом запуске у всех кандидатов
     # почти одинаковый first_seen, и порядок вырождается в порядок сбора,
@@ -145,7 +156,7 @@ def run() -> None:
             continue
 
         if ok:
-            mark_posted(pub_log, car["url"])
+            mark_posted(pub_log, car["url"], car.get("brand"), car.get("model"))
             posted_count += 1
             log.info(f"[{posted_count}/{post_limit}] Опубликовано: {car.get('brand', '')} "
                       f"{car.get('model', '')} {car.get('trim', '')}")

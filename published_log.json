@@ -105,11 +105,15 @@
   },
   "https://fem.encar.com/cars/detail/42212611": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": null,
+    "brand": "Audi",
+    "model": "Q3"
   },
   "https://fem.encar.com/cars/detail/42211400": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": null,
+    "brand": "Audi",
+    "model": "Q3"
   },
   "https://fem.encar.com/cars/detail/42229419": {
     "first_seen": "2026-07-05T10:55:57",
@@ -173,7 +177,9 @@
   },
   "https://fem.encar.com/cars/detail/42213263": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": "2026-07-05T21:50:02",
+    "brand": "Audi",
+    "model": "Q3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28311674": {
     "first_seen": "2026-07-05T10:55:57",
@@ -181,7 +187,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28454605": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": "2026-07-05T21:50:04",
+    "brand": "Volkswagen",
+    "model": "Tiguan"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28208155": {
     "first_seen": "2026-07-05T10:55:57",
@@ -285,7 +293,9 @@
   },
   "https://fem.encar.com/cars/detail/42254075": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": null,
+    "brand": "Volkswagen",
+    "model": "Tiguan"
   },
   "https://fem.encar.com/cars/detail/42253172": {
     "first_seen": "2026-07-05T10:55:57",
@@ -457,7 +467,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28284478": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": "2026-07-05T21:50:06",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28367057": {
     "first_seen": "2026-07-05T10:55:57",
@@ -901,7 +913,9 @@
   },
   "https://fem.encar.com/cars/detail/41861051": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": null,
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://fem.encar.com/cars/detail/41974200": {
     "first_seen": "2026-07-05T10:55:57",

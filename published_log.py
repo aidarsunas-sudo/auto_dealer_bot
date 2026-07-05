@@ -101,7 +101,43 @@ def select_candidates(cars: list, freshness_days: int, log: dict, max_mileage_km
     return [car for _, car in candidates]
 
 
-def mark_posted(log: dict, url: str) -> None:
+def mark_posted(log: dict, url: str, brand: str | None = None, model: str | None = None) -> None:
+    """
+    brand/model сохраняются в ту же запись, чтобы recently_posted_models()
+    могла позже определить, какая модель стоит за этим url (сам url этого
+    не говорит). Записи, помеченные посте до этой правки, brand/model не
+    имеют — recently_posted_models() их просто не учитывает.
+    """
     entry = log.get(url)
     if entry is not None:
         entry["posted_at"] = datetime.now().isoformat(timespec="seconds")
+        if brand is not None:
+            entry["brand"] = brand
+        if model is not None:
+            entry["model"] = model
+
+
+def recently_posted_models(log: dict, days: int) -> set:
+    """
+    Возвращает set из (brand, model), опубликованных за последние `days`
+    дней — по данным, записанным mark_posted(). Записи без brand/model
+    (опубликованные до этой правки) пропускаются — учесть их невозможно,
+    не выдумывая данные.
+    """
+    now = datetime.now()
+    recent = set()
+
+    for entry in log.values():
+        posted_at = entry.get("posted_at")
+        if not posted_at:
+            continue
+        brand = entry.get("brand")
+        model = entry.get("model")
+        if brand is None or model is None:
+            continue
+
+        posted_dt = datetime.fromisoformat(posted_at)
+        if now - posted_dt <= timedelta(days=days):
+            recent.add((brand, model))
+
+    return recent

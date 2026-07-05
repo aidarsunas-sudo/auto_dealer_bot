@@ -105,13 +105,13 @@
   },
   "https://fem.encar.com/cars/detail/42212611": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null,
+    "posted_at": "2026-07-05T19:15:19",
     "brand": "Audi",
     "model": "Q3"
   },
   "https://fem.encar.com/cars/detail/42211400": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null,
+    "posted_at": "2026-07-05T19:15:30",
     "brand": "Audi",
     "model": "Q3"
   },
@@ -197,7 +197,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28152372": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": "2026-07-05T19:15:25",
+    "brand": "Volkswagen",
+    "model": "Tiguan"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28045290": {
     "first_seen": "2026-07-05T10:55:57",
@@ -293,7 +295,7 @@
   },
   "https://fem.encar.com/cars/detail/42254075": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null,
+    "posted_at": "2026-07-05T19:15:32",
     "brand": "Volkswagen",
     "model": "Tiguan"
   },
@@ -447,7 +449,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28502603": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": "2026-07-05T19:15:27",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28461585": {
     "first_seen": "2026-07-05T10:55:57",

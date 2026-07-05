@@ -66,6 +66,10 @@ def build_lead_post(car: dict, rates: dict) -> str | None:
         logger.error(f"Не удалось прочитать {TEMPLATE_PATH.name}: {error}")
         return None
 
+    cc = car.get("cc")
+    hp = car.get("hp")
+    engine_display = f"{cc / 1000:.1f} л, {hp} л.с." if cc and hp else "не указан"
+
     fields = {
         "title": _build_title(car),
         "brand": car.get("brand", ""),
@@ -74,6 +78,11 @@ def build_lead_post(car: dict, rates: dict) -> str | None:
         "year": car.get("year") or "не указан",
         "mileage_km": f"{car['mileage_km']:,} км".replace(",", " ") if car.get("mileage_km") is not None else "новый",
         "specs": car.get("specs", ""),
+        "engine_display": engine_display,
+        # Не все источники отдают трансмиссию (Charancha — да, Encar/
+        # kbchachacha/OnBid — нет без доп. запроса к детальной странице) —
+        # честно показываем "не указано", а не гадаем.
+        "transmission": car.get("transmission") or "не указано",
         "price_krw": f"{_format_number(car.get('price'))} ₩",
         "car_price_rub": _format_number(details["car_price_rub"]),
         "bank_commission_rub": _format_number(details["bank_commission_rub"]),

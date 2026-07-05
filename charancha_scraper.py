@@ -110,6 +110,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
         # доп. поля для отчётов (model_search.py) — save_car их не читает
         "source": "charancha",
         "photos": image.get("images") or [],
+        "transmission": item.get("transmissionName"),
         "is_accident": item.get("isAccident"),
         "is_seizure": item.get("isSeizure"),
     }
@@ -207,6 +208,7 @@ def _normalize_broad_item(item: dict) -> dict:
         "url": f"https://www.charancha.com/cars/{external_id}",
         "source": "charancha",
         "photos": image.get("images") or [],
+        "transmission": item.get("transmissionName"),
         "is_accident": item.get("isAccident"),
         "is_seizure": item.get("isSeizure"),
     }

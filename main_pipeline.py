@@ -111,11 +111,12 @@ def run() -> None:
     # select_candidates мутирует pub_log (регистрирует first_seen новых
     # объявлений) — сохраняем сразу, чтобы не потерять это, даже если
     # дальше что-то упадёт при генерации постов/публикации.
-    candidates = select_candidates(cars, FRESHNESS_DAYS, pub_log)
+    candidates = select_candidates(cars, FRESHNESS_DAYS, pub_log, config.MAX_MILEAGE_KM)
     save_log(pub_log)
 
     log.info(f"Найдено {len(cars)} объявлений, кандидатов на публикацию (новые, не старше "
-              f"{FRESHNESS_DAYS} дн., ещё не опубликованные): {len(candidates)}")
+              f"{FRESHNESS_DAYS} дн., пробег до {config.MAX_MILEAGE_KM} км, ещё не опубликованные): "
+              f"{len(candidates)}")
 
     if not candidates:
         log.info("Публиковать нечего")

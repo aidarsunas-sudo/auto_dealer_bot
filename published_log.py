@@ -42,12 +42,19 @@ def save_log(log: dict) -> None:
         logger.warning(f"Не удалось сохранить {LOG_PATH.name}: {error}")
 
 
-def select_candidates(cars: list, freshness_days: int, log: dict) -> list:
+def select_candidates(cars: list, freshness_days: int, log: dict, max_mileage_km: int | None = None) -> list:
     """
     Регистрирует новые объявления в журнале (first_seen = сейчас) и
-    возвращает те, что подходят для публикации: ещё не публиковались и не
+    возвращает те, что подходят для публикации: ещё не публиковались, не
     старше freshness_days (считая от нашего first_seen, а не от даты на
-    сайте — не все источники её вообще отдают).
+    сайте — не все источники её вообще отдают) и с пробегом не больше
+    max_mileage_km (если задан) — применяется одинаково для targeted и
+    broad режимов, поверх любых per-модельных mileage_max из
+    target_models.json/broad_search_config.json.
+
+    Машины с пробегом больше max_mileage_km не регистрируются в журнале
+    вообще (не нужно засорять published_log.json объявлениями, которые мы
+    заведомо никогда не опубликуем).
 
     Мутирует переданный log (добавляет новые url) — сохранить на диск
     (save_log) должен вызывающий код, после того как решит, что публиковать.
@@ -71,6 +78,10 @@ def select_candidates(cars: list, freshness_days: int, log: dict) -> list:
                        # дважды (например, под двумя пересекающимися
                        # generation-фильтрами) — не показываем его дважды
         seen_urls.add(url)
+
+        mileage_km = car.get("mileage_km")
+        if max_mileage_km is not None and mileage_km is not None and mileage_km > max_mileage_km:
+            continue  # пробег больше допустимого — вообще не рассматриваем
 
         entry = log.get(url)
         if entry is None:

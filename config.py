@@ -75,6 +75,11 @@ IMPORTER_TYPE: str = os.getenv("IMPORTER_TYPE", "phys")
 #              round-robin отбором (см. candidate_diversity.py). Дефолт.
 SEARCH_MODE: str = os.getenv("SEARCH_MODE", "both")
 
+# Финальный фильтр по пробегу для main_pipeline.py (select_candidates) —
+# применяется независимо от режима поиска (targeted/broad), поверх любых
+# per-модельных mileage_max из target_models.json/broad_search_config.json.
+MAX_MILEAGE_KM: int = int(os.getenv("MAX_MILEAGE_KM", "40000"))
+
 # --- Заголовки для запросов к сайтам ---
 # Это "представление" нашей программы сайту — мы говорим "я обычный браузер
 # Chrome", чтобы сайт не отказывал нам в ответе. Без этого некоторые сайты

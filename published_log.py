@@ -107,14 +107,26 @@ def mark_posted(log: dict, url: str, brand: str | None = None, model: str | None
     могла позже определить, какая модель стоит за этим url (сам url этого
     не говорит). Записи, помеченные посте до этой правки, brand/model не
     имеют — recently_posted_models() их просто не учитывает.
+
+    Если url ещё не был зарегистрирован через select_candidates() (например,
+    при ручной/разовой публикации в обход обычного пайплайна) — создаёт
+    запись сам, а не молчит: раньше при отсутствующей записи функция тихо
+    ничего не делала, и car["posted_at"] так и оставался None — при
+    следующем прогоне select_candidates() посчитал бы объявление
+    неопубликованным и мог бы предложить его снова.
     """
     entry = log.get(url)
-    if entry is not None:
-        entry["posted_at"] = datetime.now().isoformat(timespec="seconds")
-        if brand is not None:
-            entry["brand"] = brand
-        if model is not None:
-            entry["model"] = model
+    if entry is None:
+        entry = {"first_seen": datetime.now().isoformat(timespec="seconds"), "posted_at": None}
+        log[url] = entry
+        logger.warning(f"mark_posted: url не был зарегистрирован заранее через select_candidates() "
+                        f"— создаю запись сейчас ({url})")
+
+    entry["posted_at"] = datetime.now().isoformat(timespec="seconds")
+    if brand is not None:
+        entry["brand"] = brand
+    if model is not None:
+        entry["model"] = model
 
 
 def recently_posted_models(log: dict, days: int) -> set:

@@ -13,7 +13,6 @@ post_builder.calculate_price_details() — чтобы цифры не расхо
 import logging
 from pathlib import Path
 
-import config
 from post_builder import calculate_price_details
 
 logger = logging.getLogger("lead_post_builder")

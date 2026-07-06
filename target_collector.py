@@ -41,6 +41,16 @@ def collect_target_model_cars(log: logging.Logger) -> list:
 
     target_models = load_target_models()
     for target in target_models:
+        # target_models.json редактируется вручную — опечатка (например,
+        # пропущенное поле "model") не должна ронять ВЕСЬ прогон
+        # main_pipeline.py (раньше падало необработанным KeyError ещё до
+        # try/except ниже — теряя и остальные target_models.json записи,
+        # и broad-режим, который к этому моменту ещё даже не запускался).
+        if "brand" not in target or "model" not in target:
+            log.error(f"target_collector: запись в target_models.json без обязательного "
+                      f"поля brand/model — пропускаю: {target}")
+            continue
+
         for source_name, search_fn in NOLOGIN_TARGET_ADAPTERS.items():
             log.info(f"── Целевая модель: {target['brand']} {target['model']} ({source_name}) ──")
             try:

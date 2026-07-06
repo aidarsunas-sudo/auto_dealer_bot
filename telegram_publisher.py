@@ -17,6 +17,7 @@ telegram_publisher.py — здесь код, который отправляет
 """
 
 import logging
+import sys
 import requests
 
 import config
@@ -38,6 +39,23 @@ def _safe_caption(text: str) -> str:
     return text[: CAPTION_MAX_LENGTH - 1] + "…"
 
 
+def _safe_print(text: str) -> None:
+    """
+    dry_run печатает реальный текст поста — у broad-режима без совпадения с
+    target_models.json там может остаться необработанный корейский текст
+    (title с сайта-источника). На консоли с не-UTF8 кодировкой (например,
+    cp1251 на русской Windows) обычный print() в этом случае падает с
+    UnicodeEncodeError — тест локально "падает" ещё до реальной отправки в
+    Telegram (которая всегда кодирует JSON как UTF-8 и этой проблемы не
+    имеет). Здесь — не даём кодировке консоли ломать тестовый прогон.
+    """
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        encoding = sys.stdout.encoding or "utf-8"
+        print(text.encode(encoding, errors="replace").decode(encoding, errors="replace"))
+
+
 def send_to_telegram(text: str, dry_run: bool = False) -> bool:
     """
     Отправляет текстовое сообщение в Telegram-канал.
@@ -53,11 +71,11 @@ def send_to_telegram(text: str, dry_run: bool = False) -> bool:
         False, если что-то пошло не так.
     """
     if dry_run:
-        print("═" * 50)
+        print("=" * 50)
         print("ТЕСТОВЫЙ РЕЖИМ (ничего не отправлено). Вот что получилось бы:")
-        print("═" * 50)
-        print(text)
-        print("═" * 50)
+        print("=" * 50)
+        _safe_print(text)
+        print("=" * 50)
         return True
 
     # Собираем адрес запроса. config.BOT_TOKEN — твой секретный токен
@@ -104,11 +122,11 @@ def send_photo_to_telegram(photo_url: str, caption: str, dry_run: bool = False) 
     caption = _safe_caption(caption)
 
     if dry_run:
-        print("═" * 50)
+        print("=" * 50)
         print(f"ТЕСТОВЫЙ РЕЖИМ (фото не отправлено). photo={photo_url}")
-        print("═" * 50)
-        print(caption)
-        print("═" * 50)
+        print("=" * 50)
+        _safe_print(caption)
+        print("=" * 50)
         return True
 
     telegram_api_url = f"https://api.telegram.org/bot{config.BOT_TOKEN}/sendPhoto"
@@ -137,11 +155,11 @@ def send_media_group_to_telegram(photo_urls: list, caption: str, dry_run: bool =
     caption = _safe_caption(caption)
 
     if dry_run:
-        print("═" * 50)
+        print("=" * 50)
         print(f"ТЕСТОВЫЙ РЕЖИМ (альбом из {len(photo_urls)} фото не отправлен)")
-        print("═" * 50)
-        print(caption)
-        print("═" * 50)
+        print("=" * 50)
+        _safe_print(caption)
+        print("=" * 50)
         return True
 
     telegram_api_url = f"https://api.telegram.org/bot{config.BOT_TOKEN}/sendMediaGroup"

@@ -156,7 +156,13 @@ def run() -> None:
             continue
 
         if ok:
-            mark_posted(pub_log, car["url"], car.get("brand"), car.get("model"))
+            # dry_run: publish_post() ничего не отправляет и всегда возвращает
+            # True — если пометить URL опубликованным и здесь, следующий
+            # РЕАЛЬНЫЙ прогон навсегда пропустит эту машину, хотя пост
+            # никогда не выходил в канал. Дедуп обновляем только для
+            # настоящей публикации.
+            if not args.dry_run:
+                mark_posted(pub_log, car["url"], car.get("brand"), car.get("model"))
             posted_count += 1
             log.info(f"[{posted_count}/{post_limit}] Опубликовано: {car.get('brand', '')} "
                       f"{car.get('model', '')} {car.get('trim', '')}")

@@ -30,7 +30,6 @@ CarType: "Y" для отечественных брендов (현대/기아/제
 """
 
 import logging
-import re
 import time
 
 import requests

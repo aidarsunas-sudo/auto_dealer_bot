@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-post_builder.py — здесь функция, которая превращает "сухие" данные о
-машине (словарь с цифрами) в красивый читаемый текст для поста в Telegram.
+post_builder.py — calculate_price_details(): общий расчёт цены "под ключ
+Казань", используемый ОБОИМИ активными генераторами постов —
+lead_post_builder.py (main_pipeline.py) и price_alert_builder.py (main.py) —
+чтобы цифры не расходились между разными типами постов.
 
-Это ШАБЛОННЫЙ генератор (просто подставляет цифры в заготовленный текст).
-Есть ещё post_generator.py — "умный" генератор через Claude API, который
-использует ТЕ ЖЕ расчёты (см. calculate_price_details() ниже — общая
-функция для обоих генераторов, чтобы цифры точно не разъезжались).
+Раньше здесь же был build_telegram_post() — собственный шаблонный генератор
+текста поста (со ссылкой на источник и построчной разбивкой расходов).
+Убран как мёртвый код при аудите 2026-07-06: ни один активный путь публикации
+его больше не вызывает (main.py/main_pipeline.py используют price_alert_builder.py/
+lead_post_builder.py — единый компактный формат, см. post_format_schema.py).
 """
 
 import config
@@ -81,77 +84,3 @@ def calculate_price_details(car: dict, rates: dict) -> dict | None:
     }
 
 
-def build_telegram_post(car: dict, rates: dict) -> str:
-    """
-    Собирает текст поста из данных одной машины (шаблонный способ —
-    без Claude API, просто подставляет цифры в заготовленные строки).
-
-    Args:
-        car: словарь с полями brand, model, trim, year, price, cc, hp,
-             fuel_code, specs, url.
-        rates: словарь курсов валют — нужен для расчёта таможни.
-
-    Returns:
-        Готовый текст поста, с эмодзи и переносами строк.
-    """
-    brand = car.get("brand", "")
-    model = car.get("model", "")
-    trim = car.get("trim", "")
-    specs = car.get("specs", "")
-    url = car.get("url", "")
-    mileage_km = car.get("mileage_km")
-    manufacture_year = car.get("year")
-    price_krw = car.get("price")
-
-    title_line = f"🚘 {brand} {model}"
-    if trim:
-        title_line += f" — {trim}"
-
-    lines = [title_line, ""]
-
-    if manufacture_year:
-        lines.append(f"📅 Год выпуска: {manufacture_year}")
-    if mileage_km is not None:
-        mileage_formatted = f"{mileage_km:,}".replace(",", " ")
-        lines.append(f"🛣 Пробег: {mileage_formatted} км")
-    if specs:
-        lines.append(f"🔧 {specs}")
-
-    error_message = None
-    details = None
-    try:
-        details = calculate_price_details(car, rates)
-    except Exception as error:
-        error_message = str(error)
-
-    if error_message:
-        # Расчёт сломался с ошибкой — показываем цену в Корее без
-        # пересчёта, с честной пометкой, а не притворяемся, что всё ок.
-        lines.append("")
-        if price_krw:
-            price_formatted = f"{price_krw:,}".replace(",", " ")
-            lines.append(f"💰 Цена в Корее: {price_formatted} ₩")
-        lines.append(f"⚠️ Не удалось точно посчитать таможню ({error_message})")
-    elif details is None:
-        # Не хватает исходных данных (объёма/мощности/топлива) — тоже
-        # честно, без выдумывания цифр.
-        lines.append("")
-        if price_krw:
-            price_formatted = f"{price_krw:,}".replace(",", " ")
-            lines.append(f"💰 Цена в Корее: {price_formatted} ₩")
-            lines.append("⚠️ Точная цена под ключ не посчитана (не хватает данных)")
-        else:
-            lines.append("💰 Цена уточняется")
-    else:
-        # Всё посчиталось нормально
-        total_formatted = f"{details['total_rub']:,}".replace(",", " ")
-        lines.append("")
-        lines.append(f"💰 Цена под ключ Казань: {total_formatted} ₽")
-        lines.append("✅ Включает пошлину, ЕТС, утильсбор" +
-                      (", доставку и комиссию" if details["extra_costs_rub"] else ""))
-
-    if url:
-        lines.append("")
-        lines.append(f"🔗 {url}")
-
-    return "\n".join(lines)

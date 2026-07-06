@@ -22,7 +22,6 @@
     print(result["total_with_car"])
 """
 
-from dataclasses import dataclass, field
 from typing import Optional
 
 
@@ -46,7 +45,11 @@ def fee(rub: float) -> int:
 
 # ═══════════════════════════════════════════════════════════
 # ЕТС — Решение Совета ЕЭК №107 от 20.12.2017
-# Проверено: 1998 см³, 3-5 лет → 2.7 €/см³ → 481 599.14 руб
+# Проверено: 1998 см³, 3-5 лет → 2.7 €/см³ = 5394.6 EUR → при
+# eur_rub=88.03 (DEFAULT_RATES, обновлено 2026-07-06) = 474 886.64 руб.
+# Формула не зависит от конкретного eur_rub — при обновлении DEFAULT_RATES
+# поменяется и это число, самотест ниже пересчитывает его от актуальных
+# DEFAULT_RATES, а не сверяет с зашитой константой.
 # ═══════════════════════════════════════════════════════════
 def ets_calc(cc: float, age: str, price_eur: float, eur_rub: float) -> dict:
     if age == "u3":
@@ -133,11 +136,17 @@ def util_calc(cc: float, hp: float, age_util: str, fuel: str, who: str) -> dict:
 
 
 DEFAULT_RATES = {
-    "krw_rub": 0.050775,
+    # Запасные курсы на случай сбоя rates.fetch_cbr_rates() — обновлены при
+    # аудите 2026-07-06 по данным 5 подтверждённых живых прогонов на GitHub
+    # Actions за 07-05..07-06 (см. logs/app.log, logs/main_pipeline.log):
+    # EUR=88.03, USD=77.23, KRW(за 1000)=49.69 — стабильно одинаковые все
+    # 5 раз. cny_rub/jpy_rub не менялись (не было прямых источников для
+    # сверки, оставлены как были).
+    "krw_rub": 0.04969,
     "cny_rub": 10.80,
     "jpy_rub": 54.00,
-    "eur_rub": 89.2743,
-    "usd_rub": 78.2696,
+    "eur_rub": 88.03,
+    "usd_rub": 77.23,
 }
 
 
@@ -195,9 +204,15 @@ def calc_full(price: float, currency: str, cc: float, power: float,
 
 
 if __name__ == "__main__":
-    # Контрольные примеры из комментариев исходного calc-html
+    # Контрольные примеры из комментариев исходного calc-html. Ожидаемое
+    # значение ЕТС считается от ТЕКУЩИХ DEFAULT_RATES (не зашито константой)
+    # — так тест не "ломается" визуально при каждом обновлении курса, а
+    # проверяет именно формулу (1998см³ * 2.7 €/см³ * eur_rub).
     r1 = calc_full(price=35_000_000, currency="krw", cc=1998, power=150,
                     age="35", fuel="petrol", who="phys")
-    print("Тест ЕТС (ожидаем ~481 599.14):", round(r1["ets_rub"], 2))
+    expected_ets = round(1998 * 2.7 * DEFAULT_RATES["eur_rub"], 2)
+    actual_ets = round(r1["ets_rub"], 2)
+    match = "OK" if actual_ets == expected_ets else "MISMATCH"
+    print(f"[{match}] Тест ЕТС: {actual_ets} (ожидаем {expected_ets}, по формуле 1998см³ × 2.7 €/см³ × eur_rub)")
 
     print("Тест сбора: fee(1777125) =", fee(1_777_125), "(ожидаем 13541)")

@@ -82,6 +82,15 @@ def build_lead_post(car: dict, rates: dict) -> str | None:
     hp = car.get("hp")
     engine_display = f"{cc / 1000:.1f} л, {hp} л.с." if cc and hp else "не указан"
 
+    # OnBid — гос. площадка АУКЦИОНОВ: car["price"] там — стартовая цена
+    # торгов (lowstBidPrc), не гарантированная цена покупки — итоговая
+    # цена по факту торгов может быть выше. Честно показываем это в посте,
+    # а не выдаём стартовую цену за окончательную.
+    if car.get("source") == "onbid":
+        price_label = "Стартовая цена аукциона под ключ в Казани (итоговая может быть выше)"
+    else:
+        price_label = "Стоимость под ключ в Казани"
+
     fields = {
         "title": _build_title(car),
         "brand": car.get("brand", ""),
@@ -101,6 +110,7 @@ def build_lead_post(car: dict, rates: dict) -> str | None:
         "customs_rub": _format_number(details["customs_rub"]),
         "extra_costs_rub": _format_number(details["extra_costs_rub"]),
         "total_rub": _format_number(details["total_rub"]),
+        "price_label": price_label,
         # ВАЖНО: car["url"] (ссылка на объявление-источник) сюда НЕ
         # подставляется намеренно — пользователю в посте она видна быть не
         # должна (площадка-источник должна остаться незаметной). url

@@ -6,6 +6,6 @@
 ⚙️ КПП: {transmission}
 🛣 Пробег: {mileage_km}
 
-💰 Стоимость под ключ в Казани: {total_rub} ₽
+💰 {price_label}: {total_rub} ₽
 
 👉 Пишите мне — посчитаю точный расчёт под ваш бюджет: {cta_bot}

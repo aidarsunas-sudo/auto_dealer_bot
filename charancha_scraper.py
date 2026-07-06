@@ -213,10 +213,21 @@ def _normalize_broad_item(item: dict) -> dict:
 
     external_id = item.get("carId")
 
+    # item["modelName"] часто по-корейски (напр. "아반떼" вместо "Avante") —
+    # from_korean() переводит только БРЕНД, модель остаётся сырым текстом.
+    # Раз hp уже найден (find_spec совпал) — используем человекочитаемое имя
+    # spec.label (напр. "Hyundai Avante 1.6 Gasoline", УЖЕ включает марку)
+    # вместо него (тот же баг, что был у kbchachacha/Encar/OnBid broad-режима
+    # — см. FINAL_STATE.md, найдено на реальном примере 2026-07-06); brand/
+    # trim в этом случае очищаются, чтобы марка не задвоилась.
+    brand_display = "" if spec else from_korean(item.get("makerName", ""))
+    model_display = spec.label if spec else item.get("modelName", "")
+    trim_display = "" if spec else (item.get("gradeDetailName") or raw_title)
+
     return {
-        "brand": from_korean(item.get("makerName", "")),
-        "model": item.get("modelName", ""),
-        "trim": item.get("gradeDetailName") or raw_title,
+        "brand": brand_display,
+        "model": model_display,
+        "trim": trim_display,
         "external_id": external_id,
         "year": year_int,
         "mileage_km": item.get("mileage"),

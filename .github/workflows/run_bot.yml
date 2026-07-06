@@ -70,6 +70,9 @@ jobs:
           BROKER_FEE_RUB: ${{ secrets.BROKER_FEE_RUB }}
           MARGIN_RUB: ${{ secrets.MARGIN_RUB }}
           IMPORTER_TYPE: ${{ secrets.IMPORTER_TYPE }}
+          # VK — второй канал публикации (vk_publisher.py), см. main_pipeline.yml.
+          VK_TOKEN: ${{ secrets.VK_TOKEN }}
+          VK_OWNER_ID: ${{ secrets.VK_OWNER_ID }}
           DATABASE_PATH: data/cars.db
           LOG_FILE_PATH: logs/app.log
         run: python main.py

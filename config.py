@@ -28,6 +28,13 @@ load_dotenv()
 BOT_TOKEN: str = os.getenv("BOT_TOKEN", "")
 TELEGRAM_CHAT_ID: str = os.getenv("TELEGRAM_CHAT_ID", "@auto_generals")
 
+# --- VK ---
+# VK_OWNER_ID — отрицательное число для сообщества/группы (см. PLAN_NEXT_CHANNELS.md).
+# Если VK_TOKEN пустой — vk_publisher.py просто не публикует в VK (не падает),
+# см. vk_publisher.is_configured().
+VK_TOKEN: str = os.getenv("VK_TOKEN", "")
+VK_OWNER_ID: str = os.getenv("VK_OWNER_ID", "")
+
 # Отдельный чат для уведомлений об ОШИБКАХ (не публичный канал!).
 # Проще всего — узнать свой личный chat_id: напиши что угодно боту
 # @userinfobot в Telegram, он пришлёт тебе твой ID.

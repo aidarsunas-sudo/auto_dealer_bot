@@ -120,6 +120,31 @@ def _lookup_codes(brand: str, model: str) -> dict | None:
     return {"car_type": car_type, "manufacturer_ko": brand_ko, "model_group": model_match}
 
 
+def _manufacture_year(item: dict) -> int | None:
+    """
+    Год ВЫПУСКА машины (для расчёта таможенного возраста — customs_calculator.py)
+    — НЕ то же самое, что item["FormYear"]! FormYear — это корейский
+    маркетинговый "модельный год" (напр. машина, произведённая в апреле
+    2023, официально продаётся как модель "2024 года" — рестайлинги/новые
+    модели почти всегда выходят так, что вторая половина года уже маркируют
+    следующим годом). Настоящая дата выпуска — item["Year"] в формате
+    ГГГГММ (напр. 202304.0 = апрель 2023) — используем ГГГГ из него.
+    Расхождение в 1 год у границы 3/5/7 лет (возрастные категории пошлины)
+    даёт неверный тариф ЕТС/утильсбора — реальные деньги, не мелочь.
+    """
+    raw_year = item.get("Year")
+    if raw_year:
+        try:
+            return int(raw_year) // 100
+        except (TypeError, ValueError):
+            pass
+
+    form_year = item.get("FormYear")
+    if form_year and str(form_year).isdigit():
+        return int(form_year)
+    return None
+
+
 def _extract_photos(item: dict) -> list:
     """
     Список поиска отдаёт item["Photos"] — уже полный массив фото объявления
@@ -145,8 +170,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
     raw_title = f"{manufacturer} {model_text} {badge}".strip()
     title_for_spec = f"{target['brand']} {target['model']} {target.get('engine', '')} {raw_title}"
 
-    form_year = item.get("FormYear")
-    year_int = int(form_year) if form_year and str(form_year).isdigit() else None
+    year_int = _manufacture_year(item)
 
     mileage = item.get("Mileage")
     mileage_km = int(mileage) if mileage is not None else None
@@ -244,8 +268,7 @@ def _normalize_broad_item(item: dict) -> dict:
     badge = item.get("Badge", "")
     raw_title = f"{manufacturer} {model_text} {badge}".strip()
 
-    form_year = item.get("FormYear")
-    year_int = int(form_year) if form_year and str(form_year).isdigit() else None
+    year_int = _manufacture_year(item)
 
     mileage = item.get("Mileage")
     mileage_km = int(mileage) if mileage is not None else None

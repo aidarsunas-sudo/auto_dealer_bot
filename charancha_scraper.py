@@ -27,6 +27,28 @@ from target_model_resolver import resolve
 
 logger = logging.getLogger("charancha_scraper")
 
+
+def _manufacture_year(item: dict) -> int | None:
+    """
+    Год ВЫПУСКА для расчёта таможенного возраста (customs_calculator.py) —
+    НЕ item["releaseYear"]! Это корейский маркетинговый "модельный год"
+    (расходится с реальной датой почти в половине объявлений — проверено
+    вживую: 51 из 100 в выборке Kia K3). Настоящая дата — item["firstRegisteredAt"]
+    (дата первой регистрации, формат ГГГГММ или ГГГГММДД — оба варианта
+    встречаются) — берём первые 4 символа как год.
+    """
+    first_registered = item.get("firstRegisteredAt")
+    if first_registered:
+        year_str = str(first_registered)[:4]
+        if year_str.isdigit():
+            return int(year_str)
+
+    release_year = item.get("releaseYear")
+    if release_year and str(release_year).isdigit():
+        return int(release_year)
+    return None
+
+
 FILTER_URL = "https://svc.charancha.com/search/cars/buy-cars/search/filter"
 SEARCH_URL = "https://svc.charancha.com/search/cars/buy-cars/search/cursor"
 PAGE_SIZE = 30
@@ -84,8 +106,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
     title_for_spec = f"{target['brand']} {target['model']} {target.get('engine', '')} {raw_title}"
 
     cc_from_site = item.get("displacement")
-    year = item.get("releaseYear")
-    year_int = int(year) if year and str(year).isdigit() else None
+    year_int = _manufacture_year(item)
 
     spec = find_spec(title_for_spec, year_int)
     cc = cc_from_site or (spec.cc if spec else None)
@@ -183,8 +204,7 @@ def _normalize_broad_item(item: dict) -> dict:
     raw_title = f"{item.get('makerName', '')} {item.get('modelName', '')} {item.get('modelDetailName', '')}".strip()
 
     cc_from_site = item.get("displacement")
-    year = item.get("releaseYear")
-    year_int = int(year) if year and str(year).isdigit() else None
+    year_int = _manufacture_year(item)
 
     spec = find_spec(raw_title, year_int)
     cc = cc_from_site or (spec.cc if spec else None)

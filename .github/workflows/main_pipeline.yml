@@ -67,6 +67,12 @@ jobs:
           BANK_COMMISSION_PCT: ${{ secrets.BANK_COMMISSION_PCT }}
           IMPORTER_TYPE: ${{ secrets.IMPORTER_TYPE }}
           LOG_FILE_PATH: logs/main_pipeline.log
+          # VK — второй канал публикации (vk_publisher.py). Если секреты не
+          # заданы в репозитории — просто пусто, публикация в VK молча
+          # пропускается (см. vk_publisher.is_configured()), на Telegram
+          # это никак не влияет.
+          VK_TOKEN: ${{ secrets.VK_TOKEN }}
+          VK_OWNER_ID: ${{ secrets.VK_OWNER_ID }}
           # Не секрет (просто режим работы) — задаётся прямо здесь, не через
           # GitHub Secrets. Поменяй на "targeted"/"broad", если нужно.
           SEARCH_MODE: both

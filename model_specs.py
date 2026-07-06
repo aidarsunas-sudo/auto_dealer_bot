@@ -480,6 +480,27 @@ SPECS = [
         source='прайс-лист Pick+ Auto (внутренний документ компании)',
     ),
 
+
+    # ─── Chevrolet Trax Crossover 1.2 Turbo — единственный мотор для этого
+    # поколения в Корее (нет риска перепутать с другой силовой установкой,
+    # как было у Sonata) — два варианта ключевых слов, как у VW Tiguan
+    # выше: kbchachacha показывает модель ТОЛЬКО по-корейски ("트랙스").
+    ModelSpec(
+        match=('trax', '1.2'),
+        cc=1198, hp=139, fuel='petrol',
+        label='Chevrolet Trax Crossover 1.2 Turbo',
+        source='Официальные технические характеристики Chevrolet Trax Crossover '
+               '(chevrolet.co.kr) — 1.2 Turbo GDI, единственный мотор для этого '
+               'поколения в Корее',
+    ),
+    ModelSpec(
+        match=('트랙스', '1.2'),
+        cc=1198, hp=139, fuel='petrol',
+        label='Chevrolet Trax Crossover 1.2 Turbo (корейское название сайта)',
+        source='Официальные технические характеристики Chevrolet Trax Crossover '
+               '(chevrolet.co.kr) — 1.2 Turbo GDI, единственный мотор для этого '
+               'поколения в Корее',
+    ),
     # --- Добавляй новые модели ниже по этому же образцу ---
 ]
 

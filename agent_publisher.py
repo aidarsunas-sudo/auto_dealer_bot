@@ -6,6 +6,15 @@ agent_publisher.py — "агент-публикатор" в мультиаген
 publish_post() — тонкая обёртка над telegram_publisher: без фото —
 send_to_telegram() (как раньше, orchestrator.py его так и вызывает — без
 изменений), с фото — sendPhoto/sendMediaGroup в зависимости от количества.
+Telegram — ОСНОВНОЙ канал, от него зависит возвращаемое значение (и,
+дальше по цепочке, дедуп в published_log.json).
+
+VK (vk_publisher.py) — ВТОРОЙ канал, best-effort: публикуется тем же
+текстом/фото сразу вслед за Telegram. Если VK не настроен (нет токена в
+.env) или публикация в VK не удалась — на Telegram и на результат
+publish_post() это никак не влияет, только предупреждение в лог. Никакой
+отдельной логики поиска/расчёта цены здесь нет — text/photos уже готовы
+на входе, те же самые для обоих каналов.
 
 send_video_to_telegram() — использует метод Bot API sendVideo. Сейчас её
 никто не вызывает (scraper.py не собирает видео с сайтов дилеров) — это
@@ -19,13 +28,15 @@ import requests
 
 import config
 from telegram_publisher import send_to_telegram, send_photo_to_telegram, send_media_group_to_telegram
+from vk_publisher import send_to_vk
 
 logger = logging.getLogger("agent_publisher")
 
 
 def publish_post(text: str, photos: list | None = None, dry_run: bool = False) -> bool:
     """
-    Публикует готовый текст поста — обёртка над telegram_publisher.
+    Публикует готовый текст поста в Telegram (основной канал) и, следом,
+    в VK (второй канал, best-effort — см. докстринг файла).
 
     Args:
         text: готовый текст поста.
@@ -35,26 +46,30 @@ def publish_post(text: str, photos: list | None = None, dry_run: bool = False) -
         dry_run: не публиковать по-настоящему, только показать в консоли.
 
     Returns:
-        True при успехе. Если отправка с фото не удалась (например, битая
-        ссылка на изображение) — не проваливаем публикацию целиком,
-        откатываемся на обычный текст, чтобы отсутствие/поломка фото
-        никогда не блокировала пост.
+        True при успехе в Telegram (VK публикуется независимо и не влияет
+        на этот результат). Если отправка с фото в Telegram не удалась
+        (например, битая ссылка на изображение) — не проваливаем
+        публикацию целиком, откатываемся на обычный текст, чтобы
+        отсутствие/поломка фото никогда не блокировала пост.
     """
     photos = photos or []
 
     if not photos:
-        return send_to_telegram(text, dry_run=dry_run)
-
-    if len(photos) == 1:
-        ok = send_photo_to_telegram(photos[0], text, dry_run=dry_run)
+        ok = send_to_telegram(text, dry_run=dry_run)
     else:
-        ok = send_media_group_to_telegram(photos, text, dry_run=dry_run)
+        if len(photos) == 1:
+            ok = send_photo_to_telegram(photos[0], text, dry_run=dry_run)
+        else:
+            ok = send_media_group_to_telegram(photos, text, dry_run=dry_run)
 
-    if not ok:
-        logger.warning("Не удалось опубликовать с фото — публикую обычным текстом")
-        return send_to_telegram(text, dry_run=dry_run)
+        if not ok:
+            logger.warning("Не удалось опубликовать с фото — публикую обычным текстом")
+            ok = send_to_telegram(text, dry_run=dry_run)
 
-    return True
+    if not send_to_vk(text, photos, dry_run=dry_run):
+        logger.warning("Не удалось опубликовать в VK — Telegram это не затрагивает")
+
+    return ok
 
 
 def send_video_to_telegram(video: str, caption: str = "", dry_run: bool = False) -> bool:

@@ -65,6 +65,7 @@ def from_korean(brand_ko: str) -> str:
 MODEL_KO = {
     "tiguan": "티구안",
     "sonata": "쏘나타",
+    "trax": "트랙스",
 }
 
 

@@ -197,10 +197,17 @@ def _normalize_broad_item(item: dict) -> dict | None:
     external_id = item.get("onbidCltrno")
     price = item.get("lowstBidPrc")
 
+    # Раз hp уже найден (find_spec совпал) — есть человекочитаемое имя
+    # (spec.label, напр. "Kia Ray 1.0 Gasoline"). Используем его вместо
+    # сырого текста title, иначе в посте выходит необработанный корейский
+    # заголовок (тот же баг, что был у kbchachacha — см. FINAL_STATE.md).
+    model_display = spec.label if spec else title
+    trim_display = "" if spec else title
+
     return {
         "brand": "",
-        "model": title,
-        "trim": title,
+        "model": model_display,
+        "trim": trim_display,
         "external_id": external_id,
         "year": year,
         "mileage_km": mileage_km,

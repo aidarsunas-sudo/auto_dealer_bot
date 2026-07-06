@@ -159,6 +159,14 @@ def parse_used_car_list(html: str) -> list[dict]:
             "price": price_krw,
             "specs": f"{spec.cc} см³, {spec.hp} л.с." if spec else "",
             "url": f"{BASE_URL}/public/car/detail.kbc?carSeq={car_seq}",
+            # Человекочитаемое имя модели (напр. "Kia Ray 1.0 Gasoline") —
+            # используется в broad-режиме (kbchachacha_target_adapter.browse_broad)
+            # вместо сырого корейского title, чтобы в посте не оказался
+            # необработанный корейский текст. В targeted-режиме
+            # (search_target_model) это поле не используется — там
+            # car["model"] и так перезаписывается на канонический английский
+            # из target_models.json.
+            "label": spec.label if spec else None,
         })
 
     return cars

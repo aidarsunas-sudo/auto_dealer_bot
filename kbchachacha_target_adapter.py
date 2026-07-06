@@ -309,9 +309,16 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
         # used_car_scraper.parse_all_pages() кладёт car_seq (числовой ID) в
         # car["trim"] — как и в search_target_model(), это не то, что можно
         # показать в посте. В broad-режиме canonical model из target'а нет,
-        # так что просто убираем trim (car["model"] и так содержит полное
-        # описание с сайта — марка+модель+комплектация).
+        # так что просто убираем trim.
         car["trim"] = ""
+        # car["model"] по умолчанию — сырой корейский текст с сайта (title
+        # целиком). Раз hp уже найден (проверка выше) — find_spec() внутри
+        # used_car_scraper.py уже опознал модель, и car["label"] содержит
+        # её человекочитаемое имя (напр. "Kia Ray 1.0 Gasoline") — используем
+        # его вместо сырого текста, иначе в посте выходит необработанный
+        # корейский заголовок (см. FINAL_STATE.md, реальный случай в проде).
+        if car.get("label"):
+            car["model"] = car["label"]
         car["source"] = "kbchachacha"
         all_cars.append(car)
 

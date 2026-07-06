@@ -1,21 +1,33 @@
-# FINAL_STATE.md — зафиксированная рабочая версия (аудит 2026-07-06)
+# FINAL_STATE.md — v1.0, финальная стабильная версия (2026-07-06)
 
-Итог полного аудита автоматизации после недели правок. Дальнейшие изменения
-кода вносить ТОЛЬКО при обнаружении реальных багов в проде — не для
-доработок или «улучшений ради улучшений».
+Итог полного аудита автоматизации + добавления простого управления
+публикацией для нетехнического пользователя. Начиная с этой версии —
+дальнейшие изменения кода вносить ТОЛЬКО при обнаружении реальных багов
+в проде, не для доработок или «улучшений ради улучшений». Новые каналы
+продвижения (VK/Дзен/2ГИС) — отдельными задачами по плану в
+**PLAN_NEXT_CHANNELS.md**, не в рамках этой версии.
 
-**Дополнено 2026-07-06 (тем же днём):** поверх этого же аудита добавлен
-простой интерфейс управления публикацией для нетехнического пользователя
-— см. **CONTROL.md**. Три новых файла: `models_to_watch.txt` (простой
-текстовый список моделей, синхронизируется в `target_models.json`
-автоматически при каждом запуске main_pipeline.py — см.
-`models_to_watch.py`), `publish_now.py` (публикация конкретной модели
-прямо сейчас, без ожидания расписания — принимает "Марка Модель" и сам
-ищет/публикует, переиспользуя lead_post_builder.py), `control.py`
-(pause/resume/status расписания GitHub Actions без ручной правки YAML).
-Ничего в существующей архитектуре пайплайнов не менялось — только
-добавлена обёртка поверх неё. Заодно при подготовке живого примера
-нашёлся и исправлен реальный баг в `encar_scraper.py` (см. пункт 4).
+**Что входит в v1.0:**
+- Поиск и расчёт цены по 4 источникам без логина (kbchachacha, Encar,
+  Charancha, OnBid), публикация лидогенерирующим постом в Telegram
+  (@auto_generals) — см. раздел 1.
+- Управление публикацией тремя простыми действиями без правки JSON/YAML
+  — см. **CONTROL.md**: `models_to_watch.txt` (простой текстовый список
+  моделей, синхронизируется в `target_models.json` автоматически при
+  каждом запуске `main_pipeline.py` — см. `models_to_watch.py`),
+  `publish_now.py` (публикация конкретной модели прямо сейчас, без
+  ожидания расписания — принимает "Марка Модель" и сам ищет/публикует,
+  переиспользуя `lead_post_builder.py`), `control.py` (pause/resume/status
+  расписания GitHub Actions без ручной правки YAML).
+- Все три способа публикации (расписание, `publish_now.py`,
+  пауза/возобновление через `control.py`) используют ОДИН и тот же код
+  поиска/фильтрации/расчёта цены — не дублируют и не обходят его (см.
+  раздел 4, пункты 9-10, и CONTROL.md).
+
+Ничего в существующей архитектуре пайплайнов не менялось — простое
+управление добавлено обёрткой поверх неё. Заодно при подготовке живых
+примеров нашлись и исправлены 2 реальных бага с ценой — переуступка
+аренды на Encar (пункт 9) и стартовая цена аукциона на OnBid (пункт 10).
 
 ## 1. Активные точки входа (production)
 
@@ -28,18 +40,26 @@
 VW Tiguan, Kia K3, Kia K5) + широкий поиск по всем моделям с hp≤160.
 
 Активная цепочка модулей:
-`main_pipeline.py` → `target_collector.py` + `broad_collector.py` →
-адаptеры `kbchachacha_target_adapter.py`, `encar_scraper.py`,
-`charancha_scraper.py`, `onbid_scraper.py` → `published_log.py` (дедуп) →
-`candidate_diversity.py` (round-robin) → `lead_post_builder.py` →
-`post_builder.py` (расчёт цены) → `agent_publisher.py` → `telegram_publisher.py`.
+`main_pipeline.py` → сперва `models_to_watch.py` (перенос простого списка
+моделей из `models_to_watch.txt` в `target_models.json`) → затем
+`target_collector.py` + `broad_collector.py` → адаптеры
+`kbchachacha_target_adapter.py`, `encar_scraper.py`, `charancha_scraper.py`,
+`onbid_scraper.py` → `published_log.py` (дедуп) → `candidate_diversity.py`
+(round-robin) → `lead_post_builder.py` → `post_builder.py` (расчёт цены) →
+`agent_publisher.py` → `telegram_publisher.py`.
+
+**Ручной вход в тот же конвейер:** `publish_now.py "Марка Модель"` —
+публикация конкретной модели прямо сейчас, без ожидания расписания.
+Использует ТЕ ЖЕ `target_collector.NOLOGIN_TARGET_ADAPTERS` и `lead_post_builder.py`,
+что и `main_pipeline.py` — не отдельная, параллельная реализация. См.
+CONTROL.md.
 
 Общие для обоих конвейеров: `config.py`, `model_specs.py`,
 `engine_filter.py`, `brand_names_ko.py`, `customs_calculator.py`,
 `age_calculator.py`, `rates.py`, `notifier.py`, `target_model_resolver.py`.
 
-Расписание: GitHub Actions `.github/workflows/main_pipeline.yml` —
-**сейчас на паузе** (см. раздел 5).
+Расписание: GitHub Actions `.github/workflows/main_pipeline.yml` — каждые
+6 часов, активно (см. раздел 7).
 
 ### `main.py` — ценовые алерты по WATCHLIST/USED_CAR_SEARCHES
 Публикует в тот же канал алерты «новое поступление» / «цена изменилась» по
@@ -55,8 +75,8 @@ VW Tiguan, Kia K3, Kia K5) + широкий поиск по всем модел�
 `telegram_publisher.py`. Если hp не резолвится — молчит и логирует в
 `unknown_watchlist_models.json` (не публикует с неточной ценой).
 
-Расписание: GitHub Actions `.github/workflows/run_bot.yml` — **тоже на
-паузе** (см. раздел 5).
+Расписание: GitHub Actions `.github/workflows/run_bot.yml` — каждые 6
+часов, активно (см. раздел 7).
 
 ## 2. Архивировано (не используется, не удалено)
 

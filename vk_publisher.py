@@ -133,8 +133,10 @@ def send_to_vk(text: str, photos: list | None = None, dry_run: bool = False) -> 
 
     Returns:
         True при успехе (или dry_run, или VK не настроен — см. is_configured()).
-        False только при реальной ошибке публикации — не блокирует Telegram,
-        см. agent_publisher.publish_post().
+        False при ошибке публикации ИЛИ если заявлено хотя бы одно фото, но
+        прикрепить удалось не все — пост в этом случае НЕ публикуется
+        (даже без фото/с частью фото), чтобы не выходил пост с "как получится"
+        набором фото. Не блокирует Telegram — см. agent_publisher.publish_post().
     """
     if not is_configured():
         logger.info("VK: VK_TOKEN/VK_OWNER_ID не заданы в .env — публикация в VK пропущена")
@@ -156,10 +158,11 @@ def send_to_vk(text: str, photos: list | None = None, dry_run: bool = False) -> 
     attachments = []
     for photo_url in photos:
         attachment = _upload_one_photo(photo_url, group_id)
-        if attachment:
-            attachments.append(attachment)
-        else:
-            logger.warning(f"VK: пропускаю фото, не удалось загрузить: {photo_url}")
+        if attachment is None:
+            logger.error(f"VK: не удалось прикрепить фото {photo_url} — публикация заблокирована "
+                         f"(не выходит пост с неполным набором фото)")
+            return False
+        attachments.append(attachment)
 
     post_params = {"owner_id": owner_id, "message": text, "from_group": 1}
     if attachments:

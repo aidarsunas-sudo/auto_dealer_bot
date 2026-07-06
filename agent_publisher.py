@@ -9,12 +9,18 @@ send_to_telegram() (как раньше, orchestrator.py его так и выз
 Telegram — ОСНОВНОЙ канал, от него зависит возвращаемое значение (и,
 дальше по цепочке, дедуп в published_log.json).
 
-VK (vk_publisher.py) — ВТОРОЙ канал, best-effort: публикуется тем же
-текстом/фото сразу вслед за Telegram. Если VK не настроен (нет токена в
-.env) или публикация в VK не удалась — на Telegram и на результат
-publish_post() это никак не влияет, только предупреждение в лог. Никакой
-отдельной логики поиска/расчёта цены здесь нет — text/photos уже готовы
-на входе, те же самые для обоих каналов.
+Если объявление заявлено с фото, но прикрепить их не удалось (битая
+ссылка/сбой сети) — публикация БЛОКИРУЕТСЯ целиком (не откатывается на
+текст без фото). Раньше было наоборот ("никогда не блокировать пост"),
+но это давало неполные посты — изменено по явному указанию 2026-07-06.
+
+VK (vk_publisher.py) — ВТОРОЙ канал, best-effort по отношению к Telegram:
+публикуется тем же текстом/фото сразу вслед за Telegram, и его успех/
+неудача НЕ влияет на результат Telegram (см. publish_post() ниже). Но
+внутри самого VK действует та же защита — если хотя бы одно фото не
+прикрепилось, VK-пост тоже не публикуется (см. vk_publisher.send_to_vk()).
+Никакой отдельной логики поиска/расчёта цены здесь нет — text/photos уже
+готовы на входе, те же самые для обоих каналов.
 
 send_video_to_telegram() — использует метод Bot API sendVideo. Сейчас её
 никто не вызывает (scraper.py не собирает видео с сайтов дилеров) — это
@@ -47,24 +53,21 @@ def publish_post(text: str, photos: list | None = None, dry_run: bool = False) -
 
     Returns:
         True при успехе в Telegram (VK публикуется независимо и не влияет
-        на этот результат). Если отправка с фото в Telegram не удалась
-        (например, битая ссылка на изображение) — не проваливаем
-        публикацию целиком, откатываемся на обычный текст, чтобы
-        отсутствие/поломка фото никогда не блокировала пост.
+        на этот результат). Если объявление заявлено с фото, но прикрепить
+        их не удалось (например, битая ссылка на изображение) — публикация
+        БЛОКИРУЕТСЯ целиком (False), а не откатывается на текст без фото.
     """
     photos = photos or []
 
     if not photos:
         ok = send_to_telegram(text, dry_run=dry_run)
+    elif len(photos) == 1:
+        ok = send_photo_to_telegram(photos[0], text, dry_run=dry_run)
     else:
-        if len(photos) == 1:
-            ok = send_photo_to_telegram(photos[0], text, dry_run=dry_run)
-        else:
-            ok = send_media_group_to_telegram(photos, text, dry_run=dry_run)
+        ok = send_media_group_to_telegram(photos, text, dry_run=dry_run)
 
-        if not ok:
-            logger.warning("Не удалось опубликовать с фото — публикую обычным текстом")
-            ok = send_to_telegram(text, dry_run=dry_run)
+    if not ok:
+        logger.error("Публикация в Telegram заблокирована — не удалось прикрепить фото")
 
     if not send_to_vk(text, photos, dry_run=dry_run):
         logger.warning("Не удалось опубликовать в VK — Telegram это не затрагивает")

@@ -1,0 +1,11 @@
+📊 {title} — {status_word}!
+
+📋 Характеристики:
+📅 Год: {year}
+🔧 Двигатель: {engine_display}
+⚙️ КПП: {transmission}
+🛣 Пробег: {mileage_km}
+
+💰 Стоимость под ключ в Казани: {total_rub} ₽
+
+👉 {status_word} — актуальная информация по этому авто: {cta_bot}

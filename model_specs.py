@@ -174,6 +174,294 @@ SPECS = [
                "включая Signature — комплектация не влияет на двигатель)",
     ),
 
+
+    # ─── Hyundai Avante 1.6 G (добавлено через add_model.py) ────────────────────
+    ModelSpec(
+        match=('avante', '1.6'),
+        cc=1598, hp=123, fuel='petrol',
+        label='Hyundai Avante 1.6 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Avante 1.6 G (добавлено через add_model.py) ────────────────────
+    ModelSpec(
+        match=('아반떼', '1.6'),
+        cc=1598, hp=123, fuel='petrol',
+        label='Hyundai Avante 1.6 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Avante Hybrid 1.6 G+E (добавлено через add_model.py) ───────────
+    ModelSpec(
+        match=('avante', '하이브리드'),
+        cc=1580, hp=141, fuel='hybrid_p',
+        label='Hyundai Avante Hybrid 1.6 G+E',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Avante Hybrid 1.6 G+E (добавлено через add_model.py) ───────────
+    ModelSpec(
+        match=('아반떼', '하이브리드'),
+        cc=1580, hp=141, fuel='hybrid_p',
+        label='Hyundai Avante Hybrid 1.6 G+E',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Casper 1.0 G (добавлено через add_model.py) ────────────────────
+    ModelSpec(
+        match=('casper', '1.0'),
+        cc=998, hp=76, fuel='petrol',
+        label='Hyundai Casper 1.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Casper 1.0 G (добавлено через add_model.py) ────────────────────
+    ModelSpec(
+        match=('캐스퍼', '1.0'),
+        cc=998, hp=76, fuel='petrol',
+        label='Hyundai Casper 1.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Kona 2.0 G (добавлено через add_model.py) ──────────────────────
+    ModelSpec(
+        match=('kona', '2.0'),
+        cc=1999, hp=149, fuel='petrol',
+        label='Hyundai Kona 2.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Kona 2.0 G (добавлено через add_model.py) ──────────────────────
+    ModelSpec(
+        match=('코나', '2.0'),
+        cc=1999, hp=149, fuel='petrol',
+        label='Hyundai Kona 2.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Venue 1.6 G (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('venue', '1.6'),
+        cc=1598, hp=123, fuel='petrol',
+        label='Hyundai Venue 1.6 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Venue 1.6 G (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('베뉴', '1.6'),
+        cc=1598, hp=123, fuel='petrol',
+        label='Hyundai Venue 1.6 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Morning 1.0 G (добавлено через add_model.py) ───────────────────────
+    ModelSpec(
+        match=('morning', '1.0'),
+        cc=998, hp=76, fuel='petrol',
+        label='Kia Morning 1.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Morning 1.0 G (добавлено через add_model.py) ───────────────────────
+    ModelSpec(
+        match=('모닝', '1.0'),
+        cc=998, hp=76, fuel='petrol',
+        label='Kia Morning 1.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Niro HEV 1.6 G (добавлено через add_model.py) ──────────────────────
+    ModelSpec(
+        match=('niro', '하이브리드'),
+        cc=1580, hp=105, fuel='hybrid_p',
+        label='Kia Niro HEV 1.6 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Niro HEV 1.6 G (добавлено через add_model.py) ──────────────────────
+    ModelSpec(
+        match=('니로', '하이브리드'),
+        cc=1580, hp=105, fuel='hybrid_p',
+        label='Kia Niro HEV 1.6 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Soul 2.0 G (добавлено через add_model.py) ──────────────────────────
+    ModelSpec(
+        match=('soul', '2.0'),
+        cc=1999, hp=147, fuel='petrol',
+        label='Kia Soul 2.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Soul 2.0 G (добавлено через add_model.py) ──────────────────────────
+    ModelSpec(
+        match=('쏘울', '2.0'),
+        cc=1999, hp=147, fuel='petrol',
+        label='Kia Soul 2.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Ray 1.0 G (добавлено через add_model.py) ───────────────────────────
+    ModelSpec(
+        match=('ray', '1.0'),
+        cc=998, hp=76, fuel='petrol',
+        label='Kia Ray 1.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Ray 1.0 G (добавлено через add_model.py) ───────────────────────────
+    ModelSpec(
+        match=('레이', '1.0'),
+        cc=998, hp=76, fuel='petrol',
+        label='Kia Ray 1.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Seltos 1.6 D (добавлено через add_model.py) ────────────────────────
+    ModelSpec(
+        match=('seltos', '디젤'),
+        cc=1582, hp=136, fuel='diesel',
+        label='Kia Seltos 1.6 Diesel',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Seltos 1.6 D (добавлено через add_model.py) ────────────────────────
+    ModelSpec(
+        match=('셀토스', '디젤'),
+        cc=1582, hp=136, fuel='diesel',
+        label='Kia Seltos 1.6 Diesel',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Seltos 2.0 G (добавлено через add_model.py) ────────────────────────
+    ModelSpec(
+        match=('seltos', '2.0'),
+        cc=1999, hp=149, fuel='petrol',
+        label='Kia Seltos 2.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Seltos 2.0 G (добавлено через add_model.py) ────────────────────────
+    ModelSpec(
+        match=('셀토스', '2.0'),
+        cc=1999, hp=149, fuel='petrol',
+        label='Kia Seltos 2.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Kia Sportage 2.0 G (QL, до 2021) (добавлено через add_model.py) ────────
+    ModelSpec(
+        match=('스포티지', '2.0', '가솔린'),
+        cc=1999, hp=152, fuel='petrol',
+        label='Kia Sportage (до 2021) 2.0 Gasoline',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── BMW 1 Series 118d 2.0 D (добавлено через add_model.py) ─────────────────
+    ModelSpec(
+        match=('118d',),
+        cc=1995, hp=150, fuel='diesel',
+        label='BMW 1 Series 118d',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── BMW X1 xDrive18d 2.0 D (добавлено через add_model.py) ──────────────────
+    ModelSpec(
+        match=('x1', '18d'),
+        cc=1995, hp=150, fuel='diesel',
+        label='BMW X1 xDrive18d',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── BMW X2 xDrive18d 2.0 D (добавлено через add_model.py) ──────────────────
+    ModelSpec(
+        match=('x2', '18d'),
+        cc=1995, hp=150, fuel='diesel',
+        label='BMW X2 xDrive18d',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Mercedes-Benz A-Class 180 1.3 G (добавлено через add_model.py) ─────────
+    ModelSpec(
+        match=('a180',),
+        cc=1332, hp=136, fuel='petrol',
+        label='Mercedes-Benz A180',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Mercedes-Benz A-Class 200d 2.0 D (добавлено через add_model.py) ────────
+    ModelSpec(
+        match=('a200d',),
+        cc=1950, hp=150, fuel='diesel',
+        label='Mercedes-Benz A200d',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Audi Q2 1.5 G TFSI (добавлено через add_model.py) ──────────────────────
+    ModelSpec(
+        match=('q2',),
+        cc=1498, hp=150, fuel='petrol',
+        label='Audi Q2 35 TFSI',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Citroen C3 Aircross 1.2 G (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('c3', 'aircross', '1.2'),
+        cc=1199, hp=128, fuel='petrol',
+        label='Citroen C3 Aircross 1.2 PureTech',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Citroen C3 Aircross 1.5 D (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('c3', 'aircross', '1.5'),
+        cc=1499, hp=118, fuel='diesel',
+        label='Citroen C3 Aircross 1.5 BlueHDi',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Volkswagen Golf 2.0 D TDI (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('golf', 'tdi'),
+        cc=1968, hp=150, fuel='diesel',
+        label='Volkswagen Golf 2.0 TDI',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Volkswagen Jetta 1.5 G TSI (добавлено через add_model.py) ──────────────
+    ModelSpec(
+        match=('jetta', 'tsi'),
+        cc=1498, hp=158, fuel='petrol',
+        label='Volkswagen Jetta 1.5 TSI',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Volkswagen T-Roc 2.0 D TDI (добавлено через add_model.py) ──────────────
+    ModelSpec(
+        match=('t-roc', 'tdi'),
+        cc=1968, hp=150, fuel='diesel',
+        label='Volkswagen T-Roc 2.0 TDI',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Casper Turbo 1.0 G Turbo (добавлено через add_model.py) ────────
+    ModelSpec(
+        match=('casper', '1.0', '터보'),
+        cc=998, hp=100, fuel='petrol',
+        label='Hyundai Casper 1.0 Gasoline Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Casper Turbo 1.0 G Turbo (добавлено через add_model.py) ────────
+    ModelSpec(
+        match=('캐스퍼', '1.0', '터보'),
+        cc=998, hp=100, fuel='petrol',
+        label='Hyundai Casper 1.0 Gasoline Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
     # --- Добавляй новые модели ниже по этому же образцу ---
 ]
 

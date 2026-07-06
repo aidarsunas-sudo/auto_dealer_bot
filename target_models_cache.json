@@ -268,5 +268,47 @@
       "modelCode": "0040"
     },
     "resolved_at": "2026-07-06T10:07:55"
+  },
+  "kbchachacha:Audi:A4": {
+    "result": {
+      "makerCode": 109,
+      "classCode": 1942,
+      "car_codes": [
+        {
+          "code": 2982,
+          "text": "A4 (B9) (16년~현재)",
+          "year_from": 2016,
+          "year_to": 9999
+        },
+        {
+          "code": 1553,
+          "text": "NEW A4 (09년~16년)",
+          "year_from": 2009,
+          "year_to": 2016
+        },
+        {
+          "code": 1547,
+          "text": "A4 (94년~09년)",
+          "year_from": 2094,
+          "year_to": 2009
+        }
+      ]
+    },
+    "resolved_at": "2026-07-06T12:35:15"
+  },
+  "encar:Audi:A4": {
+    "result": {
+      "car_type": "A",
+      "manufacturer_ko": "아우디",
+      "model_group": "A4"
+    },
+    "resolved_at": "2026-07-06T12:35:42"
+  },
+  "charancha:Audi:A4": {
+    "result": {
+      "makerCode": "041",
+      "modelCode": "0426"
+    },
+    "resolved_at": "2026-07-06T12:35:47"
   }
 }

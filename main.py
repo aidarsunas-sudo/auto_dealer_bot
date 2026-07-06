@@ -12,7 +12,15 @@ main.py — ГЛАВНЫЙ файл проекта. Именно его ты з�
        - если такой машины ещё не было -> запоминаем + публикуем пост
        - если была, но цена изменилась -> обновляем + публикуем пост
        - если всё то же самое -> ничего не делаем (не спамим канал)
+       - если hp не удалось определить через model_specs.py -> НЕ публикуем
+         (честная цена важнее полноты — см. unknown_watchlist_models.py),
+         просто логируем модель для последующего ручного добавления через
+         add_model.py
     5. Пишет в лог, что было сделано
+
+Пост генерируется через price_alert_builder.py (общий формат с
+main_pipeline.py — без ссылки на источник, с фото где есть, компактные
+характеристики) — НЕ через старый post_builder.build_telegram_post().
 
 Как это запустить в первый раз:
     1. Установи библиотеки:  pip install requests beautifulsoup4 python-dotenv
@@ -33,8 +41,8 @@ import config
 from database import get_connection, save_car
 from scraper import fetch_html, parse_car_page
 from used_car_scraper import parse_all_pages as parse_used_cars
-from post_generator import generate_smart_post
-from telegram_publisher import send_to_telegram
+from price_alert_builder import build_price_alert_post
+from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
 from watchlist import WATCHLIST, USED_CAR_SEARCHES
@@ -104,8 +112,13 @@ def process_one_page(url: str, brand: str, model: str, conn, rates: dict, dry_ru
 
             log.info(f"[{status}] {car['brand']} {car['model']} {car['trim']}")
 
-            post_text = generate_smart_post(car, rates)
-            send_to_telegram(post_text, dry_run=dry_run)
+            post_text = build_price_alert_post(car, status, rates)
+            if post_text is None:
+                # hp не резолвился (залогировано в unknown_watchlist_models.json)
+                # или иначе не хватает данных — молчим, не публикуем неточную
+                # цену и не откатываемся на старый формат.
+                continue
+            publish_post(post_text, photos=car.get("photos"), dry_run=dry_run)
 
             # Небольшая пауза между публикациями, чтобы не отправлять всё
             # одним залпом (и чтобы Telegram не посчитал это спамом).
@@ -148,8 +161,10 @@ def process_used_car_search(search_params: dict, conn, rates: dict, dry_run: boo
 
             log.info(f"[{status}] {car['model']} (carSeq={car['external_id']})")
 
-            post_text = generate_smart_post(car, rates)
-            send_to_telegram(post_text, dry_run=dry_run)
+            post_text = build_price_alert_post(car, status, rates)
+            if post_text is None:
+                continue
+            publish_post(post_text, photos=car.get("photos"), dry_run=dry_run)
 
             time.sleep(2)
         except Exception as error:

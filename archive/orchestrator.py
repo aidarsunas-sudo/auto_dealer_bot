@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 """
+⚠️ АРХИВИРОВАНО (2026-07-06) — не используется, не подключено ни к одному
+GitHub Actions workflow (никогда не было). Проект пришёл к тому, что
+публикация в @auto_generals идёт через main.py (WATCHLIST/USED_CAR_SEARCHES,
+price_alert_builder.py) и main_pipeline.py (target_models.json + broad,
+lead_post_builder.py) — оба на общем компактном формате поста. orchestrator.py
+дублировал эту же идею (мультиагентная публикация по WATCHLIST) экспериментальным
+путём, который так и не был выбран взамен main.py. Оставлено в архиве на
+случай, если понадобится вернуться к идее Claude-генерации постов — вместе с
+agent_analyst.py/agent_copywriter.py/agent_editor.py/post_generator.py
+(его единственные зависимости, тоже архивированы).
+
 orchestrator.py — АЛЬТЕРНАТИВНАЯ точка входа с мультиагентным пайплайном.
 
 Запускается точно так же, как main.py:

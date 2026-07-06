@@ -178,5 +178,95 @@
       "modelCode": "0039"
     },
     "resolved_at": "2026-07-05T11:15:35"
+  },
+  "kbchachacha:Kia:K5": {
+    "result": {
+      "makerCode": 102,
+      "classCode": 1225,
+      "car_codes": [
+        {
+          "code": 3374,
+          "text": "더 뉴 K5 3세대 (23년~현재)",
+          "year_from": 2023,
+          "year_to": 9999
+        },
+        {
+          "code": 3375,
+          "text": "더 뉴 K5 하이브리드 3세대 (23년~현재)",
+          "year_from": 2023,
+          "year_to": 9999
+        },
+        {
+          "code": 3051,
+          "text": "K5 3세대 (19년~23년)",
+          "year_from": 2019,
+          "year_to": 2023
+        },
+        {
+          "code": 3052,
+          "text": "K5 하이브리드 3세대 (19년~23년)",
+          "year_from": 2019,
+          "year_to": 2023
+        },
+        {
+          "code": 2924,
+          "text": "더 뉴 K5 2세대 (18년~20년)",
+          "year_from": 2018,
+          "year_to": 2020
+        },
+        {
+          "code": 2995,
+          "text": "더 뉴 K5 하이브리드 2세대 (18년~19년)",
+          "year_from": 2018,
+          "year_to": 2019
+        },
+        {
+          "code": 2683,
+          "text": "K5 2세대 (15년~18년)",
+          "year_from": 2015,
+          "year_to": 2018
+        },
+        {
+          "code": 1461,
+          "text": "더 뉴 K5 (13년~15년)",
+          "year_from": 2013,
+          "year_to": 2015
+        },
+        {
+          "code": 2793,
+          "text": "K5 하이브리드 2세대 (15년~현재)",
+          "year_from": 2015,
+          "year_to": 9999
+        },
+        {
+          "code": 1405,
+          "text": "K5 하이브리드 (11년~15년)",
+          "year_from": 2011,
+          "year_to": 2015
+        },
+        {
+          "code": 1262,
+          "text": "K5 (10년~13년)",
+          "year_from": 2010,
+          "year_to": 2013
+        }
+      ]
+    },
+    "resolved_at": "2026-07-06T08:59:35"
+  },
+  "encar:Kia:K5": {
+    "result": {
+      "car_type": "Y",
+      "manufacturer_ko": "기아",
+      "model_group": "K5"
+    },
+    "resolved_at": "2026-07-06T10:07:35"
+  },
+  "charancha:Kia:K5": {
+    "result": {
+      "makerCode": "004",
+      "modelCode": "0040"
+    },
+    "resolved_at": "2026-07-06T10:07:55"
   }
 }

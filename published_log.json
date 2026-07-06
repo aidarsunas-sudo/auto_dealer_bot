@@ -1345,7 +1345,9 @@
   },
   "https://fem.encar.com/cars/detail/42229419": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": null,
+    "brand": "Audi",
+    "model": "Q3"
   },
   "https://fem.encar.com/cars/detail/41447767": {
     "first_seen": "2026-07-05T10:55:57",
@@ -1651,7 +1653,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=27948357": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": null,
+    "brand": "Volkswagen",
+    "model": "Tiguan"
   },
   "https://fem.encar.com/cars/detail/42230860": {
     "first_seen": "2026-07-05T10:55:57",
@@ -1919,7 +1923,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28513127": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": null,
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://fem.encar.com/cars/detail/41557184": {
     "first_seen": "2026-07-05T10:55:57",
@@ -1976,5 +1982,11 @@
   "https://fem.encar.com/cars/detail/41971067": {
     "first_seen": "2026-07-05T10:55:57",
     "posted_at": null
+  },
+  "https://www.charancha.com/cars/019ea9f4-fac1-7808-9997-02d39e208f2d": {
+    "first_seen": "2026-07-06T10:15:32",
+    "posted_at": "2026-07-06T10:15:32",
+    "brand": "Kia",
+    "model": "K5"
   }
 }

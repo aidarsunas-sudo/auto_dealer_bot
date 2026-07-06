@@ -163,6 +163,17 @@ SPECS = [
         source="danawa.com, официальные технические характеристики",
     ),
 
+    # ─── Kia K5 (3-е поколение, DL3) 2.0 Gasoline (Smartstream G2.0 MPi,
+    # атмосферный, не путать с 1.6T GT-line/гибридом) ───────────────────────
+    ModelSpec(
+        match=("k5", "2.0"),
+        cc=1999, hp=160, fuel="petrol",
+        label="Kia K5 (DL3) 2.0 Gasoline (Smartstream G2.0 MPi)",
+        source="danawa.com + carnoon.co.kr — официальные технические характеристики "
+               "(Smartstream G2.0 MPi, единый мотор для всех тримов 2.0 бензин, "
+               "включая Signature — комплектация не влияет на двигатель)",
+    ),
+
     # --- Добавляй новые модели ниже по этому же образцу ---
 ]
 

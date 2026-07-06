@@ -21,6 +21,19 @@ logger = logging.getLogger("lead_post_builder")
 TEMPLATE_PATH = Path(__file__).resolve().parent / "lead_post_template.txt"
 CTA_BOT = "@korea_auto_kazan_bot"
 
+# Charancha отдаёт transmissionName по-корейски ("자동"/"수동") — переводим
+# для показа в посте; CVT уже латиницей на самой площадке, перевод не нужен.
+_TRANSMISSION_RU = {
+    "자동": "автомат",
+    "수동": "механика",
+}
+
+
+def _translate_transmission(value) -> str:
+    if not value:
+        return "не указано"
+    return _TRANSMISSION_RU.get(value, value)
+
 
 def _format_number(value) -> str:
     if value is None:
@@ -82,7 +95,7 @@ def build_lead_post(car: dict, rates: dict) -> str | None:
         # Не все источники отдают трансмиссию (Charancha — да, Encar/
         # kbchachacha/OnBid — нет без доп. запроса к детальной странице) —
         # честно показываем "не указано", а не гадаем.
-        "transmission": car.get("transmission") or "не указано",
+        "transmission": _translate_transmission(car.get("transmission")),
         "price_krw": f"{_format_number(car.get('price'))} ₩",
         "car_price_rub": _format_number(details["car_price_rub"]),
         "bank_commission_rub": _format_number(details["bank_commission_rub"]),

@@ -1,5 +1,32 @@
 [
-  {"brand": "Audi", "model": "Q3", "engine": "2.0 TDI", "year_from": 2021, "year_to": 2023, "mileage_max": 60000},
-  {"brand": "Volkswagen", "model": "Tiguan", "engine": "2.0 TDI", "year_from": 2021, "year_to": 2023, "mileage_max": 60000},
-  {"brand": "Kia", "model": "K3", "year_from": 2022, "year_to": 2023, "mileage_max": 60000}
+  {
+    "brand": "Audi",
+    "model": "Q3",
+    "engine": "2.0 TDI",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 60000
+  },
+  {
+    "brand": "Volkswagen",
+    "model": "Tiguan",
+    "engine": "2.0 TDI",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 60000
+  },
+  {
+    "brand": "Kia",
+    "model": "K3",
+    "year_from": 2022,
+    "year_to": 2023,
+    "mileage_max": 60000
+  },
+  {
+    "brand": "Kia",
+    "model": "K5",
+    "year_from": 2023,
+    "year_to": 2026,
+    "mileage_max": 40000
+  }
 ]

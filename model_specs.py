@@ -25,6 +25,7 @@ match: список подстрок, которые должны ВСЕ вст�
        регистра), чтобы запись считалась подходящей.
 """
 
+import sys
 from dataclasses import dataclass
 from typing import Optional
 
@@ -478,6 +479,7 @@ SPECS = [
         label='Hyundai Casper 1.0 Gasoline Turbo',
         source='прайс-лист Pick+ Auto (внутренний документ компании)',
     ),
+
     # --- Добавляй новые модели ниже по этому же образцу ---
 ]
 
@@ -528,6 +530,20 @@ def find_spec(title: str, year: Optional[int] = None) -> Optional[ModelSpec]:
     return None  # год не попал ни в один диапазон
 
 
+def _safe_print(text: str) -> None:
+    """
+    "см³"/другие спецсимволы падают с UnicodeEncodeError на Windows-консоли
+    с не-UTF8 кодировкой (например, cp1251) — та же проблема, что чинили в
+    telegram_publisher.py/add_model.py. add_model.py сам советует запустить
+    этот самотест следующим шагом — он не должен падать на той же консоли.
+    """
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        encoding = sys.stdout.encoding or "utf-8"
+        print(text.encode(encoding, errors="replace").decode(encoding, errors="replace"))
+
+
 if __name__ == "__main__":
     tests = [
         ("벤츠 GLB(X247) 200 d", None),
@@ -544,6 +560,6 @@ if __name__ == "__main__":
     for title, year in tests:
         spec = find_spec(title, year)
         if spec:
-            print(f"{title!r} (год={year}) -> {spec.label} | {spec.cc}см³ / {spec.hp}лс / {spec.fuel}")
+            _safe_print(f"{title!r} (год={year}) -> {spec.label} | {spec.cc}см³ / {spec.hp}лс / {spec.fuel}")
         else:
-            print(f"{title!r} (год={year}) -> НЕ НАЙДЕНО (нужна проверка вручную)")
+            _safe_print(f"{title!r} (год={year}) -> НЕ НАЙДЕНО (нужна проверка вручную)")

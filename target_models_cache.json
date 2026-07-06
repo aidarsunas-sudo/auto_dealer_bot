@@ -310,5 +310,149 @@
       "modelCode": "0426"
     },
     "resolved_at": "2026-07-06T12:35:47"
+  },
+  "kbchachacha:Hyundai:Sonata": {
+    "result": {
+      "makerCode": 101,
+      "classCode": 1108,
+      "car_codes": [
+        {
+          "code": 3330,
+          "text": "쏘나타 디 엣지(DN8) (23년~현재)",
+          "year_from": 2023,
+          "year_to": 9999
+        },
+        {
+          "code": 3331,
+          "text": "쏘나타 디 엣지 N Line(DN8) (23년~현재)",
+          "year_from": 2023,
+          "year_to": 9999
+        },
+        {
+          "code": 3332,
+          "text": "쏘나타 디 엣지 하이브리드(DN8) (23년~현재)",
+          "year_from": 2023,
+          "year_to": 9999
+        },
+        {
+          "code": 2994,
+          "text": "쏘나타 (DN8) (19년~23년)",
+          "year_from": 2019,
+          "year_to": 2023
+        },
+        {
+          "code": 3147,
+          "text": "쏘나타 N Line (20년~23년)",
+          "year_from": 2020,
+          "year_to": 2023
+        },
+        {
+          "code": 3021,
+          "text": "쏘나타 하이브리드 (DN8) (19년~23년)",
+          "year_from": 2019,
+          "year_to": 2023
+        },
+        {
+          "code": 2874,
+          "text": "쏘나타 뉴 라이즈 (17년~19년)",
+          "year_from": 2017,
+          "year_to": 2019
+        },
+        {
+          "code": 2888,
+          "text": "쏘나타 뉴 라이즈 하이브리드 (17년~19년)",
+          "year_from": 2017,
+          "year_to": 2019
+        },
+        {
+          "code": 2504,
+          "text": "LF쏘나타 (14년~17년)",
+          "year_from": 2014,
+          "year_to": 2017
+        },
+        {
+          "code": 2533,
+          "text": "LF쏘나타 하이브리드 (14년~17년)",
+          "year_from": 2014,
+          "year_to": 2017
+        },
+        {
+          "code": 1447,
+          "text": "쏘나타 더 브릴리언트 (12년~14년)",
+          "year_from": 2012,
+          "year_to": 2014
+        },
+        {
+          "code": 1415,
+          "text": "쏘나타 하이브리드 (11년~14년)",
+          "year_from": 2011,
+          "year_to": 2014
+        },
+        {
+          "code": 1123,
+          "text": "YF쏘나타 (09년~12년)",
+          "year_from": 2009,
+          "year_to": 2012
+        },
+        {
+          "code": 1122,
+          "text": "NF쏘나타트랜스폼 (07년~12년)",
+          "year_from": 2007,
+          "year_to": 2012
+        },
+        {
+          "code": 1121,
+          "text": "NF쏘나타 (04년~07년)",
+          "year_from": 2004,
+          "year_to": 2007
+        },
+        {
+          "code": 1120,
+          "text": "뉴EF쏘나타 (01년~06년)",
+          "year_from": 2001,
+          "year_to": 2006
+        },
+        {
+          "code": 1119,
+          "text": "EF쏘나타 (98년~01년)",
+          "year_from": 2098,
+          "year_to": 2001
+        },
+        {
+          "code": 1118,
+          "text": "쏘나타3 (96년~98년)",
+          "year_from": 2096,
+          "year_to": 2098
+        },
+        {
+          "code": 1117,
+          "text": "쏘나타2 (93년~96년)",
+          "year_from": 2093,
+          "year_to": 2096
+        },
+        {
+          "code": 1116,
+          "text": "쏘나타 (85년~93년)",
+          "year_from": 2085,
+          "year_to": 2093
+        }
+      ]
+    },
+    "resolved_at": "2026-07-06T15:49:31"
+  },
+  "encar:Hyundai:Sonata": {
+    "result": {
+      "car_type": "Y",
+      "manufacturer_ko": "현대",
+      "model_group": "쏘나타"
+    },
+    "resolved_at": "2026-07-06T15:51:10"
+  },
+  "charancha:Hyundai:Sonata": {
+    "result": {
+      "makerCode": "064",
+      "modelCode": "0668"
+    },
+    "resolved_at": "2026-07-06T15:51:34"
   }
 }

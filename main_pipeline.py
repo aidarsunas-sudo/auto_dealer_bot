@@ -49,6 +49,7 @@ from lead_post_builder import build_lead_post
 from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
+from models_to_watch import sync_to_target_models
 
 FRESHNESS_DAYS = 14
 POST_LIMIT = 5
@@ -88,6 +89,11 @@ def run() -> None:
     log.info("=== Запуск main_pipeline ===")
 
     config.check_config()
+
+    # Простой список моделей без JSON (models_to_watch.txt) — переносит в
+    # target_models.json всё, чего там ещё нет, до того как target_collector.py
+    # его прочитает. См. models_to_watch.py/CONTROL.md.
+    sync_to_target_models(log)
 
     rates = fetch_cbr_rates()
 

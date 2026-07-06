@@ -48,6 +48,17 @@ IMPORT_LIST_URL = "https://www.encar.com/fc/fc_carsearchlist.do?carType=for"
 PHOTO_CDN_BASE = "https://ci.encar.com"
 DETAIL_URL_TEMPLATE = "https://fem.encar.com/cars/detail/{id}"
 
+# item["SellType"] — "일반" (обычная продажа) для подавляющего большинства
+# объявлений, но встречаются и другие значения (подтверждено вживую:
+# "렌트" — аренда). Для таких объявлений item["Price"] — НЕ цена машины,
+# а сумма по договору аренды/переуступки (напр. авансовый платёж за
+# оставшиеся месяцы) — в разы меньше рыночной цены, отсюда абсурдно
+# низкая "цена под ключ" в посте, если это не отсеять. Это ALLOW-list (не
+# блокирует конкретные "плохие" типы, а пропускает только заведомо
+# понятный "обычная продажа") — безопаснее на случай, если найдётся ещё
+# какой-то нестандартный тип, не встречавшийся в разведке.
+REGULAR_SALE_TYPE = "일반"
+
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
@@ -202,6 +213,8 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
             break
 
         for item in results:
+            if item.get("SellType") != REGULAR_SALE_TYPE:
+                continue  # аренда/переуступка и т.п. — Price там не цена машины
             if fuel_hint is not None and item.get("FuelType") != FUEL_NAME_KO[fuel_hint]:
                 continue  # явно другое топливо (например, бензин вместо запрошенного TDI-дизеля)
 
@@ -296,6 +309,9 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
             break
 
         for item in results:
+            if item.get("SellType") != REGULAR_SALE_TYPE:
+                continue  # аренда/переуступка и т.п. — Price там не цена машины
+
             normalized = _normalize_broad_item(item)
 
             if normalized.get("hp") is None:

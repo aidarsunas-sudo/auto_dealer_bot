@@ -121,28 +121,38 @@ def _lookup_codes(brand: str, model: str) -> dict | None:
 
 
 def _manufacture_year(item: dict) -> int | None:
+    """Обратная совместимость — только год, см. _manufacture_year_month()."""
+    return _manufacture_year_month(item)[0]
+
+
+def _manufacture_year_month(item: dict) -> tuple:
     """
-    Год ВЫПУСКА машины (для расчёта таможенного возраста — customs_calculator.py)
+    Год И МЕСЯЦ выпуска машины (для расчёта таможенного возраста —
+    age_calculator.py: месяц важен у границы 3/5/7 лет, см. его докстринг)
     — НЕ то же самое, что item["FormYear"]! FormYear — это корейский
     маркетинговый "модельный год" (напр. машина, произведённая в апреле
     2023, официально продаётся как модель "2024 года" — рестайлинги/новые
     модели почти всегда выходят так, что вторая половина года уже маркируют
     следующим годом). Настоящая дата выпуска — item["Year"] в формате
-    ГГГГММ (напр. 202304.0 = апрель 2023) — используем ГГГГ из него.
-    Расхождение в 1 год у границы 3/5/7 лет (возрастные категории пошлины)
-    даёт неверный тариф ЕТС/утильсбора — реальные деньги, не мелочь.
+    ГГГГММ (напр. 202304.0 = апрель 2023) — год и месяц оба из него.
+
+    Returns:
+        (year, month) — month может быть None, если известен только год
+        (FormYear-фолбэк или не распарсилось) — age_calculator.py в этом
+        случае сам подставит консервативный дефолт.
     """
     raw_year = item.get("Year")
     if raw_year:
         try:
-            return int(raw_year) // 100
+            year_month = int(raw_year)
+            return year_month // 100, year_month % 100
         except (TypeError, ValueError):
             pass
 
     form_year = item.get("FormYear")
     if form_year and str(form_year).isdigit():
-        return int(form_year)
-    return None
+        return int(form_year), None
+    return None, None
 
 
 def _extract_photos(item: dict) -> list:
@@ -170,7 +180,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
     raw_title = f"{manufacturer} {model_text} {badge}".strip()
     title_for_spec = f"{target['brand']} {target['model']} {target.get('engine', '')} {raw_title}"
 
-    year_int = _manufacture_year(item)
+    year_int, month_int = _manufacture_year_month(item)
 
     mileage = item.get("Mileage")
     mileage_km = int(mileage) if mileage is not None else None
@@ -189,6 +199,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
         "trim": badge or raw_title,
         "external_id": external_id,
         "year": year_int,
+        "month": month_int,
         "mileage_km": mileage_km,
         "cc": cc,
         "hp": hp,
@@ -268,7 +279,7 @@ def _normalize_broad_item(item: dict) -> dict:
     badge = item.get("Badge", "")
     raw_title = f"{manufacturer} {model_text} {badge}".strip()
 
-    year_int = _manufacture_year(item)
+    year_int, month_int = _manufacture_year_month(item)
 
     mileage = item.get("Mileage")
     mileage_km = int(mileage) if mileage is not None else None
@@ -298,6 +309,7 @@ def _normalize_broad_item(item: dict) -> dict:
         "trim": trim_display,
         "external_id": external_id,
         "year": year_int,
+        "month": month_int,
         "mileage_km": mileage_km,
         "cc": cc,
         "hp": hp,

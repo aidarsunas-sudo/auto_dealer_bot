@@ -93,8 +93,11 @@ def parse_used_car_list(html: str) -> list[dict]:
         html: HTML-фрагмент от fetch_used_car_list().
 
     Returns:
-        Список словарей: brand, model, trim, year (число или None),
-        mileage_km, cc, hp, fuel_code, price, specs, url, external_id.
+        Список словарей: brand, model (человекочитаемое, см. ниже), trim
+        (пусто), year (число или None), mileage_km, cc, hp, fuel_code,
+        price, specs, url, external_id, raw_title (сырой заголовок с
+        сайта — для вызывающего кода, которому нужна детализация, не для
+        показа в посте как есть).
     """
     soup = BeautifulSoup(html, "html.parser")
     cars = []
@@ -117,13 +120,17 @@ def parse_used_car_list(html: str) -> list[dict]:
         price_tag = area.select_one("span.price")
         price_raw = price_tag.get_text(strip=True) if price_tag else None
 
-        # Год выпуска: "22/11식(22년형)" -> 2022 (берём первые 2 цифры,
-        # достраиваем до полного года).
+        # Год и месяц выпуска: "22/11식(22년형)" -> 2022, 11 (месяц нужен
+        # для точного расчёта таможенного возраста — см. age_calculator.py:
+        # наивное "текущий год минус год выпуска" может ошибиться на
+        # границе 3/5/7 лет, если не знать месяц).
         manufacture_year = None
+        manufacture_month = None
         if year_month_raw:
             m = re.match(r"(\d{2})/(\d{2})", year_month_raw)
             if m:
                 manufacture_year = 2000 + int(m.group(1))
+                manufacture_month = int(m.group(2))
 
         # Пробег: "34 234km" -> 34234 (просто оставляем только цифры)
         mileage_km = None
@@ -147,11 +154,27 @@ def parse_used_car_list(html: str) -> list[dict]:
         spec = find_spec(title, manufacture_year)
 
         cars.append({
-            "brand": "",  # для б/у объявлений бренд обычно уже в title
-            "model": title,
-            "trim": car_seq,  # используем ID объявления как уникальный "трим"
+            "brand": "",  # для б/у объявлений бренд обычно уже в model
+            # ВАЖНО (инцидент 2026-07, см. FINAL_STATE.md): model — ВСЕГДА
+            # человекочитаемое имя (spec.label), если find_spec() распознал
+            # модель, а не сырой корейский title. Раньше model=title
+            # (сырой текст) отдавался как есть, и только ОДИН из трёх
+            # вызывающих модулей (kbchachacha_target_adapter.browse_broad)
+            # исправлял это ПОСЛЕ вызова parse_used_car_list() — main.py,
+            # вызывающий parse_all_pages() напрямую, эту правку не получал
+            # никогда. Правильно чинить у источника, один раз, а не в
+            # каждом вызывающем коде по отдельности.
+            "model": spec.label if spec else title,
+            # trim — раньше здесь был car_seq (ЧИСЛОВОЙ ID объявления) —
+            # он попадал в заголовок поста как есть (см. lead_post_builder.
+            # _build_title): "Mercedes GLB(X247) 200 d 28528478", где
+            # "28528478" — это ID, а не часть названия. car_seq и так
+            # доступен отдельно в external_id — здесь пусто, как и в
+            # остальных источниках без отдельного описания комплектации.
+            "trim": "",
             "external_id": car_seq,
             "year": manufacture_year,
+            "month": manufacture_month,
             "mileage_km": mileage_km,
             "cc": spec.cc if spec else None,
             "hp": spec.hp if spec else None,
@@ -159,14 +182,13 @@ def parse_used_car_list(html: str) -> list[dict]:
             "price": price_krw,
             "specs": f"{spec.cc} см³, {spec.hp} л.с." if spec else "",
             "url": f"{BASE_URL}/public/car/detail.kbc?carSeq={car_seq}",
-            # Человекочитаемое имя модели (напр. "Kia Ray 1.0 Gasoline") —
-            # используется в broad-режиме (kbchachacha_target_adapter.browse_broad)
-            # вместо сырого корейского title, чтобы в посте не оказался
-            # необработанный корейский текст. В targeted-режиме
-            # (search_target_model) это поле не используется — там
-            # car["model"] и так перезаписывается на канонический английский
-            # из target_models.json.
-            "label": spec.label if spec else None,
+            # Сырой заголовок с сайта (марка+модель+комплектация целиком,
+            # обычно по-корейски) — НЕ для показа в посте, только для
+            # вызывающего кода, которому нужна детализация комплектации
+            # (см. kbchachacha_target_adapter.search_target_model(): там
+            # canonical brand/model берётся из target_models.json, а сюда
+            # кладётся то, что раньше было в model ДО этого фикса).
+            "raw_title": title,
         })
 
     return cars

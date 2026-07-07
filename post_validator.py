@@ -10,9 +10,10 @@ REJECT, публикации не будет (ни в Telegram, ни в VK):
 
     1. Фото: >= config.MIN_PHOTOS_PER_POST штук (не None, не пустой список).
     2. Название модели (brand+model+trim, как оно уходит в пост — та же
-       сборка, что и в самом посте, см. lead_post_builder._build_title):
-       только латиница/кириллица/цифры/пробелы/дефисы/точки, никаких
-       символов корейского алфавита (хангыль).
+       сборка, что и в самом посте, см. post_text_builder._build_title):
+       только латиница/кириллица/цифры/пробелы/стандартная пунктуация
+       (см. post_text_builder.ALLOWED_TITLE_RE), никаких символов
+       корейского алфавита (хангыль).
     3. Год выпуска: обязателен (не None) и внутри [config.MIN_YEAR,
        config.MAX_YEAR]. Если год не распознан — REJECT, а не публикация
        "на всякий случай" с дефолтным годом.
@@ -31,12 +32,11 @@ filter_year_range() — тот же диапазон года, но на эта�
 """
 
 import logging
-import re
 from datetime import datetime, timezone
 from pathlib import Path
 
 import config
-from lead_post_builder import _build_title
+from post_text_builder import _build_title, HANGUL_RE, ALLOWED_TITLE_RE
 
 logger = logging.getLogger("post_validator")
 
@@ -54,13 +54,6 @@ class PublishBlockedError(Exception):
     прямо в точке отправки забыть/обойти нельзя, в отличие от отдельного
     вызова validate_post_before_publish() где-то выше по стеку.
     """
-
-# Хангыль (корейский алфавит): слоговые блоки 가-힣 + отдельные
-# буквы чамо (изначальный блок Hangul Jamo) ᄀ-ᇿ.
-HANGUL_RE = re.compile(r"[가-힣ᄀ-ᇿ]")
-
-# Разрешено в названии: латиница, кириллица, цифры, пробелы, дефисы, точки.
-ALLOWED_TITLE_RE = re.compile(r"^[A-Za-zА-Яа-яЁё0-9 \-.]+$")
 
 
 def _log_rejection(car: dict, reason: str) -> None:

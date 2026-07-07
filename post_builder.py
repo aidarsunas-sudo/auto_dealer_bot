@@ -25,8 +25,10 @@ def calculate_price_details(car: dict, rates: dict) -> dict | None:
     цифры, а не каждый считал по-своему.
 
     Args:
-        car: словарь с полями price, cc, hp, fuel_code, year (см.
+        car: словарь с полями price, cc, hp, fuel_code, year, month (см.
              scraper.parse_car_page() / used_car_scraper.parse_used_car_list()).
+             month — необязателен (не все источники его дают, см.
+             age_calculator.py про консервативный дефолт при отсутствии).
         rates: курсы валют (см. rates.fetch_cbr_rates()).
 
     Returns:
@@ -48,6 +50,7 @@ def calculate_price_details(car: dict, rates: dict) -> dict | None:
     hp = car.get("hp")
     fuel_code = car.get("fuel_code")
     manufacture_year = car.get("year")
+    manufacture_month = car.get("month")  # см. age_calculator.py — точность по месяцу
 
     if not all([price_krw, cc, hp, fuel_code]):
         return None
@@ -55,7 +58,8 @@ def calculate_price_details(car: dict, rates: dict) -> dict | None:
     # Возраст считаем по реальному году выпуска, если он известен (машина
     # с пробегом). Если года нет — это каталог НОВЫХ авто у дилера, и мы
     # точно знаем, что машина актуального модельного года.
-    age = age_bucket_from_year(manufacture_year) if manufacture_year else age_bucket_for_new_catalog_car()
+    age = (age_bucket_from_year(manufacture_year, manufacture_month) if manufacture_year
+           else age_bucket_for_new_catalog_car())
 
     result = calc_full(
         price=price_krw,

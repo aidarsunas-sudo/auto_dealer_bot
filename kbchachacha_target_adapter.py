@@ -236,14 +236,13 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
                 # пропускаем" — иначе в отчёт/базу попадают чужие моторы.
                 continue
 
-            # used_car_scraper.parse_all_pages() кладёт полное описание
-            # (марка+модель+комплектация с сайта) в car["model"], а
-            # car["trim"] у него — просто car_seq (числовой ID, для
-            # уникальности в старой схеме WATCHLIST/USED_CAR_SEARCHES). Для
-            # отображения в посте нужно ровно наоборот: общее имя модели —
-            # из target_models.json, а подробности с сайта — как раз в
-            # trim. Сохраняем ДО перезаписи car["model"].
-            car["trim"] = car["model"]
+            # used_car_scraper.parse_used_car_list() кладёт человекочитаемое
+            # имя в car["model"] и сырой заголовок с сайта (марка+модель+
+            # комплектация целиком) в car["raw_title"]. Для отображения в
+            # посте нужно: общее имя модели — из target_models.json
+            # (канонический brand/model, надёжнее чем find_spec() на сайте),
+            # а подробности комплектации с сайта — в trim.
+            car["trim"] = car.get("raw_title", "")
             car["brand"] = target["brand"]
             car["model"] = target["model"]
             car["source"] = "kbchachacha"
@@ -271,11 +270,10 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
     (подтверждено вживую: работает, отдаёт объявления вперемешку по всем
     маркам). Резолвер/кэш здесь не нужны — марка не фиксирована.
 
-    used_car_scraper.parse_all_pages() уже кладёт полное описание (марка +
-    модель + комплектация) в car["model"], а car["trim"] — car_seq (числовой
-    ID) — brand оставляем пустым (как и для остальных источников без
-    структурированного brand/model в свободном тексте), model = полное
-    описание с сайта.
+    used_car_scraper.parse_used_car_list() уже кладёт человекочитаемое имя
+    в car["model"] (spec.label, если модель распознана — см. его докстринг)
+    — brand оставляем пустым (как и для остальных источников без
+    структурированного brand/model в свободном тексте).
 
     Фильтр по max_hp — см. docstring charancha_scraper.browse_broad
     (машины с неопределённым hp отбрасываются, а не пропускаются).
@@ -306,19 +304,12 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
         if fuel_types is not None and car.get("fuel_code") not in fuel_types:
             continue
 
-        # used_car_scraper.parse_all_pages() кладёт car_seq (числовой ID) в
-        # car["trim"] — как и в search_target_model(), это не то, что можно
-        # показать в посте. В broad-режиме canonical model из target'а нет,
-        # так что просто убираем trim.
-        car["trim"] = ""
-        # car["model"] по умолчанию — сырой корейский текст с сайта (title
-        # целиком). Раз hp уже найден (проверка выше) — find_spec() внутри
-        # used_car_scraper.py уже опознал модель, и car["label"] содержит
-        # её человекочитаемое имя (напр. "Kia Ray 1.0 Gasoline") — используем
-        # его вместо сырого текста, иначе в посте выходит необработанный
-        # корейский заголовок (см. FINAL_STATE.md, реальный случай в проде).
-        if car.get("label"):
-            car["model"] = car["label"]
+        # car["model"]/car["trim"] уже в нужном виде — used_car_scraper.
+        # parse_used_car_list() отдаёт человекочитаемое имя в model и пустой
+        # trim напрямую у источника (см. его докстринг) — здесь больше
+        # ничего переписывать не нужно (раньше здесь был override,
+        # дублирующий эту же логику — убран, чтобы не было двух мест,
+        # которые могут разойтись, см. FINAL_STATE.md).
         car["source"] = "kbchachacha"
         all_cars.append(car)
 

@@ -23,7 +23,7 @@ main_pipeline.py, targeted-режим) и в model_specs.py (расчёт см³
 
 Дефолты (если не переопределены явно):
     --year-from  = 2022 (фиксированный год, см. YEAR_FROM_DEFAULT ниже)
-    --year-to    = 2024 (фиксированный год, см. YEAR_TO_DEFAULT ниже)
+    --year-to    = 2023 (фиксированный год, см. YEAR_TO_DEFAULT ниже)
     --mileage-max = config.MAX_MILEAGE_KM
 
 --source ОБЯЗАТЕЛЕН — по правилам model_specs.py, только проверенные данные.
@@ -54,7 +54,7 @@ ALLOWED_FUELS = ("petrol", "diesel", "hybrid_p", "hybrid_d", "elec")
 # зафиксировано явно, чтобы не плавало при смене текущей даты). Совпадает с
 # config.MIN_YEAR/MAX_YEAR (гейт публикации, post_validator.py).
 YEAR_FROM_DEFAULT = 2022
-YEAR_TO_DEFAULT = 2024
+YEAR_TO_DEFAULT = 2023
 
 
 def _safe_print(text: str) -> None:

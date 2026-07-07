@@ -29,24 +29,40 @@ logger = logging.getLogger("charancha_scraper")
 
 
 def _manufacture_year(item: dict) -> int | None:
+    """Обратная совместимость — только год, см. _manufacture_year_month()."""
+    return _manufacture_year_month(item)[0]
+
+
+def _manufacture_year_month(item: dict) -> tuple:
     """
-    Год ВЫПУСКА для расчёта таможенного возраста (customs_calculator.py) —
-    НЕ item["releaseYear"]! Это корейский маркетинговый "модельный год"
-    (расходится с реальной датой почти в половине объявлений — проверено
-    вживую: 51 из 100 в выборке Kia K3). Настоящая дата — item["firstRegisteredAt"]
-    (дата первой регистрации, формат ГГГГММ или ГГГГММДД — оба варианта
-    встречаются) — берём первые 4 символа как год.
+    Год И МЕСЯЦ выпуска для расчёта таможенного возраста (age_calculator.py:
+    месяц важен у границы 3/5/7 лет, см. его докстринг) — НЕ item["releaseYear"]!
+    Это корейский маркетинговый "модельный год" (расходится с реальной датой
+    почти в половине объявлений — проверено вживую: 51 из 100 в выборке
+    Kia K3). Настоящая дата — item["firstRegisteredAt"] (дата первой
+    регистрации, формат ГГГГММ или ГГГГММДД — оба варианта встречаются) —
+    год из первых 4 символов, месяц из следующих 2 (если строка достаточно
+    длинная — при ГГГГ-only варианте месяц остаётся None).
+
+    Returns:
+        (year, month) — month может быть None (releaseYear-фолбэк без
+        месяца, или firstRegisteredAt короче ожидаемого) — age_calculator.py
+        сам подставит консервативный дефолт в этом случае.
     """
     first_registered = item.get("firstRegisteredAt")
     if first_registered:
-        year_str = str(first_registered)[:4]
+        digits = str(first_registered)
+        year_str = digits[:4]
         if year_str.isdigit():
-            return int(year_str)
+            year = int(year_str)
+            month_str = digits[4:6]
+            month = int(month_str) if month_str.isdigit() and 1 <= int(month_str) <= 12 else None
+            return year, month
 
     release_year = item.get("releaseYear")
     if release_year and str(release_year).isdigit():
-        return int(release_year)
-    return None
+        return int(release_year), None
+    return None, None
 
 
 FILTER_URL = "https://svc.charancha.com/search/cars/buy-cars/search/filter"
@@ -106,7 +122,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
     title_for_spec = f"{target['brand']} {target['model']} {target.get('engine', '')} {raw_title}"
 
     cc_from_site = item.get("displacement")
-    year_int = _manufacture_year(item)
+    year_int, month_int = _manufacture_year_month(item)
 
     spec = find_spec(title_for_spec, year_int)
     cc = cc_from_site or (spec.cc if spec else None)
@@ -121,6 +137,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
         "trim": item.get("gradeDetailName") or raw_title,
         "external_id": external_id,
         "year": year_int,
+        "month": month_int,
         "mileage_km": item.get("mileage"),
         "cc": cc,
         "hp": hp,
@@ -134,6 +151,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
         "transmission": item.get("transmissionName"),
         "is_accident": item.get("isAccident"),
         "is_seizure": item.get("isSeizure"),
+        "color": item.get("colorName"),
     }
 
 
@@ -204,7 +222,7 @@ def _normalize_broad_item(item: dict) -> dict:
     raw_title = f"{item.get('makerName', '')} {item.get('modelName', '')} {item.get('modelDetailName', '')}".strip()
 
     cc_from_site = item.get("displacement")
-    year_int = _manufacture_year(item)
+    year_int, month_int = _manufacture_year_month(item)
 
     spec = find_spec(raw_title, year_int)
     cc = cc_from_site or (spec.cc if spec else None)
@@ -230,6 +248,7 @@ def _normalize_broad_item(item: dict) -> dict:
         "trim": trim_display,
         "external_id": external_id,
         "year": year_int,
+        "month": month_int,
         "mileage_km": item.get("mileage"),
         "cc": cc,
         "hp": hp,
@@ -242,6 +261,7 @@ def _normalize_broad_item(item: dict) -> dict:
         "transmission": item.get("transmissionName"),
         "is_accident": item.get("isAccident"),
         "is_seizure": item.get("isSeizure"),
+        "color": item.get("colorName"),
     }
 
 

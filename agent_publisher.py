@@ -3,11 +3,19 @@
 agent_publisher.py — "агент-публикатор" в мультиагентном пайплайне (orchestrator.py)
 и в main_pipeline.py.
 
-publish_post() — тонкая обёртка над telegram_publisher: без фото —
-send_to_telegram() (как раньше, orchestrator.py его так и вызывает — без
-изменений), с фото — sendPhoto/sendMediaGroup в зависимости от количества.
-Telegram — ОСНОВНОЙ канал, от него зависит возвращаемое значение (и,
-дальше по цепочке, дедуп в published_log.json).
+publish_post() — ЕДИНСТВЕННАЯ функция во всём проекте, которая имеет право
+вызывать telegram_publisher/vk_publisher (проверено grep — прямых вызовов
+send_to_telegram/send_photo_to_telegram/send_media_group_to_telegram/
+send_to_vk больше нигде нет). Именно поэтому жёсткий гейт
+validate_post_before_publish() стоит ЗДЕСЬ, первым делом внутри самой
+функции, а не отдельным вызовом в каждом из вызывающих скриптов
+(main.py/main_pipeline.py/publish_now.py) — так его нельзя ни забыть
+добавить в одном из них, ни обойти. См. PublishBlockedError.
+
+Без фото — send_to_telegram() (как раньше), с фото — sendPhoto/
+sendMediaGroup в зависимости от количества. Telegram — ОСНОВНОЙ канал, от
+него зависит возвращаемое значение (и, дальше по цепочке, дедуп в
+published_log.json).
 
 Если объявление заявлено с фото, но прикрепить их не удалось (битая
 ссылка/сбой сети) — публикация БЛОКИРУЕТСЯ целиком (не откатывается на
@@ -35,29 +43,55 @@ import requests
 import config
 from telegram_publisher import send_to_telegram, send_photo_to_telegram, send_media_group_to_telegram
 from vk_publisher import send_to_vk
+from post_validator import validate_post_before_publish, PublishBlockedError
 
 logger = logging.getLogger("agent_publisher")
 
 
-def publish_post(text: str, photos: list | None = None, dry_run: bool = False) -> bool:
+def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: bool = False) -> bool:
     """
     Публикует готовый текст поста в Telegram (основной канал) и, следом,
     в VK (второй канал, best-effort — см. докстринг файла).
 
+    Первым делом (кроме одного явного исключения ниже) прогоняет car через
+    validate_post_before_publish() — фото/название/год, см. post_validator.py.
+    Нарушение — PublishBlockedError, HTTP-запрос к Telegram/VK не делается
+    вообще. Это ЕДИНСТВЕННОЕ место в проекте, где стоит эта проверка —
+    вызывающий код (main.py/main_pipeline.py/publish_now.py) НЕ должен
+    дублировать вызов validate_post_before_publish() сам.
+
     Args:
+        car: словарь объявления (brand/model/trim/year/photos/url/...) —
+             используется ТОЛЬКО для валидации и чтобы достать photos;
+             сам текст поста уже готов заранее (см. text).
         text: готовый текст поста.
-        photos: список URL фото (может быть пустым/None — тогда обычный
-                текст, как и раньше). 1 фото -> sendPhoto с caption=text,
-                >1 -> sendMediaGroup (первое с caption, остальные без).
         dry_run: не публиковать по-настоящему, только показать в консоли.
+        skip_validation: пропустить гейт. ЕДИНСТВЕННЫЙ законный случай —
+            новые авто из дилерского каталога (main.py: process_one_page,
+            WATCHLIST) — там car["year"] намеренно всегда None и сайт
+            дилера вообще не отдаёт фото (см. scraper.py,
+            calculate_price_details: age_bucket_for_new_catalog_car()) —
+            это не брак данных, а другой класс объявлений. Для ЛЮБОГО
+            источника б/у авто — оставлять False.
 
     Returns:
         True при успехе в Telegram (VK публикуется независимо и не влияет
         на этот результат). Если объявление заявлено с фото, но прикрепить
         их не удалось (например, битая ссылка на изображение) — публикация
         БЛОКИРУЕТСЯ целиком (False), а не откатывается на текст без фото.
+
+    Raises:
+        PublishBlockedError: гейт не пройден (см. skip_validation выше).
+            Вызывающий код должен ловить её на уровне цикла по машинам
+            (продолжить со следующей), а не давать упасть всему прогону.
     """
-    photos = photos or []
+    if not skip_validation:
+        valid, reason = validate_post_before_publish(car)
+        if not valid:
+            identifier = car.get("url") or car.get("external_id") or "?"
+            raise PublishBlockedError(f"Пост {identifier} заблокирован: {reason}")
+
+    photos = car.get("photos") or []
 
     if not photos:
         ok = send_to_telegram(text, dry_run=dry_run)

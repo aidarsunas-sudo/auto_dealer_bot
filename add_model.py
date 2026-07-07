@@ -22,8 +22,8 @@ main_pipeline.py, targeted-режим) и в model_specs.py (расчёт см³
         --year-from 2020 --year-to 2022 --mileage-max 50000
 
 Дефолты (если не переопределены явно):
-    --year-from  = текущий год - 3
-    --year-to    = текущий год
+    --year-from  = 2022 (фиксированный год, см. YEAR_FROM_DEFAULT ниже)
+    --year-to    = 2024 (фиксированный год, см. YEAR_TO_DEFAULT ниже)
     --mileage-max = config.MAX_MILEAGE_KM
 
 --source ОБЯЗАТЕЛЕН — по правилам model_specs.py, только проверенные данные.
@@ -40,7 +40,6 @@ import argparse
 import json
 import re
 import sys
-from datetime import datetime
 from pathlib import Path
 
 import config
@@ -50,6 +49,12 @@ MODEL_SPECS_PATH = Path(__file__).resolve().parent / "model_specs.py"
 INSERT_MARKER = "    # --- Добавляй новые модели ниже по этому же образцу ---"
 
 ALLOWED_FUELS = ("petrol", "diesel", "hybrid_p", "hybrid_d", "elec")
+
+# Фиксированный диапазон года выпуска по умолчанию (не "текущий год минус N" —
+# зафиксировано явно, чтобы не плавало при смене текущей даты). Совпадает с
+# config.MIN_YEAR/MAX_YEAR (гейт публикации, post_validator.py).
+YEAR_FROM_DEFAULT = 2022
+YEAR_TO_DEFAULT = 2024
 
 
 def _safe_print(text: str) -> None:
@@ -68,7 +73,6 @@ def _safe_print(text: str) -> None:
 
 
 def parse_args() -> argparse.Namespace:
-    current_year = datetime.now().year
     parser = argparse.ArgumentParser(
         description="Добавить модель одновременно в target_models.json и model_specs.py",
     )
@@ -89,8 +93,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--match", default=None,
                          help='Явный набор ключевых слов через запятую (например "k5,2.0"), '
                               "переопределяет автоматически собранный из model+engine")
-    parser.add_argument("--year-from", type=int, default=current_year - 3)
-    parser.add_argument("--year-to", type=int, default=current_year)
+    parser.add_argument("--year-from", type=int, default=YEAR_FROM_DEFAULT)
+    parser.add_argument("--year-to", type=int, default=YEAR_TO_DEFAULT)
     parser.add_argument("--mileage-max", type=int, default=config.MAX_MILEAGE_KM)
     parser.add_argument("--force", action="store_true",
                          help="Добавить, даже если найден конфликт match с уже существующей записью")

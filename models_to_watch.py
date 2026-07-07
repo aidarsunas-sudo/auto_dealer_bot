@@ -13,7 +13,8 @@ models_to_watch.py — простой список моделей для пои�
 sync_to_target_models() вызывается автоматически в начале каждого запуска
 main_pipeline.py (и локального, и по расписанию) — переносит из этого
 файла в target_models.json любые модели, которых там ещё нет, с разумными
-дефолтами (год выпуска — последние 3 года, пробег — как у остальных
+дефолтами (год выпуска — фиксированный диапазон 2022-2024, см.
+add_model.YEAR_FROM_DEFAULT/YEAR_TO_DEFAULT, пробег — как у остальных
 моделей). Существующие записи в target_models.json (например, с более
 точными фильтрами по годам/пробегу, добавленные вручную) не трогает и не
 удаляет — этот файл только ДОБАВЛЯЕТ новые модели, никогда не убирает.
@@ -27,11 +28,10 @@ models_to_watch.txt, но саму запись из target_models.json прид
 """
 
 import logging
-from datetime import datetime
 from pathlib import Path
 
 import config
-from add_model import append_to_target_models
+from add_model import append_to_target_models, YEAR_FROM_DEFAULT, YEAR_TO_DEFAULT
 
 MODELS_TXT_PATH = Path(__file__).resolve().parent / "models_to_watch.txt"
 
@@ -62,11 +62,10 @@ def sync_to_target_models(log: logging.Logger | None = None) -> None:
     if not entries:
         return
 
-    current_year = datetime.now().year
     for brand, model in entries:
         status = append_to_target_models(
             brand, model, engine="",
-            year_from=current_year - 3, year_to=current_year,
+            year_from=YEAR_FROM_DEFAULT, year_to=YEAR_TO_DEFAULT,
             mileage_max=config.MAX_MILEAGE_KM,
         )
         if status == "added":

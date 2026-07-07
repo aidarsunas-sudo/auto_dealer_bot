@@ -13,6 +13,7 @@ target_collector.py — сбор объявлений по target_models.json ч
 import logging
 
 from target_model_resolver import load_target_models
+from post_validator import filter_year_range
 
 import kbchachacha_target_adapter
 import encar_scraper
@@ -61,4 +62,9 @@ def collect_target_model_cars(log: logging.Logger) -> list:
                 continue
             all_cars.extend(cars)
 
-    return all_cars
+    # Жёсткий диапазон года (config.MIN_YEAR/MAX_YEAR) — сразу после сбора,
+    # до дедупа/расчёта цены/генерации поста. Год per-модели из
+    # target_models.json (year_from/year_to) уже применён внутри
+    # search_target_model() каждого источника — это ДОПОЛНИТЕЛЬНЫЙ,
+    # безусловный рубеж (см. post_validator.py).
+    return filter_year_range(all_cars, log, "target_collector")

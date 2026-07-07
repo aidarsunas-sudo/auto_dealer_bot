@@ -118,14 +118,21 @@ def process_one_page(url: str, brand: str, model: str, conn, rates: dict, dry_ru
                 # или иначе не хватает данных — молчим, не публикуем неточную
                 # цену и не откатываемся на старый формат.
                 continue
-            publish_post(post_text, photos=car.get("photos"), dry_run=dry_run)
+            # skip_validation=True: новые авто из дилерского каталога
+            # (WATCHLIST) — car["year"] намеренно всегда None (см.
+            # scraper.py), фото сайт дилера не отдаёт вовсе. Это другой
+            # класс объявлений, а не брак данных — см. agent_publisher.py.
+            publish_post(car, post_text, dry_run=dry_run, skip_validation=True)
 
             # Небольшая пауза между публикациями, чтобы не отправлять всё
             # одним залпом (и чтобы Telegram не посчитал это спамом).
             time.sleep(2)
         except Exception as error:
             # Ошибка с ОДНОЙ конкретной машиной не должна ронять обработку
-            # остальных найденных на этой же странице.
+            # остальных найденных на этой же странице. PublishBlockedError
+            # (см. post_validator.py) тоже сюда попадёт — это ожидаемо,
+            # skip_validation=True выше её никогда не поднимет, но общий
+            # except всё равно должен пережить любую другую ошибку одной машины.
             log.error(f"Ошибка при обработке {car.get('trim', '?')}: {error}")
 
     return True
@@ -164,10 +171,19 @@ def process_used_car_search(search_params: dict, conn, rates: dict, dry_run: boo
             post_text = build_price_alert_post(car, status, rates)
             if post_text is None:
                 continue
-            publish_post(post_text, photos=car.get("photos"), dry_run=dry_run)
+
+            # Гейт (фото/название/год) — внутри publish_post() самой,
+            # см. agent_publisher.py. Здесь его дублировать не нужно и не
+            # надо: именно раздельные вызовы validate_post_before_publish()
+            # в каждом вызывающем скрипте (не задеплоенные) стали причиной
+            # инцидента 2026-07-07 — см. FINAL_STATE.md.
+            publish_post(car, post_text, dry_run=dry_run)
 
             time.sleep(2)
         except Exception as error:
+            # PublishBlockedError (пост отклонён гейтом) тоже ловится тут —
+            # это ожидаемое поведение: одна отклонённая машина не должна
+            # останавливать обработку остальных объявлений этого запроса.
             log.error(f"Ошибка при обработке объявления {car.get('external_id', '?')}: {error}")
 
     return True

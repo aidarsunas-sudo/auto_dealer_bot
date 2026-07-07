@@ -78,6 +78,21 @@ jobs:
           SEARCH_MODE: both
         run: python main_pipeline.py
 
+      - name: Проверить rejected_posts.log (гейт validate_post_before_publish)
+        if: always()
+        # Каждый прогон стартует на чистой машине — если файл появился и
+        # не пуст, значит в ЭТОМ прогоне гейт (post_validator.py) кого-то
+        # отклонил (нет фото / корейский текст в названии / год вне
+        # диапазона). Явно фейлим job (exit 1), чтобы это было видно
+        # красным крестиком в Actions, а не тихо терялось в логе.
+        run: |
+          if [ -s rejected_posts.log ]; then
+            echo "::error::validate_post_before_publish() отклонил пост(ы) в этом прогоне:"
+            cat rejected_posts.log
+            exit 1
+          fi
+          echo "rejected_posts.log пуст — гейт ничего не отклонил в этом прогоне"
+
       - name: Сохранить журнал публикаций и лог
         if: always()  # сохраняем, даже если прогон упал — лог полезен для диагностики
         run: |

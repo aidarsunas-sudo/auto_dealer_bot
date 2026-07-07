@@ -31,7 +31,6 @@ publish_now.py — публикация ПРЯМО СЕЙЧАС, одной ко
 import argparse
 import json
 import logging
-from datetime import datetime
 from pathlib import Path
 
 import config
@@ -39,7 +38,9 @@ from target_collector import NOLOGIN_TARGET_ADAPTERS
 from published_log import load_log, save_log, select_candidates, mark_posted
 from main_pipeline import FRESHNESS_DAYS
 from lead_post_builder import build_lead_post
+from post_validator import PublishBlockedError
 from agent_publisher import publish_post
+from add_model import YEAR_FROM_DEFAULT, YEAR_TO_DEFAULT
 from rates import fetch_cbr_rates
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -108,7 +109,14 @@ def publish_car(car: dict, post_text: str, pub_log: dict, dry_run: bool, force: 
 
     logger.info(f"Публикую: {car.get('brand', '')} {car.get('model', '')} "
                 f"{car.get('trim', '')} (пробег {car.get('mileage_km', '?')} км, {car.get('url')})")
-    ok = publish_post(post_text, photos=car.get("photos"), dry_run=dry_run)
+
+    # Гейт (фото/название/год) — внутри publish_post() самой, см.
+    # agent_publisher.py. Здесь ловим PublishBlockedError отдельно, чтобы
+    # дать чистое сообщение в консоли, а не сырой traceback.
+    try:
+        ok = publish_post(car, post_text, dry_run=dry_run)
+    except PublishBlockedError as error:
+        raise SystemExit(f"{error} (см. rejected_posts.log)")
 
     if ok and not dry_run:
         mark_posted(pub_log, car["url"], car.get("brand"), car.get("model"))
@@ -121,7 +129,6 @@ def publish_car(car: dict, post_text: str, pub_log: dict, dry_run: bool, force: 
 
 
 def run() -> None:
-    current_year = datetime.now().year
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("query", help='"Марка Модель" (например "Hyundai Sonata") '
                                        "или путь к готовому JSON-файлу из model_search_results/")
@@ -129,8 +136,8 @@ def run() -> None:
                          help="не публиковать по-настоящему, только показать, что получилось бы")
     parser.add_argument("--force", action="store_true",
                          help="опубликовать, даже если эта машина уже отмечена опубликованной")
-    parser.add_argument("--year-from", type=int, default=current_year - 3)
-    parser.add_argument("--year-to", type=int, default=current_year)
+    parser.add_argument("--year-from", type=int, default=YEAR_FROM_DEFAULT)
+    parser.add_argument("--year-to", type=int, default=YEAR_TO_DEFAULT)
     parser.add_argument("--mileage-max", type=int, default=config.MAX_MILEAGE_KM)
     args = parser.parse_args()
 

@@ -77,6 +77,18 @@ jobs:
           LOG_FILE_PATH: logs/app.log
         run: python main.py
 
+      # Шаг 4.5: как и в main_pipeline.yml — если гейт validate_post_before_publish
+      # (post_validator.py) кого-то отклонил в ЭТОМ прогоне, явно фейлим job.
+      - name: Проверить rejected_posts.log (гейт validate_post_before_publish)
+        if: always()
+        run: |
+          if [ -s rejected_posts.log ]; then
+            echo "::error::validate_post_before_publish() отклонил пост(ы) в этом прогоне:"
+            cat rejected_posts.log
+            exit 1
+          fi
+          echo "rejected_posts.log пуст — гейт ничего не отклонил в этом прогоне"
+
       # Шаг 5: сохраняем обновлённую базу данных и лог обратно в репозиторий,
       # чтобы следующий прогон "помнил", что уже публиковалось.
       - name: Сохранить базу данных

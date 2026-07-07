@@ -155,8 +155,11 @@ def run() -> None:
         if post_text is None:
             continue  # не хватает данных для честной цены под ключ — пропускаем
 
+        # Гейт (фото/название/год) — внутри publish_post() самой, см.
+        # agent_publisher.py. PublishBlockedError ловится общим except ниже
+        # — одна отклонённая машина не должна останавливать весь прогон.
         try:
-            ok = publish_post(post_text, photos=car.get("photos"), dry_run=args.dry_run)
+            ok = publish_post(car, post_text, dry_run=args.dry_run)
         except Exception as error:
             log.error(f"Не удалось опубликовать {car.get('brand', '?')} {car.get('model', '?')}: {error}")
             continue

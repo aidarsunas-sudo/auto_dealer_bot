@@ -15,6 +15,7 @@ hp<=max_hp (порог льготного утильсбора для физли
 import logging
 
 from broad_search_config import load_broad_search_config
+from post_validator import filter_year_range
 
 import kbchachacha_target_adapter
 import encar_scraper
@@ -51,4 +52,7 @@ def collect_broad_cars(log: logging.Logger) -> list:
             continue
         all_cars.extend(cars)
 
-    return all_cars
+    # Жёсткий диапазон года (config.MIN_YEAR/MAX_YEAR) — сразу после сбора,
+    # безусловно, независимо от broad_search_config.json["year_from"]
+    # (который необязателен и не проверяет верхнюю границу) — см. post_validator.py.
+    return filter_year_range(all_cars, log, "broad_collector")

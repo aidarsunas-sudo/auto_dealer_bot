@@ -96,6 +96,13 @@ MAX_MILEAGE_KM: int = int(os.getenv("MAX_MILEAGE_KM", "40000"))
 # исключением. Можно увеличивать по мере роста model_specs.py.
 RECENT_MODEL_DAYS: int = int(os.getenv("RECENT_MODEL_DAYS", "3"))
 
+# --- Валидация поста перед публикацией (жёсткий код-гейт, см. post_validator.py) ---
+# Детерминированная проверка, НЕ промпт-инструкция агенту — см. докстринг
+# post_validator.py про то, почему код, а не LLM-промпт.
+MIN_PHOTOS_PER_POST: int = int(os.getenv("MIN_PHOTOS_PER_POST", "3"))
+MIN_YEAR: int = int(os.getenv("MIN_YEAR", "2022"))
+MAX_YEAR: int = int(os.getenv("MAX_YEAR", "2024"))
+
 # --- Заголовки для запросов к сайтам ---
 # Это "представление" нашей программы сайту — мы говорим "я обычный браузер
 # Chrome", чтобы сайт не отказывал нам в ответе. Без этого некоторые сайты

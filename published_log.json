@@ -5843,7 +5843,9 @@
   },
   "https://fem.encar.com/cars/detail/41738865": {
     "first_seen": "2026-07-07T09:45:07",
-    "posted_at": null
+    "posted_at": "2026-07-08T02:46:12",
+    "brand": "",
+    "model": "Hyundai Venue 1.6 Gasoline"
   },
   "https://fem.encar.com/cars/detail/41938037": {
     "first_seen": "2026-07-07T09:45:07",
@@ -5883,11 +5885,15 @@
   },
   "https://fem.encar.com/cars/detail/42115862": {
     "first_seen": "2026-07-07T09:45:07",
-    "posted_at": null
+    "posted_at": "2026-07-08T02:46:18",
+    "brand": "",
+    "model": "Chevrolet Trax Crossover 1.2 Turbo (корейское название сайта)"
   },
   "https://fem.encar.com/cars/detail/42281137": {
     "first_seen": "2026-07-07T09:45:07",
-    "posted_at": null
+    "posted_at": "2026-07-08T02:46:25",
+    "brand": "",
+    "model": "Renault XM3 1.6 GTe"
   },
   "https://fem.encar.com/cars/detail/42213243": {
     "first_seen": "2026-07-07T09:45:07",
@@ -6441,6 +6447,104 @@
   },
   "https://fem.encar.com/cars/detail/42262685": {
     "first_seen": "2026-07-07T20:00:30",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28542516": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41776116": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41977084": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42326276": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42311231": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41021956": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41014843": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41979574": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42113022": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42065326": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42061967": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42255712": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41701085": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42331070": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42138161": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42021466": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42135449": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41698463": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28535298": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28531759": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42209532": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": "2026-07-08T02:46:31",
+    "brand": "",
+    "model": "Audi Q2 35 TFSI"
+  },
+  "https://fem.encar.com/cars/detail/42294804": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42165416": {
+    "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42255784": {
+    "first_seen": "2026-07-08T02:46:10",
     "posted_at": null
   }
 }

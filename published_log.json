@@ -4833,11 +4833,15 @@
   },
   "https://fem.encar.com/cars/detail/42209799": {
     "first_seen": "2026-07-06T18:19:00",
-    "posted_at": null
+    "posted_at": "2026-07-08T14:10:59",
+    "brand": "",
+    "model": "Hyundai Avante Hybrid 1.6 G+E"
   },
   "https://fem.encar.com/cars/detail/42158649": {
     "first_seen": "2026-07-06T18:19:00",
-    "posted_at": null
+    "posted_at": "2026-07-08T14:11:05",
+    "brand": "",
+    "model": "Hyundai Avante Hybrid 1.6 G+E"
   },
   "https://fem.encar.com/cars/detail/42154598": {
     "first_seen": "2026-07-06T18:19:00",
@@ -6619,6 +6623,74 @@
   },
   "https://fem.encar.com/cars/detail/42149228": {
     "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28290609": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42336568": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42331853": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42125522": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42116621": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41995617": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28516713": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28388143": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42005968": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42172246": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42041441": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42220593": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41890575": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41998088": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42034087": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42167289": {
+    "first_seen": "2026-07-08T14:10:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42216393": {
+    "first_seen": "2026-07-08T14:10:57",
     "posted_at": null
   }
 }

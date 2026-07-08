@@ -3119,7 +3119,9 @@
   },
   "https://fem.encar.com/cars/detail/42229228": {
     "first_seen": "2026-07-06T18:19:00",
-    "posted_at": null
+    "posted_at": "2026-07-08T08:32:14",
+    "brand": "",
+    "model": "Kia K5 (DL3) 2.0 Gasoline (Smartstream G2.0 MPi)"
   },
   "https://fem.encar.com/cars/detail/42302991": {
     "first_seen": "2026-07-06T18:19:00",
@@ -6545,6 +6547,78 @@
   },
   "https://fem.encar.com/cars/detail/42255784": {
     "first_seen": "2026-07-08T02:46:10",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42335086": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28543448": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41090959": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42334163": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42332839": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42336190": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42103642": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42333730": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42332818": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42099373": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42328552": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42092492": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42328551": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42333616": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42322333": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42155098": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42298134": {
+    "first_seen": "2026-07-08T08:32:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42149228": {
+    "first_seen": "2026-07-08T08:32:13",
     "posted_at": null
   }
 }

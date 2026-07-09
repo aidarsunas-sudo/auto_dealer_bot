@@ -6441,7 +6441,9 @@
   },
   "https://fem.encar.com/cars/detail/42217972": {
     "first_seen": "2026-07-07T20:00:30",
-    "posted_at": null
+    "posted_at": "2026-07-09T19:49:49",
+    "brand": "",
+    "model": "Hyundai Avante 1.6 Gasoline"
   },
   "https://fem.encar.com/cars/detail/42268060": {
     "first_seen": "2026-07-07T20:00:30",
@@ -6867,6 +6869,14 @@
   },
   "https://fem.encar.com/cars/detail/42059575": {
     "first_seen": "2026-07-09T15:15:21",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42333428": {
+    "first_seen": "2026-07-09T19:49:46",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42331491": {
+    "first_seen": "2026-07-09T19:49:46",
     "posted_at": null
   }
 }

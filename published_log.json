@@ -3733,7 +3733,9 @@
   },
   "https://fem.encar.com/cars/detail/42280929": {
     "first_seen": "2026-07-06T18:19:00",
-    "posted_at": null
+    "posted_at": "2026-07-12T13:31:04",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://fem.encar.com/cars/detail/42269528": {
     "first_seen": "2026-07-06T18:19:00",

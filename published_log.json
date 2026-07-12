@@ -6319,7 +6319,9 @@
   },
   "https://fem.encar.com/cars/detail/42281364": {
     "first_seen": "2026-07-07T14:39:22",
-    "posted_at": null
+    "posted_at": "2026-07-12T02:51:38",
+    "brand": "",
+    "model": "Kia K5 (DL3) 2.0 Gasoline (Smartstream G2.0 MPi)"
   },
   "https://fem.encar.com/cars/detail/42279401": {
     "first_seen": "2026-07-07T14:39:22",
@@ -7213,6 +7215,18 @@
   },
   "https://fem.encar.com/cars/detail/42126740": {
     "first_seen": "2026-07-11T19:08:12",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28549881": {
+    "first_seen": "2026-07-12T02:51:37",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28533434": {
+    "first_seen": "2026-07-12T02:51:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42302811": {
+    "first_seen": "2026-07-12T02:51:37",
     "posted_at": null
   }
 }

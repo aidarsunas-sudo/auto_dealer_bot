@@ -7067,7 +7067,9 @@
   },
   "https://fem.encar.com/cars/detail/42269891": {
     "first_seen": "2026-07-10T14:31:49",
-    "posted_at": null
+    "posted_at": "2026-07-13T09:32:08",
+    "brand": "",
+    "model": "Renault XM3 1.6 GTe"
   },
   "https://fem.encar.com/cars/detail/42297200": {
     "first_seen": "2026-07-10T14:31:49",
@@ -7305,6 +7307,38 @@
   },
   "https://fem.encar.com/cars/detail/42181498": {
     "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42360555": {
+    "first_seen": "2026-07-13T09:32:06",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42346258": {
+    "first_seen": "2026-07-13T09:32:06",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42359503": {
+    "first_seen": "2026-07-13T09:32:06",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42362057": {
+    "first_seen": "2026-07-13T09:32:06",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42358016": {
+    "first_seen": "2026-07-13T09:32:06",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42363017": {
+    "first_seen": "2026-07-13T09:32:06",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42362157": {
+    "first_seen": "2026-07-13T09:32:06",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42265512": {
+    "first_seen": "2026-07-13T09:32:06",
     "posted_at": null
   }
 }

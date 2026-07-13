@@ -2039,7 +2039,9 @@
   },
   "https://fem.encar.com/cars/detail/42319405": {
     "first_seen": "2026-07-06T18:19:00",
-    "posted_at": null
+    "posted_at": "2026-07-13T02:51:54",
+    "brand": "",
+    "model": "Kia K3 1.6 (база, Смартстрим Гамма-II MPI)"
   },
   "https://fem.encar.com/cars/detail/42303086": {
     "first_seen": "2026-07-06T18:19:00",
@@ -7229,7 +7231,9 @@
   },
   "https://fem.encar.com/cars/detail/42302811": {
     "first_seen": "2026-07-12T02:51:37",
-    "posted_at": null
+    "posted_at": "2026-07-13T02:51:58",
+    "brand": "",
+    "model": "Hyundai Avante 1.6 Gasoline"
   },
   "https://fem.encar.com/cars/detail/42201843": {
     "first_seen": "2026-07-12T08:20:25",
@@ -7237,6 +7241,70 @@
   },
   "https://fem.encar.com/cars/detail/42325373": {
     "first_seen": "2026-07-12T08:20:25",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42357375": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42356380": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42358749": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42350417": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42358134": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42346202": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42124105": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42116828": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42357742": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42357014": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/019f5922-b7b9-794a-adc8-a3634e2e017f": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28544155": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28542593": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28542437": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28539366": {
+    "first_seen": "2026-07-13T02:51:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42181498": {
+    "first_seen": "2026-07-13T02:51:52",
     "posted_at": null
   }
 }

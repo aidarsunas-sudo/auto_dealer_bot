@@ -7340,5 +7340,41 @@
   "https://fem.encar.com/cars/detail/42265512": {
     "first_seen": "2026-07-13T09:32:06",
     "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28451283": {
+    "first_seen": "2026-07-13T14:37:35",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42335800": {
+    "first_seen": "2026-07-13T14:37:35",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42232196": {
+    "first_seen": "2026-07-13T14:37:35",
+    "posted_at": "2026-07-13T14:37:36",
+    "brand": "",
+    "model": "Kia Seltos 2.0 Gasoline"
+  },
+  "https://fem.encar.com/cars/detail/42239079": {
+    "first_seen": "2026-07-13T14:37:35",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42278956": {
+    "first_seen": "2026-07-13T14:37:35",
+    "posted_at": "2026-07-13T14:37:40",
+    "brand": "",
+    "model": "Hyundai Venue 1.6 Gasoline"
+  },
+  "https://fem.encar.com/cars/detail/42093236": {
+    "first_seen": "2026-07-13T14:37:35",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42021872": {
+    "first_seen": "2026-07-13T14:37:35",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42089863": {
+    "first_seen": "2026-07-13T14:37:35",
+    "posted_at": null
   }
 }

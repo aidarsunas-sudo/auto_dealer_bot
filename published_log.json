@@ -121,7 +121,9 @@
   },
   "https://fem.encar.com/cars/detail/42255559": {
     "first_seen": "2026-07-05T10:55:57",
-    "posted_at": null
+    "posted_at": "2026-07-14T02:42:14",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://fem.encar.com/cars/detail/42293969": {
     "first_seen": "2026-07-05T10:55:57",
@@ -7129,11 +7131,15 @@
   },
   "https://fem.encar.com/cars/detail/42344039": {
     "first_seen": "2026-07-11T02:42:51",
-    "posted_at": null
+    "posted_at": "2026-07-14T02:42:21",
+    "brand": "",
+    "model": "Hyundai Avante Hybrid 1.6 G+E"
   },
   "https://fem.encar.com/cars/detail/41945252": {
     "first_seen": "2026-07-11T02:42:51",
-    "posted_at": null
+    "posted_at": "2026-07-14T02:42:18",
+    "brand": "",
+    "model": "Chevrolet Trax Crossover 1.2 Turbo (корейское название сайта)"
   },
   "https://fem.encar.com/cars/detail/41510130": {
     "first_seen": "2026-07-11T07:59:29",
@@ -7375,6 +7381,46 @@
   },
   "https://fem.encar.com/cars/detail/42089863": {
     "first_seen": "2026-07-13T14:37:35",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42365566": {
+    "first_seen": "2026-07-14T02:42:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42365021": {
+    "first_seen": "2026-07-14T02:42:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42366615": {
+    "first_seen": "2026-07-14T02:42:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42362641": {
+    "first_seen": "2026-07-14T02:42:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42365664": {
+    "first_seen": "2026-07-14T02:42:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42226393": {
+    "first_seen": "2026-07-14T02:42:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42226160": {
+    "first_seen": "2026-07-14T02:42:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42317792": {
+    "first_seen": "2026-07-14T02:42:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42091643": {
+    "first_seen": "2026-07-14T02:42:13",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42183866": {
+    "first_seen": "2026-07-14T02:42:13",
     "posted_at": null
   }
 }

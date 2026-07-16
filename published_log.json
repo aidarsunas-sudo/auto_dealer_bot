@@ -7742,5 +7742,31 @@
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28276517": {
     "first_seen": "2026-07-16T08:17:07",
     "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28573932": {
+    "first_seen": "2026-07-16T13:53:38",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42387332": {
+    "first_seen": "2026-07-16T13:53:38",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42387237": {
+    "first_seen": "2026-07-16T13:53:38",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42387283": {
+    "first_seen": "2026-07-16T13:53:38",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42298431": {
+    "first_seen": "2026-07-16T13:53:38",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/40834872": {
+    "first_seen": "2026-07-16T13:53:38",
+    "posted_at": "2026-07-16T13:53:39",
+    "brand": "",
+    "model": "Hyundai Avante 1.6 Gasoline"
   }
 }

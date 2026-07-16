@@ -7515,7 +7515,9 @@
   },
   "https://fem.encar.com/cars/detail/42174963": {
     "first_seen": "2026-07-14T19:23:00",
-    "posted_at": null
+    "posted_at": "2026-07-16T19:15:36",
+    "brand": "",
+    "model": "Renault XM3 1.6 GTe"
   },
   "https://fem.encar.com/cars/detail/42174542": {
     "first_seen": "2026-07-14T19:23:00",
@@ -7768,5 +7770,13 @@
     "posted_at": "2026-07-16T13:53:39",
     "brand": "",
     "model": "Hyundai Avante 1.6 Gasoline"
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28574406": {
+    "first_seen": "2026-07-16T19:15:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28561680": {
+    "first_seen": "2026-07-16T19:15:35",
+    "posted_at": null
   }
 }

@@ -42,15 +42,39 @@ send_video_to_telegram() — использует метод Bot API sendVideo. 
 
 import logging
 import os
+import shutil
 
 import requests
 
 import config
+import vk_publisher
+import video_generator
+import video_state
 from telegram_publisher import send_to_telegram, send_photo_to_telegram, send_media_group_to_telegram
 from vk_publisher import send_to_vk
-from post_validator import validate_post_before_publish, PublishBlockedError
+from post_validator import validate_post_before_publish, PublishBlockedError, ValidatedCar
 
 logger = logging.getLogger("agent_publisher")
+
+
+def _generate_video_safe(car: ValidatedCar, fields: dict) -> dict | None:
+    """
+    Обёртка над video_generator.generate_videos() — видео строго
+    необязательное дополнение к посту (текст/фото важнее и от него не
+    зависят), поэтому ЛЮБАЯ ошибка здесь (включая совсем неожиданную,
+    не только сетевую/ffmpeg) должна просто пропустить видео, а не
+    сломать publish_post() целиком. generate_videos() сама возвращает
+    None на предвиденные причины (нет ffmpeg, нет фото и т.п.) — этот
+    try/except ловит то, что она не предвидела сама.
+    """
+    if not video_generator.ffmpeg_available():
+        logger.info("Видео: ffmpeg не найден в PATH — пропускаю (см. video_generator.py)")
+        return None
+    try:
+        return video_generator.generate_videos(car, fields)
+    except Exception as error:
+        logger.error(f"Видео: неожиданная ошибка генерации ({error}) — пропускаю")
+        return None
 
 
 def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: bool = False,
@@ -60,12 +84,11 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
     в VK (второй канал, best-effort — см. докстринг файла).
 
     Первым делом (кроме одного явного исключения ниже) прогоняет car через
-    validate_post_before_publish() — фото/название/год/пробег/цена, см.
-    post_validator.py. Нарушение — PublishBlockedError, HTTP-запрос к
-    Telegram/VK не делается вообще. Это ЕДИНСТВЕННОЕ место в проекте, где
-    стоит эта проверка — вызывающий код (main.py/main_pipeline.py/
-    publish_now.py) НЕ должен дублировать вызов validate_post_before_publish()
-    сам.
+    validate_post_before_publish() — фото/название/год, см. post_validator.py.
+    Нарушение — PublishBlockedError, HTTP-запрос к Telegram/VK не делается
+    вообще. Это ЕДИНСТВЕННОЕ место в проекте, где стоит эта проверка —
+    вызывающий код (main.py/main_pipeline.py/publish_now.py) НЕ должен
+    дублировать вызов validate_post_before_publish() сам.
 
     Args:
         car: словарь объявления (brand/model/trim/year/photos/url/...) —
@@ -80,11 +103,16 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
             calculate_price_details: age_bucket_for_new_catalog_car()) —
             это не брак данных, а другой класс объявлений. Для ЛЮБОГО
             источника б/у авто — оставлять False.
-        fields: словарь из post_text_builder.prepare_post_fields() — нужен
-            гейту для проверок цены (total_rub_raw, см. post_validator.
-            check_price_absolute()/check_price_relative()). Не передан
-            (None) — эти две проверки молча пропускаются (мileage и
-            остальные проверки от fields не зависят).
+        fields: словарь из post_text_builder.prepare_post_fields() (та же
+            структура, что использует lead_post_builder.py для текста) —
+            используется для видео (title/year/mileage_km/engine_display/
+            transmission/total_rub/cta_bot, см. video_generator.py) И для
+            проверок цены в гейте (total_rub_raw, см. post_validator.
+            check_price_absolute()/check_price_relative()). Если не передан
+            (None) — видео не генерируется вообще, даже при VIDEO_ENABLED=
+            true, а проверки цены молча пропускаются (вызывающий код должен
+            сам передавать fields — см. main.py/main_pipeline.py/test_post.py).
+            Публикация текста/фото от этого не зависит.
 
     Returns:
         True при успехе в Telegram (VK публикуется независимо и не влияет
@@ -102,9 +130,27 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
         if validated is None:
             identifier = car.get("url") or car.get("external_id") or "?"
             raise PublishBlockedError(f"Пост {identifier} заблокирован: {reason}")
+        # ValidatedCar (не голый dict) — дальше по функции, включая видео/
+        # озвучку (_generate_video_safe -> video_generator.generate_videos()),
+        # используется именно эта проверенная обёртка (см. её докстринг в
+        # post_validator.py про то, зачем это физическое разделение типов).
         car = validated
 
     photos = car.get("photos") or []
+
+    # Видео — ДО отправки текста/фото, а не после: в режиме VIDEO_POST_MODE=
+    # "same" горизонтальный ролик должен уйти В ТОТ ЖЕ ВЫЗОВ send_to_vk(),
+    # что и фото (VK не даёт дописать вложение в уже опубликованный пост
+    # постфактум) — поэтому видео должно быть готово ДО первого send_to_vk.
+    # Не блокирует и не задерживает Telegram/VK при любой накладке — см.
+    # _generate_video_safe() (никогда не поднимает исключение).
+    videos = None
+    if fields is not None and config.VIDEO_ENABLED and not dry_run:
+        if video_state.should_generate_video_for_this_post(config.VIDEO_EVERY_N_POSTS):
+            videos = _generate_video_safe(car, fields)
+
+    video_name = f"{fields.get('title', '')} {fields.get('year', '')}".strip() if fields else ""
+    inline_video = videos.get("horizontal") if (videos and config.VIDEO_POST_MODE == "same") else None
 
     if not photos:
         ok = send_to_telegram(text, dry_run=dry_run)
@@ -117,12 +163,70 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
         logger.error("Публикация в Telegram заблокирована — не удалось прикрепить фото")
 
     try:
-        if not send_to_vk(text, photos, dry_run=dry_run):
+        if not send_to_vk(text, photos, dry_run=dry_run, video_path=inline_video, video_name=video_name):
             logger.warning("Не удалось опубликовать в VK — Telegram это не затрагивает")
     except Exception as error:
         logger.error(f"VK: неожиданная ошибка при публикации ({error}) — Telegram это не затрагивает")
 
+    if videos:
+        try:
+            _publish_video_extra(videos, video_name, text, dry_run)
+        except Exception as error:
+            logger.error(f"Видео: неожиданная ошибка при публикации ({error}) — на основной пост не влияет")
+        finally:
+            # generate_videos() без явного output_dir кладёт файлы во
+            # временную папку и сама её не чистит при успехе (чистит
+            # только при полном провале) — прибираем здесь, после того
+            # как всё уже отправлено.
+            tmp_dir = next(iter(videos.values())).parent
+            shutil.rmtree(tmp_dir, ignore_errors=True)
+
     return ok
+
+
+def _publish_video_extra(videos: dict, video_name: str, text: str, dry_run: bool) -> None:
+    """
+    Досылает то, что НЕ уместилось в основной вызов send_to_vk() выше:
+        - Telegram: sendVideo горизонтальным роликом (Telegram не даёт
+          подмешать видео в уже отправленный sendMediaGroup постфактум —
+          отдельное сообщение сразу следом, без подписи в режиме "same"
+          — читается как продолжение поста; с полным текстом в режиме
+          "separate" — самостоятельный пост).
+        - VK: если VIDEO_POST_MODE=separate — отдельный wall.post только
+          с горизонтальным видео (в режиме "same" он уже ушёл вместе с
+          фото внутри publish_post()).
+        - VK: вертикальная версия — ВСЕГДА просто как обычное видео (не
+          в Клипы — VK API не даёт грузить в Клипы от имени сообщества
+          программно, выдумывать обход не стали, см. video_generator.py
+          и FINAL_STATE.md) — Клипы из неё нужно будет оформить вручную
+          через приложение/сайт VK.
+    """
+    horizontal = videos.get("horizontal")
+    vertical = videos.get("vertical")
+
+    if horizontal:
+        caption = text if config.VIDEO_POST_MODE == "separate" else ""
+        if not send_video_to_telegram(str(horizontal), caption=caption, dry_run=dry_run):
+            logger.warning("Видео: не удалось отправить горизонтальный ролик в Telegram")
+
+        if config.VIDEO_POST_MODE == "separate":
+            try:
+                caption_vk = text if text else video_name
+                if not send_to_vk(caption_vk, photos=None, dry_run=dry_run,
+                                   video_path=horizontal, video_name=video_name):
+                    logger.warning("Видео: не удалось опубликовать горизонтальный ролик отдельным постом в VK")
+            except Exception as error:
+                logger.error(f"VK: неожиданная ошибка при публикации видео-поста ({error})")
+
+    if vertical and not dry_run and vk_publisher.is_configured():
+        group_id = abs(int(config.VK_OWNER_ID))
+        attachment = vk_publisher.upload_video_attachment(vertical, group_id, f"{video_name} (вертикальный)")
+        if attachment:
+            logger.info(f"Видео: вертикальная версия загружена в VK ({attachment}) — "
+                        f"в Клипы автоматически НЕ попадает, нужно оформить вручную "
+                        f"через приложение/сайт VK (см. video_generator.py)")
+        else:
+            logger.warning("Видео: не удалось загрузить вертикальную версию в VK")
 
 
 def send_video_to_telegram(video: str, caption: str = "", dry_run: bool = False) -> bool:

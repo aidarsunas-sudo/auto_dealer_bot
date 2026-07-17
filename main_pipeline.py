@@ -46,6 +46,7 @@ from broad_collector import collect_broad_cars
 from published_log import load_log, save_log, select_candidates, mark_posted, recently_posted_models
 from candidate_diversity import diversify, filter_recent_models, MAX_PER_MODEL
 from lead_post_builder import build_lead_post
+from post_text_builder import prepare_post_fields
 from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
@@ -155,11 +156,18 @@ def run() -> None:
         if post_text is None:
             continue  # не хватает данных для честной цены под ключ — пропускаем
 
+        # fields — те же данные, что build_lead_post() уже посчитал внутри
+        # себя через prepare_post_fields(), но наружу отдаёт только готовый
+        # текст — пересчитываем отдельно (дёшево, чистая функция без
+        # сайд-эффектов) специально для video_generator.py (см.
+        # agent_publisher.publish_post(): fields нужен ТОЛЬКО для видео).
+        fields, _ = prepare_post_fields(car, rates)
+
         # Гейт (фото/название/год) — внутри publish_post() самой, см.
         # agent_publisher.py. PublishBlockedError ловится общим except ниже
         # — одна отклонённая машина не должна останавливать весь прогон.
         try:
-            ok = publish_post(car, post_text, dry_run=args.dry_run)
+            ok = publish_post(car, post_text, dry_run=args.dry_run, fields=fields)
         except Exception as error:
             log.error(f"Не удалось опубликовать {car.get('brand', '?')} {car.get('model', '?')}: {error}")
             continue

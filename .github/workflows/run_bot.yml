@@ -41,6 +41,16 @@ on:
           например после смены VK-токена.
         type: boolean
         default: false
+      test_video:
+        description: >-
+          Только вместе с test_post=true: тестовый пост дополнительно
+          собирает и публикует ролик с озвучкой (VIDEO_ENABLED/VOICE_ENABLED
+          на время ЭТОГО прогона) — нужно, чтобы проверить VK-видеозагрузку
+          на сети GitHub Actions (локально уперлись в connect timeout к
+          ovu.mycdn.me — см. FINAL_STATE.md/аудит 2026-07-17). Требует
+          секрет ANTHROPIC_API_KEY для текста озвучки (см. SETUP_GITHUB_ACTIONS.md).
+        type: boolean
+        default: false
 
 # Разрешение для этого workflow — писать изменения обратно в репозиторий
 # (нужно, чтобы сохранить обновлённую базу данных и лог после прогона).
@@ -65,6 +75,17 @@ jobs:
       # Шаг 3: устанавливаем библиотеки проекта
       - name: Установить зависимости
         run: pip install -r requirements.txt
+
+      # ffmpeg — для video_generator.py (см. main_pipeline.yml — тот же
+      # шаг). Нужен здесь ради шага "Тестовая публикация" (test_post.py) —
+      # обычный прогон main.py (WATCHLIST/price-alert посты) видео не
+      # генерирует вообще (см. agent_publisher.publish_post(): видео
+      # только там, где вызывающий код явно передаёт fields — main.py
+      # этого не делает, другой класс постов).
+      - name: Установить ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
 
       # Шаг 4: запускаем самого бота (обычный прогон по WATCHLIST).
       # Секретные настройки (токен и т.д.) НЕ хранятся в этом файле —
@@ -98,6 +119,19 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           VK_TOKEN: ${{ secrets.VK_TOKEN }}
           VK_OWNER_ID: ${{ secrets.VK_OWNER_ID }}
+          # Claude API — для текста озвучки (tts_generator.py), нужен
+          # только если test_video=true (без ключа TTS просто пропускает
+          # голос с warning в лог, не ломает ролик, см. tts_generator.py).
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Видео/озвучка — включаются галочкой test_video при ручном
+          # запуске (см. workflow_dispatch.inputs выше), по умолчанию
+          # выключены. VIDEO_EVERY_N_POSTS=1 здесь специально (не 3, как в
+          # основном прогоне) — тестовая публикация всегда ровно одна,
+          # счётчик должен сработать гарантированно на ней же.
+          VIDEO_ENABLED: ${{ github.event.inputs.test_video }}
+          VOICE_ENABLED: ${{ github.event.inputs.test_video }}
+          VIDEO_EVERY_N_POSTS: "1"
+          VIDEO_POST_MODE: "same"
         run: python test_post.py
 
       # Шаг 4.5: как и в main_pipeline.yml — если гейт validate_post_before_publish
@@ -122,6 +156,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/cars.db logs/app.log
+          git add data/cars.db logs/app.log video_state.json
           git diff --staged --quiet || git commit -m "Автообновление базы данных [skip ci]"
           git push

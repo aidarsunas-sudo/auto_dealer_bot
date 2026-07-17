@@ -36,6 +36,33 @@ VK_TOKEN: str = os.getenv("VK_TOKEN", "")
 VK_OWNER_ID: str = os.getenv("VK_OWNER_ID", "")
 VK_ENABLED: bool = os.getenv("VK_ENABLED", "true").strip().lower() == "true"
 
+# --- Видео (video_generator.py) ---
+# Ролик — необязательное дополнение к посту (текст+фото важнее и не
+# зависят от него), поэтому по умолчанию ВЫКЛЮЧЕНО явно (в отличие от
+# VK_ENABLED) — генерация требует ffmpeg и заметно удлиняет прогон
+# (см. video_generator.py, ~1-2 мин на ролик).
+VIDEO_ENABLED: bool = os.getenv("VIDEO_ENABLED", "false").strip().lower() == "true"
+# Видео не для каждого поста — раз в N успешных постов (см. video_state.py).
+VIDEO_EVERY_N_POSTS: int = int(os.getenv("VIDEO_EVERY_N_POSTS", "3"))
+# "same" — видео уходит вслед за альбомом фото в тот же информационный
+# повод (Telegram: отдельным сообщением сразу после; VK: тем же постом,
+# вложением рядом с фото). "separate" — отдельный самостоятельный пост
+# только с видео (без повторного текста/фото).
+VIDEO_POST_MODE: str = os.getenv("VIDEO_POST_MODE", "same").strip().lower()
+
+# --- Озвучка (tts_generator.py) ---
+# ОТДЕЛЬНО от VIDEO_ENABLED — можно включить видео без голоса (только Ken
+# Burns + титры + музыка) или наоборот держать озвучку выключенной, пока
+# не понравится ни один голос. Если VOICE_ENABLED=true, а VIDEO_ENABLED=
+# false — озвучка просто не используется (нечего озвучивать).
+VOICE_ENABLED: bool = os.getenv("VOICE_ENABLED", "false").strip().lower() == "true"
+# "edge" (по умолчанию, нужен интернет) | "silero" (офлайн, нужен
+# pip install torch — тяжёлая необязательная зависимость). Если основной
+# движок недоступен — tts_generator.py сам пробует другой, см. его докстринг.
+TTS_ENGINE: str = os.getenv("TTS_ENGINE", "edge").strip().lower()
+# ru-RU-DmitryNeural (мужской) | ru-RU-SvetlanaNeural (женский).
+TTS_VOICE: str = os.getenv("TTS_VOICE", "ru-RU-DmitryNeural")
+
 # Отдельный чат для уведомлений об ОШИБКАХ (не публичный канал!).
 # Проще всего — узнать свой личный chat_id: напиши что угодно боту
 # @userinfobot в Telegram, он пришлёт тебе твой ID.
@@ -101,6 +128,18 @@ RECENT_MODEL_DAYS: int = int(os.getenv("RECENT_MODEL_DAYS", "3"))
 # Детерминированная проверка, НЕ промпт-инструкция агенту — см. докстринг
 # post_validator.py про то, почему код, а не LLM-промпт.
 MIN_PHOTOS_PER_POST: int = int(os.getenv("MIN_PHOTOS_PER_POST", "3"))
+
+# --- Устойчивость VK photo upload (vk_publisher.send_to_vk()) ---
+# ОТДЕЛЬНО от MIN_PHOTOS_PER_POST выше (тот — гейт ДО публикации, на
+# основе исходного car["photos"]). Этот порог — на этапе ЗАГРУЗКИ в VK:
+# если отдельные фото не прикрепились после ретраев (VK-сторона иногда
+# единично спотыкается на валидном файле — см. vk_publisher._upload_one_photo()
+# докстринг, инцидент 2026-07-17, Chevrolet Trax 1.2 ACTIV), пост всё равно
+# публикуется с тем, что получилось, если итоговых фото хватает — полный
+# отказ только если успешных меньше порога. Тот же дефолт, что у
+# MIN_PHOTOS_PER_POST (3) — можно развести значения независимо в .env.
+MIN_PHOTOS_FOR_POST: int = int(os.getenv("MIN_PHOTOS_FOR_POST", "3"))
+
 # 2022-2023 — коарс-фильтр по ГОДУ производства (не модельному году сайта).
 # Точная граница "прошло 3/5 лет" считается по МЕСЯЦУ в age_calculator.py
 # (см. его докстринг) — этот диапазон лишь грубый предфильтр кандидатов,

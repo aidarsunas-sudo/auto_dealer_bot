@@ -37,6 +37,7 @@ import logging
 import config
 from target_collector import NOLOGIN_TARGET_ADAPTERS
 from lead_post_builder import build_lead_post
+from post_text_builder import prepare_post_fields
 from post_validator import PublishBlockedError
 from agent_publisher import publish_post
 from rates import fetch_cbr_rates
@@ -88,8 +89,13 @@ def run() -> None:
             continue  # не хватает данных о двигателе — не считаем попыткой
         tried += 1
 
+        # fields — для video_generator.py (см. agent_publisher.publish_post):
+        # при config.VIDEO_ENABLED=true тест тоже прогоняет генерацию и
+        # публикацию видео, а не только текст/фото.
+        fields, _ = prepare_post_fields(car, rates)
+
         try:
-            ok = publish_post(car, f"[ТЕСТ] {post_text}", dry_run=False)
+            ok = publish_post(car, f"[ТЕСТ] {post_text}", dry_run=False, fields=fields)
         except PublishBlockedError as error:
             logger.warning(f"Кандидат отклонён гейтом публикации ({error}) — пробую следующего")
             continue

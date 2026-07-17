@@ -13,3 +13,10 @@ playwright
 # (post_generator.py). Если не нужна умная генерация — можно не ставить,
 # бот тогда будет использовать обычный шаблонный post_builder.py.
 anthropic
+
+# Озвучка роликов (tts_generator.py, VOICE_ENABLED) — edge-tts обязателен
+# для основного движка (config.TTS_ENGINE=edge). silero — офлайн-фолбэк,
+# сознательно НЕ в этом файле (требует pip install torch — тяжёлая
+# необязательная зависимость, ставить отдельно вручную, если нужен
+# TTS_ENGINE=silero).
+edge-tts

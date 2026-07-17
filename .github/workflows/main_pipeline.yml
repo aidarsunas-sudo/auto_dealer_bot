@@ -56,6 +56,22 @@ jobs:
       - name: Установить браузеры Playwright (нужны kbchachacha/encar резолверу)
         run: python -m playwright install --with-deps chromium
 
+      # ffmpeg — для video_generator.py (Ken Burns/титры/музыка, см. ТЗ
+      # 2026-07-17). fonts-dejavu-core — шрифт с кириллицей и знаком ₽ для
+      # титров (drawtext) — без него генерация видео на этой машине не
+      # найдёт шрифт и просто пропустит видео (см. video_generator._find_fonts(),
+      # не ломает публикацию текста/фото). ~6-7 мин на оба формата с
+      # озвучкой (см. tts_generator.py — два вызова Claude API + edge-tts,
+      # плюс более тяжёлая сборка вертикального формата с blur_pad;
+      # уточнено 2026-07-17 по реальному замеру, раньше здесь была
+      # оценка "~1-2 мин" без озвучки) — таймаут job'а не задан явно
+      # (дефолт GitHub Actions 360 минут), с запасом хватает даже при
+      # нескольких видео за прогон.
+      - name: Установить ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+
       - name: Запустить main_pipeline
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
@@ -73,9 +89,24 @@ jobs:
           # это никак не влияет.
           VK_TOKEN: ${{ secrets.VK_TOKEN }}
           VK_OWNER_ID: ${{ secrets.VK_OWNER_ID }}
-          # Не секрет (просто режим работы) — задаётся прямо здесь, не через
+          # Claude API — для текста озвучки (tts_generator.py), актуально
+          # только если VOICE_ENABLED=true ниже (без ключа TTS просто
+          # пропускает голос с warning в лог, не ломает ролик).
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Не секреты (режимы работы) — задаются прямо здесь, не через
           # GitHub Secrets. Поменяй на "targeted"/"broad", если нужно.
           SEARCH_MODE: both
+          # Видео (video_generator.py) — ВЫКЛЮЧЕНО по умолчанию, пока не
+          # подтверждена VK-видеозагрузка на сети GitHub Actions (см.
+          # run_bot.yml: workflow_dispatch test_video — ручная проверка
+          # ПЕРЕД включением здесь на постоянной основе, аудит 2026-07-17).
+          # Включить: VIDEO_ENABLED: "true" — раз в VIDEO_EVERY_N_POSTS
+          # постов (по умолчанию 3) генерируется и публикуется ролик в оба
+          # канала; VOICE_ENABLED: "true" — тот же ролик с озвучкой.
+          VIDEO_ENABLED: "false"
+          VOICE_ENABLED: "false"
+          VIDEO_EVERY_N_POSTS: "3"
+          VIDEO_POST_MODE: "same"
         run: python main_pipeline.py
 
       - name: Проверить rejected_posts.log (гейт validate_post_before_publish)
@@ -98,6 +129,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add published_log.json logs/main_pipeline.log target_models_cache.json
+          git add published_log.json logs/main_pipeline.log target_models_cache.json video_state.json
           git diff --staged --quiet || git commit -m "Автообновление published_log.json [skip ci]"
           git push

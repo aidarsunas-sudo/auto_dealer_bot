@@ -22,6 +22,7 @@ vk_publisher.py — публикация готового поста на сте
 import logging
 import sys
 import time
+from pathlib import Path
 from urllib.parse import urlparse
 
 import requests
@@ -160,63 +161,183 @@ def _download_photo(photo_url: str) -> bytes | None:
     return None
 
 
+# Инцидент 2026-07-17 (продовый прогон, пост Chevrolet Trax 1.2 ACTIV):
+# _download_photo() скачал фото УСПЕШНО (прошёл проверки content-type/
+# размера), но upload-сервер VK на photos.saveWallPhoto ответил ошибкой 100
+# "photo is undefined" — upload-сервер VK вернул photo='' (пустая строка).
+# Это НЕ то же самое, что уже пофикшенная анти-hotlink проблема (там мы
+# вообще не получали картинку) — здесь VK-сторона (upload-сервер/
+# saveWallPhoto) сама единично споткнулась на вполне валидном файле.
+# Раньше единичный сбой ЛЮБОГО шага (не только скачивания) на ОДНОМ фото
+# блокировал публикацию всего поста в VK целиком. Теперь: до
+# _UPLOAD_RETRIES попыток на КАЖДЫЙ шаг загрузки (не только скачивание —
+# upload_url запрашивается заново на каждой попытке, upload-сервер VK
+# бывает нестабилен на повторных POST с тем же upload_url), и если фото
+# так и не прикрепилось — не блокируем весь пост, а пропускаем именно это
+# фото (см. send_to_vk() ниже: публикуем с тем, что получилось, если
+# итоговых фото >= config.MIN_PHOTOS_FOR_POST).
+_UPLOAD_RETRIES = 3
+
+
 def _upload_one_photo(photo_url: str, group_id: int) -> str | None:
     """
-    Три шага загрузки одного фото на стену VK (см. докстринг файла).
-    Возвращает attachment-ID вида "photo{owner_id}_{id}", или None при
-    любой ошибке (сеть, битая ссылка на фото, отказ VK) — вызывающий код
-    просто пропускает это фото, не отправку целиком.
+    Три шага загрузки одного фото на стену VK (см. докстринг файла), с
+    ретраями ВСЕГО пайплайна (не только скачивания — см. _UPLOAD_RETRIES).
+    Возвращает attachment-ID вида "photo{owner_id}_{id}", или None, если ни
+    одна из попыток не сработала — вызывающий код пропускает это фото, не
+    всю отправку (см. send_to_vk()).
     """
-    upload_server = _api_call("photos.getWallUploadServer", {"group_id": group_id})
-    if upload_server is None:
+    for attempt in range(1, _UPLOAD_RETRIES + 1):
+        if attempt > 1:
+            time.sleep(1)
+
+        upload_server = _api_call("photos.getWallUploadServer", {"group_id": group_id})
+        if upload_server is None:
+            continue
+        upload_url = upload_server.get("upload_url")
+        if not upload_url:
+            logger.error("VK: photos.getWallUploadServer не вернул upload_url")
+            continue
+
+        photo_bytes = _download_photo(photo_url)
+        if photo_bytes is None:
+            return None  # _download_photo сама уже исчерпала свои ретраи — пересматривать нечего
+
+        try:
+            upload_response = requests.post(
+                upload_url,
+                # Поле строго "photo" (так его ждёт VK) — имя файла с
+                # расширением .jpg и явный content-type, как в ручной проверке
+                # curl -F "photo=@file.jpg;type=image/jpeg", которая гарантированно
+                # отрабатывает (см. FINAL_STATE.md раздел 9).
+                files={"photo": ("photo.jpg", photo_bytes, "image/jpeg")},
+                timeout=30,
+            )
+            upload_response.raise_for_status()
+            upload_result = upload_response.json()
+        except (requests.RequestException, ValueError) as error:
+            logger.warning(f"VK: попытка {attempt}/{_UPLOAD_RETRIES} загрузить {photo_url} "
+                            f"на сервер VK — {error}")
+            continue
+
+        saved = _api_call("photos.saveWallPhoto", {
+            "group_id": group_id,
+            "photo": upload_result.get("photo"),
+            "server": upload_result.get("server"),
+            "hash": upload_result.get("hash"),
+        })
+        if not saved:
+            # _api_call уже залогировал код/текст ошибки VK API — здесь
+            # дополнительно печатаем то, что реально вернул upload-сервер
+            # (server/photo/hash), чтобы при "photo is undefined" сразу
+            # было видно, пустой ли это ответ или что-то более конкретное.
+            logger.warning(f"VK: попытка {attempt}/{_UPLOAD_RETRIES}, ответ upload-сервера "
+                            f"для {photo_url}: server={upload_result.get('server')!r}, "
+                            f"photo={upload_result.get('photo')!r}, "
+                            f"hash={upload_result.get('hash')!r}")
+            continue
+
+        saved_photo = saved[0]
+        return f"photo{saved_photo['owner_id']}_{saved_photo['id']}"
+
+    logger.error(f"VK: не удалось прикрепить фото {photo_url} за {_UPLOAD_RETRIES} попыток(и)")
+    return None
+
+
+def _video_save(group_id: int, name: str, description: str) -> dict | None:
+    """
+    Как _api_call(), но для video.save отдельно распознаёт ошибки 15/204 —
+    у VK это типичные коды "нет доступа" именно на video.save, когда у
+    токена нет права 'video' (тот же класс проблемы, что уже был с
+    photos.getWallUploadServer на community-токене без права 'photos' —
+    см. FINAL_STATE.md раздел 9). Отдельная функция (не через _api_call()),
+    чтобы не менять его контракт возврата (используется во многих местах
+    как "dict или None") ради одного специфичного случая.
+    """
+    request_params = {
+        "name": name, "description": description,
+        "wallpost": 0,  # публикуем сами через wall.post с attachments, не даём VK создать свой пост
+        "group_id": group_id,
+        "access_token": config.VK_TOKEN, "v": API_VERSION,
+    }
+    try:
+        response = requests.post(f"{API_BASE}/video.save", data=request_params, timeout=20)
+        response.raise_for_status()
+        data = response.json()
+    except requests.RequestException as error:
+        logger.error(f"VK API video.save: сетевая ошибка ({error})")
         return None
-    upload_url = upload_server.get("upload_url")
-    if not upload_url:
-        logger.error("VK: photos.getWallUploadServer не вернул upload_url")
+    except ValueError as error:
+        logger.error(f"VK API video.save: не удалось разобрать ответ ({error})")
         return None
 
-    photo_bytes = _download_photo(photo_url)
-    if photo_bytes is None:
+    if "error" in data:
+        error_info = data["error"]
+        code = error_info.get("error_code")
+        if code in (15, 204):
+            logger.error(
+                f"VK API video.save: ошибка {code} — {error_info.get('error_msg')}. "
+                f"Похоже, у VK_TOKEN нет права 'video' — нужен user-токен с правами "
+                f"photos,wall,groups,video (см. FINAL_STATE.md раздел 9 про Kate Mobile "
+                f"— тот же способ получения токена, просто отметь дополнительно video "
+                f"при выпуске)."
+            )
+        else:
+            logger.error(f"VK API video.save: ошибка {code} — {error_info.get('error_msg')}")
+        return None
+
+    return data.get("response")
+
+
+def upload_video_attachment(video_path, group_id: int, name: str, description: str = "") -> str | None:
+    """
+    Загружает видеофайл на стену VK (video.save -> POST файла на upload_url).
+    Возвращает attachment-ID вида "video{owner_id}_{id}" (можно передавать
+    в attachments у wall.post вперемешку с photo{}_{} — VK ОК со смешанными
+    вложениями в одном посте), или None при ошибке.
+
+    Про VK Клипы: у VK нет документированного публичного API-метода для
+    загрузки видео именно в Клипы от имени сообщества — video.save грузит
+    ОБЫЧНОЕ видео (в раздел "Видео" группы + как вложение к посту).
+    Вертикальный формат отсюда МОЖНО прикрепить к посту как обычное видео
+    (пост будет выглядеть нормально в ленте), но в сами Клипы он
+    автоматически не попадёт — это осознанно, выдумывать обходной путь
+    через недокументированные методы не стали (см. video_generator.py
+    докстринг и FINAL_STATE.md) — Клипы придётся заливать вручную через
+    приложение/сайт VK.
+    """
+    save_result = _video_save(group_id, name, description)
+    if save_result is None:
+        return None
+    upload_url = save_result.get("upload_url")
+    if not upload_url:
+        logger.error("VK: video.save не вернул upload_url")
         return None
 
     try:
-        upload_response = requests.post(
-            upload_url,
-            # Поле строго "photo" (так его ждёт VK) — имя файла с
-            # расширением .jpg и явный content-type, как в ручной проверке
-            # curl -F "photo=@file.jpg;type=image/jpeg", которая гарантированно
-            # отрабатывает (см. FINAL_STATE.md раздел 9).
-            files={"photo": ("photo.jpg", photo_bytes, "image/jpeg")},
-            timeout=30,
-        )
+        with open(video_path, "rb") as f:
+            upload_response = requests.post(
+                upload_url,
+                files={"video_file": (Path(video_path).name, f, "video/mp4")},
+                timeout=300,  # видео в разы тяжелее фото — 30с (как у фото) мало
+            )
         upload_response.raise_for_status()
-        upload_result = upload_response.json()
-    except (requests.RequestException, ValueError) as error:
-        logger.error(f"VK: не удалось загрузить фото {photo_url} на сервер VK ({error})")
+    except (requests.RequestException, OSError) as error:
+        logger.error(f"VK: не удалось загрузить видео {video_path} на сервер VK ({error})")
         return None
 
-    saved = _api_call("photos.saveWallPhoto", {
-        "group_id": group_id,
-        "photo": upload_result.get("photo"),
-        "server": upload_result.get("server"),
-        "hash": upload_result.get("hash"),
-    })
-    if not saved:
-        # _api_call уже залогировал код/текст ошибки VK API — здесь
-        # дополнительно печатаем то, что реально вернул upload-сервер
-        # (server/photo/hash), чтобы при "photo is undefined" сразу было
-        # видно, пустой ли это ответ или что-то более конкретное.
-        logger.error(f"VK: ответ upload-сервера для {photo_url}: "
-                     f"server={upload_result.get('server')!r}, "
-                     f"photo={upload_result.get('photo')!r}, "
-                     f"hash={upload_result.get('hash')!r}")
+    owner_id = save_result.get("owner_id")
+    video_id = save_result.get("video_id")
+    if owner_id is None or video_id is None:
+        logger.error(f"VK: video.save не вернул owner_id/video_id ({save_result!r})")
         return None
 
-    saved_photo = saved[0]
-    return f"photo{saved_photo['owner_id']}_{saved_photo['id']}"
+    logger.info(f"VK: видео загружено (video{owner_id}_{video_id})")
+    return f"video{owner_id}_{video_id}"
 
 
-def send_to_vk(text: str, photos: list | None = None, dry_run: bool = False) -> bool:
+def send_to_vk(text: str, photos: list | None = None, dry_run: bool = False,
+               video_path=None, video_name: str = "") -> bool:
     """
     Публикует пост на стену сообщества VK (config.VK_OWNER_ID).
 
@@ -224,13 +345,26 @@ def send_to_vk(text: str, photos: list | None = None, dry_run: bool = False) -> 
         text: готовый текст поста (тот же самый, что уходит в Telegram).
         photos: список URL фото (может быть пустым/None — тогда пост без фото).
         dry_run: не публиковать по-настоящему, только показать в консоли.
+        video_path: локальный путь к готовому видеофайлу (см.
+            video_generator.py) — прикрепляется к ЭТОМУ ЖЕ посту, вперемешку
+            с фото-вложениями ("режим same" в agent_publisher.py). Для
+            режима "отдельным постом" видео публикуется через отдельный
+            вызов send_to_vk() без photos, см. agent_publisher.py.
+        video_name: название видео в VK (video.save name) — обязательно,
+            если передан video_path.
 
     Returns:
         True при успехе (или dry_run, или VK не настроен — см. is_configured()).
-        False при ошибке публикации ИЛИ если заявлено хотя бы одно фото, но
-        прикрепить удалось не все — пост в этом случае НЕ публикуется
-        (даже без фото/с частью фото), чтобы не выходил пост с "как получится"
-        набором фото. Не блокирует Telegram — см. agent_publisher.publish_post().
+        Отдельные фото могут не прикрепиться (после ретраев, см.
+        _upload_one_photo()) — пост всё равно публикуется с тем, что
+        получилось, ЕСЛИ успешных фото >= config.MIN_PHOTOS_FOR_POST
+        (добавлено 2026-07-17, инцидент Chevrolet Trax 1.2 ACTIV — раньше
+        одно не прикрепившееся фото блокировало весь пост). False — если
+        успешных фото меньше порога, ИЛИ ошибка самого wall.post. Не
+        блокирует Telegram — см. agent_publisher.publish_post().
+        Видео — МЯГКОЕ дополнение (в отличие от фото): если прикрепить его
+        не удалось, пост всё равно публикуется без видео (текст/фото важнее,
+        видео просто необязательный бонус) — только предупреждение в лог.
     """
     if not is_configured():
         if not config.VK_ENABLED:
@@ -243,7 +377,8 @@ def send_to_vk(text: str, photos: list | None = None, dry_run: bool = False) -> 
 
     if dry_run:
         print("=" * 50)
-        print(f"VK ТЕСТОВЫЙ РЕЖИМ (ничего не отправлено). Фото: {len(photos)}")
+        print(f"VK ТЕСТОВЫЙ РЕЖИМ (ничего не отправлено). Фото: {len(photos)}, "
+              f"видео: {'да, ' + str(video_path) if video_path else 'нет'}")
         print("=" * 50)
         _safe_print(text)
         print("=" * 50)
@@ -252,14 +387,42 @@ def send_to_vk(text: str, photos: list | None = None, dry_run: bool = False) -> 
     owner_id = int(config.VK_OWNER_ID)
     group_id = abs(owner_id)
 
+    # Инцидент 2026-07-17 (Chevrolet Trax 1.2 ACTIV): раньше ЛЮБОЕ
+    # не прикрепившееся фото блокировало публикацию поста в VK целиком,
+    # даже если остальные фото загрузились нормально (VK-сторона иногда
+    # единично спотыкается на валидном файле — см. _upload_one_photo()).
+    # Теперь: собираем что получилось, публикуем с частичным набором, если
+    # успешных >= config.MIN_PHOTOS_FOR_POST — полный отказ только ниже
+    # порога (см. её докстринг в config.py).
     attachments = []
+    failed_photos = []
     for photo_url in photos:
         attachment = _upload_one_photo(photo_url, group_id)
         if attachment is None:
-            logger.error(f"VK: не удалось прикрепить фото {photo_url} — публикация заблокирована "
-                         f"(не выходит пост с неполным набором фото)")
-            return False
-        attachments.append(attachment)
+            failed_photos.append(photo_url)
+        else:
+            attachments.append(attachment)
+
+    if failed_photos:
+        logger.warning(f"VK: не удалось прикрепить {len(failed_photos)}/{len(photos)} фото "
+                        f"после ретраев: {failed_photos}")
+
+    if len(attachments) < config.MIN_PHOTOS_FOR_POST:
+        logger.error(f"VK: успешных фото {len(attachments)} < порога MIN_PHOTOS_FOR_POST="
+                     f"{config.MIN_PHOTOS_FOR_POST} — публикация заблокирована")
+        return False
+
+    if failed_photos:
+        logger.info(f"VK: публикую с {len(attachments)}/{len(photos)} фото "
+                     f"(порог MIN_PHOTOS_FOR_POST={config.MIN_PHOTOS_FOR_POST} пройден)")
+
+    if video_path is not None:
+        video_attachment = upload_video_attachment(video_path, group_id, video_name)
+        if video_attachment is None:
+            logger.warning(f"VK: не удалось прикрепить видео {video_path} — публикую пост "
+                            f"без видео (текст/фото это не блокирует)")
+        else:
+            attachments.append(video_attachment)
 
     post_params = {"owner_id": owner_id, "message": text, "from_group": 1}
     if attachments:

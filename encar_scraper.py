@@ -155,6 +155,46 @@ def _manufacture_year_month(item: dict) -> tuple:
     return None, None
 
 
+DETAIL_API_TEMPLATE = "https://api.encar.com/v1/readside/vehicle/{id}"
+
+
+def fetch_origin_price_krw(external_id) -> int | None:
+    """
+    Заводская (официальная, на момент выпуска) цена ЭТОЙ конкретной
+    комплектации, в вонах — из детальной карточки Encar
+    (category.originPrice, в 만원, т.е. умножаем на 10000, как и везде).
+
+    ТОЛЬКО справочная точка для sanity-check перед публикацией (см.
+    post_validator.check_price_sanity()) — не участвует в самом расчёте
+    цены поста. Инцидент 2026-07: реальное объявление Chevrolet Trax
+    (yearMonth=202310, mileage=17943) стояло на сайте за 53 900 000 ₩ при
+    заводской 27 600 000 ₩ (+95%) — расчёт таможни был математически верным,
+    но исходная цена сама по себе была неадекватной (дилерская наценка за
+    срочную доступность) — эта функция даёт возможность поймать именно это.
+
+    Returns:
+        None при сетевой ошибке или отсутствии поля — вызывающий код в этом
+        случае НЕ должен блокировать публикацию (нет данных для сравнения,
+        не гадаем, см. check_price_sanity()), а не считать это подтверждённой
+        проблемой.
+    """
+    try:
+        resp = requests.get(DETAIL_API_TEMPLATE.format(id=external_id), headers=HEADERS, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+    except (requests.RequestException, ValueError) as error:
+        logger.warning(f"encar: не удалось получить заводскую цену для {external_id}: {error}")
+        return None
+
+    origin_price = (data.get("category") or {}).get("originPrice")
+    if not origin_price:
+        return None
+    try:
+        return int(origin_price) * 10000
+    except (TypeError, ValueError):
+        return None
+
+
 def _extract_photos(item: dict) -> list:
     """
     Список поиска отдаёт item["Photos"] — уже полный массив фото объявления

@@ -32,10 +32,10 @@
   {
     "brand": "Hyundai",
     "model": "Sonata",
-    "year_from": 2024,
-    "year_to": 2026,
+    "year_from": 2021,
+    "year_to": 2023,
     "mileage_max": 40000,
-    "engine": "2.0"
+    "engine": "2.0 LPi"
   },
   {
     "brand": "Kia",
@@ -99,5 +99,101 @@
     "year_from": 2025,
     "year_to": 2026,
     "mileage_max": 40000
+  },
+  {
+    "brand": "Kia",
+    "model": "Sportage",
+    "year_from": 2018,
+    "year_to": 2020,
+    "mileage_max": 40000,
+    "engine": "1.6 D (до 2021)"
+  },
+  {
+    "brand": "Renault",
+    "model": "QM6",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "2.0 LPe"
+  },
+  {
+    "brand": "Renault",
+    "model": "SM6",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "2.0 LPe"
+  },
+  {
+    "brand": "Chevrolet",
+    "model": "Malibu",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "1.35"
+  },
+  {
+    "brand": "Chevrolet",
+    "model": "Spark",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "1.0"
+  },
+  {
+    "brand": "Chevrolet",
+    "model": "Trax",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "1.35"
+  },
+  {
+    "brand": "Chevrolet",
+    "model": "Trailblazer",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "1.4"
+  },
+  {
+    "brand": "Mini",
+    "model": "Countryman",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "1.5"
+  },
+  {
+    "brand": "Mini",
+    "model": "Clubman",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "1.5"
+  },
+  {
+    "brand": "Mini",
+    "model": "Convertible",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "1.5"
+  },
+  {
+    "brand": "Peugeot",
+    "model": "3008",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "1.5 BlueHDi"
+  },
+  {
+    "brand": "Peugeot",
+    "model": "5008",
+    "year_from": 2021,
+    "year_to": 2023,
+    "mileage_max": 40000,
+    "engine": "1.5 BlueHDi"
   }
 ]

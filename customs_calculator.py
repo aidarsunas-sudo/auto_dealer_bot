@@ -14,7 +14,7 @@
         price=35_000_000, currency="krw",
         cc=1998, power=150, power_unit="hp",
         age="35",             # 'u3' | '35' | '57' | 'o7'
-        fuel="diesel",        # 'petrol' | 'diesel' | 'hybrid_p' | 'hybrid_d' | 'elec'
+        fuel="diesel",        # 'petrol' | 'diesel' | 'hybrid_p' | 'hybrid_d' | 'elec' | 'lpg'
         who="phys",            # 'phys' | 'legal'
         rates={"krw_rub": 0.050775, "eur_rub": 89.2743, "usd_rub": 78.2696,
                "cny_rub": 10.80, "jpy_rub": 54.00},
@@ -173,8 +173,15 @@ def calc_full(price: float, currency: str, cc: float, power: float,
     Полный расчёт: сбор + ЕТС + утильсбор + итог с ценой авто.
 
     age: 'u3' (<3 лет) | '35' (3-5 лет) | '57' (5-7 лет) | 'o7' (>7 лет)
-    fuel: 'petrol' | 'diesel' | 'hybrid_p' | 'hybrid_d' | 'elec'
+    fuel: 'petrol' | 'diesel' | 'hybrid_p' | 'hybrid_d' | 'elec' | 'lpg'
     who: 'phys' | 'legal'
+
+    'lpg' (газобаллонное оборудование, добавлено 2026-07-17): в отличие от
+    'elec' — НЕ отдельная ветка расчёта. У LPG-версий (Hyundai Sonata LPi,
+    Renault QM6/SM6 LPe и т.п.) есть реальный объём двигателя того же
+    бензинового блока — ЕТС/утильсбор в РФ считаются по нему точно так же,
+    как для 'petrol' (отдельной ставки для LPG в действующих формулах нет,
+    fuel='lpg' здесь маркер для учёта/аудита, а не для другой формулы).
     """
     rates = {**DEFAULT_RATES, **(rates or {})}
 

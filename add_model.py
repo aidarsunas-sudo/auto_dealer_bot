@@ -48,7 +48,7 @@ TARGET_MODELS_PATH = Path(__file__).resolve().parent / "target_models.json"
 MODEL_SPECS_PATH = Path(__file__).resolve().parent / "model_specs.py"
 INSERT_MARKER = "    # --- Добавляй новые модели ниже по этому же образцу ---"
 
-ALLOWED_FUELS = ("petrol", "diesel", "hybrid_p", "hybrid_d", "elec")
+ALLOWED_FUELS = ("petrol", "diesel", "hybrid_p", "hybrid_d", "elec", "lpg")
 
 # Фиксированный диапазон года выпуска по умолчанию (не "текущий год минус N" —
 # зафиксировано явно, чтобы не плавало при смене текущей даты). Совпадает с

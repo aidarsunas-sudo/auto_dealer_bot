@@ -35,7 +35,7 @@ class ModelSpec:
     match: tuple                      # подстроки для поиска в title (все должны совпасть)
     cc: int                            # объём, см³
     hp: int                             # мощность, л.с.
-    fuel: str                           # 'petrol' | 'diesel' | 'hybrid_p' | 'hybrid_d' | 'elec'
+    fuel: str                           # 'petrol' | 'diesel' | 'hybrid_p' | 'hybrid_d' | 'elec' | 'lpg'
     label: str                           # человекочитаемое имя для лога
     source: str                           # откуда взяты данные (для проверки/аудита)
     year_min: Optional[int] = None         # включительно, год выпуска
@@ -144,9 +144,14 @@ SPECS = [
         source="danawa.com + carnoon.co.kr, официальные данные",
     ),
     ModelSpec(
+        # ВАЖНО: label — ТОЛЬКО человекочитаемое имя машины, ничего больше.
+        # Дев-заметка "почему нужна отдельная запись" (корейское название
+        # сайта) — в комментарии выше, а не в label: раньше была прямо в
+        # label и утекла в публичный пост как есть (см. FINAL_STATE.md,
+        # тот же баг найден и на Chevrolet Trax).
         match=("티구안", "tdi"),
         cc=1968, hp=150, fuel="diesel",
-        label="VW Tiguan 2.0 TDI (корейское название сайта)",
+        label="VW Tiguan 2.0 TDI",
         source="danawa.com + carnoon.co.kr, официальные данные",
     ),
 
@@ -166,13 +171,20 @@ SPECS = [
 
     # ─── Kia K5 (3-е поколение, DL3) 2.0 Gasoline (Smartstream G2.0 MPi,
     # атмосферный, не путать с 1.6T GT-line/гибридом) ───────────────────────
+    # ⚠️ В прайс-листе Pick+ Auto у K5 стоит пометка "уточнить у брокера" —
+    # у модели в Корее несколько силовых установок (2.0 MPi/1.6T GT-line/
+    # 2.0 HEV), match ниже покрывает только 2.0 MPi. Перед публикацией
+    # конкретного объявления сверяй реальную комплектацию у брокера, а не
+    # полагайся вслепую на автоматическое распознавание по match.
     ModelSpec(
         match=("k5", "2.0"),
         cc=1999, hp=160, fuel="petrol",
         label="Kia K5 (DL3) 2.0 Gasoline (Smartstream G2.0 MPi)",
         source="danawa.com + carnoon.co.kr — официальные технические характеристики "
                "(Smartstream G2.0 MPi, единый мотор для всех тримов 2.0 бензин, "
-               "включая Signature — комплектация не влияет на двигатель)",
+               "включая Signature — комплектация не влияет на двигатель). "
+               "⚠️ Уточнить у брокера (пометка из прайс-листа Pick+ Auto) — "
+               "перед конкретной сделкой подтвердить реальную комплектацию.",
     ),
 
 
@@ -494,19 +506,73 @@ SPECS = [
                'поколения в Корее',
     ),
     ModelSpec(
+        # ВАЖНО: label — ТОЛЬКО человекочитаемое имя, ничего больше (см.
+        # аналогичный фикс у VW Tiguan выше — дев-заметка "корейское
+        # название сайта" раньше была прямо в label и утекла в реальный
+        # пост в проде, см. FINAL_STATE.md).
         match=('트랙스', '1.2'),
         cc=1198, hp=139, fuel='petrol',
-        label='Chevrolet Trax Crossover 1.2 Turbo (корейское название сайта)',
+        label='Chevrolet Trax Crossover 1.2 Turbo',
         source='Официальные технические характеристики Chevrolet Trax Crossover '
                '(chevrolet.co.kr) — 1.2 Turbo GDI, единственный мотор для этого '
                'поколения в Корее',
     ),
+    # ─── Peugeot 2008 (P24, 2020~) — те же PSA/Stellantis моторы, что и
+    # Citroen C3 Aircross (см. записи выше), но НЕ идентичная мощность на
+    # дизеле: 2008 1.5 BlueHDi — 130 л.с. (иная тюнировка ECU для этой
+    # модели у Peugeot Korea, не 118 л.с. как у C3 Aircross 1.5 BlueHDi —
+    # исправлено 2026-07-17, старое значение 118 было ошибочным, см.
+    # FINAL_STATE.md). Уточняй бэдж комплектации в объявлении перед
+    # доверием к расчёту — если реального бэджа "PureTech"/"BlueHDi" в
+    # названии нет, find_spec() не сработает намеренно (см. match).
+    ModelSpec(
+        match=("2008", "puretech"),
+        cc=1199, hp=131, fuel="petrol",
+        label="Peugeot 2008 1.2 PureTech",
+        source="официальные тех.характеристики Peugeot Korea — тот же мотор, "
+               "что и Citroen C3 Aircross 1.2 PureTech (см. запись выше)",
+    ),
+    ModelSpec(
+        match=("2008", "bluehdi"),
+        cc=1499, hp=130, fuel="diesel",
+        label="Peugeot 2008 1.5 BlueHDi",
+        source="прайс-лист Pick+ Auto (внутренний документ компании) — "
+               "130 л.с., отличается от Citroen C3 Aircross 1.5 BlueHDi "
+               "(118 л.с.) несмотря на общую платформу, подтверждено "
+               "пользователем 2026-07-17 (было ошибочно указано 118)",
+    ),
+
+    # ─── Audi RS6 / RS7 (C8, 2020~) — единственный мотор для обоих кузовов
+    # (Avant/Sportback) в этом поколении: EA825 4.0 TFSI V8 биturbo, 600 PS —
+    # нет других силовых установок, риска перепутать нет.
+    ModelSpec(
+        match=("rs6",),
+        cc=3996, hp=600, fuel="petrol",
+        label="Audi RS6 Avant 4.0 TFSI V8",
+        source="официальные тех.характеристики Audi (audi.co.kr) — EA825 4.0 "
+               "TFSI, единственный мотор для RS6 (C8)",
+    ),
+    ModelSpec(
+        match=("rs7",),
+        cc=3996, hp=600, fuel="petrol",
+        label="Audi RS7 Sportback 4.0 TFSI V8",
+        source="официальные тех.характеристики Audi (audi.co.kr) — EA825 4.0 "
+               "TFSI, единственный мотор для RS7 (C8)",
+    ),
+
+
     # ─── Hyundai Sonata 2.0 (добавлено через add_model.py) ──────────────────────
+    # ⚠️ В прайс-листе Pick+ Auto у Sonata тоже стоит пометка "уточнить у
+    # брокера" (см. аналогичную заметку у K5 выше) — у Sonata в Корее
+    # несколько силовых установок (2.0 MPi/1.6T/2.0 LPi/гибрид), match
+    # ниже покрывает только 2.0 MPi — 2.0 LPi см. отдельную запись ниже.
     ModelSpec(
         match=('sonata', '2.0'),
         cc=1999, hp=160, fuel='petrol',
         label='Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)',
-        source='carnoon.co.kr — SONATA The Edge, официальный дилерский каталог',
+        source='carnoon.co.kr — SONATA The Edge, официальный дилерский каталог. '
+               '⚠️ Уточнить у брокера (пометка из прайс-листа Pick+ Auto) — '
+               'перед конкретной сделкой подтвердить реальную комплектацию.',
     ),
 
     # ─── Hyundai Sonata 2.0 (добавлено через add_model.py) ──────────────────────
@@ -583,6 +649,222 @@ SPECS = [
         cc=0, hp=313, fuel='elec',
         label='BYD SEALION 7 (RWD, 82.5 кВтч, 230 кВт)',
         source='bydauto.kr — SEALION 7, официальный дилерский каталог (запуск 2025-09)',
+    ),
+
+    # ─── Kia Sportage 1.6 D (до 2021) (добавлено через add_model.py) ────────────
+    ModelSpec(
+        match=('스포티지', '1.6', '디젤'),
+        cc=1598, hp=136, fuel='diesel',
+        label='Kia Sportage (до 2021) 1.6 Diesel',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Sonata 2.0 LPi (добавлено через add_model.py) ──────────────────
+    ModelSpec(
+        match=('sonata', 'lpi'),
+        cc=1999, hp=146, fuel='lpg',
+        label='Hyundai Sonata 2.0 LPi',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Hyundai Sonata 2.0 LPi (добавлено через add_model.py) ──────────────────
+    ModelSpec(
+        match=('쏘나타', 'lpi'),
+        cc=1999, hp=146, fuel='lpg',
+        label='Hyundai Sonata 2.0 LPi',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Renault QM6 2.0 (добавлено через add_model.py) ─────────────────────────
+    ModelSpec(
+        match=('qm6', '2.0'),
+        cc=1998, hp=144, fuel='petrol',
+        label='Renault QM6 2.0 GDe',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Renault QM6 2.0 LPe (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('qm6', 'lpe'),
+        cc=1998, hp=140, fuel='lpg',
+        label='Renault QM6 2.0 LPe',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Renault SM6 1.3 (добавлено через add_model.py) ─────────────────────────
+    ModelSpec(
+        match=('sm6', '1.3'),
+        cc=1332, hp=156, fuel='petrol',
+        label='Renault SM6 1.3 TCe Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Renault SM6 2.0 LPe (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('sm6', 'lpe'),
+        cc=1998, hp=140, fuel='lpg',
+        label='Renault SM6 2.0 LPe',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Malibu 1.35 (добавлено через add_model.py) ───────────────────
+    ModelSpec(
+        match=('malibu', '1.35'),
+        cc=1350, hp=156, fuel='petrol',
+        label='Chevrolet Malibu 1.35 Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Malibu 1.35 (добавлено через add_model.py) ───────────────────
+    ModelSpec(
+        match=('말리부', '1.35'),
+        cc=1350, hp=156, fuel='petrol',
+        label='Chevrolet Malibu 1.35 Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Spark 1.0 (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('spark', '1.0'),
+        cc=999, hp=75, fuel='petrol',
+        label='Chevrolet Spark 1.0',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Spark 1.0 (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('스파크', '1.0'),
+        cc=999, hp=75, fuel='petrol',
+        label='Chevrolet Spark 1.0',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Trax 1.35 (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('trax', '1.35'),
+        cc=1350, hp=156, fuel='petrol',
+        label='Chevrolet Trax Crossover 1.35 Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Trax 1.35 (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('트랙스', '1.35'),
+        cc=1350, hp=156, fuel='petrol',
+        label='Chevrolet Trax Crossover 1.35 Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Trailblazer 1.2 (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('trailblazer', '1.2'),
+        cc=1200, hp=137, fuel='petrol',
+        label='Chevrolet Trailblazer 1.2 Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Trailblazer 1.2 (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('트레일블레이저', '1.2'),
+        cc=1200, hp=137, fuel='petrol',
+        label='Chevrolet Trailblazer 1.2 Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Trailblazer 1.4 (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('trailblazer', '1.4'),
+        cc=1400, hp=155, fuel='petrol',
+        label='Chevrolet Trailblazer 1.4 Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Chevrolet Trailblazer 1.4 (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('트레일블레이저', '1.4'),
+        cc=1400, hp=155, fuel='petrol',
+        label='Chevrolet Trailblazer 1.4 Turbo',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Mini Countryman 1.5 (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('countryman', '1.5'),
+        cc=1499, hp=136, fuel='petrol',
+        label='Mini Countryman 1.5',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Mini Countryman 1.5 (добавлено через add_model.py) ─────────────────────
+    ModelSpec(
+        match=('컨트리맨', '1.5'),
+        cc=1499, hp=136, fuel='petrol',
+        label='Mini Countryman 1.5',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Mini Clubman 1.5 (добавлено через add_model.py) ────────────────────────
+    ModelSpec(
+        match=('clubman', '1.5'),
+        cc=1499, hp=136, fuel='petrol',
+        label='Mini Clubman 1.5',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Mini Clubman 1.5 (добавлено через add_model.py) ────────────────────────
+    ModelSpec(
+        match=('클럽맨', '1.5'),
+        cc=1499, hp=136, fuel='petrol',
+        label='Mini Clubman 1.5',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Mini Convertible 1.5 (добавлено через add_model.py) ────────────────────
+    ModelSpec(
+        match=('mini', 'convertible', '1.5'),
+        cc=1499, hp=136, fuel='petrol',
+        label='Mini Convertible 1.5',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Mini Convertible 1.5 (добавлено через add_model.py) ────────────────────
+    ModelSpec(
+        match=('미니', '컨버터블', '1.5'),
+        cc=1499, hp=136, fuel='petrol',
+        label='Mini Convertible 1.5',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Peugeot 3008 1.2 PureTech (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('3008', 'puretech'),
+        cc=1199, hp=131, fuel='petrol',
+        label='Peugeot 3008 1.2 PureTech',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Peugeot 3008 1.5 BlueHDi (добавлено через add_model.py) ────────────────
+    ModelSpec(
+        match=('3008', 'bluehdi'),
+        cc=1499, hp=130, fuel='diesel',
+        label='Peugeot 3008 1.5 BlueHDi',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Peugeot 5008 1.2 PureTech (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('5008', 'puretech'),
+        cc=1199, hp=131, fuel='petrol',
+        label='Peugeot 5008 1.2 PureTech',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
+    ),
+
+    # ─── Peugeot 5008 1.5 BlueHDi (добавлено через add_model.py) ────────────────
+    ModelSpec(
+        match=('5008', 'bluehdi'),
+        cc=1499, hp=130, fuel='diesel',
+        label='Peugeot 5008 1.5 BlueHDi',
+        source='прайс-лист Pick+ Auto (внутренний документ компании)',
     ),
     # --- Добавляй новые модели ниже по этому же образцу ---
 ]

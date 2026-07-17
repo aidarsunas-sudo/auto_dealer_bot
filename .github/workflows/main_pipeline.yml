@@ -96,15 +96,15 @@ jobs:
           # Не секреты (режимы работы) — задаются прямо здесь, не через
           # GitHub Secrets. Поменяй на "targeted"/"broad", если нужно.
           SEARCH_MODE: both
-          # Видео (video_generator.py) — ВЫКЛЮЧЕНО по умолчанию, пока не
-          # подтверждена VK-видеозагрузка на сети GitHub Actions (см.
-          # run_bot.yml: workflow_dispatch test_video — ручная проверка
-          # ПЕРЕД включением здесь на постоянной основе, аудит 2026-07-17).
-          # Включить: VIDEO_ENABLED: "true" — раз в VIDEO_EVERY_N_POSTS
-          # постов (по умолчанию 3) генерируется и публикуется ролик в оба
-          # канала; VOICE_ENABLED: "true" — тот же ролик с озвучкой.
-          VIDEO_ENABLED: "false"
-          VOICE_ENABLED: "false"
+          # Видео (video_generator.py) — включено 2026-07-17 после
+          # контрольного прогона test_post+test_video на сети GitHub
+          # Actions (run_bot.yml): VK-видеозагрузка на mycdn.me подтверждена
+          # рабочей (упиралась в connect timeout только на локальной сети
+          # разработчика, не на GHA — см. FINAL_STATE.md/аудит). Раз в
+          # VIDEO_EVERY_N_POSTS постов генерируется и публикуется ролик с
+          # озвучкой в оба канала.
+          VIDEO_ENABLED: "true"
+          VOICE_ENABLED: "true"
           VIDEO_EVERY_N_POSTS: "3"
           VIDEO_POST_MODE: "same"
         run: python main_pipeline.py

@@ -48,7 +48,7 @@ def _safe_print(text: str) -> None:
 
 
 def is_configured() -> bool:
-    return bool(config.VK_TOKEN and config.VK_OWNER_ID)
+    return bool(config.VK_ENABLED and config.VK_TOKEN and config.VK_OWNER_ID)
 
 
 def _api_call(method: str, params: dict, timeout: int = 20) -> dict | None:
@@ -139,7 +139,10 @@ def send_to_vk(text: str, photos: list | None = None, dry_run: bool = False) -> 
         набором фото. Не блокирует Telegram — см. agent_publisher.publish_post().
     """
     if not is_configured():
-        logger.info("VK: VK_TOKEN/VK_OWNER_ID не заданы в .env — публикация в VK пропущена")
+        if not config.VK_ENABLED:
+            logger.info("VK: VK_ENABLED=false в .env — публикация в VK пропущена")
+        else:
+            logger.info("VK: VK_TOKEN/VK_OWNER_ID не заданы в .env — публикация в VK пропущена")
         return True
 
     photos = (photos or [])[:MAX_PHOTOS_PER_POST]

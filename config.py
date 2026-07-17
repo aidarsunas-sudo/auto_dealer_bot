@@ -30,10 +30,11 @@ TELEGRAM_CHAT_ID: str = os.getenv("TELEGRAM_CHAT_ID", "@auto_generals")
 
 # --- VK ---
 # VK_OWNER_ID — отрицательное число для сообщества/группы (см. PLAN_NEXT_CHANNELS.md).
-# Если VK_TOKEN пустой — vk_publisher.py просто не публикует в VK (не падает),
-# см. vk_publisher.is_configured().
+# Если VK_TOKEN пустой ИЛИ VK_ENABLED=false — vk_publisher.py просто не
+# публикует в VK (не падает), см. vk_publisher.is_configured().
 VK_TOKEN: str = os.getenv("VK_TOKEN", "")
 VK_OWNER_ID: str = os.getenv("VK_OWNER_ID", "")
+VK_ENABLED: bool = os.getenv("VK_ENABLED", "true").strip().lower() == "true"
 
 # Отдельный чат для уведомлений об ОШИБКАХ (не публичный канал!).
 # Проще всего — узнать свой личный chat_id: напиши что угодно боту
@@ -106,6 +107,14 @@ MIN_PHOTOS_PER_POST: int = int(os.getenv("MIN_PHOTOS_PER_POST", "3"))
 # не подменяет точный расчёт таможенной категории.
 MIN_YEAR: int = int(os.getenv("MIN_YEAR", "2022"))
 MAX_YEAR: int = int(os.getenv("MAX_YEAR", "2023"))
+
+# Максимально допустимая наценка объявления над заводской ценой той же
+# комплектации (сейчас проверяется только для Encar, см. encar_scraper.
+# fetch_origin_price_krw()/post_validator.check_price_sanity()) — 1.3 = до
+# 30% наценки (обычная практика за срочную доступность без ожидания заказа)
+# допустимо, выше — REJECT. Инцидент 2026-07: Chevrolet Trax по цене +95%
+# от заводской — расчёт таможни был верным, а вот исходная цена — нет.
+MAX_MARKUP_OVER_ORIGIN: float = float(os.getenv("MAX_MARKUP_OVER_ORIGIN", "1.3"))
 
 # --- Заголовки для запросов к сайтам ---
 # Это "представление" нашей программы сайту — мы говорим "я обычный браузер

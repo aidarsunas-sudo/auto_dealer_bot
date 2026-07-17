@@ -27,6 +27,11 @@ VK (vk_publisher.py) — ВТОРОЙ канал, best-effort по отноше�
 неудача НЕ влияет на результат Telegram (см. publish_post() ниже). Но
 внутри самого VK действует та же защита — если хотя бы одно фото не
 прикрепилось, VK-пост тоже не публикуется (см. vk_publisher.send_to_vk()).
+Вызов send_to_vk() здесь дополнительно обёрнут в try/except (2026-07-17) —
+защита от НЕОЖИДАННЫХ ошибок (не сетевых/API, те уже ловятся внутри
+vk_publisher.py и возвращают False), чтобы вообще ничего из VK не могло
+прервать publish_post() после того, как Telegram уже отправлен.
+Отключить канал целиком — VK_ENABLED=false в .env (см. config.py).
 Никакой отдельной логики поиска/расчёта цены здесь нет — text/photos уже
 готовы на входе, те же самые для обоих каналов.
 
@@ -103,8 +108,11 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
     if not ok:
         logger.error("Публикация в Telegram заблокирована — не удалось прикрепить фото")
 
-    if not send_to_vk(text, photos, dry_run=dry_run):
-        logger.warning("Не удалось опубликовать в VK — Telegram это не затрагивает")
+    try:
+        if not send_to_vk(text, photos, dry_run=dry_run):
+            logger.warning("Не удалось опубликовать в VK — Telegram это не затрагивает")
+    except Exception as error:
+        logger.error(f"VK: неожиданная ошибка при публикации ({error}) — Telegram это не затрагивает")
 
     return ok
 

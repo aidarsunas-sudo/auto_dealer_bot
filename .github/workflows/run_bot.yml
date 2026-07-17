@@ -32,6 +32,15 @@ on:
   # Ручной запуск остаётся доступен — вкладка "Actions" -> "Auto Dealer Bot"
   # -> "Run workflow".
   workflow_dispatch:
+    inputs:
+      test_post:
+        description: >-
+          Вместо обычного прогона по WATCHLIST — принудительно опубликовать
+          ОДИН тестовый пост (с фото) в Telegram И VK, игнорируя
+          дедупликацию (см. test_post.py). Для проверки каналов "в бою",
+          например после смены VK-токена.
+        type: boolean
+        default: false
 
 # Разрешение для этого workflow — писать изменения обратно в репозиторий
 # (нужно, чтобы сохранить обновлённую базу данных и лог после прогона).
@@ -57,11 +66,12 @@ jobs:
       - name: Установить зависимости
         run: pip install -r requirements.txt
 
-      # Шаг 4: запускаем самого бота.
+      # Шаг 4: запускаем самого бота (обычный прогон по WATCHLIST).
       # Секретные настройки (токен и т.д.) НЕ хранятся в этом файле —
       # они лежат в "GitHub Secrets" (настраиваются отдельно в репозитории,
       # см. SETUP_GITHUB_ACTIONS.md) и подставляются сюда автоматически.
       - name: Запустить бота
+        if: ${{ github.event.inputs.test_post != 'true' }}
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -77,10 +87,25 @@ jobs:
           LOG_FILE_PATH: logs/app.log
         run: python main.py
 
+      # Шаг 4-тест: включается ТОЛЬКО ручным запуском с галочкой test_post
+      # (см. workflow_dispatch.inputs выше) — вместо обычного прогона,
+      # публикует один тестовый пост (с фото, префикс "[ТЕСТ] ") сразу в
+      # оба канала, игнорируя дедупликацию. См. test_post.py.
+      - name: Тестовая публикация (test_post=true)
+        if: ${{ github.event.inputs.test_post == 'true' }}
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          VK_TOKEN: ${{ secrets.VK_TOKEN }}
+          VK_OWNER_ID: ${{ secrets.VK_OWNER_ID }}
+        run: python test_post.py
+
       # Шаг 4.5: как и в main_pipeline.yml — если гейт validate_post_before_publish
       # (post_validator.py) кого-то отклонил в ЭТОМ прогоне, явно фейлим job.
+      # Пропускается в режиме test_post — там отказ гейта одному из
+      # перебираемых кандидатов ожидаем и не является поломкой (см. test_post.py).
       - name: Проверить rejected_posts.log (гейт validate_post_before_publish)
-        if: always()
+        if: ${{ always() && github.event.inputs.test_post != 'true' }}
         run: |
           if [ -s rejected_posts.log ]; then
             echo "::error::validate_post_before_publish() отклонил пост(ы) в этом прогоне:"

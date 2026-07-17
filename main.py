@@ -42,6 +42,7 @@ from database import get_connection, save_car
 from scraper import fetch_html, parse_car_page
 from used_car_scraper import parse_all_pages as parse_used_cars
 from price_alert_builder import build_price_alert_post
+from post_text_builder import prepare_post_fields
 from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
@@ -172,12 +173,19 @@ def process_used_car_search(search_params: dict, conn, rates: dict, dry_run: boo
             if post_text is None:
                 continue
 
-            # Гейт (фото/название/год) — внутри publish_post() самой,
-            # см. agent_publisher.py. Здесь его дублировать не нужно и не
-            # надо: именно раздельные вызовы validate_post_before_publish()
+            # fields — для гейта (пробег/цена, см. post_validator.py:
+            # check_mileage/check_price_absolute/check_price_relative) И
+            # для видео при VIDEO_ENABLED=true. Раньше здесь fields не
+            # передавался вообще — эти проверки для потока б/у авто main.py
+            # молча не работали (см. аудит 2026-07-17/FINAL_STATE.md).
+            fields, _ = prepare_post_fields(car, rates)
+
+            # Гейт (фото/название/год/пробег/цена) — внутри publish_post()
+            # самой, см. agent_publisher.py. Здесь его дублировать не нужно
+            # и не надо: именно раздельные вызовы validate_post_before_publish()
             # в каждом вызывающем скрипте (не задеплоенные) стали причиной
             # инцидента 2026-07-07 — см. FINAL_STATE.md.
-            publish_post(car, post_text, dry_run=dry_run)
+            publish_post(car, post_text, dry_run=dry_run, fields=fields)
 
             time.sleep(2)
         except Exception as error:

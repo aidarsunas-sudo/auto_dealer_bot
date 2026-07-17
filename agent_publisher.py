@@ -53,17 +53,19 @@ from post_validator import validate_post_before_publish, PublishBlockedError
 logger = logging.getLogger("agent_publisher")
 
 
-def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: bool = False) -> bool:
+def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: bool = False,
+                  fields: dict | None = None) -> bool:
     """
     Публикует готовый текст поста в Telegram (основной канал) и, следом,
     в VK (второй канал, best-effort — см. докстринг файла).
 
     Первым делом (кроме одного явного исключения ниже) прогоняет car через
-    validate_post_before_publish() — фото/название/год, см. post_validator.py.
-    Нарушение — PublishBlockedError, HTTP-запрос к Telegram/VK не делается
-    вообще. Это ЕДИНСТВЕННОЕ место в проекте, где стоит эта проверка —
-    вызывающий код (main.py/main_pipeline.py/publish_now.py) НЕ должен
-    дублировать вызов validate_post_before_publish() сам.
+    validate_post_before_publish() — фото/название/год/пробег/цена, см.
+    post_validator.py. Нарушение — PublishBlockedError, HTTP-запрос к
+    Telegram/VK не делается вообще. Это ЕДИНСТВЕННОЕ место в проекте, где
+    стоит эта проверка — вызывающий код (main.py/main_pipeline.py/
+    publish_now.py) НЕ должен дублировать вызов validate_post_before_publish()
+    сам.
 
     Args:
         car: словарь объявления (brand/model/trim/year/photos/url/...) —
@@ -78,6 +80,11 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
             calculate_price_details: age_bucket_for_new_catalog_car()) —
             это не брак данных, а другой класс объявлений. Для ЛЮБОГО
             источника б/у авто — оставлять False.
+        fields: словарь из post_text_builder.prepare_post_fields() — нужен
+            гейту для проверок цены (total_rub_raw, см. post_validator.
+            check_price_absolute()/check_price_relative()). Не передан
+            (None) — эти две проверки молча пропускаются (мileage и
+            остальные проверки от fields не зависят).
 
     Returns:
         True при успехе в Telegram (VK публикуется независимо и не влияет
@@ -91,10 +98,11 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
             (продолжить со следующей), а не давать упасть всему прогону.
     """
     if not skip_validation:
-        valid, reason = validate_post_before_publish(car)
-        if not valid:
+        validated, reason = validate_post_before_publish(car, fields)
+        if validated is None:
             identifier = car.get("url") or car.get("external_id") or "?"
             raise PublishBlockedError(f"Пост {identifier} заблокирован: {reason}")
+        car = validated
 
     photos = car.get("photos") or []
 

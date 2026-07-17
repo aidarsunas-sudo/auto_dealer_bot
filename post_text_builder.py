@@ -159,6 +159,12 @@ def prepare_post_fields(car: dict, rates: dict) -> tuple[dict | None, str]:
         "customs_rub": _format_number(details["customs_rub"]),
         "extra_costs_rub": _format_number(details["extra_costs_rub"]),
         "total_rub": _format_number(details["total_rub"]),
+        # Целое число (не отформатированная строка выше) — нужно
+        # post_validator.check_price_absolute()/check_price_relative() для
+        # сравнения с config.PRICE_MIN_RUB/PRICE_MAX_RUB/ModelSpec.price_range_rub.
+        # Не влияет на template.format(**fields) — лишний неиспользуемый
+        # ключ в словаре шаблону не мешает.
+        "total_rub_raw": details["total_rub"],
         "cta_bot": CTA_BOT,
     }
     return fields, ""

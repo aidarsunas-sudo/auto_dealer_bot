@@ -501,6 +501,89 @@ SPECS = [
                '(chevrolet.co.kr) — 1.2 Turbo GDI, единственный мотор для этого '
                'поколения в Корее',
     ),
+    # ─── Hyundai Sonata 2.0 (добавлено через add_model.py) ──────────────────────
+    ModelSpec(
+        match=('sonata', '2.0'),
+        cc=1999, hp=160, fuel='petrol',
+        label='Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)',
+        source='carnoon.co.kr — SONATA The Edge, официальный дилерский каталог',
+    ),
+
+    # ─── Hyundai Sonata 2.0 (добавлено через add_model.py) ──────────────────────
+    ModelSpec(
+        match=('쏘나타', '2.0'),
+        cc=1999, hp=160, fuel='petrol',
+        label='Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)',
+        source='carnoon.co.kr — SONATA The Edge, официальный дилерский каталог',
+    ),
+
+    # ─── Kia Tasman 2.5 (добавлено через add_model.py) ──────────────────────────
+    ModelSpec(
+        match=('tasman', '2.5'),
+        cc=2497, hp=281, fuel='petrol',
+        label='Kia Tasman 2.5 Turbo Gasoline',
+        source='carnoon.co.kr — Tasman, официальный дилерский каталог; единственный мотор (нет дизеля/гибрида)',
+    ),
+
+    # ─── Kia Tasman 2.5 (добавлено через add_model.py) ──────────────────────────
+    ModelSpec(
+        match=('타스만', '2.5'),
+        cc=2497, hp=281, fuel='petrol',
+        label='Kia Tasman 2.5 Turbo Gasoline',
+        source='carnoon.co.kr — Tasman, официальный дилерский каталог; единственный мотор (нет дизеля/гибрида)',
+    ),
+
+    # ─── Hyundai IONIQ 5 Long Range AWD (добавлено через add_model.py) ──────────
+    ModelSpec(
+        match=('ioniq', '5', 'awd'),
+        cc=0, hp=325, fuel='elec',
+        label='Hyundai IONIQ 5 Long Range AWD (77.4 кВтч, 239 кВт)',
+        source='hyundai.com/kr — IONIQ 5, официальный дилерский каталог (2023+, 77.4 кВтч)',
+    ),
+
+    # ─── Kia EV9 Long Range AWD (добавлено через add_model.py) ──────────────────
+    # ВАЖНО: официальное название трима у Kia — "4WD", а не "AWD" (в отличие
+    # от IONIQ 5/GV60, где Hyundai/Genesis используют именно "AWD") —
+    # проверено на carnoon.co.kr ("롱레인지 7인승 4WD" и т.д.), match ниже
+    # исправлен под реальное название, иначе он никогда бы не сработал.
+    ModelSpec(
+        match=('ev9', '4wd'),
+        cc=0, hp=385, fuel='elec',
+        label='Kia EV9 Long Range AWD Earth (283 кВт)',
+        source='kia.com/kr — EV9, официальный дилерский каталог',
+    ),
+
+    # ─── Genesis GV60 Standard AWD (добавлено через add_model.py) ───────────────
+    ModelSpec(
+        match=('gv60', 'awd'),
+        cc=0, hp=318, fuel='elec',
+        label='Genesis GV60 Standard AWD (84 кВтч, 234 кВт)',
+        source='genesis.com/kr — GV60, официальный дилерский каталог',
+    ),
+
+    # ─── BYD SEALION 7 (добавлено через add_model.py) ───────────────────────────
+    ModelSpec(
+        match=('sealion', '7'),
+        cc=0, hp=313, fuel='elec',
+        label='BYD SEALION 7 (RWD, 82.5 кВтч, 230 кВт)',
+        source='bydauto.kr — SEALION 7, официальный дилерский каталог (запуск 2025-09)',
+    ),
+
+    # ─── Hyundai IONIQ 5 Long Range AWD (добавлено через add_model.py) ──────────
+    ModelSpec(
+        match=('아이오닉', '5', 'awd'),
+        cc=0, hp=325, fuel='elec',
+        label='Hyundai IONIQ 5 Long Range AWD (77.4 кВтч, 239 кВт)',
+        source='hyundai.com/kr — IONIQ 5, официальный дилерский каталог (2023+, 77.4 кВтч)',
+    ),
+
+    # ─── BYD SEALION 7 (добавлено через add_model.py) ───────────────────────────
+    ModelSpec(
+        match=('씨라이언', '7'),
+        cc=0, hp=313, fuel='elec',
+        label='BYD SEALION 7 (RWD, 82.5 кВтч, 230 кВт)',
+        source='bydauto.kr — SEALION 7, официальный дилерский каталог (запуск 2025-09)',
+    ),
     # --- Добавляй новые модели ниже по этому же образцу ---
 ]
 

@@ -50,8 +50,24 @@ def fee(rub: float) -> int:
 # Формула не зависит от конкретного eur_rub — при обновлении DEFAULT_RATES
 # поменяется и это число, самотест ниже пересчитывает его от актуальных
 # DEFAULT_RATES, а не сверяет с зашитой константой.
+#
+# Электромобили (fuel="elec", добавлено 2026-07-17): у EV физически нет
+# объёма двигателя — считать ЕТС по см³ для них бессмысленно (а раньше
+# calc_full() всё равно передавал сюда произвольный/нулевой cc, что дало бы
+# неверную сумму). Ставка для электромобилей в РФ — фиксированные 15% от
+# стоимости авто, БЕЗ привязки к см³ и (в отличие от бензина/дизеля) БЕЗ
+# деления по возрасту — действует с 01.01.2022.
+# ⚠️ Источник — агрегаторы (moscowteslaclub.ru, auto.mail.ru), НЕ
+# официальный текст решения ЕЭК/постановления и НЕ customs_calc.html
+# (там EV-ветки нет вообще) — при появлении официального источника или
+# обновлённого customs_calc.html сверить и поправить при необходимости.
 # ═══════════════════════════════════════════════════════════
-def ets_calc(cc: float, age: str, price_eur: float, eur_rub: float) -> dict:
+def ets_calc(cc: float, age: str, price_eur: float, eur_rub: float,
+             fuel: str = "petrol", price_rub: float = 0) -> dict:
+    if fuel == "elec":
+        return {"rub": price_rub * 0.15,
+                "note": "электромобиль: 15% от стоимости (фиксированная ставка, без см³ и без деления по возрасту)"}
+
     if age == "u3":
         bands = [
             (8500,    0.54, 2.5),
@@ -182,7 +198,7 @@ def calc_full(price: float, currency: str, cc: float, power: float,
     age_util = "u3" if age == "u3" else "o3"
 
     fee_rub = fee(price_rub)
-    ets = ets_calc(cc, age, price_eur, rates["eur_rub"])
+    ets = ets_calc(cc, age, price_eur, rates["eur_rub"], fuel=fuel, price_rub=price_rub)
     util = util_calc(cc, hp, age_util, fuel, who)
 
     customs_total = fee_rub + ets["rub"]

@@ -421,3 +421,29 @@ Kate Mobile — доверенное VK-приложение с широким �
 Telegram не влияет. Сами секреты в GitHub нужно завести вручную (см.
 обновлённый `SETUP_GITHUB_ACTIONS.md`, шаг 5) — это пользователь делает
 сам через веб-интерфейс, автоматически это не делается.
+
+**Ручная проверка "в бою" (`test_post.py`).** Добавлен `test_post.py` +
+input `test_post` (boolean) в `run_bot.yml` — форс-публикация одного
+поста ([ТЕСТ]) сразу в оба канала, игнорируя дедупликацию (свежий поиск
+по 4 источникам, а не `cars.db` — та фото не хранит вовсе, см. докстринг
+`test_post.py`). Первый прогон на GitHub Actions выявил проблему,
+локально не воспроизводившуюся: Telegram публиковал альбом нормально, а
+VK падал на `photos.saveWallPhoto` с `ошибка 100 — photo is undefined`.
+Причина — `requests.get()` без заголовков к `ci.encar.com` с IP
+облачных раннеров GitHub Actions получал HTTP 200, но НЕ настоящую
+картинку (анти-hotlink/анти-бот защита сайта; с домашней сети та же
+ссылка скачивалась нормально). Фикс в `vk_publisher.py`:
+`_download_photo()` — браузерный `User-Agent` + `Referer` домена
+основного сайта (`_REFERER_BY_PHOTO_HOST`, для encar —
+`https://www.encar.com/`), явная проверка HTTP-статуса, `content-type`
+(`image/*`) и размера (> 10 КБ) вместо доверия одному лишь статусу 200,
+до 3 попыток; multipart-поле для `upload_url` явно `"photo"` с
+`content-type: image/jpeg`; при отказе `saveWallPhoto` в лог пишется
+сырой ответ upload-сервера (`server`/`photo`/`hash`).
+
+**Итоговое подтверждение (2026-07-17, GitHub Actions, `test_post.py`
+через `workflow_dispatch`):** после фикса — Telegram и VK оба отработали
+штатно в облачном прогоне, `post_id=18` в VK. VK-интеграция (текст +
+фото, оба канала, best-effort по отношению к Telegram, `VK_ENABLED`,
+пользовательский токен) считается полностью рабочей — и локально, и на
+GitHub Actions.

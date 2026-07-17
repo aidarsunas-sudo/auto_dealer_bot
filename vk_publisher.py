@@ -21,6 +21,8 @@ vk_publisher.py — публикация готового поста на сте
 
 import logging
 import sys
+import time
+from urllib.parse import urlparse
 
 import requests
 
@@ -31,6 +33,42 @@ logger = logging.getLogger("vk_publisher")
 API_BASE = "https://api.vk.com/method"
 API_VERSION = "5.199"
 MAX_PHOTOS_PER_POST = 10  # ограничение VK на число вложений в одном посте
+
+# Инцидент 2026-07-17 (GitHub Actions, прогон test_post.py): фото с
+# ci.encar.com скачивались "успешно" (HTTP 200), но VK отвечал на
+# photos.saveWallPhoto ошибкой 100 "photo is undefined" — сервер загрузки
+# VK получал пустой/не-картиночный файл. Локально (домашняя сеть) та же
+# самая ссылка скачивалась нормально — значит дело было не в самом
+# encar.com, а в том, что requests.get() без заголовков (стандартный
+# User-Agent библиотеки requests) палится анти-бот/hotlink-защитой сайта
+# на IP облачных раннеров GitHub Actions и получает вместо картинки
+# страницу-заглушку/редирект с кодом 200, но без реального изображения.
+# Фикс — качать с браузерными заголовками и Referer сайта-источника, и
+# явно проверять, что реально получили (content-type, размер), а не
+# только HTTP-статус, с несколькими попытками на случай единичного сбоя.
+_DOWNLOAD_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+)
+_MIN_PHOTO_BYTES = 10 * 1024  # 10 КБ — меньше почти наверняка не фото, а заглушка/ошибка
+_DOWNLOAD_RETRIES = 3
+
+# Referer, которого ждёт анти-hotlink защита каждого источника — сама CDN-
+# ссылка (например, ci.encar.com) обычно не подходит, нужен домен
+# основного сайта. По умолчанию (незнакомый источник) — Referer на сам же
+# CDN-домен фото, это безопаснее, чем вообще без Referer.
+_REFERER_BY_PHOTO_HOST = {
+    "ci.encar.com": "https://www.encar.com/",
+    "fem.encar.com": "https://www.encar.com/",
+}
+
+
+def _referer_for(photo_url: str) -> str:
+    host = urlparse(photo_url).netloc
+    if host in _REFERER_BY_PHOTO_HOST:
+        return _REFERER_BY_PHOTO_HOST[host]
+    parsed = urlparse(photo_url)
+    return f"{parsed.scheme}://{parsed.netloc}/"
 
 
 def _safe_print(text: str) -> None:
@@ -76,6 +114,52 @@ def _api_call(method: str, params: dict, timeout: int = 20) -> dict | None:
     return data.get("response")
 
 
+def _download_photo(photo_url: str) -> bytes | None:
+    """
+    Скачивает фото с браузерными заголовками (User-Agent + Referer сайта-
+    источника, см. _REFERER_BY_PHOTO_HOST) и проверяет, что реально
+    получили картинку, а не HTTP 200 с пустой/не-картиночной заглушкой
+    (см. докстринг про инцидент 2026-07-17) — статус, content-type И
+    размер (> _MIN_PHOTO_BYTES). При неудаче — до _DOWNLOAD_RETRIES
+    попыток, с логом причины на каждой.
+    """
+    headers = {
+        "User-Agent": _DOWNLOAD_USER_AGENT,
+        "Referer": _referer_for(photo_url),
+    }
+
+    for attempt in range(1, _DOWNLOAD_RETRIES + 1):
+        if attempt > 1:
+            time.sleep(1)
+        try:
+            response = requests.get(photo_url, headers=headers, timeout=20)
+        except requests.RequestException as error:
+            logger.warning(f"VK: попытка {attempt}/{_DOWNLOAD_RETRIES} скачать {photo_url} — "
+                            f"сетевая ошибка ({error})")
+            continue
+
+        content_type = response.headers.get("content-type", "")
+        size = len(response.content)
+
+        if response.status_code != 200:
+            logger.warning(f"VK: попытка {attempt}/{_DOWNLOAD_RETRIES} скачать {photo_url} — "
+                            f"HTTP {response.status_code}")
+            continue
+        if not content_type.startswith("image/"):
+            logger.warning(f"VK: попытка {attempt}/{_DOWNLOAD_RETRIES} скачать {photo_url} — "
+                            f"content-type {content_type!r} (не image/*), размер {size} байт")
+            continue
+        if size <= _MIN_PHOTO_BYTES:
+            logger.warning(f"VK: попытка {attempt}/{_DOWNLOAD_RETRIES} скачать {photo_url} — "
+                            f"слишком маленький файл ({size} байт, ожидалось > {_MIN_PHOTO_BYTES})")
+            continue
+
+        return response.content
+
+    logger.error(f"VK: не удалось скачать пригодное фото {photo_url} за {_DOWNLOAD_RETRIES} попыток(и)")
+    return None
+
+
 def _upload_one_photo(photo_url: str, group_id: int) -> str | None:
     """
     Три шага загрузки одного фото на стену VK (см. докстринг файла).
@@ -91,22 +175,24 @@ def _upload_one_photo(photo_url: str, group_id: int) -> str | None:
         logger.error("VK: photos.getWallUploadServer не вернул upload_url")
         return None
 
-    try:
-        photo_response = requests.get(photo_url, timeout=20)
-        photo_response.raise_for_status()
-        photo_bytes = photo_response.content
-    except requests.RequestException as error:
-        logger.error(f"VK: не удалось скачать фото {photo_url}: {error}")
+    photo_bytes = _download_photo(photo_url)
+    if photo_bytes is None:
         return None
 
     try:
         upload_response = requests.post(
-            upload_url, files={"photo": ("photo.jpg", photo_bytes)}, timeout=30,
+            upload_url,
+            # Поле строго "photo" (так его ждёт VK) — имя файла с
+            # расширением .jpg и явный content-type, как в ручной проверке
+            # curl -F "photo=@file.jpg;type=image/jpeg", которая гарантированно
+            # отрабатывает (см. FINAL_STATE.md раздел 9).
+            files={"photo": ("photo.jpg", photo_bytes, "image/jpeg")},
+            timeout=30,
         )
         upload_response.raise_for_status()
         upload_result = upload_response.json()
     except (requests.RequestException, ValueError) as error:
-        logger.error(f"VK: не удалось загрузить фото на сервер VK: {error}")
+        logger.error(f"VK: не удалось загрузить фото {photo_url} на сервер VK ({error})")
         return None
 
     saved = _api_call("photos.saveWallPhoto", {
@@ -116,6 +202,14 @@ def _upload_one_photo(photo_url: str, group_id: int) -> str | None:
         "hash": upload_result.get("hash"),
     })
     if not saved:
+        # _api_call уже залогировал код/текст ошибки VK API — здесь
+        # дополнительно печатаем то, что реально вернул upload-сервер
+        # (server/photo/hash), чтобы при "photo is undefined" сразу было
+        # видно, пустой ли это ответ или что-то более конкретное.
+        logger.error(f"VK: ответ upload-сервера для {photo_url}: "
+                     f"server={upload_result.get('server')!r}, "
+                     f"photo={upload_result.get('photo')!r}, "
+                     f"hash={upload_result.get('hash')!r}")
         return None
 
     saved_photo = saved[0]

@@ -10463,3 +10463,423 @@ Call log:
 2026-07-18 07:58:14,902 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Kia K5 기아 더 뉴 K5 3세대 1.6 가솔린 터보 시그니처')) — Kia K5
 2026-07-18 07:58:14,902 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Hyundai Sonata 현대 쏘나타 디 엣지(DN8) 1.6 터보 인스퍼레이션')) — Hyundai Sonata
 2026-07-18 07:58:14,907 [INFO] === Готово: опубликовано 0 постов ===
+2026-07-18 13:15:52,310 [INFO] === Запуск main_pipeline ===
+2026-07-18 13:15:52,699 [INFO] Получены свежие курсы ЦБ: EUR=89.90 USD=78.40 KRW(за 1000)=52.66
+2026-07-18 13:15:52,700 [INFO] Режим поиска: both
+2026-07-18 13:15:52,700 [INFO] ── Целевая модель: Audi Q3 (kbchachacha) ──
+2026-07-18 13:15:52,701 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:15:54,733 [INFO] Страница 1: найдено 52 объявлений (новых 52)
+2026-07-18 13:15:55,234 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:15:55,506 [INFO] Страница 2: найдено 8 объявлений (новых 8)
+2026-07-18 13:15:56,007 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:15:56,213 [INFO] Страница 3: пусто, останавливаюсь
+2026-07-18 13:15:56,213 [INFO] kbchachacha: Audi Q3 -> найдено 9 (после фильтров)
+2026-07-18 13:15:56,213 [INFO] ── Целевая модель: Audi Q3 (encar) ──
+2026-07-18 13:15:56,777 [INFO] encar: Audi Q3 -> найдено 30 (после фильтров)
+2026-07-18 13:15:56,778 [INFO] ── Целевая модель: Audi Q3 (charancha) ──
+2026-07-18 13:15:57,852 [INFO] charancha: Audi Q3 -> найдено 0 (после фильтров)
+2026-07-18 13:15:57,853 [INFO] ── Целевая модель: Audi Q3 (onbid) ──
+2026-07-18 13:16:23,490 [ERROR] onbid: страница 1 для Audi Q3: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5268c5f0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:16:23,491 [INFO] onbid: Audi Q3 -> найдено 0 (после фильтров)
+2026-07-18 13:16:23,491 [INFO] ── Целевая модель: Volkswagen Tiguan (kbchachacha) ──
+2026-07-18 13:16:23,491 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:16:24,609 [INFO] Страница 1: найдено 55 объявлений (новых 55)
+2026-07-18 13:16:25,109 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:16:25,821 [INFO] Страница 2: найдено 40 объявлений (новых 33)
+2026-07-18 13:16:26,322 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:16:26,809 [INFO] Страница 3: найдено 17 объявлений (новых 17)
+2026-07-18 13:16:27,310 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:16:27,522 [INFO] Страница 4: пусто, останавливаюсь
+2026-07-18 13:16:27,522 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:16:29,044 [INFO] Страница 1: найдено 76 объявлений (новых 76)
+2026-07-18 13:16:29,544 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:16:30,202 [INFO] Страница 2: найдено 40 объявлений (новых 30)
+2026-07-18 13:16:30,702 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:16:31,364 [INFO] Страница 3: найдено 40 объявлений (новых 29)
+2026-07-18 13:16:31,864 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:16:32,632 [INFO] Страница 4: найдено 40 объявлений (новых 40)
+2026-07-18 13:16:33,133 [INFO] Загружаю список б/у авто, страница 5 (попытка 1/3)
+2026-07-18 13:16:33,594 [INFO] Страница 5: найдено 8 объявлений (новых 8)
+2026-07-18 13:16:34,094 [INFO] Загружаю список б/у авто, страница 6 (попытка 1/3)
+2026-07-18 13:16:34,303 [INFO] Страница 6: пусто, останавливаюсь
+2026-07-18 13:16:34,303 [INFO] kbchachacha: Volkswagen Tiguan -> найдено 23 (после фильтров)
+2026-07-18 13:16:34,303 [INFO] ── Целевая модель: Volkswagen Tiguan (encar) ──
+2026-07-18 13:16:37,094 [INFO] encar: Volkswagen Tiguan -> найдено 51 (после фильтров)
+2026-07-18 13:16:37,095 [INFO] ── Целевая модель: Volkswagen Tiguan (charancha) ──
+2026-07-18 13:16:39,649 [INFO] charancha: Volkswagen Tiguan -> найдено 1 (после фильтров)
+2026-07-18 13:16:39,650 [INFO] ── Целевая модель: Volkswagen Tiguan (onbid) ──
+2026-07-18 13:17:05,056 [ERROR] onbid: страница 1 для Volkswagen Tiguan: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5190ce30>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:17:05,056 [INFO] onbid: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-07-18 13:17:05,056 [INFO] ── Целевая модель: Kia K3 (kbchachacha) ──
+2026-07-18 13:17:05,056 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:17:06,159 [INFO] Страница 1: найдено 40 объявлений (новых 40)
+2026-07-18 13:17:06,659 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:17:07,740 [INFO] Страница 2: найдено 56 объявлений (новых 51)
+2026-07-18 13:17:08,241 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:17:08,900 [INFO] Страница 3: найдено 40 объявлений (новых 40)
+2026-07-18 13:17:09,400 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:17:10,059 [INFO] Страница 4: найдено 40 объявлений (новых 40)
+2026-07-18 13:17:10,560 [INFO] Загружаю список б/у авто, страница 5 (попытка 1/3)
+2026-07-18 13:17:11,227 [INFO] Страница 5: найдено 40 объявлений (новых 6)
+2026-07-18 13:17:11,727 [INFO] Загружаю список б/у авто, страница 6 (попытка 1/3)
+2026-07-18 13:17:12,436 [INFO] Страница 6: найдено 40 объявлений (новых 30)
+2026-07-18 13:17:12,936 [INFO] Загружаю список б/у авто, страница 7 (попытка 1/3)
+2026-07-18 13:17:13,633 [INFO] Страница 7: найдено 40 объявлений (новых 40)
+2026-07-18 13:17:14,134 [INFO] Загружаю список б/у авто, страница 8 (попытка 1/3)
+2026-07-18 13:17:14,806 [INFO] Страница 8: найдено 40 объявлений (новых 40)
+2026-07-18 13:17:15,306 [INFO] Загружаю список б/у авто, страница 9 (попытка 1/3)
+2026-07-18 13:17:16,193 [INFO] Страница 9: найдено 40 объявлений (новых 40)
+2026-07-18 13:17:16,693 [INFO] Загружаю список б/у авто, страница 10 (попытка 1/3)
+2026-07-18 13:17:17,426 [INFO] Страница 10: найдено 32 объявлений (новых 32)
+2026-07-18 13:17:17,926 [INFO] Загружаю список б/у авто, страница 11 (попытка 1/3)
+2026-07-18 13:17:18,413 [INFO] Страница 11: пусто, останавливаюсь
+2026-07-18 13:17:18,414 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:17:19,444 [INFO] Страница 1: найдено 43 объявлений (новых 43)
+2026-07-18 13:17:19,945 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:17:20,151 [INFO] Страница 2: пусто, останавливаюсь
+2026-07-18 13:17:20,151 [INFO] kbchachacha: Kia K3 -> найдено 88 (после фильтров)
+2026-07-18 13:17:20,151 [INFO] ── Целевая модель: Kia K3 (encar) ──
+2026-07-18 13:17:31,589 [INFO] encar: Kia K3 -> найдено 235 (после фильтров)
+2026-07-18 13:17:31,590 [INFO] ── Целевая модель: Kia K3 (charancha) ──
+2026-07-18 13:17:37,272 [INFO] charancha: Kia K3 -> найдено 5 (после фильтров)
+2026-07-18 13:17:37,273 [INFO] ── Целевая модель: Kia K3 (onbid) ──
+2026-07-18 13:18:02,667 [ERROR] onbid: страница 1 для Kia K3: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b52ae73b0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:18:02,667 [INFO] onbid: Kia K3 -> найдено 0 (после фильтров)
+2026-07-18 13:18:02,668 [INFO] ── Целевая модель: Kia K5 (kbchachacha) ──
+2026-07-18 13:18:02,668 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:18:03,754 [INFO] Страница 1: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:04,255 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:18:04,923 [INFO] Страница 2: найдено 42 объявлений (новых 30)
+2026-07-18 13:18:05,424 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:18:06,083 [INFO] Страница 3: найдено 40 объявлений (новых 31)
+2026-07-18 13:18:06,584 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:18:07,257 [INFO] Страница 4: найдено 40 объявлений (новых 19)
+2026-07-18 13:18:07,757 [INFO] Загружаю список б/у авто, страница 5 (попытка 1/3)
+2026-07-18 13:18:08,431 [INFO] Страница 5: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:08,931 [INFO] Загружаю список б/у авто, страница 6 (попытка 1/3)
+2026-07-18 13:18:09,717 [INFO] Страница 6: найдено 38 объявлений (новых 38)
+2026-07-18 13:18:10,217 [INFO] Загружаю список б/у авто, страница 7 (попытка 1/3)
+2026-07-18 13:18:10,653 [INFO] Страница 7: пусто, останавливаюсь
+2026-07-18 13:18:10,653 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:18:11,778 [INFO] Страница 1: найдено 54 объявлений (новых 54)
+2026-07-18 13:18:12,279 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:18:12,956 [INFO] Страница 2: найдено 40 объявлений (новых 29)
+2026-07-18 13:18:13,456 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:18:13,729 [INFO] Страница 3: найдено 4 объявлений (новых 4)
+2026-07-18 13:18:14,230 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:18:14,437 [INFO] Страница 4: пусто, останавливаюсь
+2026-07-18 13:18:14,438 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:18:15,563 [INFO] Страница 1: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:16,064 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:18:17,149 [INFO] Страница 2: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:17,649 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:18:18,727 [INFO] Страница 3: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:19,228 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:18:20,295 [INFO] Страница 4: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:20,795 [INFO] Загружаю список б/у авто, страница 5 (попытка 1/3)
+2026-07-18 13:18:21,963 [INFO] Страница 5: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:22,463 [INFO] Загружаю список б/у авто, страница 6 (попытка 1/3)
+2026-07-18 13:18:24,074 [INFO] Страница 6: найдено 74 объявлений (новых 39)
+2026-07-18 13:18:24,574 [INFO] Загружаю список б/у авто, страница 7 (попытка 1/3)
+2026-07-18 13:18:25,235 [INFO] Страница 7: найдено 40 объявлений (новых 10)
+2026-07-18 13:18:25,735 [INFO] Загружаю список б/у авто, страница 8 (попытка 1/3)
+2026-07-18 13:18:26,396 [INFO] Страница 8: найдено 40 объявлений (новых 20)
+2026-07-18 13:18:26,896 [INFO] Загружаю список б/у авто, страница 9 (попытка 1/3)
+2026-07-18 13:18:27,555 [INFO] Страница 9: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:28,056 [INFO] Загружаю список б/у авто, страница 10 (попытка 1/3)
+2026-07-18 13:18:28,719 [INFO] Страница 10: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:29,219 [INFO] Загружаю список б/у авто, страница 11 (попытка 1/3)
+2026-07-18 13:18:29,877 [INFO] Страница 11: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:30,377 [INFO] Загружаю список б/у авто, страница 12 (попытка 1/3)
+2026-07-18 13:18:31,036 [INFO] Страница 12: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:31,536 [INFO] Загружаю список б/у авто, страница 13 (попытка 1/3)
+2026-07-18 13:18:32,193 [INFO] Страница 13: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:32,693 [INFO] Загружаю список б/у авто, страница 14 (попытка 1/3)
+2026-07-18 13:18:33,394 [INFO] Страница 14: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:33,894 [INFO] Загружаю список б/у авто, страница 15 (попытка 1/3)
+2026-07-18 13:18:34,559 [INFO] Страница 15: найдено 40 объявлений (новых 12)
+2026-07-18 13:18:35,060 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:18:36,180 [INFO] Страница 1: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:36,680 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:18:37,338 [INFO] Страница 2: найдено 40 объявлений (новых 30)
+2026-07-18 13:18:37,838 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:18:38,495 [INFO] Страница 3: найдено 40 объявлений (новых 37)
+2026-07-18 13:18:38,996 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:18:39,656 [INFO] Страница 4: найдено 40 объявлений (новых 13)
+2026-07-18 13:18:40,157 [INFO] Загружаю список б/у авто, страница 5 (попытка 1/3)
+2026-07-18 13:18:40,835 [INFO] Страница 5: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:41,336 [INFO] Загружаю список б/у авто, страница 6 (попытка 1/3)
+2026-07-18 13:18:42,158 [INFO] Страница 6: найдено 40 объявлений (новых 40)
+2026-07-18 13:18:42,658 [INFO] Загружаю список б/у авто, страница 7 (попытка 1/3)
+2026-07-18 13:18:43,161 [INFO] Страница 7: найдено 11 объявлений (новых 11)
+2026-07-18 13:18:43,662 [INFO] Загружаю список б/у авто, страница 8 (попытка 1/3)
+2026-07-18 13:18:43,884 [INFO] Страница 8: пусто, останавливаюсь
+2026-07-18 13:18:43,885 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:18:45,039 [INFO] Страница 1: найдено 54 объявлений (новых 54)
+2026-07-18 13:18:45,539 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:18:45,787 [INFO] Страница 2: найдено 6 объявлений (новых 6)
+2026-07-18 13:18:46,288 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:18:46,496 [INFO] Страница 3: пусто, останавливаюсь
+2026-07-18 13:18:46,496 [INFO] kbchachacha: Kia K5 -> найдено 79 (после фильтров)
+2026-07-18 13:18:46,497 [INFO] ── Целевая модель: Kia K5 (encar) ──
+2026-07-18 13:18:58,147 [INFO] encar: Kia K5 -> найдено 215 (после фильтров)
+2026-07-18 13:18:58,149 [INFO] ── Целевая модель: Kia K5 (charancha) ──
+2026-07-18 13:19:09,974 [INFO] charancha: Kia K5 -> найдено 12 (после фильтров)
+2026-07-18 13:19:09,976 [INFO] ── Целевая модель: Kia K5 (onbid) ──
+2026-07-18 13:19:35,380 [ERROR] onbid: страница 1 для Kia K5: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b51555d30>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:19:35,380 [INFO] onbid: Kia K5 -> найдено 0 (после фильтров)
+2026-07-18 13:19:35,380 [INFO] ── Целевая модель: Hyundai Sonata (kbchachacha) ──
+2026-07-18 13:19:35,381 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:19:36,899 [INFO] Страница 1: найдено 76 объявлений (новых 76)
+2026-07-18 13:19:37,400 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:19:38,059 [INFO] Страница 2: найдено 40 объявлений (новых 29)
+2026-07-18 13:19:38,559 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:19:39,229 [INFO] Страница 3: найдено 40 объявлений (новых 25)
+2026-07-18 13:19:39,730 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:19:40,446 [INFO] Страница 4: найдено 40 объявлений (новых 40)
+2026-07-18 13:19:40,946 [INFO] Загружаю список б/у авто, страница 5 (попытка 1/3)
+2026-07-18 13:19:41,716 [INFO] Страница 5: найдено 24 объявлений (новых 24)
+2026-07-18 13:19:42,216 [INFO] Загружаю список б/у авто, страница 6 (попытка 1/3)
+2026-07-18 13:19:42,651 [INFO] Страница 6: пусто, останавливаюсь
+2026-07-18 13:19:42,651 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:19:43,111 [INFO] Страница 1: найдено 14 объявлений (новых 14)
+2026-07-18 13:19:43,611 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:19:43,820 [INFO] Страница 2: пусто, останавливаюсь
+2026-07-18 13:19:43,820 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:19:44,953 [INFO] Страница 1: найдено 53 объявлений (новых 53)
+2026-07-18 13:19:45,454 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:19:45,933 [INFO] Страница 2: найдено 14 объявлений (новых 14)
+2026-07-18 13:19:46,433 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:19:46,643 [INFO] Страница 3: пусто, останавливаюсь
+2026-07-18 13:19:46,644 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:19:47,730 [INFO] Страница 1: найдено 40 объявлений (новых 40)
+2026-07-18 13:19:48,230 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:19:49,339 [INFO] Страница 2: найдено 40 объявлений (новых 40)
+2026-07-18 13:19:49,840 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:19:50,920 [INFO] Страница 3: найдено 40 объявлений (новых 40)
+2026-07-18 13:19:51,420 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:19:52,535 [INFO] Страница 4: найдено 40 объявлений (новых 40)
+2026-07-18 13:19:53,036 [INFO] Загружаю список б/у авто, страница 5 (попытка 1/3)
+2026-07-18 13:19:54,138 [INFO] Страница 5: найдено 56 объявлений (новых 29)
+2026-07-18 13:19:54,638 [INFO] Загружаю список б/у авто, страница 6 (попытка 1/3)
+2026-07-18 13:19:55,301 [INFO] Страница 6: найдено 40 объявлений (новых 15)
+2026-07-18 13:19:55,801 [INFO] Загружаю список б/у авто, страница 7 (попытка 1/3)
+2026-07-18 13:19:56,513 [INFO] Страница 7: найдено 40 объявлений (новых 40)
+2026-07-18 13:19:57,014 [INFO] Загружаю список б/у авто, страница 8 (попытка 1/3)
+2026-07-18 13:19:57,672 [INFO] Страница 8: найдено 40 объявлений (новых 40)
+2026-07-18 13:19:58,172 [INFO] Загружаю список б/у авто, страница 9 (попытка 1/3)
+2026-07-18 13:19:58,828 [INFO] Страница 9: найдено 40 объявлений (новых 40)
+2026-07-18 13:19:59,329 [INFO] Загружаю список б/у авто, страница 10 (попытка 1/3)
+2026-07-18 13:19:59,983 [INFO] Страница 10: найдено 40 объявлений (новых 40)
+2026-07-18 13:20:00,483 [INFO] Загружаю список б/у авто, страница 11 (попытка 1/3)
+2026-07-18 13:20:01,143 [INFO] Страница 11: найдено 40 объявлений (новых 40)
+2026-07-18 13:20:01,643 [INFO] Загружаю список б/у авто, страница 12 (попытка 1/3)
+2026-07-18 13:20:02,301 [INFO] Страница 12: найдено 40 объявлений (новых 40)
+2026-07-18 13:20:02,801 [INFO] Загружаю список б/у авто, страница 13 (попытка 1/3)
+2026-07-18 13:20:03,469 [INFO] Страница 13: найдено 40 объявлений (новых 15)
+2026-07-18 13:20:03,969 [INFO] Загружаю список б/у авто, страница 14 (попытка 1/3)
+2026-07-18 13:20:04,627 [INFO] Страница 14: найдено 40 объявлений (новых 5)
+2026-07-18 13:20:05,128 [INFO] Загружаю список б/у авто, страница 15 (попытка 1/3)
+2026-07-18 13:20:05,796 [INFO] Страница 15: только дубликаты, останавливаюсь
+2026-07-18 13:20:05,797 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:20:06,288 [INFO] Страница 1: найдено 15 объявлений (новых 15)
+2026-07-18 13:20:06,788 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:20:06,996 [INFO] Страница 2: пусто, останавливаюсь
+2026-07-18 13:20:06,997 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:20:08,550 [INFO] Страница 1: найдено 74 объявлений (новых 74)
+2026-07-18 13:20:09,050 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:20:09,715 [INFO] Страница 2: найдено 40 объявлений (новых 20)
+2026-07-18 13:20:10,215 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:20:10,922 [INFO] Страница 3: найдено 40 объявлений (новых 37)
+2026-07-18 13:20:11,422 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:20:12,329 [INFO] Страница 4: найдено 40 объявлений (новых 40)
+2026-07-18 13:20:12,829 [INFO] Загружаю список б/у авто, страница 5 (попытка 1/3)
+2026-07-18 13:20:13,281 [INFO] Страница 5: найдено 2 объявлений (новых 2)
+2026-07-18 13:20:13,781 [INFO] Загружаю список б/у авто, страница 6 (попытка 1/3)
+2026-07-18 13:20:13,989 [INFO] Страница 6: пусто, останавливаюсь
+2026-07-18 13:20:13,989 [INFO] kbchachacha: Hyundai Sonata -> найдено 92 (после фильтров)
+2026-07-18 13:20:13,989 [INFO] ── Целевая модель: Hyundai Sonata (encar) ──
+2026-07-18 13:20:25,816 [INFO] encar: Hyundai Sonata -> найдено 169 (после фильтров)
+2026-07-18 13:20:25,818 [INFO] ── Целевая модель: Hyundai Sonata (charancha) ──
+2026-07-18 13:20:37,648 [INFO] charancha: Hyundai Sonata -> найдено 14 (после фильтров)
+2026-07-18 13:20:37,649 [INFO] ── Целевая модель: Hyundai Sonata (onbid) ──
+2026-07-18 13:21:03,022 [ERROR] onbid: страница 1 для Hyundai Sonata: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b523645c0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:21:03,022 [INFO] onbid: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-07-18 13:21:03,022 [INFO] ── Целевая модель: Kia Tasman (kbchachacha) ──
+2026-07-18 13:21:03,022 [INFO] ── Целевая модель: Kia Tasman (encar) ──
+2026-07-18 13:21:03,023 [INFO] ── Целевая модель: Kia Tasman (charancha) ──
+2026-07-18 13:21:03,023 [INFO] ── Целевая модель: Kia Tasman (onbid) ──
+2026-07-18 13:21:28,662 [ERROR] onbid: страница 1 для Kia Tasman: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b523658b0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:21:28,662 [INFO] onbid: Kia Tasman -> найдено 0 (после фильтров)
+2026-07-18 13:21:28,662 [INFO] ── Целевая модель: Hyundai Venue (kbchachacha) ──
+2026-07-18 13:21:28,662 [INFO] ── Целевая модель: Hyundai Venue (encar) ──
+2026-07-18 13:21:28,663 [INFO] ── Целевая модель: Hyundai Venue (charancha) ──
+2026-07-18 13:21:28,663 [INFO] ── Целевая модель: Hyundai Venue (onbid) ──
+2026-07-18 13:21:54,312 [ERROR] onbid: страница 1 для Hyundai Venue: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b523661e0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:21:54,312 [INFO] onbid: Hyundai Venue -> найдено 0 (после фильтров)
+2026-07-18 13:21:54,312 [INFO] ── Целевая модель: Hyundai Casper (kbchachacha) ──
+2026-07-18 13:21:54,313 [INFO] ── Целевая модель: Hyundai Casper (encar) ──
+2026-07-18 13:21:54,314 [INFO] ── Целевая модель: Hyundai Casper (charancha) ──
+2026-07-18 13:21:54,314 [INFO] ── Целевая модель: Hyundai Casper (onbid) ──
+2026-07-18 13:22:19,925 [ERROR] onbid: страница 1 для Hyundai Casper: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b52366d80>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:22:19,925 [INFO] onbid: Hyundai Casper -> найдено 0 (после фильтров)
+2026-07-18 13:22:19,925 [INFO] ── Целевая модель: Kia Ray (kbchachacha) ──
+2026-07-18 13:22:19,926 [INFO] ── Целевая модель: Kia Ray (encar) ──
+2026-07-18 13:22:19,927 [INFO] ── Целевая модель: Kia Ray (charancha) ──
+2026-07-18 13:22:19,927 [INFO] ── Целевая модель: Kia Ray (onbid) ──
+2026-07-18 13:22:45,223 [ERROR] onbid: страница 1 для Kia Ray: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b52367500>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:22:45,224 [INFO] onbid: Kia Ray -> найдено 0 (после фильтров)
+2026-07-18 13:22:45,224 [INFO] ── Целевая модель: Hyundai IONIQ 5 (kbchachacha) ──
+2026-07-18 13:22:45,224 [INFO] ── Целевая модель: Hyundai IONIQ 5 (encar) ──
+2026-07-18 13:22:45,225 [INFO] ── Целевая модель: Hyundai IONIQ 5 (charancha) ──
+2026-07-18 13:22:45,225 [INFO] ── Целевая модель: Hyundai IONIQ 5 (onbid) ──
+2026-07-18 13:23:10,255 [ERROR] onbid: страница 1 для Hyundai IONIQ 5: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b523662a0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:23:10,255 [INFO] onbid: Hyundai IONIQ 5 -> найдено 0 (после фильтров)
+2026-07-18 13:23:10,255 [INFO] ── Целевая модель: Kia EV9 (kbchachacha) ──
+2026-07-18 13:23:10,256 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:23:12,339 [INFO] Страница 1: найдено 45 объявлений (новых 45)
+2026-07-18 13:23:12,840 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:23:13,057 [INFO] Страница 2: пусто, останавливаюсь
+2026-07-18 13:23:13,058 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:23:13,268 [INFO] Страница 1: пусто, останавливаюсь
+2026-07-18 13:23:13,268 [INFO] kbchachacha: Kia EV9 -> найдено 19 (после фильтров)
+2026-07-18 13:23:13,268 [INFO] ── Целевая модель: Kia EV9 (encar) ──
+2026-07-18 13:23:13,681 [INFO] encar: Kia EV9 -> найдено 33 (после фильтров)
+2026-07-18 13:23:13,682 [INFO] ── Целевая модель: Kia EV9 (charancha) ──
+2026-07-18 13:23:14,797 [INFO] charancha: Kia EV9 -> найдено 4 (после фильтров)
+2026-07-18 13:23:14,798 [INFO] ── Целевая модель: Kia EV9 (onbid) ──
+2026-07-18 13:23:40,358 [ERROR] onbid: страница 1 для Kia EV9: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b51e93fe0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:23:40,358 [INFO] onbid: Kia EV9 -> найдено 0 (после фильтров)
+2026-07-18 13:23:40,358 [INFO] ── Целевая модель: Genesis GV60 (kbchachacha) ──
+2026-07-18 13:23:40,358 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:23:41,463 [INFO] Страница 1: найдено 55 объявлений (новых 55)
+2026-07-18 13:23:41,963 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:23:42,202 [INFO] Страница 2: найдено 1 объявлений (новых 1)
+2026-07-18 13:23:42,702 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:23:42,912 [INFO] Страница 3: пусто, останавливаюсь
+2026-07-18 13:23:42,912 [INFO] kbchachacha: Genesis GV60 -> найдено 3 (после фильтров)
+2026-07-18 13:23:42,912 [INFO] ── Целевая модель: Genesis GV60 (encar) ──
+2026-07-18 13:23:43,293 [INFO] encar: Genesis GV60 -> найдено 13 (после фильтров)
+2026-07-18 13:23:43,294 [INFO] ── Целевая модель: Genesis GV60 (charancha) ──
+2026-07-18 13:23:44,279 [INFO] charancha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-07-18 13:23:44,280 [INFO] ── Целевая модель: Genesis GV60 (onbid) ──
+2026-07-18 13:24:09,880 [ERROR] onbid: страница 1 для Genesis GV60: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b522aeed0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:24:09,880 [INFO] onbid: Genesis GV60 -> найдено 0 (после фильтров)
+2026-07-18 13:24:09,880 [INFO] ── Целевая модель: BYD SEALION 7 (kbchachacha) ──
+2026-07-18 13:24:09,881 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:24:10,158 [INFO] Страница 1: найдено 6 объявлений (новых 6)
+2026-07-18 13:24:10,658 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:24:10,868 [INFO] Страница 2: пусто, останавливаюсь
+2026-07-18 13:24:10,868 [INFO] kbchachacha: BYD SEALION 7 -> найдено 3 (после фильтров)
+2026-07-18 13:24:10,869 [INFO] ── Целевая модель: BYD SEALION 7 (encar) ──
+2026-07-18 13:24:10,869 [INFO] ── Целевая модель: BYD SEALION 7 (charancha) ──
+2026-07-18 13:24:10,869 [INFO] ── Целевая модель: BYD SEALION 7 (onbid) ──
+2026-07-18 13:24:36,519 [ERROR] onbid: страница 1 для BYD SEALION 7: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b515424e0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:24:36,519 [INFO] onbid: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-07-18 13:24:36,520 [INFO] ── Целевая модель: Kia Sportage (kbchachacha) ──
+2026-07-18 13:24:36,520 [INFO] ── Целевая модель: Kia Sportage (encar) ──
+2026-07-18 13:24:36,521 [INFO] ── Целевая модель: Kia Sportage (charancha) ──
+2026-07-18 13:24:36,521 [INFO] ── Целевая модель: Kia Sportage (onbid) ──
+2026-07-18 13:25:02,102 [ERROR] onbid: страница 1 для Kia Sportage: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b51542e70>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:25:02,102 [INFO] onbid: Kia Sportage -> найдено 0 (после фильтров)
+2026-07-18 13:25:02,102 [INFO] ── Целевая модель: Renault QM6 (kbchachacha) ──
+2026-07-18 13:25:02,103 [INFO] ── Целевая модель: Renault QM6 (encar) ──
+2026-07-18 13:25:11,391 [INFO] encar: Renault QM6 -> найдено 139 (после фильтров)
+2026-07-18 13:25:11,392 [INFO] ── Целевая модель: Renault QM6 (charancha) ──
+2026-07-18 13:25:17,144 [INFO] charancha: Renault QM6 -> найдено 8 (после фильтров)
+2026-07-18 13:25:17,145 [INFO] ── Целевая модель: Renault QM6 (onbid) ──
+2026-07-18 13:25:42,731 [ERROR] onbid: страница 1 для Renault QM6: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b51e82c30>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:25:42,732 [INFO] onbid: Renault QM6 -> найдено 0 (после фильтров)
+2026-07-18 13:25:42,732 [INFO] ── Целевая модель: Renault SM6 (kbchachacha) ──
+2026-07-18 13:25:42,732 [INFO] ── Целевая модель: Renault SM6 (encar) ──
+2026-07-18 13:25:48,868 [INFO] encar: Renault SM6 -> найдено 36 (после фильтров)
+2026-07-18 13:25:48,869 [INFO] ── Целевая модель: Renault SM6 (charancha) ──
+2026-07-18 13:25:51,450 [INFO] charancha: Renault SM6 -> найдено 3 (после фильтров)
+2026-07-18 13:25:51,451 [INFO] ── Целевая модель: Renault SM6 (onbid) ──
+2026-07-18 13:26:16,766 [ERROR] onbid: страница 1 для Renault SM6: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222ee40>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:26:16,766 [INFO] onbid: Renault SM6 -> найдено 0 (после фильтров)
+2026-07-18 13:26:16,766 [INFO] ── Целевая модель: Chevrolet Malibu (kbchachacha) ──
+2026-07-18 13:26:16,767 [INFO] ── Целевая модель: Chevrolet Malibu (encar) ──
+2026-07-18 13:26:16,767 [INFO] ── Целевая модель: Chevrolet Malibu (charancha) ──
+2026-07-18 13:26:16,767 [INFO] ── Целевая модель: Chevrolet Malibu (onbid) ──
+2026-07-18 13:26:42,163 [ERROR] onbid: страница 1 для Chevrolet Malibu: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222c890>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:26:42,163 [INFO] onbid: Chevrolet Malibu -> найдено 0 (после фильтров)
+2026-07-18 13:26:42,163 [INFO] ── Целевая модель: Chevrolet Spark (kbchachacha) ──
+2026-07-18 13:26:42,163 [INFO] ── Целевая модель: Chevrolet Spark (encar) ──
+2026-07-18 13:26:42,164 [INFO] ── Целевая модель: Chevrolet Spark (charancha) ──
+2026-07-18 13:26:42,164 [INFO] ── Целевая модель: Chevrolet Spark (onbid) ──
+2026-07-18 13:27:07,698 [ERROR] onbid: страница 1 для Chevrolet Spark: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222c3b0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:27:07,698 [INFO] onbid: Chevrolet Spark -> найдено 0 (после фильтров)
+2026-07-18 13:27:07,698 [INFO] ── Целевая модель: Chevrolet Trax (kbchachacha) ──
+2026-07-18 13:27:07,699 [INFO] ── Целевая модель: Chevrolet Trax (encar) ──
+2026-07-18 13:27:14,542 [INFO] encar: Chevrolet Trax -> найдено 118 (после фильтров)
+2026-07-18 13:27:14,543 [INFO] ── Целевая модель: Chevrolet Trax (charancha) ──
+2026-07-18 13:27:17,216 [INFO] charancha: Chevrolet Trax -> найдено 2 (после фильтров)
+2026-07-18 13:27:17,217 [INFO] ── Целевая модель: Chevrolet Trax (onbid) ──
+2026-07-18 13:27:42,640 [ERROR] onbid: страница 1 для Chevrolet Trax: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222f4d0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:27:42,640 [INFO] onbid: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-07-18 13:27:42,640 [INFO] ── Целевая модель: Chevrolet Trailblazer (kbchachacha) ──
+2026-07-18 13:27:42,641 [INFO] ── Целевая модель: Chevrolet Trailblazer (encar) ──
+2026-07-18 13:27:42,641 [INFO] ── Целевая модель: Chevrolet Trailblazer (charancha) ──
+2026-07-18 13:27:42,642 [INFO] ── Целевая модель: Chevrolet Trailblazer (onbid) ──
+2026-07-18 13:28:07,664 [ERROR] onbid: страница 1 для Chevrolet Trailblazer: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222d820>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:28:07,665 [INFO] onbid: Chevrolet Trailblazer -> найдено 0 (после фильтров)
+2026-07-18 13:28:07,665 [INFO] ── Целевая модель: Mini Countryman (kbchachacha) ──
+2026-07-18 13:28:07,665 [INFO] ── Целевая модель: Mini Countryman (encar) ──
+2026-07-18 13:28:07,666 [INFO] ── Целевая модель: Mini Countryman (charancha) ──
+2026-07-18 13:28:07,666 [INFO] ── Целевая модель: Mini Countryman (onbid) ──
+2026-07-18 13:28:33,310 [ERROR] onbid: страница 1 для Mini Countryman: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222dee0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:28:33,310 [INFO] onbid: Mini Countryman -> найдено 0 (после фильтров)
+2026-07-18 13:28:33,310 [INFO] ── Целевая модель: Mini Clubman (kbchachacha) ──
+2026-07-18 13:28:33,310 [INFO] ── Целевая модель: Mini Clubman (encar) ──
+2026-07-18 13:28:33,311 [INFO] ── Целевая модель: Mini Clubman (charancha) ──
+2026-07-18 13:28:33,311 [INFO] ── Целевая модель: Mini Clubman (onbid) ──
+2026-07-18 13:28:58,705 [ERROR] onbid: страница 1 для Mini Clubman: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222fc80>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:28:58,705 [INFO] onbid: Mini Clubman -> найдено 0 (после фильтров)
+2026-07-18 13:28:58,705 [INFO] ── Целевая модель: Mini Convertible (kbchachacha) ──
+2026-07-18 13:28:58,705 [INFO] ── Целевая модель: Mini Convertible (encar) ──
+2026-07-18 13:28:58,706 [INFO] ── Целевая модель: Mini Convertible (charancha) ──
+2026-07-18 13:28:58,706 [INFO] ── Целевая модель: Mini Convertible (onbid) ──
+2026-07-18 13:29:24,344 [ERROR] onbid: страница 1 для Mini Convertible: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222fbc0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:29:24,344 [INFO] onbid: Mini Convertible -> найдено 0 (после фильтров)
+2026-07-18 13:29:24,344 [INFO] ── Целевая модель: Peugeot 3008 (kbchachacha) ──
+2026-07-18 13:29:24,345 [INFO] ── Целевая модель: Peugeot 3008 (encar) ──
+2026-07-18 13:29:24,345 [INFO] ── Целевая модель: Peugeot 3008 (charancha) ──
+2026-07-18 13:29:24,346 [INFO] ── Целевая модель: Peugeot 3008 (onbid) ──
+2026-07-18 13:29:49,741 [ERROR] onbid: страница 1 для Peugeot 3008: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222ef60>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:29:49,741 [INFO] onbid: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-07-18 13:29:49,741 [INFO] ── Целевая модель: Peugeot 5008 (kbchachacha) ──
+2026-07-18 13:29:49,742 [INFO] ── Целевая модель: Peugeot 5008 (encar) ──
+2026-07-18 13:29:49,742 [INFO] ── Целевая модель: Peugeot 5008 (charancha) ──
+2026-07-18 13:29:49,742 [INFO] ── Целевая модель: Peugeot 5008 (onbid) ──
+2026-07-18 13:30:15,143 [ERROR] onbid: страница 1 для Peugeot 5008: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b5222f6b0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:30:15,144 [INFO] onbid: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-07-18 13:30:15,145 [INFO] filter_year_range (target_collector): отброшено 190 объявлений вне диапазона года 2022-2023 (или без года)
+2026-07-18 13:30:15,145 [INFO] ── Широкий поиск: kbchachacha (hp<=160) ──
+2026-07-18 13:30:15,145 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-07-18 13:30:17,398 [INFO] Страница 1: найдено 40 объявлений (новых 40)
+2026-07-18 13:30:17,898 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-07-18 13:30:18,969 [INFO] Страница 2: найдено 40 объявлений (новых 39)
+2026-07-18 13:30:19,469 [INFO] Загружаю список б/у авто, страница 3 (попытка 1/3)
+2026-07-18 13:30:20,542 [INFO] Страница 3: найдено 40 объявлений (новых 39)
+2026-07-18 13:30:21,043 [INFO] Загружаю список б/у авто, страница 4 (попытка 1/3)
+2026-07-18 13:30:22,123 [INFO] Страница 4: найдено 40 объявлений (новых 40)
+2026-07-18 13:30:22,623 [INFO] Загружаю список б/у авто, страница 5 (попытка 1/3)
+2026-07-18 13:30:23,701 [INFO] Страница 5: найдено 40 объявлений (новых 40)
+2026-07-18 13:30:24,201 [INFO] kbchachacha (broad): найдено 29 машин с hp<=160
+2026-07-18 13:30:24,202 [INFO] ── Широкий поиск: encar (hp<=160) ──
+2026-07-18 13:30:28,631 [INFO] encar (broad): найдено 84 машин с hp<=160
+2026-07-18 13:30:28,632 [INFO] ── Широкий поиск: charancha (hp<=160) ──
+2026-07-18 13:30:36,215 [INFO] charancha (broad): найдено 4 машин с hp<=160
+2026-07-18 13:30:36,217 [INFO] ── Широкий поиск: onbid (hp<=160) ──
+2026-07-18 13:31:01,236 [ERROR] onbid (broad): страница 1: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9b514ff9e0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-07-18 13:31:01,236 [INFO] onbid (broad): найдено 0 машин с hp<=160
+2026-07-18 13:31:01,236 [INFO] filter_year_range (broad_collector): отброшено 86 объявлений вне диапазона года 2022-2023 (или без года)
+2026-07-18 13:31:01,249 [INFO] Найдено 1245 объявлений, кандидатов на публикацию (новые, не старше 14 дн., пробег до 40000 км, ещё не опубликованные): 979
+2026-07-18 13:31:01,250 [INFO] Отфильтровано 115 кандидатов недавно опубликованных моделей (за последние 3 дн.): {('', 'Renault XM3 1.6 GTe'), ('', 'Hyundai Avante 1.6 Gasoline'), ('Chevrolet', 'Trax'), ('', 'Kia K5 (DL3) 2.0 Gasoline (Smartstream G2.0 MPi)')}
+2026-07-18 13:31:01,251 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Audi Q3 35 TDI 스포트백')) — Audi Q3
+2026-07-18 13:31:01,251 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Volkswagen Tiguan 폭스바겐 더 뉴 티구안 2.0 TDI Prestige')) — Volkswagen Tiguan
+2026-07-18 13:31:01,251 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Kia K3 기아 더 뉴 K3(BD) 1.6 가솔린 노블레스')) — Kia K3
+2026-07-18 13:31:01,251 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Kia K5 기아 더 뉴 K5 3세대 1.6 가솔린 터보 시그니처')) — Kia K5
+2026-07-18 13:31:01,251 [INFO] lead_post_builder: пропущено (нет фото) —  Kia Ray 1.0 Gasoline
+2026-07-18 13:31:01,259 [INFO] === Готово: опубликовано 0 постов ===

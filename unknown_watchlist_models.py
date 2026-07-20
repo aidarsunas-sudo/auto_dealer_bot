@@ -22,10 +22,13 @@ price_alert_builder.build_price_alert_post() НЕ публикует пост п
 
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 LOG_PATH = Path(__file__).resolve().parent / "unknown_watchlist_models.json"
+DIGEST_STATE_PATH = Path(__file__).resolve().parent / "unknown_watchlist_digest_state.json"
+DIGEST_INTERVAL_HOURS = 24
+DIGEST_TOP_N = 5
 
 logger = logging.getLogger("unknown_watchlist_models")
 
@@ -68,3 +71,66 @@ def log_unknown_model(raw_title: str, brand: str, model: str, source: str) -> No
         entry["times_seen"] = entry.get("times_seen", 0) + 1
 
     _save(data)
+
+
+def _load_digest_state() -> dict:
+    if not DIGEST_STATE_PATH.exists():
+        return {"last_sent_at": None}
+    try:
+        return json.loads(DIGEST_STATE_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {"last_sent_at": None}
+
+
+def _save_digest_state(state: dict) -> None:
+    try:
+        DIGEST_STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as error:
+        logger.warning(f"Не удалось сохранить {DIGEST_STATE_PATH.name}: {error}")
+
+
+def send_daily_digest(notify_fn=None) -> bool:
+    """
+    Раз в DIGEST_INTERVAL_HOURS часов (не на каждый прогон — main.py
+    запускается несколько раз в сутки) шлёт в служебный чат топ-
+    DIGEST_TOP_N нерезолвленных моделей по times_seen — ПО ТЗ 2026-07-20:
+    "не ослаблять валидацию молча, вместо этого — ежедневная сводка", чтобы
+    решение "что добавить в model_specs.py" принимал человек на основе
+    реальной частоты встречаемости, а не гадание/автослабление гейта.
+
+    Вызывать из main.py (единственный источник записей в этот момент —
+    price_alert_builder.py при нерезолвленном hp, см. log_unknown_model()).
+
+    Returns:
+        True, если сводка была отправлена в этот вызов (для тестов/лога).
+    """
+    if notify_fn is None:
+        from notifier import notify_error as notify_fn
+
+    state = _load_digest_state()
+    last_sent_at = state.get("last_sent_at")
+    if last_sent_at:
+        elapsed = datetime.now() - datetime.fromisoformat(last_sent_at)
+        if elapsed < timedelta(hours=DIGEST_INTERVAL_HOURS):
+            return False
+
+    data = _load()
+    if not data:
+        return False
+
+    top = sorted(data.items(), key=lambda kv: kv[1].get("times_seen", 0), reverse=True)[:DIGEST_TOP_N]
+
+    lines = ["📋 Топ нерезолвленных моделей (не хватает hp/см³ в model_specs.py):"]
+    for raw_title, entry in top:
+        lines.append(
+            f"  • {entry.get('brand', '')} {entry.get('model', '')} — "
+            f"{entry.get('times_seen', 0)}× (источник: {entry.get('source', '?')}) "
+            f"[{raw_title}]"
+        )
+    lines.append("\nДобавь нужные через add_model.py, если стоит того.")
+
+    notify_fn("\n".join(lines))
+
+    state["last_sent_at"] = datetime.now().isoformat(timespec="seconds")
+    _save_digest_state(state)
+    return True

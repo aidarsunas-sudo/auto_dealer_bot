@@ -47,6 +47,7 @@ from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
 from watchlist import WATCHLIST, USED_CAR_SEARCHES
+import unknown_watchlist_models
 
 
 def setup_logging() -> logging.Logger:
@@ -242,6 +243,13 @@ def run() -> None:
         summary = "Не удалось обработать:\n" + "\n".join(f"• {s}" for s in failed_sources)
         log.warning(summary)
         notify_error(summary)
+
+    # Раз в сутки (не на каждый из нескольких прогонов) — сводка топ-5
+    # нерезолвленных моделей (см. unknown_watchlist_models.py) — ПО ТЗ
+    # 2026-07-20: "не ослаблять валидацию молча", решение о добавлении в
+    # model_specs.py принимает человек на основе реальной частоты.
+    if unknown_watchlist_models.send_daily_digest():
+        log.info("Отправлена ежедневная сводка нерезолвленных моделей")
 
 
 def main() -> None:

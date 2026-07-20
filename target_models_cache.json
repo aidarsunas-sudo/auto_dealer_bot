@@ -744,5 +744,110 @@
   "charancha:Peugeot:5008": {
     "result": null,
     "resolved_at": "2026-07-17T13:46:05"
+  },
+  "kbchachacha:Renault:QM6": {
+    "result": {
+      "makerCode": 105,
+      "classCode": 2678,
+      "car_codes": [
+        {
+          "code": 3367,
+          "text": "The New QM6 QUEST 밴(HZG PH3) (23년~현재)",
+          "year_from": 2023,
+          "year_to": 9999
+        },
+        {
+          "code": 3316,
+          "text": "The New QM6 QUEST(HZG PH3) (23년~현재)",
+          "year_from": 2023,
+          "year_to": 9999
+        },
+        {
+          "code": 3315,
+          "text": "The New QM6(HZG PH3) (23년~현재)",
+          "year_from": 2023,
+          "year_to": 9999
+        },
+        {
+          "code": 3156,
+          "text": "뉴 QM6 (20년~23년)",
+          "year_from": 2020,
+          "year_to": 2023
+        },
+        {
+          "code": 3155,
+          "text": "더 뉴 QM6 (19년~20년)",
+          "year_from": 2019,
+          "year_to": 2020
+        },
+        {
+          "code": 2837,
+          "text": "QM6 (16년~19년)",
+          "year_from": 2016,
+          "year_to": 2019
+        }
+      ]
+    },
+    "resolved_at": "2026-07-20T15:01:34"
+  },
+  "kbchachacha:Renault:SM6": {
+    "result": {
+      "makerCode": 105,
+      "classCode": 2651,
+      "car_codes": [
+        {
+          "code": 3108,
+          "text": "The New SM6 (20년~현재)",
+          "year_from": 2020,
+          "year_to": 9999
+        },
+        {
+          "code": 2769,
+          "text": "SM6 (16년~20년)",
+          "year_from": 2016,
+          "year_to": 2020
+        }
+      ]
+    },
+    "resolved_at": "2026-07-20T15:02:45"
+  },
+  "kbchachacha:Chevrolet:Malibu": {
+    "result": null,
+    "resolved_at": "2026-07-20T15:04:02"
+  },
+  "kbchachacha:Chevrolet:Spark": {
+    "result": null,
+    "resolved_at": "2026-07-20T15:05:07"
+  },
+  "kbchachacha:Chevrolet:Trax": {
+    "result": {
+      "makerCode": 103,
+      "classCode": 1241,
+      "car_codes": [
+        {
+          "code": 3319,
+          "text": "트랙스 크로스오버 (23년~현재)",
+          "year_from": 2023,
+          "year_to": 9999
+        },
+        {
+          "code": 2885,
+          "text": "더 뉴 트랙스 (17년~현재)",
+          "year_from": 2017,
+          "year_to": 9999
+        },
+        {
+          "code": 1453,
+          "text": "쉐보레 트랙스 (13년~16년)",
+          "year_from": 2013,
+          "year_to": 2016
+        }
+      ]
+    },
+    "resolved_at": "2026-07-20T15:05:56"
+  },
+  "kbchachacha:Chevrolet:Trailblazer": {
+    "result": null,
+    "resolved_at": "2026-07-20T15:07:36"
   }
 }

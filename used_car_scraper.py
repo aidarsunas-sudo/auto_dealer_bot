@@ -12,6 +12,19 @@ kbchachacha.com (в отличие от scraper.py, который смотри�
   модель, год, пробег, регион, цена) — поэтому для расчёта таможни нужен
   отдельный справочник моделей (см. model_specs.py), который сопоставляет
   название модели с её реальными характеристиками.
+- Фото — берутся ПРЯМО со страницы списка (карусель превью в каждой
+  карточке объявления, 1-4 штуки, ?width=720) — добавлено 2026-07-20 как
+  единственный БОЕВОЙ источник фото для kbchachacha (targeted и broad
+  режимы через kbchachacha_target_adapter.py, USED_CAR_SEARCHES через
+  main.py — оба пути идут через parse_all_pages() ниже, чинить один раз
+  здесь, не в каждом вызывающем коде). Сознательно НЕ используется
+  детальная страница объявления (car/detail.kbc) — она защищена reCAPTCHA
+  ("로봇여부 확인"), которую не проходит даже headless-браузер (Playwright,
+  см. kb_detail_scraper.py — этот модуль остался для ручного
+  model_search.py, который извлекал оттуда доп. данные вроде страховой
+  истории, но фото сейчас там не получить в принципе, не только через
+  него) — специально обходить антибот-защиту не пытаемся, страница списка
+  и так даёт достаточно фото.
 """
 
 import re
@@ -95,9 +108,10 @@ def parse_used_car_list(html: str) -> list[dict]:
     Returns:
         Список словарей: brand, model (человекочитаемое, см. ниже), trim
         (пусто), year (число или None), mileage_km, cc, hp, fuel_code,
-        price, specs, url, external_id, raw_title (сырой заголовок с
-        сайта — для вызывающего кода, которому нужна детализация, не для
-        показа в посте как есть).
+        price, specs, photos (1-4 URL превью со страницы списка — см.
+        ниже), url, external_id, raw_title (сырой заголовок с сайта — для
+        вызывающего кода, которому нужна детализация, не для показа в
+        посте как есть).
     """
     soup = BeautifulSoup(html, "html.parser")
     cars = []
@@ -109,6 +123,22 @@ def parse_used_car_list(html: str) -> list[dict]:
 
         title_tag = area.select_one("strong.tit")
         title = title_tag.get_text(strip=True) if title_tag else ""
+
+        # Фото — ПРЯМО на странице списка (карусель превью, div.thumnail —
+        # опечатка в самом сайте, не наша), 1-4 полноразмерных фото на
+        # объявление (?width=720), никакого дополнительного запроса не
+        # нужно. НЕ пытаться доставать больше/оригинальные фото с
+        # детальной страницы (car/detail.kbc) — та защищена reCAPTCHA
+        # ("로봇여부 확인"), даже через Playwright не проходит (см.
+        # kb_detail_scraper.py, проверено вживую 2026-07-20) — обходить
+        # антибот-защиту специально не пытаемся, этого и не требуется:
+        # список даёт достаточно фото сам по себе. Дедуп на всякий случай
+        # (реальных дублей на сайте не встречалось, но не полагаемся).
+        photo_urls = []
+        for img in area.select("div.thumnail img"):
+            src = img.get("src")
+            if src and src.startswith("http") and src not in photo_urls:
+                photo_urls.append(src)
 
         data_line = area.select_one("div.data-line")
         year_month_raw, mileage_raw, region = None, None, None
@@ -181,6 +211,7 @@ def parse_used_car_list(html: str) -> list[dict]:
             "fuel_code": spec.fuel if spec else None,
             "price": price_krw,
             "specs": f"{spec.cc} см³, {spec.hp} л.с." if spec else "",
+            "photos": photo_urls,
             "url": f"{BASE_URL}/public/car/detail.kbc?carSeq={car_seq}",
             # Сырой заголовок с сайта (марка+модель+комплектация целиком,
             # обычно по-корейски) — НЕ для показа в посте, только для

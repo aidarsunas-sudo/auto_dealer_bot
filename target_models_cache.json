@@ -616,10 +616,6 @@
     "result": null,
     "resolved_at": "2026-07-17T13:36:47"
   },
-  "kbchachacha:Renault:QM6": {
-    "result": null,
-    "resolved_at": "2026-07-17T13:37:24"
-  },
   "encar:Renault:QM6": {
     "result": {
       "car_type": "Y",
@@ -634,10 +630,6 @@
       "modelCode": "0192"
     },
     "resolved_at": "2026-07-17T13:37:42"
-  },
-  "kbchachacha:Renault:SM6": {
-    "result": null,
-    "resolved_at": "2026-07-17T13:38:23"
   },
   "encar:Renault:SM6": {
     "result": {
@@ -654,10 +646,6 @@
     },
     "resolved_at": "2026-07-17T13:38:38"
   },
-  "kbchachacha:Chevrolet:Malibu": {
-    "result": null,
-    "resolved_at": "2026-07-17T13:39:16"
-  },
   "encar:Chevrolet:Malibu": {
     "result": null,
     "resolved_at": "2026-07-17T13:39:24"
@@ -666,10 +654,6 @@
     "result": null,
     "resolved_at": "2026-07-17T13:39:25"
   },
-  "kbchachacha:Chevrolet:Spark": {
-    "result": null,
-    "resolved_at": "2026-07-17T13:40:01"
-  },
   "encar:Chevrolet:Spark": {
     "result": null,
     "resolved_at": "2026-07-17T13:40:09"
@@ -677,10 +661,6 @@
   "charancha:Chevrolet:Spark": {
     "result": null,
     "resolved_at": "2026-07-17T13:40:10"
-  },
-  "kbchachacha:Chevrolet:Trax": {
-    "result": null,
-    "resolved_at": "2026-07-17T13:40:46"
   },
   "encar:Chevrolet:Trax": {
     "result": {
@@ -696,10 +676,6 @@
       "modelCode": "0385"
     },
     "resolved_at": "2026-07-17T13:41:02"
-  },
-  "kbchachacha:Chevrolet:Trailblazer": {
-    "result": null,
-    "resolved_at": "2026-07-17T13:41:41"
   },
   "encar:Chevrolet:Trailblazer": {
     "result": null,

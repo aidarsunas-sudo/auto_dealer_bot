@@ -134,7 +134,17 @@ def _normalize_item(item: dict, target: dict) -> dict:
     return {
         "brand": target["brand"],
         "model": target["model"],
-        "trim": item.get("gradeDetailName") or raw_title,
+        # gradeDetailName — обычно нужный человекочитаемый бэдж комплектации.
+        # РАНЬШЕ при его отсутствии сюда падал raw_title (makerName+
+        # modelName+modelDetailName с сайта) — а raw_title почти всегда
+        # содержит корейский текст (напр. "르노코리아(삼성) QM6 더 뉴 QM6"),
+        # который валит validate_post_before_publish()/prepare_post_fields()
+        # на проверке "корейские символы в названии" — ИЗ-ЗА ЭТОГО ни один
+        # targeted-кандидат с charancha не публиковался (найдено 2026-07-20:
+        # 100% отказ на "нет читаемого названия"). brand/model уже даны
+        # каноническим английским текстом из target_models.json — trim без
+        # чистого бэджа лучше оставить пустым, чем протащить корейский.
+        "trim": item.get("gradeDetailName") or "",
         "external_id": external_id,
         "year": year_int,
         "month": month_int,

@@ -28,7 +28,7 @@ import time
 import requests
 from playwright.sync_api import sync_playwright
 
-from brand_names_ko import to_korean, model_to_korean
+from brand_names_ko import to_korean_candidates, model_to_korean
 from engine_filter import engine_fuel_hint
 from target_model_resolver import resolve
 from used_car_scraper import parse_all_pages
@@ -43,10 +43,15 @@ USER_AGENT = (
 )
 
 
-def _lookup_maker_code(brand_ko: str) -> int | None:
+def _lookup_maker_code(brand_candidates: list) -> int | None:
     """makerCode — через простой JSON-эндпоинт (без Playwright), см. разведку
     прошлой сессии: /public/search/carMaker.json отдаёт марки списками
-    '국산' (домашние) и '수입' (импорт), каждая — {makerName, makerCode, ...}."""
+    '국산' (домашние) и '수입' (импорт), каждая — {makerName, makerCode, ...}.
+
+    brand_candidates — СПИСОК вариантов корейского названия (см.
+    brand_names_ko.to_korean_candidates()), пробуются по очереди: сайт
+    называет некоторые бренды иначе, чем encar (найдено 2026-07-20 —
+    "르노코리아" вместо "르노코리아(삼성)", "한국GM" вместо "쉐보레(GM대우)")."""
     headers = {
         "User-Agent": USER_AGENT,
         "X-Requested-With": "XMLHttpRequest",
@@ -58,7 +63,7 @@ def _lookup_maker_code(brand_ko: str) -> int | None:
 
     for group_key in ("국산", "수입"):
         for maker in result.get(group_key, []):
-            if maker.get("makerName") == brand_ko:
+            if maker.get("makerName") in brand_candidates:
                 return int(maker["makerCode"])
     return None
 
@@ -103,7 +108,7 @@ def _lookup_codes_once(brand: str, model: str) -> dict | None:
     найденное поколение модели (может быть несколько, если название модели
     неоднозначно matches несколько generations).
     """
-    brand_ko = to_korean(brand)
+    brand_candidates = to_korean_candidates(brand)
     model_candidates = [model.strip().lower(), model_to_korean(model).lower()]
 
     with sync_playwright() as p:
@@ -118,12 +123,32 @@ def _lookup_codes_once(brand: str, model: str) -> dict | None:
         try:
             page.click("text=차종", timeout=8000)
             time.sleep(1.5)
-            page.click(f"text={brand_ko}", timeout=8000)
-            time.sleep(1.5)
         except Exception as error:
-            logger.warning(f"kbchachacha resolver: не удалось открыть марку {brand_ko}: {error}")
+            logger.warning(f"kbchachacha resolver: не удалось открыть меню 차종: {error}")
             browser.close()
             return None
+
+        # Пробуем варианты названия бренда по очереди (не одну "правильную"
+        # строку) — сайты называют некоторые бренды по-разному между собой
+        # (найдено 2026-07-20: kbchachacha "르노코리아"/"한국GM" вместо
+        # encar-формы "르노코리아(삼성)"/"쉐보레(GM대우)" — см.
+        # brand_names_ko.BRAND_KO_ALT). Раньше здесь была ОДНА строка —
+        # промах по ней МОЛЧА проваливал резолв для всей модели.
+        brand_clicked = None
+        last_error = None
+        for brand_ko in brand_candidates:
+            try:
+                page.click(f"text={brand_ko}", timeout=8000)
+                brand_clicked = brand_ko
+                break
+            except Exception as error:
+                last_error = error
+        if brand_clicked is None:
+            logger.warning(f"kbchachacha resolver: не удалось открыть марку ни по одному из "
+                            f"вариантов {brand_candidates}: {last_error}")
+            browser.close()
+            return None
+        time.sleep(1.5)
 
         # Ищем ссылку на classCode, чей видимый текст совпадает с моделью
         # (латиницей или корейской транслитерацией).
@@ -162,9 +187,10 @@ def _lookup_codes_once(brand: str, model: str) -> dict | None:
         )
         browser.close()
 
-    maker_code = _lookup_maker_code(brand_ko)
+    maker_code = _lookup_maker_code(brand_candidates)
     if maker_code is None:
-        logger.warning(f"kbchachacha resolver: не удалось определить makerCode для {brand_ko}")
+        logger.warning(f"kbchachacha resolver: не удалось определить makerCode ни по одному "
+                        f"из вариантов {brand_candidates}")
         return None
 
     car_codes = []
@@ -190,6 +216,17 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
     """
     codes = resolve("kbchachacha", target["brand"], target["model"], _lookup_codes, log)
     if codes is None:
+        # РАНЬШЕ здесь не было ни строки в лог — резолвер мог проваливаться
+        # для ВСЕХ моделей подряд (см. 2026-07-17: 17 из 26 записей кэша
+        # ушли в отрицательный результат разом из-за устаревшего названия
+        # бренда в BRAND_KO), а source_collector.collect_target_model_cars()
+        # просто получал [] и молча шёл дальше — источник выглядел
+        # "работающим", но за прогон не находил ничего ни по одной модели.
+        # Явный "найдено 0" makes это видимым в логе так же, как обычный
+        # нулевой результат — не гадаем, была ли это реальная пустая выдача
+        # или сбой резолвинга (для этого разбора см. rate-changelog/аудит).
+        log.info(f"kbchachacha: {target['brand']} {target['model']} -> найдено 0 "
+                 f"(резолвинг марки/модели не удался, см. WARNING выше)")
         return []
 
     year_from = target.get("year_from", 0)

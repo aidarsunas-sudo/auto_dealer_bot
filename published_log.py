@@ -153,3 +153,22 @@ def recently_posted_models(log: dict, days: int) -> set:
             recent.add((brand, model))
 
     return recent
+
+
+def recent_posted_brand_sequence(log: dict, n: int) -> list:
+    """
+    Последние n опубликованных БРЕНДОВ (не моделей) в порядке публикации,
+    от старых к новым (последний элемент списка — самый свежий пост) — для
+    candidate_diversity.limit_consecutive_brand(), чтобы не продолжать
+    марка-серию, начатую ещё в ПРЕДЫДУЩЕМ прогоне main_pipeline.py (счёт
+    "подряд" идёт по факту публикации, не сбрасывается на границе прогона).
+    Записи без brand или posted_at пропускаются — учесть их невозможно, не
+    выдумывая данные.
+    """
+    entries = [
+        (entry["posted_at"], entry["brand"])
+        for entry in log.values()
+        if entry.get("posted_at") and entry.get("brand")
+    ]
+    entries.sort(key=lambda pair: pair[0])
+    return [brand for _, brand in entries[-n:]]

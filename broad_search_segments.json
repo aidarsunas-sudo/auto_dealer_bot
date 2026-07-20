@@ -1,0 +1,29 @@
+{
+  "segments": [
+    {
+      "name": "экономичные малолитражки (до 130 л.с., пробег до 25к)",
+      "max_hp": 130,
+      "min_hp": null,
+      "mileage_max": 25000
+    },
+    {
+      "name": "средний сегмент (100-145 л.с.)",
+      "max_hp": 145,
+      "min_hp": 100,
+      "mileage_max": null
+    },
+    {
+      "name": "мощнее / бизнес-класс (140-160 л.с.)",
+      "max_hp": 160,
+      "min_hp": 140,
+      "mileage_max": null
+    },
+    {
+      "name": "гибриды и электро (до 160 л.с.)",
+      "max_hp": 160,
+      "min_hp": null,
+      "fuel_types": ["hybrid_p", "hybrid_d", "elec"],
+      "mileage_max": null
+    }
+  ]
+}

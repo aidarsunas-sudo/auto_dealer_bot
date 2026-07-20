@@ -44,8 +44,11 @@ from datetime import datetime
 import config
 from target_collector import collect_target_model_cars
 from broad_collector import collect_broad_cars
-from published_log import load_log, save_log, select_candidates, mark_posted, recently_posted_models
-from candidate_diversity import diversify, filter_recent_models, MAX_PER_MODEL
+from published_log import (
+    load_log, save_log, select_candidates, mark_posted,
+    recently_posted_models, recent_posted_brand_sequence,
+)
+from candidate_diversity import diversify, filter_recent_models, limit_consecutive_brand, check_source_health, MAX_PER_MODEL
 from lead_post_builder import build_lead_post
 from post_text_builder import prepare_post_fields
 from agent_publisher import publish_post
@@ -118,6 +121,11 @@ def run() -> None:
         log.warning("Ничего не найдено ни в одном из активных режимов поиска")
         return
 
+    # "Тихая смерть" источника (см. FINAL_STATE.md/аудит 2026-07-20:
+    # kbchachacha/charancha молчали 13-14 дней незамеченными) — теперь
+    # видна СРАЗУ, не только по факту отсутствия постов через две недели.
+    check_source_health(cars, log)
+
     pub_log = load_log()
     # select_candidates мутирует pub_log (регистрирует first_seen новых
     # объявлений) — сохраняем сразу, чтобы не потерять это, даже если
@@ -149,6 +157,14 @@ def run() -> None:
     # почти одинаковый first_seen, и порядок вырождается в порядок сбора,
     # где один источник может отдать десятки объявлений одной модели подряд).
     candidates = diversify(candidates, post_limit, MAX_PER_MODEL)
+
+    # Ещё один слой поверх diversify(): та же МАРКА (Hyundai Avante, потом
+    # Hyundai Casper — diversify() это пропускает, там развод только по
+    # моделям) не больше config.MAX_SAME_BRAND_IN_A_ROW раз подряд. Считает
+    # и хвост уже ФАКТИЧЕСКИ опубликованных постов из предыдущих прогонов —
+    # не только внутри этого списка (см. recent_posted_brand_sequence()).
+    recent_brands = recent_posted_brand_sequence(pub_log, config.MAX_SAME_BRAND_IN_A_ROW)
+    candidates = limit_consecutive_brand(candidates, recent_brands, config.MAX_SAME_BRAND_IN_A_ROW)
 
     posted_count = 0
     for car in candidates:

@@ -373,6 +373,7 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
     отбрасываются, а не пропускаются с пустым hp.
     """
     max_hp = config.get("max_hp")
+    min_hp = config.get("min_hp")
     max_pages = config.get("max_pages_per_source", 5)
 
     all_items = []
@@ -404,6 +405,8 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
                 continue
             if max_hp is not None and normalized["hp"] > max_hp:
                 continue
+            if min_hp is not None and normalized["hp"] < min_hp:
+                continue
 
             year = normalized.get("year")
             if config.get("year_from") is not None and year is not None and year < config["year_from"]:
@@ -422,5 +425,5 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
             break
         time.sleep(0.3)
 
-    log.info(f"encar (broad): найдено {len(all_items)} машин с hp<={max_hp}")
+    log.info(f"encar (broad): найдено {len(all_items)} машин с hp в [{min_hp or 0}, {max_hp}]")
     return all_items

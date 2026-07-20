@@ -312,10 +312,11 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
     — brand оставляем пустым (как и для остальных источников без
     структурированного brand/model в свободном тексте).
 
-    Фильтр по max_hp — см. docstring charancha_scraper.browse_broad
+    Фильтр по max_hp/min_hp — см. docstring charancha_scraper.browse_broad
     (машины с неопределённым hp отбрасываются, а не пропускаются).
     """
     max_hp = config.get("max_hp")
+    min_hp = config.get("min_hp")
     max_pages = config.get("max_pages_per_source", 5)
 
     try:
@@ -329,6 +330,8 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
         if car.get("hp") is None:
             continue
         if max_hp is not None and car["hp"] > max_hp:
+            continue
+        if min_hp is not None and car["hp"] < min_hp:
             continue
 
         year = car.get("year")
@@ -350,5 +353,5 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
         car["source"] = "kbchachacha"
         all_cars.append(car)
 
-    log.info(f"kbchachacha (broad): найдено {len(all_cars)} машин с hp<={max_hp}")
+    log.info(f"kbchachacha (broad): найдено {len(all_cars)} машин с hp в [{min_hp or 0}, {max_hp}]")
     return all_cars

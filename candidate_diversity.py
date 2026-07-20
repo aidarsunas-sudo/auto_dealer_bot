@@ -17,9 +17,15 @@ main_pipeline.py, чтобы за один запуск не улетело по
    если у неё гораздо больше свежих объявлений, чем у остальных.
 """
 
-from collections import defaultdict, deque
+from collections import Counter, defaultdict, deque
 
 MAX_PER_MODEL = 2
+
+# Полный список источников без логина — та же четвёрка, что в
+# target_collector.NOLOGIN_TARGET_ADAPTERS/broad_collector.BROAD_ADAPTERS.
+# Задан явно (не импортом оттуда), чтобы candidate_diversity.py не тянул
+# Playwright-зависимые модули только ради имён источников — см. check_source_health().
+ALL_SOURCES = ("kbchachacha", "encar", "charancha", "onbid")
 
 
 def diversify(candidates: list, limit: int, max_per_model: int = MAX_PER_MODEL) -> list:
@@ -81,6 +87,51 @@ def diversify(candidates: list, limit: int, max_per_model: int = MAX_PER_MODEL) 
     return result
 
 
+def limit_consecutive_brand(candidates: list, recent_brand_tail: list, max_in_a_row: int = 2) -> list:
+    """
+    Переставляет candidates (уже прошедшие diversify()) так, чтобы одна и
+    та же МАРКА (не модель — diversify()/MAX_PER_MODEL уже разводит модели,
+    но разные модели одной марки — например, Hyundai Avante, потом Hyundai
+    Casper — так и остаются "той же маркой подряд") не шла больше
+    max_in_a_row раз подряд. Считает и хвост recent_brand_tail (последние
+    ФАКТИЧЕСКИ опубликованные бренды, см. published_log.recent_posted_brand_sequence()) —
+    чтобы не продолжать серию, начатую в предыдущем прогоне, а не только
+    внутри текущего списка.
+
+    Жадный алгоритм: держим "текущую серию" (марка + сколько подряд), на
+    каждом шаге берём первого кандидата по порядку, чья марка не продлит
+    серию сверх лимита; если такого нет (все оставшиеся — та же марка) —
+    берём первого по порядку всё равно (повтор марки лучше, чем урезанный
+    результат — тот же принцип, что у filter_recent_models()).
+    """
+    if not candidates:
+        return candidates
+
+    pending = list(candidates)
+    result = []
+    tail = list(recent_brand_tail[-max_in_a_row:]) if recent_brand_tail else []
+
+    while pending:
+        streak_brand = tail[-1] if tail else None
+        streak_len = 0
+        for b in reversed(tail):
+            if b != streak_brand:
+                break
+            streak_len += 1
+
+        if streak_brand is not None and streak_len >= max_in_a_row:
+            pick_idx = next((i for i, c in enumerate(pending) if c.get("brand") != streak_brand), 0)
+        else:
+            pick_idx = 0
+
+        chosen = pending.pop(pick_idx)
+        result.append(chosen)
+        tail.append(chosen.get("brand"))
+        tail = tail[-max_in_a_row:]
+
+    return result
+
+
 def filter_recent_models(candidates: list, recent_models: set) -> list:
     """
     Убирает кандидатов моделей (brand, model), которые уже публиковались
@@ -95,3 +146,40 @@ def filter_recent_models(candidates: list, recent_models: set) -> list:
 
     filtered = [c for c in candidates if (c.get("brand"), c.get("model")) not in recent_models]
     return filtered if filtered else candidates
+
+
+def check_source_health(cars: list, log, notify_fn=None) -> list:
+    """
+    "Тихая смерть" источника (kbchachacha/encar/charancha/onbid) — площадка
+    технически отвечает, но резолвер/поиск ничего не находит НИ ПО ОДНОЙ
+    модели — иначе не видна: main_pipeline.py каждый прогон обходит все
+    источники в try/except, сбой одного не мешает собрать данные с
+    остальных, и лог просто тише в одном месте, а не падает целиком.
+    Именно так kbchachacha молчал 13 дней, а charancha — 14, прежде чем
+    это заметили (см. FINAL_STATE.md/аудит 2026-07-20).
+
+    Считает cars (объединённый пул targeted+broad ЗА ЭТОТ прогон) по полю
+    "source" — если источник дал 0 объявлений СУММАРНО (не только в одном
+    из режимов), шлёт предупреждение через notify_fn (по умолчанию
+    notifier.notify_error — параметризовано для тестов, чтобы не тянуть
+    сетевой вызов).
+
+    Returns:
+        Список замолчавших источников (для лога вызывающего кода/тестов).
+    """
+    if notify_fn is None:
+        from notifier import notify_error as notify_fn
+
+    counts = Counter(car.get("source") for car in cars)
+    silent = [s for s in ALL_SOURCES if counts.get(s, 0) == 0]
+
+    if silent:
+        message = (f"Источник(и) не дали НИ ОДНОГО объявления за этот прогон "
+                    f"main_pipeline.py (targeted+broad суммарно): {', '.join(silent)}. "
+                    f"Похоже на 'тихую смерть' резолвера/поиска — см. FINAL_STATE.md "
+                    f"про инцидент 2026-07-20 (kbchachacha/charancha молчали неделями "
+                    f"незамеченными).")
+        log.warning(f"check_source_health: {message}")
+        notify_fn(message)
+
+    return silent

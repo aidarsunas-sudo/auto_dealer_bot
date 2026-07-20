@@ -14,7 +14,7 @@ hp<=max_hp (порог льготного утильсбора для физли
 
 import logging
 
-from broad_search_config import load_broad_search_config
+from broad_search_config import load_rotating_segment
 from post_validator import filter_year_range
 
 import kbchachacha_target_adapter
@@ -40,11 +40,11 @@ def collect_broad_cars(log: logging.Logger) -> list:
         Список словарей-машин в формате, совместимом с database.save_car()
         (+ доп. поля для отчётов) — все с подтверждённым hp<=max_hp.
     """
-    config = load_broad_search_config()
+    config = load_rotating_segment(log)
     all_cars = []
 
     for source_name, browse_fn in BROAD_ADAPTERS.items():
-        log.info(f"── Широкий поиск: {source_name} (hp<={config['max_hp']}) ──")
+        log.info(f"── Широкий поиск: {source_name} (hp в [{config.get('min_hp') or 0}, {config['max_hp']}]) ──")
         try:
             cars = browse_fn(config, log)
         except Exception as error:

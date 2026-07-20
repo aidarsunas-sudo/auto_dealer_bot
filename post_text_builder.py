@@ -84,6 +84,24 @@ def _format_number(value) -> str:
     return f"{int(value):,}".replace(",", " ")
 
 
+def _build_hashtags(car: dict) -> str:
+    """
+    3-5 хэштегов в конец поста (TG/VK) — #автоизкореи/#казань постоянные,
+    плюс марка+модель одним слитным тегом. #подзаказ везде без исключений:
+    весь лидоген (lead_post_builder.py/price_alert_builder.py) — это ЧУЖИЕ
+    объявления с корейских площадок, которые можно заказать, а не собственный
+    склад дилера — own_stock.json (Яндекс-витрина, см. yandex_post_builder.py)
+    к этим объявлениям отношения не имеет, поэтому #вналичии здесь не бывает.
+    """
+    brand = (car.get("brand") or "").strip()
+    model = (car.get("model") or "").strip()
+    model_tag = re.sub(r"[^0-9A-Za-zА-Яа-яЁё]", "", f"{brand}{model}").lower()
+    tags = ["#автоизкореи", "#подзаказ", "#казань"]
+    if model_tag:
+        tags.append(f"#{model_tag}")
+    return " ".join(tags)
+
+
 def _build_title(car: dict) -> str:
     """
     Собирает заголовок из brand/model/trim, отбрасывая пустые и повторяющиеся
@@ -166,5 +184,6 @@ def prepare_post_fields(car: dict, rates: dict) -> tuple[dict | None, str]:
         # ключ в словаре шаблону не мешает.
         "total_rub_raw": details["total_rub"],
         "cta_bot": CTA_BOT,
+        "hashtags": _build_hashtags(car),
     }
     return fields, ""

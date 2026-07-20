@@ -56,7 +56,7 @@ def _safe_print(text: str) -> None:
         print(text.encode(encoding, errors="replace").decode(encoding, errors="replace"))
 
 
-def send_to_telegram(text: str, dry_run: bool = False) -> bool:
+def send_to_telegram(text: str, dry_run: bool = False, chat_id: str | None = None) -> bool:
     """
     Отправляет текстовое сообщение в Telegram-канал.
 
@@ -65,11 +65,19 @@ def send_to_telegram(text: str, dry_run: bool = False) -> bool:
         dry_run: если True — ничего никуда не отправляет, просто печатает
                  текст в консоль. Полезно для тестирования, чтобы не
                  засорять канал, пока проверяешь, что всё работает правильно.
+        chat_id: куда слать. По умолчанию (None) — config.TELEGRAM_CHAT_ID
+                 (публичный канал лидогена), как и раньше — все существующие
+                 вызовы не меняют поведение. Передают явно, например,
+                 config.YANDEX_DRAFTS_CHAT_ID — служебный чат для черновиков
+                 Яндекс-витрины (см. yandex_publisher.py), никогда не тот же
+                 канал, что публичный лидоген.
 
     Returns:
         True, если сообщение успешно отправлено (или это был dry_run).
         False, если что-то пошло не так.
     """
+    chat_id = chat_id if chat_id is not None else config.TELEGRAM_CHAT_ID
+
     if dry_run:
         print("=" * 50)
         print("ТЕСТОВЫЙ РЕЖИМ (ничего не отправлено). Вот что получилось бы:")
@@ -85,7 +93,7 @@ def send_to_telegram(text: str, dry_run: bool = False) -> bool:
     # Это данные, которые мы отправляем Telegram: в какой чат/канал писать
     # и какой текст. chat_id может быть как "@имя_канала", так и числовым ID.
     request_data = {
-        "chat_id": config.TELEGRAM_CHAT_ID,
+        "chat_id": chat_id,
         "text": text,
     }
 

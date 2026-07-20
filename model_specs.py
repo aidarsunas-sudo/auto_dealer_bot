@@ -892,6 +892,36 @@ SPECS = [
 ]
 
 
+def model_has_privileged_hp_variant(brand: str, model: str, max_hp: int) -> bool:
+    """
+    True, если среди ИЗВЕСТНЫХ конфигураций этой модели (brand+model, БЕЗ
+    привязки к конкретному триму/мотору конкретного лота) есть хотя бы одна
+    запись в SPECS с hp <= max_hp. Используется yandex_post_validator.py:
+    для лота с hp > max_hp (льготный утильсбор не положен, см.
+    customs_calculator.MAX_HP_FOR_PHYS_LGOTA) — блокировать публикацию
+    имеет смысл ТОЛЬКО если для этой же модели известна версия в пределах
+    льготы (тогда высокий hp у конкретного лота — повод сверить комплектацию
+    у брокера, см. пример K5: 2.0 MPi/160 л.с. в SPECS, но у модели есть и
+    1.6T GT-line с более высокой мощностью — см. комментарий у записи K5).
+    Если у модели ВООБЩЕ нет варианта в пределах льготы (все её моторы
+    мощнее max_hp, или модель не отслеживается в SPECS вовсе) — блокировать
+    нечего, не гадаем (тот же принцип "нет данных — не блокируем", что и у
+    post_validator.check_price_relative()).
+
+    Ищем по label (человекочитаемое "Kia K5 (DL3) 2.0 Gasoline ..."), а не
+    по match (тот заточен под точное распознавание ОДНОГО конкретного трима
+    по сырой строке объявления, не под "все известные версии модели").
+    """
+    brand_l = (brand or "").strip().lower()
+    model_l = (model or "").strip().lower()
+    if not brand_l or not model_l:
+        return False
+    return any(
+        brand_l in spec.label.lower() and model_l in spec.label.lower() and spec.hp <= max_hp
+        for spec in SPECS
+    )
+
+
 def find_spec(title: str, year: Optional[int] = None) -> Optional[ModelSpec]:
     """
     Ищет подходящую запись по названию машины (и году выпуска, если известен

@@ -99,6 +99,16 @@ def ets_calc(cc: float, age: str, price_eur: float, eur_rub: float,
 # ═══════════════════════════════════════════════════════════
 # УТИЛИЗАЦИОННЫЙ СБОР — ПП №1291 (ред. №1713), с 01.01.2026
 # ═══════════════════════════════════════════════════════════
+
+# Порог льготного утильсбора для физлица (см. lgota ниже) — вынесен в
+# именованную константу, а не оставлен магическим числом 160, потому что
+# yandex_post_validator.py (own-lot витрина) сверяется с ЭТИМ ЖЕ порогом
+# при проверке "для этой модели есть известная версия в пределах льготы"
+# (см. model_specs.model_has_privileged_hp_variant()) — один источник
+# правды на число, а не два синхронизируемых вручную.
+MAX_HP_FOR_PHYS_LGOTA = 160
+
+
 def util_calc(cc: float, hp: float, age_util: str, fuel: str, who: str) -> dict:
     B = 20000
     is_new = age_util == "u3"
@@ -125,7 +135,7 @@ def util_calc(cc: float, hp: float, age_util: str, fuel: str, who: str) -> dict:
                 return {"rub": round(B * k), "coeff": k, "lgota": False,
                         "note30": f"30-мин: {hp30} л.с. ({hp} × 0.45)"}
 
-    lgota = who == "phys" and hp <= 160 and cc <= 3000
+    lgota = who == "phys" and hp <= MAX_HP_FOR_PHYS_LGOTA and cc <= 3000
     if lgota:
         k = 0.17 if is_new else 0.26
         return {"rub": round(B * k), "coeff": k, "lgota": True}

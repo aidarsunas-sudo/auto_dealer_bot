@@ -275,11 +275,18 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
 
             # used_car_scraper.parse_used_car_list() кладёт человекочитаемое
             # имя в car["model"] и сырой заголовок с сайта (марка+модель+
-            # комплектация целиком) в car["raw_title"]. Для отображения в
-            # посте нужно: общее имя модели — из target_models.json
-            # (канонический brand/model, надёжнее чем find_spec() на сайте),
-            # а подробности комплектации с сайта — в trim.
-            car["trim"] = car.get("raw_title", "")
+            # комплектация целиком, ПО-КОРЕЙСКИ) в car["raw_title"].
+            # РАНЬШЕ raw_title шёл в trim как есть — тот же класс бага, что
+            # был найден и исправлен у charancha_scraper.py 2026-07-20:
+            # raw_title почти всегда содержит корейский текст, что валит
+            # validate_post_before_publish()/prepare_post_fields() на
+            # проверке "корейские символы в названии" — 100% отказ для
+            # ЛЮБОЙ модели, найденной этим путём (найдено вживую через
+            # plan_next_posts.py на Chevrolet Trax: "한국GM 트랙스
+            # 크로스오버..."). brand/model уже даны каноническим текстом из
+            # target_models.json — trim без чистого английского бэджа
+            # оставляем пустым, не корейским.
+            car["trim"] = ""
             car["brand"] = target["brand"]
             car["model"] = target["model"]
             car["source"] = "kbchachacha"

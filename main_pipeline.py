@@ -39,6 +39,7 @@ import argparse
 import logging
 import time
 import traceback
+from datetime import datetime
 
 import config
 from target_collector import collect_target_model_cars
@@ -51,6 +52,9 @@ from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
 from models_to_watch import sync_to_target_models
+import yandex_queue
+from yandex_publisher import send_yandex_draft
+from telegram_publisher import send_to_telegram
 
 FRESHNESS_DAYS = 14
 POST_LIMIT = 5
@@ -180,13 +184,70 @@ def run() -> None:
             # настоящей публикации.
             if not args.dry_run:
                 mark_posted(pub_log, car["url"], car.get("brand"), car.get("model"))
+                # Яндекс-витрина — отдельный поток (см. CLAUDE.md "Контент-потоки"):
+                # лот только копится в очереди здесь, отправка — раз в
+                # config.YANDEX_MIN_INTERVAL_DAYS, отдельным шагом в конце прогона
+                # (см. _dispatch_yandex_draft ниже).
+                yandex_queue.enqueue_lot(car)
             posted_count += 1
             log.info(f"[{posted_count}/{post_limit}] Опубликовано: {car.get('brand', '')} "
                       f"{car.get('model', '')} {car.get('trim', '')}")
             time.sleep(2)
 
     save_log(pub_log)
+
+    _dispatch_yandex_draft(rates, log, args.dry_run)
+
     log.info(f"=== Готово: опубликовано {posted_count} постов ===")
+
+
+def _dispatch_yandex_draft(rates: dict, log: logging.Logger, dry_run: bool) -> None:
+    """
+    Отдельный шаг в конце прогона (см. CLAUDE.md "Контент-потоки"): если с
+    последней отправки прошло >= config.YANDEX_MIN_INTERVAL_DAYS, забирает
+    ОДИН лучший лот из очереди (yandex_queue.pick_best_lot()) и шлёт
+    Яндекс-черновик в служебный чат.
+
+    Ошибка здесь НЕ должна ронять весь прогон main_pipeline — лидоген (TG/VK)
+    к этому моменту уже отработал и не должен зависеть от Яндекс-потока
+    (тот же принцип, что у VK в agent_publisher.publish_post()). При сбое —
+    не только лог, но и явное предупреждение в служебный чат: молчаливый
+    отказ было бы легко не заметить месяцами (черновики и так редкие, раз в
+    YANDEX_MIN_INTERVAL_DAYS).
+    """
+    try:
+        if not yandex_queue.due_for_send():
+            log.info("yandex_queue: рано — интервал ещё не прошёл")
+            return
+
+        car, queue_left = yandex_queue.pick_best_lot()
+        if car is None:
+            log.info("yandex_queue: очередь пуста (или все лоты протухли)")
+            return
+
+        today = datetime.now().strftime("%d.%m.%Y")
+        extra_header = f"{today} · Черновик для Яндекса · в очереди ещё {queue_left} лотов"
+
+        ok, reason, _ = send_yandex_draft(car, rates, dry_run=dry_run, extra_header=extra_header)
+
+        if not ok:
+            log.error(f"yandex_queue: черновик не отправлен: {reason}")
+            if not dry_run:
+                send_to_telegram(f"⚠️ yandex draft failed: {reason}",
+                                  chat_id=config.YANDEX_DRAFTS_CHAT_ID)
+            return
+
+        if not dry_run:
+            yandex_queue.mark_sent(car)
+        log.info(f"yandex_queue: черновик отправлен ({car.get('brand', '')} {car.get('model', '')}), "
+                  f"в очереди осталось {queue_left}")
+    except Exception as error:
+        log.error(f"yandex_queue: непредвиденная ошибка dispatch: {error}")
+        if not dry_run:
+            try:
+                send_to_telegram(f"⚠️ yandex draft failed: {error}", chat_id=config.YANDEX_DRAFTS_CHAT_ID)
+            except Exception:
+                pass
 
 
 def main() -> None:

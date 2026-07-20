@@ -28,9 +28,10 @@ class YandexDraftBlockedError(Exception):
     """
 
 
-def format_draft_message(post: dict, test_marker: bool = False) -> str:
+def format_draft_message(post: dict, test_marker: bool = False, extra_header: str | None = None) -> str:
     prefix = "[ТЕСТ] " if test_marker else ""
-    return f"{prefix}{post['title']}\n\n{post['text']}\n\n[статус: {post['stock_status']}]"
+    header = f"{extra_header}\n\n" if extra_header else ""
+    return f"{header}{prefix}{post['title']}\n\n{post['text']}\n\n[статус: {post['stock_status']}]"
 
 
 def send_yandex_draft(
@@ -39,8 +40,15 @@ def send_yandex_draft(
     stock_status: str | None = None,
     dry_run: bool = False,
     test_marker: bool = False,
+    extra_header: str | None = None,
 ) -> tuple[bool, str, str | None]:
     """
+    Args:
+        extra_header: необязательная строка, добавляется ПЕРЕД заголовком
+            (своя пустая строка-разделитель) — main_pipeline.py использует
+            для "дата · Черновик для Яндекса · в очереди ещё N лотов"
+            (см. yandex_queue.py). test_yandex_post.py её не передаёт.
+
     Returns:
         (True, "", message) — отправлено (или dry_run) успешно, message —
             то, что фактически ушло в чат.
@@ -68,7 +76,7 @@ def send_yandex_draft(
         logger.error(f"Яндекс-черновик отклонён валидатором: {reason}")
         return False, reason, None
 
-    message = format_draft_message(post, test_marker=test_marker)
+    message = format_draft_message(post, test_marker=test_marker, extra_header=extra_header)
     ok = send_to_telegram(message, dry_run=dry_run, chat_id=config.YANDEX_DRAFTS_CHAT_ID)
     if not ok:
         return False, "Telegram вернул ошибку при отправке — см. лог telegram_publisher", None

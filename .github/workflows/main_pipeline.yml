@@ -129,6 +129,17 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add published_log.json logs/main_pipeline.log target_models_cache.json video_state.json
+          # yandex_queue.json/yandex_published.json — состояние очереди Яндекс-
+          # черновиков (см. yandex_queue.py) — та же причина, что у
+          # published_log.json: без коммита обратно очередь и last_sent_at не
+          # переживут между прогонами на чистой VM, и YANDEX_MIN_INTERVAL_DAYS
+          # перестанет работать (каждый прогон видел бы "отправок ещё не было").
+          # Проверяем -e перед git add: в отличие от остальных файлов здесь,
+          # эти два появляются не в КАЖДОМ прогоне (только если что-то
+          # опубликовано/отправлено) — "git add" на несуществующий путь падает
+          # с exit 128 и (из-за set -e в GitHub Actions) валит весь шаг.
+          for f in published_log.json logs/main_pipeline.log target_models_cache.json video_state.json yandex_queue.json yandex_published.json; do
+            [ -e "$f" ] && git add "$f"
+          done
           git diff --staged --quiet || git commit -m "Автообновление published_log.json [skip ci]"
           git push

@@ -128,7 +128,10 @@ def build_yandex_post(car: dict, rates: dict, stock_status: str | None = None) -
 
     template_fields = dict(
         fields,
-        specs=fields.get("specs") or "уточняется по лоту",
+        # rstrip(".") — реальные specs от скрейперов обычно уже оканчиваются
+        # на "160 л.с." (точка сокращения), а шаблон сам добавляет точку в
+        # конце предложения — без этого получалось бы двойное "..".
+        specs=(fields.get("specs") or "уточняется по лоту").rstrip("."),
         delivery_days=f"{config.DELIVERY_DAYS_MIN}–{config.DELIVERY_DAYS_MAX}",
     )
 

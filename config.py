@@ -214,6 +214,21 @@ YANDEX_DRAFTS_CHAT_ID: str = os.getenv("YANDEX_DRAFTS_CHAT_ID", ADMIN_CHAT_ID)
 DELIVERY_DAYS_MIN: int = int(os.getenv("DELIVERY_DAYS_MIN", "45"))
 DELIVERY_DAYS_MAX: int = int(os.getenv("DELIVERY_DAYS_MAX", "60"))
 
+# --- Очередь Яндекс-черновиков (yandex_queue.py, main_pipeline.py) ---
+# Лидоген публикует лоты чаще, чем нужно слать Яндекс-черновики — main_pipeline.py
+# после каждой успешной публикации кладёт лот в очередь (yandex_queue.json),
+# а отдельным шагом в конце прогона забирает из неё максимум ОДИН лот раз в
+# YANDEX_MIN_INTERVAL_DAYS дней (не чаще).
+YANDEX_MIN_INTERVAL_DAYS: int = int(os.getenv("YANDEX_MIN_INTERVAL_DAYS", "2"))
+# Лот в очереди старше этого — считается протухшим (цена/наличие могли
+# устареть) и выкидывается БЕЗ отправки, не гадаем.
+YANDEX_QUEUE_MAX_AGE_DAYS: int = int(os.getenv("YANDEX_QUEUE_MAX_AGE_DAYS", "7"))
+# Модель, уже опубликованная в Яндекс за последние N дней, — не приоритетна
+# при выборе следующего лота из очереди (см. yandex_queue.pick_best_lot()) —
+# тот же принцип "предпочесть разнообразие, но не блокировать совсем", что и
+# у candidate_diversity.filter_recent_models() для лидогена.
+YANDEX_RECENT_MODEL_DAYS: int = int(os.getenv("YANDEX_RECENT_MODEL_DAYS", "14"))
+
 
 def check_config() -> None:
     """

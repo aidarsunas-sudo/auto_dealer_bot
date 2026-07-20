@@ -158,6 +158,35 @@
   `[ТЕСТ] `, статус по умолчанию under_order), НЕ входит в CI, только
   вручную.
 
+- **Очередь Яндекс-черновиков** (`yandex_queue.py`, вызывается из
+  `main_pipeline.py`) — лидоген публикует лоты в TG/VK чаще, чем нужно слать
+  Яндекс-черновики:
+  - После КАЖДОЙ успешной (не dry-run) публикации в TG/VK лот кладётся в
+    `yandex_queue.json` (`yandex_queue.enqueue_lot()`) — сразу НЕ отправляется.
+  - Отдельным шагом в конце прогона `main_pipeline._dispatch_yandex_draft()`:
+    если с последней отправки прошло >= `config.YANDEX_MIN_INTERVAL_DAYS`
+    (по умолчанию 2 дня, см. `yandex_queue.due_for_send()`) — забирает из
+    очереди ОДИН лот (`yandex_queue.pick_best_lot()`) и шлёт черновик.
+    Выбор: лот не старше `config.YANDEX_QUEUE_MAX_AGE_DAYS` (7 дней, иначе
+    протух — выкидывается без отправки), предпочтение — модели, не
+    публиковавшейся в Яндекс за последние `config.YANDEX_RECENT_MODEL_DAYS`
+    (14 дней); если альтернатив нет — берём всё равно (тот же fallback, что
+    у `candidate_diversity.filter_recent_models()`).
+  - Ошибка Яндекс-шага НЕ блокирует TG/VK (try/except в
+    `_dispatch_yandex_draft()`, тот же принцип, что у VK в
+    `agent_publisher.publish_post()`) — но шлёт `⚠️ yandex draft failed: ...`
+    в `YANDEX_DRAFTS_CHAT_ID`, чтобы тихий отказ не потерялся месяцами
+    (черновики и так редкие).
+  - `yandex_queue.json`/`yandex_published.json` — состояние, коммитится
+    обратно в git из `.github/workflows/main_pipeline.yml` (та же причина,
+    что у `published_log.json` — иначе не переживёт между прогонами на
+    чистой VM). НЕ существуют, пока не случится первая публикация/отправка —
+    шаг коммита проверяет `[ -e "$f" ]` перед `git add`, иначе `git add` на
+    несуществующий путь валит весь step (`set -e`).
+  - Первая строка черновика в чате — `{дата} · Черновик для Яндекса · в
+    очереди ещё {N} лотов` (`yandex_publisher.send_yandex_draft(...,
+    extra_header=...)`).
+
 ## Стиль работы
 - Новые фичи — за флагами в `.env` (`X_ENABLED=false` по умолчанию;
   примеры: `VIDEO_ENABLED`, `VOICE_ENABLED`, `VK_ENABLED`).

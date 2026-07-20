@@ -1,1 +1,27 @@
-[]
+[
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "41911367",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 26693,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 31550000.0,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/41911367",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture01/pic4191/41911367_001.jpg",
+        "https://ci.encar.com/carpicture01/pic4191/41911367_003.jpg",
+        "https://ci.encar.com/carpicture01/pic4191/41911367_004.jpg",
+        "https://ci.encar.com/carpicture01/pic4191/41911367_007.jpg"
+      ]
+    },
+    "added_at": "2026-07-20T20:15:23.884123"
+  }
+]

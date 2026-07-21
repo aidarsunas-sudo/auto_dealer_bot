@@ -29,6 +29,15 @@ ValidatedCar):
        (проверено вручную), но сама исходная цена — нет. Для источников без
        доступной заводской цены (Charancha/kbchachacha/OnBid) проверка не
        блокирует — не гадаем.
+    5b. Цена объявления (любой источник): не выше config.MAX_MARKUP_OVER_ORIGIN
+       от справочной цены нового этой модели, model_specs.ModelSpec.
+       new_price_max_krw (см. check_price_vs_new_krw()) — добавлено
+       2026-07-21 после инцидента: Kia K5 (encar #42247766) ушёл в пост по
+       37 900 000 ₩ при цене нового 27 630 000 ₩ (+37%) — check_price_sanity()
+       эту наценку не поймал (originPrice для этой конкретной комплектации
+       площадка не отдала), а price_range_rub/check_price_relative() сравнивает
+       уже ИТОГОВУЮ рублёвую цену, не корейскую исходную. source-независимый
+       рубеж поверх check_price_sanity(), не замена ему.
     6. Итоговая цена под ключ — абсолютный диапазон [config.PRICE_MIN_RUB,
        config.PRICE_MAX_RUB] (см. check_price_absolute()) И, если для модели
        есть данные, узкий модельный диапазон model_specs.ModelSpec.
@@ -183,6 +192,57 @@ def check_price_sanity(car: dict) -> tuple[bool, str]:
     return True, ""
 
 
+def check_price_vs_new_krw(car: dict) -> tuple[bool, str]:
+    """
+    Цена ОБЪЯВЛЕНИЯ (car["price"], в вонах, до перевода в рубли) выше цены
+    нового автомобиля этой модели (model_specs.ModelSpec.new_price_max_krw)
+    больше чем на config.MAX_MARKUP_OVER_ORIGIN — REJECT.
+
+    В отличие от check_price_sanity() (живая заводская цена ИМЕННО этой
+    комплектации через encar_scraper.fetch_origin_price_krw() — точнее, но
+    доступна только для Encar и только когда дилер заполнил это поле у
+    площадки) — эта проверка детерминированная и source-независимая (работает
+    для kbchachacha/charancha/OnBid тоже, не зависит от сети, не может
+    промолчать из-за сбоя стороннего API). Расплата за это — грубее: один
+    match в model_specs.py может покрывать несколько тримов (Trendy/Prestige/
+    Noblesse под одним мотором) — используем тот же допуск
+    MAX_MARKUP_OVER_ORIGIN, что и check_price_sanity() (см. комментарий у
+    ModelSpec.new_price_max_krw), чтобы не резать честные старшие тримы по
+    цене базового.
+
+    Найдено вживую 2026-07-20/21: Kia K5 (DL3) 2.0, encar #42247766 —
+    цена объявления 37 900 000 ₩ (BadgeDetail "노블레스"/Noblesse) при
+    справочной цене нового базового 27 630 000 ₩ — 37% наценка, выше
+    допустимых 30% (MAX_MARKUP_OVER_ORIGIN=1.3) — REJECT. Раньше такие лоты
+    проходили в пост: check_price_sanity() ловит только Encar-объявления, у
+    которых площадка отдаёт originPrice именно для этой комплектации, а
+    price_range_rub (check_price_relative()) сравнивает уже ИТОГОВУЮ цену под
+    ключ, а не исходную корейскую — обе проверки могли молча пропустить этот
+    лот, если для него не было данных. Регрессия — см.
+    test_post_validator.py::_check_price_vs_new_krw().
+
+    Returns:
+        (True, "") — нет car["price"]/спеки в model_specs.py/у спеки не
+            заполнен new_price_max_krw (не гадаем) ИЛИ проверка пройдена.
+        (False, reason) — цена подтверждённо выше цены нового с учётом допуска.
+    """
+    price = car.get("price")
+    if not price:
+        return True, ""
+    title = _build_title(car)
+    spec = find_spec(title, car.get("year"))
+    if spec is None or spec.new_price_max_krw is None:
+        return True, ""
+
+    max_price = spec.new_price_max_krw * config.MAX_MARKUP_OVER_ORIGIN
+    if price > max_price:
+        markup_pct = int((price / spec.new_price_max_krw - 1) * 100)
+        return False, (f"цена {price:,.0f} ₩ выше цены нового ({spec.label}, "
+                        f"{spec.new_price_max_krw:,.0f} ₩) на {markup_pct}% "
+                        f"(допустимо до {int((config.MAX_MARKUP_OVER_ORIGIN - 1) * 100)}%)")
+    return True, ""
+
+
 def check_mileage(car: dict) -> tuple[bool, str]:
     """
     Пробег > config.MAX_MILEAGE_KM — REJECT. mileage_km отсутствует (None,
@@ -303,6 +363,11 @@ def validate_post_before_publish(car: dict, fields: dict | None = None) -> tuple
     if not valid_price:
         _log_rejection(car, price_reason)
         return None, price_reason
+
+    valid_new, new_price_reason = check_price_vs_new_krw(car)
+    if not valid_new:
+        _log_rejection(car, new_price_reason)
+        return None, new_price_reason
 
     total_rub_raw = fields.get("total_rub_raw") if fields else None
 

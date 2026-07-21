@@ -31,7 +31,7 @@ import config
 import encar_scraper
 from post_validator import (
     validate_post_before_publish, filter_year_range, PublishBlockedError,
-    check_price_sanity, ValidatedCar,
+    check_price_sanity, check_price_vs_new_krw, ValidatedCar,
 )
 from agent_publisher import publish_post
 
@@ -191,6 +191,81 @@ def _check_price_sanity() -> bool:
     return ok_all
 
 
+def _check_price_vs_new_krw() -> bool:
+    """
+    Регрессия на реальный инцидент 2026-07-21: Kia K5 (DL3) 2.0, encar
+    #42247766 — цена объявления 37 900 000 ₩ (BadgeDetail "노블레스"/Noblesse,
+    Badge/trim "2.0" — латиница, не путать с корейским-текст-в-title багом,
+    это отдельный класс проблемы) при справочной цене нового базового трима
+    27 630 000 ₩ (model_specs.py, ModelSpec.new_price_max_krw) — REJECT.
+    Никакого мока: find_spec()/model_specs.py — чистые локальные функции,
+    сеть не нужна, в отличие от _check_price_sanity() (encar_scraper.
+    fetch_origin_price_krw() — живой API).
+    """
+    ok_all = True
+
+    # Точь-в-точь как в инциденте (см. main_pipeline.log 2026-07-20 09:11:22,
+    # test_k5_sonata/encar_42247766.json) — REJECT.
+    car_overpriced = {"brand": "Kia", "model": "K5", "trim": "2.0", "year": 2022,
+                       "price": 37_900_000}
+    ok, reason = check_price_vs_new_krw(car_overpriced)
+    passed = ok is False
+    ok_all &= passed
+    _safe_print(f"[{'OK' if passed else 'FAIL'}] Kia K5 encar #42247766 (37.9М ₩, "
+                f"цена нового 27.63М ₩): ok={ok} reason={reason!r}")
+
+    # В пределах допуска MAX_MARKUP_OVER_ORIGIN (30%) над ценой нового —
+    # честный старший трим (Prestige/Noblesse дороже базового Trendy), не
+    # должен резаться по цене базовой комплектации.
+    car_reasonable = {"brand": "Kia", "model": "K5", "trim": "2.0", "year": 2022,
+                       "price": 34_000_000}
+    ok2, reason2 = check_price_vs_new_krw(car_reasonable)
+    passed2 = ok2 is True
+    ok_all &= passed2
+    _safe_print(f"[{'OK' if passed2 else 'FAIL'}] Kia K5 34М ₩ (в пределах допуска "
+                f"над ценой нового): ok={ok2}")
+
+    # Модель без new_price_max_krw в справочнике (Kia Ray из _base_car()) —
+    # нет данных для сравнения, не блокирует.
+    car_no_ref = _base_car()
+    car_no_ref["price"] = 999_999_999
+    ok3, reason3 = check_price_vs_new_krw(car_no_ref)
+    passed3 = ok3 is True
+    ok_all &= passed3
+    _safe_print(f"[{'OK' if passed3 else 'FAIL'}] Модель без new_price_max_krw в справочнике "
+                f"(цена нового неизвестна — не гадаем): ok={ok3}")
+
+    # Сквозная проверка ЧЕРЕЗ validate_post_before_publish() — тот же путь,
+    # что и настоящая публикация (main_pipeline.py -> agent_publisher.
+    # publish_post() -> validate_post_before_publish()), не только голая
+    # check_price_vs_new_krw(). check_price_sanity() (запускается ПЕРЕД
+    # check_price_vs_new_krw() внутри validate_post_before_publish()) тоже
+    # дёрнула бы Encar за живой originPrice — подменяем на None (площадка
+    # не отдала originPrice именно для этой комплектации), ИМЕННО тот
+    # сценарий, который и позволил инциденту случиться: проверка не
+    # блокирует и ничего не решает — не гадаем — тест не должен зависеть
+    # ни от сети, ни от того, жив ли ещё #42247766 на сайте.
+    original_fetch = encar_scraper.fetch_origin_price_krw
+    try:
+        encar_scraper.fetch_origin_price_krw = lambda external_id: None
+
+        car_k5_full = {
+            "brand": "Kia", "model": "K5", "trim": "2.0",
+            "year": 2022, "month": 5, "mileage_km": 7222,
+            "price": 37_900_000, "source": "encar", "external_id": "42247766",
+            "photos": list(ENOUGH_PHOTOS), "url": "https://fem.encar.com/cars/detail/42247766",
+        }
+        validated, reason4 = validate_post_before_publish(car_k5_full)
+        passed4 = validated is None and "цены нового" in reason4
+        ok_all &= passed4
+        _safe_print(f"[{'OK' if passed4 else 'FAIL'}] validate_post_before_publish() на полном "
+                    f"лоте #42247766: ok={validated is not None} reason={reason4!r}")
+    finally:
+        encar_scraper.fetch_origin_price_krw = original_fetch
+
+    return ok_all
+
+
 def run() -> None:
     results = []
 
@@ -292,6 +367,9 @@ def run() -> None:
 
     # Sanity-check цены относительно заводской (Chevrolet Trax, 2026-07)
     results.append(_check_price_sanity())
+
+    # Sanity-check цены относительно цены НОВОГО (Kia K5 encar #42247766, 2026-07-21)
+    results.append(_check_price_vs_new_krw())
 
     # ValidatedCar физически блокирует generate_videos() на невалидированных данных
     results.append(_check_generate_videos_rejects_raw_dict())

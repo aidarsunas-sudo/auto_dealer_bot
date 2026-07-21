@@ -24,6 +24,7 @@ send_to_vk — а не из какого-то промежуточного сл�
 подключить или случайно обойти (именно так и случился инцидент).
 """
 
+import logging
 import sys
 import traceback
 
@@ -191,16 +192,39 @@ def _check_price_sanity() -> bool:
     return ok_all
 
 
+class _CollectingLogHandler(logging.Handler):
+    """Ловит записи лога post_validator, чтобы доказать, что отсутствие
+    эталонной цены логируется ГРОМКО (WARNING), а не молчит — см. запрос
+    2026-07-21 п.2 ("молчаливый пропуск = та же дыра, что была с
+    валидаторами")."""
+
+    def __init__(self):
+        super().__init__(level=logging.WARNING)
+        self.records: list = []
+
+    def emit(self, record):
+        self.records.append(record)
+
+
 def _check_price_vs_new_krw() -> bool:
     """
     Регрессия на реальный инцидент 2026-07-21: Kia K5 (DL3) 2.0, encar
     #42247766 — цена объявления 37 900 000 ₩ (BadgeDetail "노블레스"/Noblesse,
     Badge/trim "2.0" — латиница, не путать с корейским-текст-в-title багом,
-    это отдельный класс проблемы) при справочной цене нового базового трима
-    27 630 000 ₩ (model_specs.py, ModelSpec.new_price_max_krw) — REJECT.
-    Никакого мока: find_spec()/model_specs.py — чистые локальные функции,
-    сеть не нужна, в отличие от _check_price_sanity() (encar_scraper.
-    fetch_origin_price_krw() — живой API).
+    это отдельный класс проблемы) при справочной цене нового ТОП-трима
+    (Signature) 34 690 000 ₩ (model_specs.py, ModelSpec.new_price_max_krw)
+    — REJECT, БЕЗ допуска на наценку (потолок уже самый дорогой трим — см.
+    докстринг check_price_vs_new_krw() про то, почему первая версия
+    анкорилась на базовый трим и была исправлена). Никакого мока:
+    find_spec()/model_specs.py — чистые локальные функции, сеть не нужна,
+    в отличие от _check_price_sanity() (encar_scraper.fetch_origin_price_krw()
+    — живой API).
+
+    Плюс доказательство п.2 запроса 2026-07-21: справочник new_price_max_krw
+    заполнен НЕ по всему каталогу model_specs.py (53 модели, из них с
+    new_price_max_krw — см. print в конце run()) — для моделей без данных
+    check_price_vs_new_krw() обязана писать WARNING в лог logger'а
+    "post_validator" (не молчать), но не блокировать публикацию.
     """
     ok_all = True
 
@@ -212,28 +236,62 @@ def _check_price_vs_new_krw() -> bool:
     passed = ok is False
     ok_all &= passed
     _safe_print(f"[{'OK' if passed else 'FAIL'}] Kia K5 encar #42247766 (37.9М ₩, "
-                f"цена нового 27.63М ₩): ok={ok} reason={reason!r}")
+                f"цена нового топ-трима 34.69М ₩): ok={ok} reason={reason!r}")
 
-    # В пределах допуска MAX_MARKUP_OVER_ORIGIN (30%) над ценой нового —
-    # честный старший трим (Prestige/Noblesse дороже базового Trendy), не
-    # должен резаться по цене базовой комплектации.
+    # Ниже цены нового топ-трима (Signature) — честный близкий к топу лот
+    # не должен резаться.
     car_reasonable = {"brand": "Kia", "model": "K5", "trim": "2.0", "year": 2022,
                        "price": 34_000_000}
     ok2, reason2 = check_price_vs_new_krw(car_reasonable)
     passed2 = ok2 is True
     ok_all &= passed2
-    _safe_print(f"[{'OK' if passed2 else 'FAIL'}] Kia K5 34М ₩ (в пределах допуска "
-                f"над ценой нового): ok={ok2}")
+    _safe_print(f"[{'OK' if passed2 else 'FAIL'}] Kia K5 34М ₩ (ниже цены нового "
+                f"топ-трима): ok={ok2}")
 
-    # Модель без new_price_max_krw в справочнике (Kia Ray из _base_car()) —
-    # нет данных для сравнения, не блокирует.
-    car_no_ref = _base_car()
-    car_no_ref["price"] = 999_999_999
-    ok3, reason3 = check_price_vs_new_krw(car_no_ref)
-    passed3 = ok3 is True
-    ok_all &= passed3
-    _safe_print(f"[{'OK' if passed3 else 'FAIL'}] Модель без new_price_max_krw в справочнике "
-                f"(цена нового неизвестна — не гадаем): ok={ok3}")
+    # Ровно на границе (= цене нового топ-трима) — НЕ должно резаться (строго
+    # "выше", не "выше либо равно").
+    car_boundary = {"brand": "Kia", "model": "K5", "trim": "2.0", "year": 2022,
+                     "price": 34_690_000}
+    ok2b, reason2b = check_price_vs_new_krw(car_boundary)
+    passed2b = ok2b is True
+    ok_all &= passed2b
+    _safe_print(f"[{'OK' if passed2b else 'FAIL'}] Kia K5 ровно 34.69М ₩ "
+                f"(= цене нового топ-трима, не выше): ok={ok2b}")
+
+    handler = _CollectingLogHandler()
+    pv_logger = logging.getLogger("post_validator")
+    pv_logger.addHandler(handler)
+    try:
+        # Модель вообще не распознана в model_specs.py (заведомо не
+        # существующая в SPECS — не Kia Ray: она там ЕСТЬ, просто без
+        # new_price_max_krw, см. следующую проверку) — нет данных для
+        # сравнения, не блокирует, НО логирует WARNING.
+        car_no_spec = {"brand": "Zzz", "model": "Nonexistent9999", "trim": "",
+                        "year": 2022, "price": 999_999_999}
+        ok3, reason3 = check_price_vs_new_krw(car_no_spec)
+        passed3 = ok3 is True and any(
+            "не распознана" in r.getMessage() for r in handler.records)
+        ok_all &= passed3
+        _safe_print(f"[{'OK' if passed3 else 'FAIL'}] Модель не распознана в model_specs.py "
+                    f"— не блокирует, но WARNING в лог: ok={ok3}, "
+                    f"залогировано={[r.getMessage() for r in handler.records]}")
+
+        # Модель распознана (Kia K3 — есть cc/hp/fuel в справочнике), но
+        # new_price_max_krw для неё не заполнен — тоже не блокирует, но
+        # ДОЛЖНО логировать WARNING (это и есть п.2 запроса: "поле пустое" —
+        # не то же самое, что "модель не распознана", проверяем ОБЕ ветки).
+        handler.records.clear()
+        car_no_price_ref = {"brand": "Kia", "model": "K3", "trim": "1.6",
+                             "year": 2022, "price": 999_999_999}
+        ok4, reason4b = check_price_vs_new_krw(car_no_price_ref)
+        passed4 = ok4 is True and any(
+            "не заполнен" in r.getMessage() for r in handler.records)
+        ok_all &= passed4
+        _safe_print(f"[{'OK' if passed4 else 'FAIL'}] Модель распознана, но "
+                    f"new_price_max_krw пуст (Kia K3) — не блокирует, но WARNING в лог: "
+                    f"ok={ok4}, залогировано={[r.getMessage() for r in handler.records]}")
+    finally:
+        pv_logger.removeHandler(handler)
 
     # Сквозная проверка ЧЕРЕЗ validate_post_before_publish() — тот же путь,
     # что и настоящая публикация (main_pipeline.py -> agent_publisher.
@@ -353,7 +411,6 @@ def run() -> None:
                            car_trax, expect_ok=True, fields=fields_trax_ok))
 
     # Доп.: filter_year_range() — парсинг-этапный фильтр (тот же диапазон)
-    import logging
     log = logging.getLogger("test_post_validator")
     cars = [_base_car(), car_old_year, car_no_year, car_future_year]
     filtered = filter_year_range(cars, log, "test")
@@ -373,6 +430,17 @@ def run() -> None:
 
     # ValidatedCar физически блокирует generate_videos() на невалидированных данных
     results.append(_check_generate_videos_rejects_raw_dict())
+
+    # Покрытие справочника new_price_max_krw (запрос 2026-07-21, п.3) — не
+    # тест на pass/fail, просто видимость масштаба дыры "нет данных = не
+    # проверяем" (для остального каталога check_price_vs_new_krw() логирует
+    # WARNING вместо тихого пропуска, см. _check_price_vs_new_krw() выше).
+    import model_specs
+    total_specs = len(model_specs.SPECS)
+    filled_specs = [s for s in model_specs.SPECS if s.new_price_max_krw is not None]
+    _safe_print(f"\nПокрытие model_specs.ModelSpec.new_price_max_krw: "
+                f"{len(filled_specs)}/{total_specs} записей SPECS заполнено "
+                f"({', '.join(s.label for s in filled_specs) or '—'})")
 
     print()
     if all(results):

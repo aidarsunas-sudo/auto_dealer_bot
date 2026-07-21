@@ -29,15 +29,20 @@ ValidatedCar):
        (проверено вручную), но сама исходная цена — нет. Для источников без
        доступной заводской цены (Charancha/kbchachacha/OnBid) проверка не
        блокирует — не гадаем.
-    5b. Цена объявления (любой источник): не выше config.MAX_MARKUP_OVER_ORIGIN
-       от справочной цены нового этой модели, model_specs.ModelSpec.
-       new_price_max_krw (см. check_price_vs_new_krw()) — добавлено
-       2026-07-21 после инцидента: Kia K5 (encar #42247766) ушёл в пост по
-       37 900 000 ₩ при цене нового 27 630 000 ₩ (+37%) — check_price_sanity()
-       эту наценку не поймал (originPrice для этой конкретной комплектации
-       площадка не отдала), а price_range_rub/check_price_relative() сравнивает
-       уже ИТОГОВУЮ рублёвую цену, не корейскую исходную. source-независимый
-       рубеж поверх check_price_sanity(), не замена ему.
+    5b. Цена объявления (любой источник): не выше справочной цены нового
+       ТОП-трима этой модели, model_specs.ModelSpec.new_price_max_krw (см.
+       check_price_vs_new_krw()) — БЕЗ допуска на наценку (потолок — цена
+       уже самого дорогого трима, легитимной причины продавать б/у дороже
+       нового топ-трима нет). Добавлено 2026-07-21 после инцидента: Kia K5
+       (encar #42247766) ушёл в пост по 37 900 000 ₩ — выше даже цены
+       нового Signature (34 690 000 ₩) — check_price_sanity() эту наценку не
+       поймал (originPrice для этой конкретной комплектации площадка не
+       отдала), а price_range_rub/check_price_relative() сравнивает уже
+       ИТОГОВУЮ рублёвую цену, не корейскую исходную. source-независимый
+       рубеж поверх check_price_sanity(), не замена ему. ⚠️ Справочник
+       new_price_max_krw заполнен НЕ по всему каталогу — для остальных
+       моделей check_price_vs_new_krw() пишет WARNING в лог (не молчит),
+       но публикацию не блокирует (нет данных для сравнения — не гадаем).
     6. Итоговая цена под ключ — абсолютный диапазон [config.PRICE_MIN_RUB,
        config.PRICE_MAX_RUB] (см. check_price_absolute()) И, если для модели
        есть данные, узкий модельный диапазон model_specs.ModelSpec.
@@ -195,51 +200,72 @@ def check_price_sanity(car: dict) -> tuple[bool, str]:
 def check_price_vs_new_krw(car: dict) -> tuple[bool, str]:
     """
     Цена ОБЪЯВЛЕНИЯ (car["price"], в вонах, до перевода в рубли) выше цены
-    нового автомобиля этой модели (model_specs.ModelSpec.new_price_max_krw)
-    больше чем на config.MAX_MARKUP_OVER_ORIGIN — REJECT.
+    нового ТОП-трима этой модели (model_specs.ModelSpec.new_price_max_krw)
+    — REJECT, БЕЗ допуска на наценку (в отличие от check_price_sanity(),
+    где MAX_MARKUP_OVER_ORIGIN=30% компенсирует то, что заводская цена там
+    — ЖИВАЯ и ИМЕННО этой комплектации). new_price_max_krw — это уже потолок
+    (цена САМОГО дорогого трима из тех, что покрывает match этой записи) —
+    легитимной причины продавать б/у машину дороже цены нового топ-трима
+    нет, поэтому сравнение прямое.
 
-    В отличие от check_price_sanity() (живая заводская цена ИМЕННО этой
-    комплектации через encar_scraper.fetch_origin_price_krw() — точнее, но
-    доступна только для Encar и только когда дилер заполнил это поле у
-    площадки) — эта проверка детерминированная и source-независимая (работает
-    для kbchachacha/charancha/OnBid тоже, не зависит от сети, не может
-    промолчать из-за сбоя стороннего API). Расплата за это — грубее: один
-    match в model_specs.py может покрывать несколько тримов (Trendy/Prestige/
-    Noblesse под одним мотором) — используем тот же допуск
-    MAX_MARKUP_OVER_ORIGIN, что и check_price_sanity() (см. комментарий у
-    ModelSpec.new_price_max_krw), чтобы не резать честные старшие тримы по
-    цене базового.
+    ⚠️ Первая версия (2026-07-21) анкорилась на цену БАЗОВОГО трима + допуск
+    30% — это ложно резало бы честные Prestige/Noblesse/Signature, которые
+    стоят новыми дороже базового Trendy, но укладывались в 30%. Исправлено:
+    теперь потолок — цена топ-трима, допуск не нужен.
+
+    В отличие от check_price_sanity() (доступна только для Encar и только
+    когда дилер заполнил originPrice именно этой комплектации на площадке)
+    — эта проверка source-независимая (kbchachacha/charancha/OnBid тоже) и
+    не зависит от сети.
+
+    ⚠️ ИНЖЕНЕРНЫЙ КОМПРОМИСС (по прямому запросу, а не тихо): справочник
+    new_price_max_krw заполнен НЕ по всему каталогу model_specs.py — сейчас
+    только 1 модель (см. test_post_validator.py::_check_price_vs_new_krw()
+    и README/CLAUDE.md для актуального счётчика). Для остальных моделей
+    "нет данных для сравнения" означало бы тихий пропуск — та же дыра, что
+    и была ("верхнего фильтра цены в пайплайне нет"), просто спрятанная за
+    видимостью работающего гейта. Поэтому здесь — ГРОМКИЙ WARNING в лог
+    при каждом таком случае (logger.warning, попадает в main_pipeline.log),
+    а публикацию всё равно НЕ блокируем (блокировать при отсутствии
+    эталонной цены значило бы гадать/останавливать весь пайплайн, пока
+    справочник не заполнен по всем моделям — это тоже неверно).
 
     Найдено вживую 2026-07-20/21: Kia K5 (DL3) 2.0, encar #42247766 —
-    цена объявления 37 900 000 ₩ (BadgeDetail "노블레스"/Noblesse) при
-    справочной цене нового базового 27 630 000 ₩ — 37% наценка, выше
-    допустимых 30% (MAX_MARKUP_OVER_ORIGIN=1.3) — REJECT. Раньше такие лоты
-    проходили в пост: check_price_sanity() ловит только Encar-объявления, у
-    которых площадка отдаёт originPrice именно для этой комплектации, а
-    price_range_rub (check_price_relative()) сравнивает уже ИТОГОВУЮ цену под
-    ключ, а не исходную корейскую — обе проверки могли молча пропустить этот
-    лот, если для него не было данных. Регрессия — см.
+    цена объявления 37 900 000 ₩ (BadgeDetail "노블레스"/Noblesse) выше даже
+    цены нового топ-трима Signature (34 690 000 ₩) — REJECT. Раньше такие
+    лоты проходили в пост: check_price_sanity() ловит только Encar-лоты,
+    у которых площадка отдала originPrice именно этой комплектации, а
+    price_range_rub (check_price_relative()) сравнивает уже ИТОГОВУЮ цену
+    под ключ, а не исходную корейскую. Регрессия — см.
     test_post_validator.py::_check_price_vs_new_krw().
 
     Returns:
-        (True, "") — нет car["price"]/спеки в model_specs.py/у спеки не
-            заполнен new_price_max_krw (не гадаем) ИЛИ проверка пройдена.
-        (False, reason) — цена подтверждённо выше цены нового с учётом допуска.
+        (True, "") — нет car["price"] ИЛИ проверка пройдена.
+        (True, "") с WARNING в лог — модель не распознана в model_specs.py
+            ИЛИ у распознанной спеки не заполнен new_price_max_krw (не
+            гадаем, но и не молчим — см. докстринг выше).
+        (False, reason) — цена подтверждённо выше цены нового топ-трима.
     """
     price = car.get("price")
     if not price:
         return True, ""
     title = _build_title(car)
     spec = find_spec(title, car.get("year"))
-    if spec is None or spec.new_price_max_krw is None:
+    if spec is None:
+        logger.warning(f"check_price_vs_new_krw: модель '{title}' не распознана в "
+                        f"model_specs.py — не могу проверить цену {price:,.0f} ₩ "
+                        f"относительно цены нового")
+        return True, ""
+    if spec.new_price_max_krw is None:
+        logger.warning(f"check_price_vs_new_krw: нет эталонной цены нового "
+                        f"(new_price_max_krw не заполнен) для '{spec.label}' — не могу "
+                        f"проверить цену {price:,.0f} ₩")
         return True, ""
 
-    max_price = spec.new_price_max_krw * config.MAX_MARKUP_OVER_ORIGIN
-    if price > max_price:
+    if price > spec.new_price_max_krw:
         markup_pct = int((price / spec.new_price_max_krw - 1) * 100)
-        return False, (f"цена {price:,.0f} ₩ выше цены нового ({spec.label}, "
-                        f"{spec.new_price_max_krw:,.0f} ₩) на {markup_pct}% "
-                        f"(допустимо до {int((config.MAX_MARKUP_OVER_ORIGIN - 1) * 100)}%)")
+        return False, (f"цена {price:,.0f} ₩ выше цены нового топ-трима "
+                        f"({spec.label}, {spec.new_price_max_krw:,.0f} ₩) на {markup_pct}%")
     return True, ""
 
 

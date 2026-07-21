@@ -49,6 +49,8 @@ def fetch_car_detail(url: str, screenshot: bool = False) -> dict:
     - photos — ВСЕ фото из JSON-LD (обычно 15-20 штук на объявление)
     - accident_status ("사고있음"/"사고없음"), total_loss_history,
       flood_damage_history, usage_history, owner_changes — страховая история
+    - color — из таблицы характеристик (ячейка "차량색상"); может быть
+      плейсхолдером сайта, если продавец цвет не указал (см. ниже)
 
     Возвращает словарь с этими полями (какие удалось найти — отсутствующие
     ключи просто не появятся в результате, вызывающий код не должен
@@ -125,6 +127,26 @@ def fetch_car_detail(url: str, screenshot: bool = False) -> dict:
                     detail["accident_status"] = body_lines[idx + 1]
         except Exception as error:
             logger.warning(f"Не удалось извлечь статус аварийности на {url}: {error}")
+
+        # ── Цвет — ячейка TD сразу после TH "차량색상" в таблице характеристик ──
+        # ВАЖНО (найдено вживую): если продавец не указал цвет, сайт кладёт в
+        # эту ячейку текст соседнего UI-лейбла "인기색상" ("популярные цвета")
+        # вместо реального названия цвета — это НЕ цвет, а плейсхолдер.
+        # color_match.normalize_color() в вызывающем коде отфильтровывает
+        # такие значения.
+        try:
+            color_cells = page.eval_on_selector_all(
+                "th",
+                """els => els.filter(e => e.innerText && e.innerText.trim() === '차량색상')
+                    .map(e => {
+                        const td = e.nextElementSibling;
+                        return td ? td.innerText.trim() : null;
+                    })""",
+            )
+            if color_cells and color_cells[0]:
+                detail["color"] = color_cells[0]
+        except Exception as error:
+            logger.warning(f"Не удалось извлечь цвет на {url}: {error}")
 
         browser.close()
 

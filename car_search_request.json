@@ -1,0 +1,11 @@
+{
+  "brand": "Audi",
+  "model": "A4",
+  "engine": "diesel",
+  "year_from": 2022,
+  "year_to": 2023,
+  "mileage_max": 60000,
+  "accident_free": true,
+  "min_photos": 5,
+  "sources": ["kbchachacha", "encar", "charancha", "onbid"]
+}

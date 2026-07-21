@@ -1,0 +1,5 @@
+model_search_results/kia_k5\aj_01KT0B4TB5SA6VGWW9XAJYG438.json: trim='기아 신형 K5(DL3) 1.6 가솔린 터보 프레스티지' year=2023 mileage=124373 price=0 accident_free=False damage='CLEAN' fuel_ko='가솔린' photos=1
+model_search_results/kia_k5\aj_01KV4XFW4TXVEM1VDAVWWM9F5T.json: trim='기아 신형 K5 하이브리드(DL3) 2.0 HEV 시그니처' year=2021 mileage=137822 price=0 accident_free=False damage='REPLACE' fuel_ko='하이브리드' photos=1
+model_search_results/kia_k5\aj_01KVENAXGA4G476CT4MW2YEX6K.json: trim='기아 신형 K5(DL3) 2.0 가솔린 트렌디' year=2023 mileage=52770 price=0 accident_free=False damage='CLEAN' fuel_ko='가솔린' photos=1
+model_search_results/kia_k5\aj_01KW12X8X557Z6Y4HHRWB83Z9V.json: trim='기아 신형 K5 하이브리드(DL3) 2.0 HEV 프레스티지' year=2023 mileage=148203 price=11100000 accident_free=True damage=None fuel_ko='하이브리드' photos=1
+model_search_results/kia_k5\aj_01KW1C9BDK9ZVS1T1DETPD3VA1.json: trim='기아 더 뉴K5 2.0 CVVL 럭셔리' year=2014 mileage=157752 price=3600000 accident_free=False damage='STRUCTURAL' fuel_ko='가솔린' photos=1

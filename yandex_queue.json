@@ -75,5 +75,30 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-07-21T02:57:39.877898"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "2.0 LPe LE 2WD",
+      "external_id": "42343670",
+      "year": 2022,
+      "month": 7,
+      "mileage_km": 26448,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 17390000.0,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42343670",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture03/pic4233/42339569_001.jpg",
+        "https://ci.encar.com/carpicture03/pic4233/42339569_003.jpg",
+        "https://ci.encar.com/carpicture03/pic4233/42339569_004.jpg",
+        "https://ci.encar.com/carpicture03/pic4233/42339569_007.jpg"
+      ]
+    },
+    "added_at": "2026-07-21T19:29:15.443947"
   }
 ]

@@ -15,7 +15,7 @@ hp<=max_hp (порог льготного утильсбора для физли
 import logging
 
 from broad_search_config import load_rotating_segment
-from post_validator import filter_year_range
+from post_validator import filter_year_range, check_price_vs_batch_median
 
 import kbchachacha_target_adapter
 import encar_scraper
@@ -55,4 +55,10 @@ def collect_broad_cars(log: logging.Logger) -> list:
     # Жёсткий диапазон года (config.MIN_YEAR/MAX_YEAR) — сразу после сбора,
     # безусловно, независимо от broad_search_config.json["year_from"]
     # (который необязателен и не проверяет верхнюю границу) — см. post_validator.py.
-    return filter_year_range(all_cars, log, "broad_collector")
+    all_cars = filter_year_range(all_cars, log, "broad_collector")
+
+    # Групповой ценовой гейт (см. post_validator.check_price_vs_batch_median())
+    # — та же логика, что и в target_collector.py: медиана нужна по ВСЕЙ
+    # партии этой модели из ТЕКУЩЕГО прогона, единственная точка, где она
+    # ещё цела как единый список.
+    return check_price_vs_batch_median(all_cars, log, "broad_collector")

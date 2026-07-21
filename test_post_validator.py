@@ -32,7 +32,8 @@ import config
 import encar_scraper
 from post_validator import (
     validate_post_before_publish, filter_year_range, PublishBlockedError,
-    check_price_sanity, check_price_vs_new_krw, ValidatedCar,
+    check_price_sanity, check_price_vs_new_krw, check_price_vs_batch_median,
+    REJECTED_LOG_PATH, ValidatedCar,
 )
 from agent_publisher import publish_post
 
@@ -324,6 +325,66 @@ def _check_price_vs_new_krw() -> bool:
     return ok_all
 
 
+def _check_price_vs_batch_median() -> bool:
+    """
+    Регрессия — универсальный гейт (запрос 2026-07-21 п.2, продолжение):
+    check_price_vs_new_krw() ловит перегрев цены только там, где кто-то
+    вручную заполнил model_specs.ModelSpec.new_price_max_krw (1 из 99
+    моделей). check_price_vs_batch_median() не требует справочника — эталон
+    строится из медианы партии САМОЙ модели прямо в текущем прогоне.
+
+    Партия: 5 "обычных" K5 (28.0-29.2М ₩) + оверпрайс #42247766 (37.9М ₩) =
+    6 лотов. Медиана 6 значений = (28.6М+28.9М)/2 = 28.75М ₩,
+    ×config.BATCH_MEDIAN_FACTOR(1.3) = 37.375М ₩ — 37.9М ₩ выше, REJECT.
+    Плюс в той же партии — 2 лота Audi Q3 с ОГРОМНЫМ разбросом цены
+    (20М/80М), но их всего 2 (< config.MIN_BATCH_N=5) — группе не доверяем,
+    ни один не режется, ДОКАЗЫВАЕТ, что группировка по (brand, model)
+    изолирована (Q3 не влияет на K5 и наоборот) и что маленькие группы
+    пропускаются целиком, как и задумано.
+    """
+    normal_k5_prices = [28_000_000, 28_300_000, 28_600_000, 28_900_000, 29_200_000]
+    overpriced_k5 = {"brand": "Kia", "model": "K5", "trim": "2.0", "year": 2022,
+                      "price": 37_900_000, "source": "encar", "external_id": "42247766",
+                      "url": "https://fem.encar.com/cars/detail/42247766"}
+    normal_k5_cars = [
+        {"brand": "Kia", "model": "K5", "trim": "2.0", "year": 2022, "price": p,
+         "source": "encar", "external_id": f"k5-normal-{i}", "url": f"https://example.com/k5/{i}"}
+        for i, p in enumerate(normal_k5_prices)
+    ]
+    small_q3_batch = [
+        {"brand": "Audi", "model": "Q3", "trim": "35 TDI", "year": 2022, "price": 20_000_000,
+         "source": "encar", "external_id": "q3-cheap", "url": "https://example.com/q3/1"},
+        {"brand": "Audi", "model": "Q3", "trim": "35 TDI", "year": 2022, "price": 80_000_000,
+         "source": "encar", "external_id": "q3-expensive", "url": "https://example.com/q3/2"},
+    ]
+    batch = normal_k5_cars + [overpriced_k5] + small_q3_batch
+
+    log = logging.getLogger("test_post_validator")
+    result = check_price_vs_batch_median(batch, log, "test")
+
+    result_ids = {c["external_id"] for c in result}
+    k5_overpriced_dropped = "42247766" not in result_ids
+    k5_normal_kept = all(f"k5-normal-{i}" in result_ids for i in range(5))
+    q3_both_kept = {"q3-cheap", "q3-expensive"} <= result_ids
+    total_ok = len(result) == len(batch) - 1  # ровно 1 отклонённый — #42247766
+
+    passed = k5_overpriced_dropped and k5_normal_kept and q3_both_kept and total_ok
+    _safe_print(f"[{'OK' if passed else 'FAIL'}] check_price_vs_batch_median(): "
+                f"K5 #42247766 (37.9М) отклонён={k5_overpriced_dropped}, "
+                f"5 обычных K5 сохранены={k5_normal_kept}, "
+                f"2 Q3 (группа < MIN_BATCH_N) сохранены оба={q3_both_kept}, "
+                f"итого сохранено {len(result)}/{len(batch)}")
+
+    # Причина реально дописана в rejected_posts.log (не только "выпал из
+    # kept-списка в памяти") — см. запрос: "причина в rejected_posts.log".
+    log_text = REJECTED_LOG_PATH.read_text(encoding="utf-8") if REJECTED_LOG_PATH.exists() else ""
+    logged = "42247766" in log_text and "медианы партии" in log_text
+    passed &= logged
+    _safe_print(f"[{'OK' if logged else 'FAIL'}] Причина дописана в rejected_posts.log: {logged}")
+
+    return passed
+
+
 def run() -> None:
     results = []
 
@@ -427,6 +488,9 @@ def run() -> None:
 
     # Sanity-check цены относительно цены НОВОГО (Kia K5 encar #42247766, 2026-07-21)
     results.append(_check_price_vs_new_krw())
+
+    # Групповой (batch) ценовой гейт — не требует справочника (2026-07-21)
+    results.append(_check_price_vs_batch_median())
 
     # ValidatedCar физически блокирует generate_videos() на невалидированных данных
     results.append(_check_generate_videos_rejects_raw_dict())

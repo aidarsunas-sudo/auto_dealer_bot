@@ -13,7 +13,7 @@ target_collector.py — сбор объявлений по target_models.json ч
 import logging
 
 from target_model_resolver import load_target_models
-from post_validator import filter_year_range
+from post_validator import filter_year_range, check_price_vs_batch_median
 
 import kbchachacha_target_adapter
 import encar_scraper
@@ -67,4 +67,13 @@ def collect_target_model_cars(log: logging.Logger) -> list:
     # target_models.json (year_from/year_to) уже применён внутри
     # search_target_model() каждого источника — это ДОПОЛНИТЕЛЬНЫЙ,
     # безусловный рубеж (см. post_validator.py).
-    return filter_year_range(all_cars, log, "target_collector")
+    all_cars = filter_year_range(all_cars, log, "target_collector")
+
+    # Групповой ценовой гейт (см. post_validator.check_price_vs_batch_median())
+    # — здесь, а не только в validate_post_before_publish(), потому что ему
+    # нужна ВСЯ партия лотов одной модели из ЭТОГО прогона (медиана), а не
+    # один car — единственная точка пайплайна, где такая партия ещё цела
+    # (all_cars). После этого шага кандидаты идут в diversify()/выбор
+    # top-N — терять выброс нужно раньше, чем он вытеснит честный лот той
+    # же модели из top-N по diversify().
+    return check_price_vs_batch_median(all_cars, log, "target_collector")

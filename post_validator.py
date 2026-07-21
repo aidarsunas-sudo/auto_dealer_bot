@@ -61,12 +61,30 @@ filter_year_range() — тот же диапазон года, но на эта�
 уже было решено для фото: блокировать публикацию, а не полагаться на то,
 что более ранний шаг пайплайна "не пропустит брак").
 
+check_price_vs_batch_median() — тоже ПАРСИНГ-этапный гейт (та же точка, что
+и filter_year_range() — target_collector.py/broad_collector.py, ПОСЛЕ сбора,
+ДО дедупа/расчёта цены/генерации поста), но УНИВЕРСАЛЬНЫЙ: в отличие от
+check_price_vs_new_krw() (справочник model_specs.ModelSpec.new_price_max_krw
+заполнен только для части каталога — для остальных моделей публикация не
+блокируется, только WARNING) — эта проверка не требует справочника вообще.
+Эталон "нормальной" цены строится из МЕДИАНЫ цен ЭТОЙ ЖЕ модели в ТЕКУЩЕЙ
+партии (весь список cars из одного прогона парсинга, сгруппированный по
+brand+model) — лот дороже config.BATCH_MEDIAN_FACTOR × медианы группы —
+REJECT. Малые группы (< config.MIN_BATCH_N priced-лотов той же модели в
+партии) не проверяются — медиане 1-2 точек не доверяем. Добавлено
+2026-07-21 после разбора инцидента Kia K5 (encar #42247766, 37.9М ₩,
+check_price_vs_new_krw() поймала его случайно, только потому что для K5
+кто-то вручную заполнил new_price_max_krw) — доказательство, что чисто
+справочный гейт закрывает лишь ту часть каталога, для которой кто-то
+вбил цену вручную.
+
 Все отклонения дописываются в rejected_posts.log (причина, ID/URL
 объявления, время) — чтобы можно было проверить, что фильтр реально
 работает, а не просто "тихо ничего не публикует".
 """
 
 import logging
+import statistics
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -156,6 +174,70 @@ def filter_year_range(cars: list, log: logging.Logger, context: str = "") -> lis
         label = f" ({context})" if context else ""
         log.info(f"filter_year_range{label}: отброшено {dropped} объявлений вне диапазона "
                  f"года {config.MIN_YEAR}-{config.MAX_YEAR} (или без года)")
+    return kept
+
+
+def _batch_group_key(car: dict) -> tuple:
+    return ((car.get("brand") or "").strip().lower(), (car.get("model") or "").strip().lower())
+
+
+def check_price_vs_batch_median(cars: list, log: logging.Logger, context: str = "") -> list:
+    """
+    Групповой (batch) ценовой гейт — см. докстринг файла про то, чем он
+    отличается от check_price_vs_new_krw() (тот справочный, этот — нет).
+
+    Группирует cars по (brand, model) (регистронезависимо, как есть в
+    словаре — до _build_title()/find_spec(), группировка грубее, но не
+    требует резолва спеки) и внутри каждой группы с >= config.MIN_BATCH_N
+    priced-лотов сравнивает car["price"] с config.BATCH_MEDIAN_FACTOR ×
+    медианой цен ЭТОЙ ЖЕ группы (медиана считается по ВСЕЙ группе, включая
+    сам потенциальный выброс — так и должно быть: у нас нет способа заранее
+    знать, какой лот "неправильный", а не наоборот "весь рынок вырос").
+    Группы меньше MIN_BATCH_N — не проверяются целиком (не гадаем на 1-2
+    точках).
+
+    Args:
+        cars: список лотов, ЛЮБЫЕ модели вперемешку (как all_cars в
+            target_collector.py/broad_collector.py) — группировка внутри
+            функции, вызывающему коду ничего заранее сортировать не нужно.
+        log/context: как у filter_year_range() — сводная строка в лог
+            "отброшено N лотов" (в дополнение к построчным REJECT в
+            rejected_posts.log через _log_rejection()).
+
+    Returns:
+        Тот же список cars, без лотов, отклонённых по медиане партии —
+        тот же контракт, что и filter_year_range().
+    """
+    groups: dict[tuple, list] = {}
+    for car in cars:
+        groups.setdefault(_batch_group_key(car), []).append(car)
+
+    kept = []
+    dropped = 0
+    for group in groups.values():
+        prices = [c["price"] for c in group if c.get("price")]
+        if len(prices) < config.MIN_BATCH_N:
+            kept.extend(group)
+            continue
+
+        median = statistics.median(prices)
+        max_price = median * config.BATCH_MEDIAN_FACTOR
+        for car in group:
+            price = car.get("price")
+            if price and price > max_price:
+                markup_pct = int((price / median - 1) * 100)
+                reason = (f"цена {price:,.0f} ₩ выше {config.BATCH_MEDIAN_FACTOR}x медианы партии "
+                          f"по модели ({median:,.0f} ₩, {len(prices)} лотов) на {markup_pct}%")
+                _log_rejection(car, reason)
+                dropped += 1
+            else:
+                kept.append(car)
+
+    if dropped:
+        label = f" ({context})" if context else ""
+        log.info(f"check_price_vs_batch_median{label}: отброшено {dropped} лотов дороже "
+                 f"{config.BATCH_MEDIAN_FACTOR}x медианы своей модели в партии")
+
     return kept
 
 

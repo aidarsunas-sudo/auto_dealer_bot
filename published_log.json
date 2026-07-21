@@ -5523,7 +5523,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28539660": {
     "first_seen": "2026-07-07T09:45:07",
-    "posted_at": null
+    "posted_at": "2026-07-21T02:54:33",
+    "brand": "Volkswagen",
+    "model": "Tiguan"
   },
   "https://fem.encar.com/cars/detail/42326693": {
     "first_seen": "2026-07-07T09:45:07",
@@ -7629,7 +7631,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28569842": {
     "first_seen": "2026-07-15T19:14:24",
-    "posted_at": null
+    "posted_at": "2026-07-21T02:57:39",
+    "brand": "Audi",
+    "model": "Q3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28569767": {
     "first_seen": "2026-07-15T19:14:24",
@@ -10595,6 +10599,110 @@
   },
   "https://fem.encar.com/cars/detail/41923014": {
     "first_seen": "2026-07-20T20:12:22",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42400190": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42399922": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42393398": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42382470": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28582990": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42397333": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28580727": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28583206": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28580707": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42395516": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42393515": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42389154": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/019f8258-0c79-76f1-9e06-4b94f5f32cb6": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/019f8277-a2be-70da-92ba-5d857e7125cd": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28583337": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28581039": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42401622": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42400788": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42181930": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42197350": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42192415": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42400982": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42295311": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42400198": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28580943": {
+    "first_seen": "2026-07-21T02:54:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42392644": {
+    "first_seen": "2026-07-21T02:54:01",
     "posted_at": null
   }
 }

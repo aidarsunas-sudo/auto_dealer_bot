@@ -23,5 +23,57 @@
       ]
     },
     "added_at": "2026-07-20T20:15:23.884123"
+  },
+  {
+    "car": {
+      "brand": "Volkswagen",
+      "model": "Tiguan",
+      "trim": "",
+      "external_id": "28539660",
+      "year": 2023,
+      "month": 9,
+      "mileage_km": 39491,
+      "cc": 1968,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 67900000,
+      "specs": "1968 см³, 150 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28539660_2059964193651671.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28539660_2059964620057380.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28539660_2059964998507126.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28539660_2059965406616080.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28539660",
+      "raw_title": "폭스바겐 더 뉴 티구안 2.0 TDI Prestige",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-07-21T02:54:33.817373"
+  },
+  {
+    "car": {
+      "brand": "Audi",
+      "model": "Q3",
+      "trim": "",
+      "external_id": "28569842",
+      "year": 2022,
+      "month": 7,
+      "mileage_km": 25431,
+      "cc": 1968,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 62900000,
+      "specs": "1968 см³, 150 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2856/28569842_2788198689794114.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2856/28569842_2788199091790105.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2856/28569842_2788199606339210.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2856/28569842_2788200094838122.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28569842",
+      "raw_title": "아우디 The New Q3(F3) 35 TDI Quattro Sportback Premium",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-07-21T02:57:39.877898"
   }
 ]

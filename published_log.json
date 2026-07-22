@@ -7843,7 +7843,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28537484": {
     "first_seen": "2026-07-17T13:46:47",
-    "posted_at": null
+    "posted_at": "2026-07-22T02:45:52",
+    "brand": "",
+    "model": "Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28520262": {
     "first_seen": "2026-07-17T13:46:47",
@@ -10813,6 +10815,94 @@
   },
   "https://fem.encar.com/cars/detail/42403688": {
     "first_seen": "2026-07-21T19:28:59",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42408559": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42405953": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42408676": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28588115": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42392765": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42401112": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42408308": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42406590": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42346778": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42339058": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28554194": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28588055": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42151169": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42150341": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42406550": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28588168": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42409480": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42408868": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42407690": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42404014": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42404005": {
+    "first_seen": "2026-07-22T02:45:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42395536": {
+    "first_seen": "2026-07-22T02:45:28",
     "posted_at": null
   }
 }

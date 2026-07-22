@@ -100,5 +100,31 @@
       ]
     },
     "added_at": "2026-07-21T19:29:15.443947"
+  },
+  {
+    "car": {
+      "brand": "",
+      "model": "Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)",
+      "trim": "",
+      "external_id": "28537484",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 37761,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 36900000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28537484_2032205028412895.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28537484_2032205123516385.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28537484_2032205208734621.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28537484_2032205270334072.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28537484",
+      "raw_title": "현대 쏘나타 디 엣지(DN8) 2.0 익스클루시브",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-07-22T02:45:52.127332"
   }
 ]

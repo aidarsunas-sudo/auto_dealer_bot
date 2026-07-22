@@ -41,7 +41,7 @@ VK_ENABLED: bool = os.getenv("VK_ENABLED", "true").strip().lower() == "true"
 # зависят от него), поэтому по умолчанию ВЫКЛЮЧЕНО явно (в отличие от
 # VK_ENABLED) — генерация требует ffmpeg и заметно удлиняет прогон
 # (см. video_generator.py, ~1-2 мин на ролик).
-VIDEO_ENABLED: bool = os.getenv("VIDEO_ENABLED", "false").strip().lower() == "true"
+VIDEO_ENABLED: bool = os.getenv("VIDEO_ENABLED", "true").strip().lower() == "true"
 # Видео не для каждого поста — раз в N успешных постов (см. video_state.py).
 VIDEO_EVERY_N_POSTS: int = int(os.getenv("VIDEO_EVERY_N_POSTS", "3"))
 # "same" — видео уходит вслед за альбомом фото в тот же информационный

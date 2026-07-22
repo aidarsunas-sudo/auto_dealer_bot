@@ -62,6 +62,21 @@ VOICE_ENABLED: bool = os.getenv("VOICE_ENABLED", "false").strip().lower() == "tr
 TTS_ENGINE: str = os.getenv("TTS_ENGINE", "edge").strip().lower()
 # ru-RU-DmitryNeural (мужской) | ru-RU-SvetlanaNeural (женский).
 TTS_VOICE: str = os.getenv("TTS_VOICE", "ru-RU-DmitryNeural")
+# Количество вариантов озвучки (разные SYSTEM_PROMPT'ы, но идентичные факты).
+# Выбор детерминированный по hash(car_id) % MAX_VOICEOVER_VARIANTS.
+MAX_VOICEOVER_VARIANTS: int = 5
+# Ударения в марках для TTS (U+0301 = COMBINING ACUTE ACCENT).
+# Применяется к тексту озвучки перед синтезом речи.
+BRAND_PRONUNCIATION: dict = {
+    "Kia": "Ки́а",           # Киа (ударение на И)
+    "Hyundai": "Хёнда́й",   # Хендай (ударение на А)
+    "Volkswagen": "Фольксва́ген",  # Фольксваген (ударение на А)
+    "Audi": "А́уди",         # Ауди (ударение на А)
+    "BMW": "БМВ",           # БМВ (читается по буквам, ударения нет)
+    "Mercedes": "Мерседе́с", # Мерседес (ударение на Е)
+    "Toyota": "То́йота",     # Тойота (ударение на О)
+    "Honda": "Хонда́",       # Хонда (ударение на А)
+}
 
 # Отдельный чат для уведомлений об ОШИБКАХ (не публичный канал!).
 # Проще всего — узнать свой личный chat_id: напиши что угодно боту

@@ -79,3 +79,6 @@ content_reels.log
 *.log
 !logs/app.log
 !logs/main_pipeline.log
+
+# Регресс-тест shorts_generator — локальный, в репозитории не нужен.
+test_shorts.py

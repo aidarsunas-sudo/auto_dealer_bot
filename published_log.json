@@ -8319,7 +8319,9 @@
   },
   "https://fem.encar.com/cars/detail/42251431": {
     "first_seen": "2026-07-17T13:46:47",
-    "posted_at": null
+    "posted_at": "2026-07-23T14:06:19",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://fem.encar.com/cars/detail/42174274": {
     "first_seen": "2026-07-17T13:46:47",
@@ -11159,6 +11161,34 @@
   },
   "https://www.charancha.com/cars/019f8de5-c2d8-76d7-a171-33b57784d4b1": {
     "first_seen": "2026-07-23T08:38:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42422555": {
+    "first_seen": "2026-07-23T14:06:02",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42406834": {
+    "first_seen": "2026-07-23T14:06:02",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42417398": {
+    "first_seen": "2026-07-23T14:06:02",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28594433": {
+    "first_seen": "2026-07-23T14:06:02",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28594071": {
+    "first_seen": "2026-07-23T14:06:02",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41690134": {
+    "first_seen": "2026-07-23T14:06:02",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42422728": {
+    "first_seen": "2026-07-23T14:06:02",
     "posted_at": null
   }
 }

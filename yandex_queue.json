@@ -152,5 +152,30 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-07-23T02:52:03.433011"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42251431",
+      "year": 2022,
+      "month": 11,
+      "mileage_km": 37616,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 31900000.0,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42251431",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture05/pic4225/42251114_001.jpg",
+        "https://ci.encar.com/carpicture05/pic4225/42251114_003.jpg",
+        "https://ci.encar.com/carpicture05/pic4225/42251114_004.jpg",
+        "https://ci.encar.com/carpicture05/pic4225/42251114_007.jpg"
+      ]
+    },
+    "added_at": "2026-07-23T14:06:19.995314"
   }
 ]

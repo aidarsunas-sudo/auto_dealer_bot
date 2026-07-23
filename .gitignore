@@ -61,3 +61,21 @@ debug_last_failed_page.txt
 # шаг "Проверить rejected_posts.log" в workflow сам зафейлит job (exit 1),
 # сохранять историю reject'ов между прогонами не нужно.
 rejected_posts.log
+
+# Готовые ролики видео-инструментов (content_reels_publisher.py) — это
+# результат работы, а не исходники: гигабайты .mp4, которым не место в git.
+output/
+output_reels/
+content_reels.log
+
+# Видео-артефакты в любом месте дерева.
+*.mp4
+
+# Прочие .log — мусор конкретного прогона. ИСКЛЮЧЕНИЕ ниже обязательно:
+# logs/app.log и logs/main_pipeline.log НАМЕРЕННО отслеживаются (см. большой
+# комментарий выше) — GitHub Actions запускается на чистой VM и без них
+# теряет память о том, что уже опубликовано. Без этих двух "!" правило
+# *.log противоречило бы тому решению.
+*.log
+!logs/app.log
+!logs/main_pipeline.log

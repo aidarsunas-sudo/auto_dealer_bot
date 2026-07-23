@@ -50,6 +50,26 @@ VIDEO_EVERY_N_POSTS: int = int(os.getenv("VIDEO_EVERY_N_POSTS", "3"))
 # только с видео (без повторного текста/фото).
 VIDEO_POST_MODE: str = os.getenv("VIDEO_POST_MODE", "same").strip().lower()
 
+# --- Reels/Shorts из видеоклипов (shorts_generator.py) ---
+# ОТДЕЛЬНЫЙ путь от video_generator.py: тот собирает слайдшоу из ФОТО
+# объявления, а shorts_generator.py монтирует вертикальный ролик из готовых
+# ВИДЕОклипов (1-2 штуки) с озвучкой, синхронными субтитрами и фоновой
+# музыкой. Разрешение фиксировано под Reels/Shorts (9:16).
+SHORTS_ENABLED: bool = os.getenv("SHORTS_ENABLED", "false").strip().lower() == "true"
+SHORTS_WIDTH: int = int(os.getenv("SHORTS_WIDTH", "1080"))
+SHORTS_HEIGHT: int = int(os.getenv("SHORTS_HEIGHT", "1920"))
+SHORTS_FPS: int = int(os.getenv("SHORTS_FPS", "30"))
+# Диапазон длительности итогового ролика (сек). Если суммарная длина
+# исходных клипов больше — обрезаем, меньше — зацикливаем последовательность
+# до нижней границы (см. shorts_generator._target_duration()).
+SHORTS_MIN_SEC: int = int(os.getenv("SHORTS_MIN_SEC", "30"))
+SHORTS_MAX_SEC: int = int(os.getenv("SHORTS_MAX_SEC", "45"))
+# Сколько слов показывать в одной строке субтитров (тайминги слов приходят
+# из edge-tts, см. tts_generator.synthesize_with_word_timings()).
+SHORTS_SUBTITLE_WORDS_PER_LINE: int = int(os.getenv("SHORTS_SUBTITLE_WORDS_PER_LINE", "4"))
+# Папка для готовых роликов (по умолчанию — output/shorts рядом с проектом).
+SHORTS_OUTPUT_DIR: str = os.getenv("SHORTS_OUTPUT_DIR", "output/shorts")
+
 # --- Озвучка (tts_generator.py) ---
 # ОТДЕЛЬНО от VIDEO_ENABLED — можно включить видео без голоса (только Ken
 # Burns + титры + музыка) или наоборот держать озвучку выключенной, пока

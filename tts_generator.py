@@ -273,6 +273,72 @@ def _synthesize_edge(text: str, output_path: Path) -> bool:
     return True
 
 
+def synthesize_with_word_timings(text: str, output_path: Path) -> Optional[list]:
+    """
+    Синтез речи через edge-tts С ЗАХВАТОМ ТАЙМИНГОВ СЛОВ — для синхронных
+    субтитров в shorts_generator.py.
+
+    Обычный synthesize_voiceover()/_synthesize_edge() зовёт communicate.save(),
+    который ВЫБРАСЫВАЕТ события WordBoundary. Здесь вместо save() используется
+    communicate.stream(): аудио-чанки пишем в файл сами, а из чанков типа
+    "WordBoundary" собираем (start_sec, end_sec, word). edge-tts отдаёт offset
+    и duration в 100-нс единицах (10_000_000 = 1 сек).
+
+    Возвращает список словарей [{"start": float, "end": float, "word": str}, ...]
+    при успехе, либо None при любом сбое (нет edge-tts, нет интернета, пустой
+    результат) — вызывающий код тогда собирает ролик без субтитров/голоса, не
+    падает (тот же принцип отказоустойчивости, что и во всём модуле).
+
+    ВАЖНО: тайминги относятся к тексту ПОСЛЕ apply_brand_pronunciation() — то
+    есть к реально произнесённым словам (напр. "Фолькс-ВА-ген"), поэтому и в
+    субтитрах показываем этот же вариант, а не исходный, чтобы слова совпадали
+    со звуком.
+    """
+    if not text:
+        return None
+    try:
+        import edge_tts
+    except ImportError:
+        logger.warning("tts_generator: библиотека 'edge-tts' не установлена — тайминги слов недоступны")
+        return None
+
+    text_with_stress = apply_brand_pronunciation(text)
+    timings: list = []
+
+    async def _run() -> bool:
+        communicate = edge_tts.Communicate(text_with_stress, config.TTS_VOICE, rate=EDGE_RATE)
+        wrote_audio = False
+        with open(output_path, "wb") as audio_file:
+            async for chunk in communicate.stream():
+                if chunk["type"] == "audio":
+                    audio_file.write(chunk["data"])
+                    wrote_audio = True
+                elif chunk["type"] == "WordBoundary":
+                    start = chunk["offset"] / 10_000_000
+                    end = (chunk["offset"] + chunk["duration"]) / 10_000_000
+                    timings.append({"start": start, "end": end, "word": chunk["text"]})
+        return wrote_audio
+
+    try:
+        wrote_audio = asyncio.run(_run())
+    except Exception as error:
+        logger.warning(f"tts_generator: edge-tts stream не смог синтезировать речь ({error})")
+        return None
+
+    if not wrote_audio or not output_path.exists() or output_path.stat().st_size == 0:
+        logger.warning("tts_generator: edge-tts stream вернул пустой файл")
+        return None
+    if not timings:
+        # Аудио есть, но границы слов не пришли — субтитры не построить, но
+        # голос использовать можно; вернём пустой список (не None), чтобы
+        # вызывающий код отличил "нет таймингов" от "нет голоса".
+        logger.info("tts_generator: аудио озвучки готово, но WordBoundary не пришли — субтитры пропущены")
+        return []
+
+    logger.info(f"tts_generator: озвучка + тайминги готовы (edge stream, {len(timings)} слов)")
+    return timings
+
+
 def _synthesize_silero(text: str, output_path: Path) -> bool:
     """
     Офлайн-фолбэк — требует pip install torch (тяжёлая зависимость, НЕ в

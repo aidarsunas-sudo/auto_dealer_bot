@@ -70,6 +70,43 @@ SHORTS_SUBTITLE_WORDS_PER_LINE: int = int(os.getenv("SHORTS_SUBTITLE_WORDS_PER_L
 # Папка для готовых роликов (по умолчанию — output/shorts рядом с проектом).
 SHORTS_OUTPUT_DIR: str = os.getenv("SHORTS_OUTPUT_DIR", "output/shorts")
 
+# --- Монтаж shorts_generator.py: аудио-дакинг, переходы, speed ramping, beat sync ---
+# Голос и музыка ОДНОВРЕМЕННО: голос громче, музыка — фон, а не поверх речи
+# (см. shorts_generator._mix_audio() — реальный баг был в том, что после
+# конца ОЦЕНЁННОГО окна голоса музыка возвращалась на 100% на весь остаток
+# 30-45-секундного ролика, см. video_generator._add_audio()).
+SHORTS_VOICE_VOLUME: float = float(os.getenv("SHORTS_VOICE_VOLUME", "0.7"))
+SHORTS_MUSIC_VOLUME_WITH_VOICE: float = float(os.getenv("SHORTS_MUSIC_VOLUME_WITH_VOICE", "0.3"))
+# Без голоса — музыка не фон, а единственный звук, поэтому громче.
+SHORTS_MUSIC_VOLUME_NO_VOICE: float = float(os.getenv("SHORTS_MUSIC_VOLUME_NO_VOICE", "0.6"))
+
+# Разбивка склеенного видео на сегменты для переходов/speed ramping.
+SHORTS_SEGMENT_MIN_SEC: float = float(os.getenv("SHORTS_SEGMENT_MIN_SEC", "2.0"))
+SHORTS_SEGMENT_MAX_SEC: float = float(os.getenv("SHORTS_SEGMENT_MAX_SEC", "4.0"))
+
+# Speed ramping: доля сегментов, которые ускоряются (не все — иначе теряется
+# ощущение ритма, эффект работает только на КОНТРАСТЕ обычной и ускоренной
+# скорости), и диапазон множителя скорости.
+SHORTS_SPEEDUP_SHARE: float = float(os.getenv("SHORTS_SPEEDUP_SHARE", "0.4"))
+SHORTS_SPEEDUP_MIN: float = float(os.getenv("SHORTS_SPEEDUP_MIN", "1.3"))
+SHORTS_SPEEDUP_MAX: float = float(os.getenv("SHORTS_SPEEDUP_MAX", "1.8"))
+
+# Переходы между сегментами (xfade) — длительность.
+SHORTS_TRANSITION_MIN_SEC: float = float(os.getenv("SHORTS_TRANSITION_MIN_SEC", "0.3"))
+SHORTS_TRANSITION_MAX_SEC: float = float(os.getenv("SHORTS_TRANSITION_MAX_SEC", "0.5"))
+
+# --- Beat sync (shorts_generator._detect_beats()) ---
+# librosa НЕ используется (тяжёлая цепочка зависимостей — numba/audioread/
+# soundfile, а весь проект и так на голом ffmpeg) — вместо полноценного
+# beat-tracking лёгкий RMS-анализ через pydub: энергия по окнам
+# SHORTS_BEAT_WINDOW_MS, локальные пики выше среднего в SHORTS_BEAT_RMS_FACTOR
+# раз, не ближе SHORTS_BEAT_MIN_GAP_SEC друг к другу. Если pydub не
+# установлен или анализ не удался — beat sync тихо отключается, монтаж
+# режет по обычному плану длительностей (см. докстринг _detect_beats()).
+SHORTS_BEAT_WINDOW_MS: int = int(os.getenv("SHORTS_BEAT_WINDOW_MS", "50"))
+SHORTS_BEAT_RMS_FACTOR: float = float(os.getenv("SHORTS_BEAT_RMS_FACTOR", "1.3"))
+SHORTS_BEAT_MIN_GAP_SEC: float = float(os.getenv("SHORTS_BEAT_MIN_GAP_SEC", "0.25"))
+
 # --- Озвучка (tts_generator.py) ---
 # ОТДЕЛЬНО от VIDEO_ENABLED — можно включить видео без голоса (только Ken
 # Burns + титры + музыка) или наоборот держать озвучку выключенной, пока

@@ -20,3 +20,13 @@ anthropic
 # необязательная зависимость, ставить отдельно вручную, если нужен
 # TTS_ENGINE=silero).
 edge-tts
+
+# Beat sync в shorts_generator.py (_detect_beats, монтаж под ритм музыки) —
+# лёгкий RMS-анализ, НЕ librosa (та тянет numba/audioread/soundfile, а весь
+# проект и так на голом ffmpeg). audioop-lts обязателен вместе с pydub на
+# Python 3.13+: модуль audioop убран из стандартной библиотеки (PEP 594),
+# pydub его ещё не заместил — без backport'а import pydub падает с
+# ModuleNotFoundError: audioop/pyaudioop. Если pydub не установлен —
+# _detect_beats() просто отключает beat sync (не ошибка, см. её докстринг).
+pydub
+audioop-lts

@@ -10045,7 +10045,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28577664": {
     "first_seen": "2026-07-19T08:24:56",
-    "posted_at": null
+    "posted_at": "2026-07-23T02:52:03",
+    "brand": "",
+    "model": "Hyundai Avante Hybrid 1.6 G+E"
   },
   "https://fem.encar.com/cars/detail/42291940": {
     "first_seen": "2026-07-19T08:24:56",
@@ -11037,6 +11039,42 @@
   },
   "https://fem.encar.com/cars/detail/42409271": {
     "first_seen": "2026-07-22T14:00:29",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42417207": {
+    "first_seen": "2026-07-23T02:51:39",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41961380": {
+    "first_seen": "2026-07-23T02:51:39",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42415065": {
+    "first_seen": "2026-07-23T02:51:39",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42415040": {
+    "first_seen": "2026-07-23T02:51:39",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42304190": {
+    "first_seen": "2026-07-23T02:51:39",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42296314": {
+    "first_seen": "2026-07-23T02:51:39",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28592158": {
+    "first_seen": "2026-07-23T02:51:39",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42416924": {
+    "first_seen": "2026-07-23T02:51:39",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42416691": {
+    "first_seen": "2026-07-23T02:51:39",
     "posted_at": null
   }
 }

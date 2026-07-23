@@ -48,6 +48,7 @@ generate_shorts(), как это сделано в shorts_integrator.py.
 """
 
 import argparse
+import json
 import logging
 import os
 from datetime import datetime
@@ -73,6 +74,10 @@ CONTENT_VK_GROUP_ID = os.getenv("CONTENT_VK_GROUP_ID", "")
 SOURCE_DIR = Path(r"C:\Users\Xiaomi\ВИДЕО для КОНТЕНТА")
 OUTPUT_DIR = Path(r"C:\Users\Xiaomi\auto_dealer_bot\output_reels")
 LOG_PATH = Path(__file__).resolve().parent / "content_reels.log"
+# Журнал опубликованных рилсов — защита от повторной публикации одного и того
+# же ролика. Пишется ТОЛЬКО при реальной публикации (не в dry-run) и только
+# если хотя бы один канал её принял.
+JOURNAL_PATH = Path(__file__).resolve().parent / "content_reels_log.json"
 
 VIDEO_EXTENSIONS = (".mp4", ".mov", ".avi", ".m4v", ".mkv", ".webm")
 DEFAULT_CAPTION = "Автомобили из Кореи под заказ — Pick+ Auto, Казань."
@@ -205,6 +210,16 @@ class ContentReelsPublisher:
         """
         clip = Path(video_path)
         text = voiceover or self.voiceover_for(clip)
+
+        # Локальный override: generate_shorts смотрит на config.VOICE_ENABLED
+        # РАНЬШЕ, чем на переданный voiceover_text, и при false игнорирует его
+        # целиком — рилс выходил молча, с одной музыкой. Флаг глобальный: он же
+        # управляет озвучкой в video_generator.py, то есть в роликах лидогена.
+        # Поэтому правим его В ПАМЯТИ ЭТОГО ПРОЦЕССА, а не в .env — озвучка
+        # появляется у рилсов, лидоген продолжает работать как настроен.
+        # Тот же приём, что в test_shorts.py.
+        import config
+        config.VOICE_ENABLED = True
 
         output_path = self.output_folder / f"reel_{clip.stem}.mp4"
         logger.info(f"монтирую {clip.name} -> {output_path.name}")
@@ -339,6 +354,31 @@ class ContentReelsPublisher:
 
     # ─────────────────────────── цикл ─────────────────────────────────────
 
+    # ─────────────────────────── журнал публикаций ────────────────────────
+
+    def load_journal(self) -> dict:
+        """Журнал уже опубликованных рилсов:
+        {"reel_IMG_7270.mp4": {"published_at": ..., "telegram": true, "vk": true}}"""
+        if not JOURNAL_PATH.exists():
+            return {}
+        try:
+            data = json.loads(JOURNAL_PATH.read_text(encoding="utf-8"))
+            return data if isinstance(data, dict) else {}
+        except Exception as error:
+            logger.error(f"не удалось прочитать {JOURNAL_PATH.name}: {error} — "
+                         f"считаю журнал пустым")
+            return {}
+
+    def save_journal(self, journal: dict) -> None:
+        try:
+            JOURNAL_PATH.write_text(json.dumps(journal, ensure_ascii=False, indent=2),
+                                    encoding="utf-8")
+        except OSError as error:
+            logger.error(f"не удалось сохранить {JOURNAL_PATH.name}: {error}")
+
+    def already_published(self, video_name: str, journal: Optional[dict] = None) -> bool:
+        return video_name in (journal if journal is not None else self.load_journal())
+
     def run(self, dry_run: bool = True, limit: Optional[int] = 1,
             voiceover: Optional[str] = None) -> list:
         """
@@ -363,6 +403,7 @@ class ContentReelsPublisher:
             logger.info(f"DRY-RUN: {len(clips)} рилс(ов) соберутся, в каналы ничего не уйдёт "
                         f"(--publish / dry_run=False для реальной публикации)")
 
+        journal = self.load_journal()
         results = []
         for clip in clips:
             record = {
@@ -371,8 +412,23 @@ class ContentReelsPublisher:
                 "video": None,
                 "telegram": False,
                 "vk": False,
+                "skipped": False,
                 "error": None,
             }
+
+            # Дедуп — ДО монтажа: собирать заново то, что уже опубликовано,
+            # значит впустую жечь пять минут ffmpeg. В dry-run не проверяем:
+            # там ничего не публикуется, и пересобрать для просмотра можно
+            # сколько угодно раз.
+            video_name = f"reel_{clip.stem}.mp4"
+            if not dry_run and self.already_published(video_name, journal):
+                published_at = journal[video_name].get("published_at", "?")
+                logger.warning(f"{clip.name}: рилс {video_name} уже публиковался "
+                               f"({published_at}) — пропускаю")
+                record["skipped"] = True
+                record["error"] = "уже публиковался"
+                results.append(record)
+                continue
 
             video = self.montage_video(clip, voiceover=voiceover)
             if video is None:
@@ -384,6 +440,22 @@ class ContentReelsPublisher:
                 record["vk"] = self.publish_to_vk(video, dry_run=dry_run)
                 logger.info(f"{clip.name}: TG={'ok' if record['telegram'] else '-'} "
                             f"VK={'ok' if record['vk'] else '-'}")
+
+                # В журнал попадают только РЕАЛЬНЫЕ публикации, и только если
+                # хотя бы один канал принял ролик. Записывать неудачу нельзя:
+                # клип навсегда остался бы «опубликованным» и никогда не ушёл
+                # бы в каналы. Dry-run журнал не трогает вовсе.
+                if not dry_run and (record["telegram"] or record["vk"]):
+                    journal[Path(video).name] = {
+                        "published_at": datetime.now().isoformat(timespec="seconds"),
+                        "source_clip": clip.name,
+                        "telegram": record["telegram"],
+                        "vk": record["vk"],
+                    }
+                    self.save_journal(journal)
+                elif not dry_run:
+                    logger.warning(f"{clip.name}: ни один канал не принял ролик — "
+                                   f"в журнал НЕ записываю, попробуется снова")
 
             results.append(record)
 

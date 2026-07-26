@@ -41,8 +41,10 @@ yandex_post_builder.build_yandex_post()) — ПЕРЕД отправкой че�
 import re
 from dataclasses import dataclass, field
 
+import config
 from customs_calculator import MAX_HP_FOR_PHYS_LGOTA
 from model_specs import model_has_privileged_hp_variant
+from post_text_builder import HANGUL_RE
 
 KEY_PHRASES = ("авто из кореи под заказ", "под ключ в казани", "с корейского аукциона")
 MIN_KEY_PHRASES = 2
@@ -166,5 +168,86 @@ def validate_yandex_post(post: dict) -> ValidationResult:
                 f"{brand} {model} есть известная версия в пределах льготы — сверьте "
                 f"реальную комплектацию мотора у брокера перед публикацией"
             )
+
+    return ValidationResult(ok=not errors, errors=errors)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Профиль "дайджест" (yandex_digest_builder.py) — НЕЗАВИСИМЫЙ от
+# validate_yandex_post() выше: у дайджеста другая структура (несколько лотов
+# в одном посте, без stock_status/CTA_BY_STATUS/KEY_PHRASES одиночного
+# шаблона) и другие лимиты площадки. Ничего из существующих проверок выше не
+# меняет и не переиспользует.
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Грубый детектор Telegram-разметки (Markdown): **bold**/__underline__/
+# `code`/[текст](ссылка). Не претендует на полный парсер разметки — этого
+# достаточно, чтобы поймать типичный TG-форматированный текст, случайно
+# попавший в пост для площадки, которая Markdown не поддерживает.
+_MARKDOWN_RE = re.compile(r"(\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|\[[^\]]+\]\([^)]+\))")
+
+# Диапазоны Unicode, где живут эмодзи, которые реально встречаются в постах
+# (не претендует на исчерпывающий список ВСЕХ эмодзи-блоков Unicode).
+_EMOJI_RE = re.compile("[\U0001F300-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF]")
+MAX_DIGEST_EMOJI = 8
+
+
+def validate_yandex_digest(post: dict, photo_count: int) -> ValidationResult:
+    """
+    Гейт для АССЕМБЛИРОВАННОГО текста дайджеста (см.
+    yandex_digest_builder.build_digest_post()) — отдельные лоты внутри уже
+    прошли post_validator.validate_post_before_publish() до сборки текста
+    (см. докстринг yandex_digest_builder.py), здесь проверяется только
+    формат ИТОГОВОГО поста под лимиты площадки Яндекс Бизнес:
+
+    1. Длина текста (заголовок+текст) — не больше config.YANDEX_DIGEST_MAX_CHARS.
+    2. Символ "#" запрещён (хэштеги — только для TG/VK).
+    3. Похоже на Telegram-разметку (**bold**/`code`/[text](url)) — запрещено,
+       Яндекс Бизнес её не поддерживает, текст ушёл бы дилеру со звёздочками
+       и решётками прямо в тексте объявления.
+    4. Корейские символы (хангыль) где-либо в тексте — "мусор" в имени
+       лота, который просочился мимо post_text_builder._build_title().
+    5. Эмодзи — умеренно, не больше MAX_DIGEST_EMOJI на весь дайджест.
+    6. Фото — не больше config.YANDEX_DIGEST_MAX_PHOTOS (см. её докстринг
+       в config.py про реальный лимит Яндекс Бизнес).
+    7. Текст не пуст.
+
+    Args:
+        post: {"title": str, "text": str} — см.
+            yandex_digest_builder.build_digest_post().
+        photo_count: сколько фото реально отобрано для этого дайджеста.
+    """
+    errors = []
+    title = post.get("title", "")
+    text = post.get("text", "")
+    full = f"{title}\n{text}"
+
+    if not text.strip():
+        errors.append("пустой текст дайджеста")
+
+    total_len = len(full)
+    if total_len > config.YANDEX_DIGEST_MAX_CHARS:
+        errors.append(f"длина {total_len} символов выше лимита Яндекс Бизнес "
+                      f"({config.YANDEX_DIGEST_MAX_CHARS})")
+
+    if "#" in full:
+        errors.append("символ '#' запрещён (хэштеги — только для TG/VK, не для Яндекса)")
+
+    markdown_match = _MARKDOWN_RE.search(full)
+    if markdown_match:
+        errors.append(f"похоже на Telegram-разметку, недопустимо для Яндекс Бизнес: "
+                      f"{markdown_match.group(0)!r}")
+
+    if HANGUL_RE.search(full):
+        errors.append("корейские символы в тексте дайджеста (мусор в названии лота)")
+
+    emoji_count = len(_EMOJI_RE.findall(full))
+    if emoji_count > MAX_DIGEST_EMOJI:
+        errors.append(f"эмодзи слишком много ({emoji_count}) — нужно умеренно "
+                      f"(не больше {MAX_DIGEST_EMOJI})")
+
+    if photo_count > config.YANDEX_DIGEST_MAX_PHOTOS:
+        errors.append(f"фото {photo_count} больше лимита Яндекс Бизнес "
+                      f"({config.YANDEX_DIGEST_MAX_PHOTOS})")
 
     return ValidationResult(ok=not errors, errors=errors)

@@ -1,0 +1,93 @@
+# =============================================================
+#  Конфиг подбора авто из Кореи (Encar / KB ChaChaCha / HeyDealer / прочие)
+#  Чтобы сделать отчёт по новой модели — НЕ переписывай код.
+#  Достаточно: 1) добавить/выбрать пресет модели ниже,
+#              2) запустить скилл  →  /car-report <модель>
+# =============================================================
+
+# ---- Общие параметры (одинаковы для всех моделей) ----
+defaults:
+  years: [2022, 2023]            # год выпуска
+  mileage_max_km: 50000          # пробег до, км
+  power_hp_max: 160              # мощность до, л.с. (включительно)
+  fuel_types: [gasoline, diesel] # бензин и дизель
+  colors: [white, black, dark_gray]   # белый / чёрный / тёмно-серый
+  budget_rub_max: 2000000        # бюджет «под ключ», ₽
+
+  condition:                     # допуски по состоянию
+    allow_minor_insurance_payout: true      # незначит. выплата по страховой истории — ок
+    allow_cosmetic_repaint_elements_max: 1  # косметич. окрас не более 1 элемента
+    exclude_accidents: true                 # ДТП — отсекать
+    exclude_structural_repairs: true        # серьёзные ремонты силовых элементов — отсекать
+
+  platforms: [encar, kbchachacha, heydealer]  # + прочие аукционы, если настроены
+
+  krw_to_rub: null               # null = взять актуальный курс при запуске;
+                                 # число = зафиксировать курс вручную
+  price_under_key: reuse_existing  # использовать уже готовый модуль расчёта цены «под ключ»
+
+  output:
+    html: report.html
+    xlsx: report.xlsx
+    photos_dir: ./photos
+    sort_within_model: price_under_key_asc   # внутри модели — от дешёвых к дорогим
+    split_by_model: true                     # отдельный блок на каждую модель
+
+# ---- Пресеты моделей ----
+# Скопируй блок, поменяй значения — и модель готова к запуску.
+models:
+
+  avante:
+    display_name: "Hyundai Avante"
+    aliases: ["Elantra"]
+    # Источник истины для кодов — target_models_cache.json (резолвер
+    # target_model_resolver.resolve()); ниже продублировано из кэша.
+    platform_ids:
+      encar:                 # весь dict идёт в запрос encar_scraper.py
+        car_type: "Y"
+        manufacturer_ko: "현대"
+        model_group: "아반떼"
+      kbchachacha: ""        # TODO: уточнить при первом запуске (резолв вернул null)
+      heydealer: "아반떼"     # heydealer матчит по названию (англ. avante + это корейское)
+    engine_rules:
+      include: ["1.6 бензин (~123 л.с.)", "дизельные версии"]
+      exclude: ["N / N-Line турбо 1.6 (>200 л.с.)"]
+
+  seltos:
+    display_name: "KIA Seltos"
+    aliases: []
+    # Источник истины для кодов — target_models_cache.json (резолвер
+    # target_model_resolver.resolve()); ниже продублировано из кэша.
+    platform_ids:
+      encar:                 # весь dict идёт в запрос encar_scraper.py
+        car_type: "Y"
+        manufacturer_ko: "기아"
+        model_group: "셀토스"
+      kbchachacha: ""        # TODO: уточнить при первом запуске (резолв вернул null)
+      heydealer: "셀토스"     # heydealer матчит по названию (англ. seltos + это корейское)
+    engine_rules:
+      include: ["1.6 атмосферный (~123 л.с.)", "2.0 атмосферный (~147-149 л.с.)"]
+      exclude: ["1.6 турбо (>160 л.с.)"]
+
+  # --- ранее отработанные модели (эталон пайплайна) ---
+  sonata:
+    display_name: "Hyundai Sonata"
+    aliases: []
+    platform_ids:
+      encar: ""
+      kbchachacha: ""
+      heydealer: ""
+    engine_rules:
+      include: []
+      exclude: ["турбо-версии свыше 160 л.с."]
+
+  k5:
+    display_name: "KIA K5"
+    aliases: []
+    platform_ids:
+      encar: ""
+      kbchachacha: ""
+      heydealer: ""
+    engine_rules:
+      include: []
+      exclude: ["турбо-версии свыше 160 л.с."]

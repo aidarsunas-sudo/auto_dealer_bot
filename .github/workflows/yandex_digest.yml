@@ -1,0 +1,79 @@
+# ═══════════════════════════════════════════════════════════════════
+# GitHub Actions workflow — запускает run_yandex_digest.py АВТОМАТИЧЕСКИ, раз
+# в сутки, на серверах GitHub (даже когда твой компьютер выключен).
+#
+# ОТДЕЛЬНЫЙ workflow от main_pipeline.yml/run_bot.yml (те — каждые 6 часов,
+# 4 раза в сутки) — у дайджеста своя частота (1 раз в день) и он должен
+# видеть лоты, накопленные ЗА ВЕСЬ день, поэтому запускается ПОСЛЕ
+# последнего дневного прогона лидогена (main_pipeline.yml/run_bot.yml —
+# "0 */6 * * *", последний слот 18:00 UTC), с запасом на завершение (оба
+# обычно укладываются в несколько минут).
+#
+# main_pipeline.py копит лоты в yandex_digest_pool.json (см.
+# yandex_digest_builder.record_published_lot()) — этот workflow только
+# ЧИТАЕТ пул и отправляет дайджест, сам лоты не собирает.
+#
+# YANDEX_DIGEST_ENABLED — двойной гейт (тот же приём, что VIDEO_ENABLED в
+# main_pipeline.yml): по умолчанию false в config.py (локальный прогон
+# инертен), здесь явно "true".
+# ═══════════════════════════════════════════════════════════════════
+
+name: Yandex Digest (дневная подборка лотов)
+
+on:
+  schedule:
+    # "30 19 * * *" — 19:30 UTC (у Казани UTC+3 -> 22:30), с запасом после
+    # последнего дневного слота лидогена (18:00 UTC).
+    - cron: "30 19 * * *"
+
+  # Ручной запуск — вкладка "Actions" -> "Yandex Digest (дневная подборка
+  # лотов)" -> "Run workflow".
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-yandex-digest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Скачать код проекта
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Запустить run_yandex_digest
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
+          LOGISTICS_RUB: ${{ secrets.LOGISTICS_RUB }}
+          BROKER_FEE_RUB: ${{ secrets.BROKER_FEE_RUB }}
+          MARGIN_RUB: ${{ secrets.MARGIN_RUB }}
+          BANK_COMMISSION_PCT: ${{ secrets.BANK_COMMISSION_PCT }}
+          IMPORTER_TYPE: ${{ secrets.IMPORTER_TYPE }}
+          YANDEX_DIGEST_ENABLED: "true"
+        run: python run_yandex_digest.py
+
+      - name: Сохранить историю дайджеста и лог
+        if: always()  # сохраняем, даже если прогон упал — лог полезен для диагностики
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # yandex_digest_history.json появляется только после РЕАЛЬНОЙ
+          # отправки (не после дня без дайджеста) — "git add" на
+          # несуществующий путь падает с exit 128 и (из-за set -e) валит
+          # весь шаг, поэтому проверяем -e перед add (см. main_pipeline.yml,
+          # тот же приём).
+          for f in yandex_digest_history.json logs/yandex_digest.log; do
+            [ -e "$f" ] && git add "$f"
+          done
+          git diff --staged --quiet || git commit -m "Автообновление yandex_digest_history.json [skip ci]"
+          git push

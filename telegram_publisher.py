@@ -153,12 +153,19 @@ def send_photo_to_telegram(photo_url: str, caption: str, dry_run: bool = False) 
     return False
 
 
-def send_media_group_to_telegram(photo_urls: list, caption: str, dry_run: bool = False) -> bool:
+def send_media_group_to_telegram(photo_urls: list, caption: str, dry_run: bool = False,
+                                 chat_id: str | None = None) -> bool:
     """
     Отправляет НЕСКОЛЬКО фото одним альбомом (sendMediaGroup) — первое фото
     с подписью (caption = текст поста), остальные без подписи (так их
     видит Telegram-канал — одна подпись на весь альбом, не на каждое фото).
+
+    chat_id: куда слать — как и у send_to_telegram(), по умолчанию (None)
+        config.TELEGRAM_CHAT_ID (существующие вызовы не меняют поведение).
+        yandex_digest_builder.py передаёт config.YANDEX_DRAFTS_CHAT_ID —
+        служебный чат, не публичный канал лидогена.
     """
+    chat_id = chat_id if chat_id is not None else config.TELEGRAM_CHAT_ID
     photo_urls = photo_urls[:MEDIA_GROUP_MAX_ITEMS]
     caption = _safe_caption(caption)
 
@@ -178,7 +185,7 @@ def send_media_group_to_telegram(photo_urls: list, caption: str, dry_run: bool =
             item["caption"] = caption
         media.append(item)
 
-    request_data = {"chat_id": config.TELEGRAM_CHAT_ID, "media": media}
+    request_data = {"chat_id": chat_id, "media": media}
 
     try:
         response = requests.post(telegram_api_url, json=request_data, timeout=30)

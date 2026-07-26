@@ -326,6 +326,43 @@ YANDEX_QUEUE_MAX_AGE_DAYS: int = int(os.getenv("YANDEX_QUEUE_MAX_AGE_DAYS", "7")
 # у candidate_diversity.filter_recent_models() для лидогена.
 YANDEX_RECENT_MODEL_DAYS: int = int(os.getenv("YANDEX_RECENT_MODEL_DAYS", "14"))
 
+# --- Дайджест Яндекс-витрины (yandex_digest_builder.py) ---
+# ОТДЕЛЬНЫЙ режим от одиночного черновика выше (yandex_queue.py) — раз в
+# сутки собирает несколько лучших лотов, опубликованных за последние N часов,
+# в один пост-подборку. По умолчанию выключен локально — включается явно в
+# workflow (см. .github/workflows/yandex_digest.yml), тот же приём, что у
+# VIDEO_ENABLED в main_pipeline.yml.
+YANDEX_DIGEST_ENABLED: bool = os.getenv("YANDEX_DIGEST_ENABLED", "false").strip().lower() == "true"
+
+# Окно отбора лотов: сначала последние YANDEX_DIGEST_WINDOW_HOURS часов;
+# если лотов меньше YANDEX_DIGEST_MIN_FOR_WINDOW — расширяем до
+# YANDEX_DIGEST_FALLBACK_WINDOW_HOURS. Если и там лотов меньше
+# YANDEX_DIGEST_MIN_LOTS — дайджест в этот день не строится (см.
+# yandex_digest_builder.select_digest_lots()), не гадаем на 1 лоте.
+YANDEX_DIGEST_WINDOW_HOURS: int = int(os.getenv("YANDEX_DIGEST_WINDOW_HOURS", "24"))
+YANDEX_DIGEST_FALLBACK_WINDOW_HOURS: int = int(os.getenv("YANDEX_DIGEST_FALLBACK_WINDOW_HOURS", "48"))
+YANDEX_DIGEST_MIN_FOR_WINDOW: int = int(os.getenv("YANDEX_DIGEST_MIN_FOR_WINDOW", "3"))
+YANDEX_DIGEST_MIN_LOTS: int = int(os.getenv("YANDEX_DIGEST_MIN_LOTS", "2"))
+# По ТЗ — "3-5 лотов", но по 1 фото на лот и жёсткий лимит Яндекс Бизнес
+# в 4 фото на публикацию (см. YANDEX_DIGEST_MAX_PHOTOS ниже) — 5 лотов
+# означали бы либо превышение лимита фото, либо лот без фото в подборке.
+# Верхнюю границу синхронизировал с реальным лимитом площадки: 4, не 5.
+YANDEX_DIGEST_MAX_LOTS: int = int(os.getenv("YANDEX_DIGEST_MAX_LOTS", "4"))
+
+# Лот старше этого в пуле (yandex_digest_pool.json) считается неактуальным
+# для дайджеста и вычищается при следующей записи — пул иначе рос бы вечно
+# (в отличие от yandex_queue.json, отсюда лоты НЕ удаляются при выборке в
+# дайджест, только по возрасту — один лот может попасть в несколько разных
+# дайджестов подряд идущих дней, если каждый раз остаётся в окне).
+YANDEX_DIGEST_POOL_MAX_AGE_DAYS: int = int(os.getenv("YANDEX_DIGEST_POOL_MAX_AGE_DAYS", "4"))
+
+# Лимиты формата Яндекс Бизнес (https://yandex.ru/support/business-priority/ru/manage/publications,
+# проверено 2026-07-23): текст публикации — до 3000 символов с пробелами,
+# фото — не больше 4 на публикацию (320x160..5000x5000 px). Уточнить, если
+# Яндекс изменит лимиты — единственное место, где они захардкожены.
+YANDEX_DIGEST_MAX_CHARS: int = int(os.getenv("YANDEX_DIGEST_MAX_CHARS", "3000"))
+YANDEX_DIGEST_MAX_PHOTOS: int = int(os.getenv("YANDEX_DIGEST_MAX_PHOTOS", "4"))
+
 
 def check_config() -> None:
     """

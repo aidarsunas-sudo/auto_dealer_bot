@@ -134,11 +134,16 @@ jobs:
           # published_log.json: без коммита обратно очередь и last_sent_at не
           # переживут между прогонами на чистой VM, и YANDEX_MIN_INTERVAL_DAYS
           # перестанет работать (каждый прогон видел бы "отправок ещё не было").
+          # yandex_digest_pool.json — накопитель для дневного дайджеста (см.
+          # yandex_digest_builder.py/run_yandex_digest.py) — та же причина:
+          # без коммита сюда пул не переживёт между прогонами main_pipeline
+          # (пишется тут), а читает его ОТДЕЛЬНЫЙ workflow yandex_digest.yml
+          # — обязан видеть актуальный пул из git, не из этой же VM.
           # Проверяем -e перед git add: в отличие от остальных файлов здесь,
-          # эти два появляются не в КАЖДОМ прогоне (только если что-то
+          # эти появляются не в КАЖДОМ прогоне (только если что-то
           # опубликовано/отправлено) — "git add" на несуществующий путь падает
           # с exit 128 и (из-за set -e в GitHub Actions) валит весь шаг.
-          for f in published_log.json logs/main_pipeline.log target_models_cache.json video_state.json yandex_queue.json yandex_published.json; do
+          for f in published_log.json logs/main_pipeline.log target_models_cache.json video_state.json yandex_queue.json yandex_published.json yandex_digest_pool.json; do
             [ -e "$f" ] && git add "$f"
           done
           git diff --staged --quiet || git commit -m "Автообновление published_log.json [skip ci]"

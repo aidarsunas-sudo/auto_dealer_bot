@@ -217,3 +217,5 @@
   коммита.
 - Не выдумывать несуществующие API (у Дзена нет API публикации,
   Instagram — только официальный Graph API).
+
+Для отчётов по подбору авто следуй .claude/skills/car-report/SKILL.md и config.yaml.

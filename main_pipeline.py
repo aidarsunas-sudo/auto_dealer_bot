@@ -57,6 +57,7 @@ from notifier import notify_error
 from models_to_watch import sync_to_target_models
 import yandex_queue
 from yandex_publisher import send_yandex_draft
+from yandex_digest_builder import record_published_lot
 from telegram_publisher import send_to_telegram
 
 FRESHNESS_DAYS = 14
@@ -205,6 +206,11 @@ def run() -> None:
                 # config.YANDEX_MIN_INTERVAL_DAYS, отдельным шагом в конце прогона
                 # (см. _dispatch_yandex_draft ниже).
                 yandex_queue.enqueue_lot(car)
+                # Дайджест — НЕЗАВИСИМЫЙ накопитель от очереди выше (см.
+                # yandex_digest_builder.py): лоты сюда не расходуются при
+                # выборке, только чистятся по возрасту. Отправка — раз в
+                # день, отдельным workflow (run_yandex_digest.py), не отсюда.
+                record_published_lot(car)
             posted_count += 1
             log.info(f"[{posted_count}/{post_limit}] Опубликовано: {car.get('brand', '')} "
                       f"{car.get('model', '')} {car.get('trim', '')}")

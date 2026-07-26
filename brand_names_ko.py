@@ -97,6 +97,8 @@ MODEL_KO = {
     "tiguan": "티구안",
     "sonata": "쏘나타",
     "trax": "트랙스",
+    "avante": "아반떼",
+    "seltos": "셀토스",
 }
 
 

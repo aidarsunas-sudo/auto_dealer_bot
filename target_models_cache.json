@@ -849,5 +849,37 @@
   "kbchachacha:Chevrolet:Trailblazer": {
     "result": null,
     "resolved_at": "2026-07-20T15:07:36"
+  },
+  "kbchachacha:Hyundai:Avante": {
+    "result": null,
+    "resolved_at": "2026-07-26T19:07:49"
+  },
+  "encar:Hyundai:Avante": {
+    "result": {
+      "car_type": "Y",
+      "manufacturer_ko": "현대",
+      "model_group": "아반떼"
+    },
+    "resolved_at": "2026-07-26T19:35:05"
+  },
+  "charancha:Hyundai:Avante": {
+    "result": null,
+    "resolved_at": "2026-07-26T19:08:28"
+  },
+  "kbchachacha:Kia:Seltos": {
+    "result": null,
+    "resolved_at": "2026-07-26T19:10:39"
+  },
+  "encar:Kia:Seltos": {
+    "result": {
+      "car_type": "Y",
+      "manufacturer_ko": "기아",
+      "model_group": "셀토스"
+    },
+    "resolved_at": "2026-07-26T19:35:05"
+  },
+  "charancha:Kia:Seltos": {
+    "result": null,
+    "resolved_at": "2026-07-26T19:11:09"
   }
 }

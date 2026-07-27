@@ -29,4 +29,4 @@ edge-tts
 # ModuleNotFoundError: audioop/pyaudioop. Если pydub не установлен —
 # _detect_beats() просто отключает beat sync (не ошибка, см. её докстринг).
 pydub
-audioop-lts
+audioop-lts; python_version >= "3.13"

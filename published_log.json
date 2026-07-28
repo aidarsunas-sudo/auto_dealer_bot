@@ -8917,7 +8917,9 @@
   },
   "https://fem.encar.com/cars/detail/42200218": {
     "first_seen": "2026-07-17T13:46:47",
-    "posted_at": null
+    "posted_at": "2026-07-28T14:25:47",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://fem.encar.com/cars/detail/41865375": {
     "first_seen": "2026-07-17T13:46:47",
@@ -11593,6 +11595,62 @@
   },
   "https://fem.encar.com/cars/detail/42427293": {
     "first_seen": "2026-07-28T08:50:28",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42428209": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42446723": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42444490": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42421862": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42442704": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42428622": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42435801": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42435969": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42435540": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42431742": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28609716": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42430255": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42425309": {
+    "first_seen": "2026-07-28T14:23:19",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28609588": {
+    "first_seen": "2026-07-28T14:23:19",
     "posted_at": null
   }
 }

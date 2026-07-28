@@ -150,5 +150,30 @@
       ]
     },
     "added_at": "2026-07-28T08:53:15.908460"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "2.0 LPe RE 2WD",
+      "external_id": "42200218",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 30432,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 21900000.0,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42200218",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture10/pic4220/42200218_001.jpg",
+        "https://ci.encar.com/carpicture10/pic4220/42200218_003.jpg",
+        "https://ci.encar.com/carpicture10/pic4220/42200218_004.jpg",
+        "https://ci.encar.com/carpicture10/pic4220/42200218_007.jpg"
+      ]
+    },
+    "added_at": "2026-07-28T14:25:47.339042"
   }
 ]

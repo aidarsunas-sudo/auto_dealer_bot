@@ -135,18 +135,28 @@ jobs:
         run: python test_post.py
 
       # Шаг 4.5: как и в main_pipeline.yml — если гейт validate_post_before_publish
-      # (post_validator.py) кого-то отклонил в ЭТОМ прогоне, явно фейлим job.
-      # Пропускается в режиме test_post — там отказ гейта одному из
-      # перебираемых кандидатов ожидаем и не является поломкой (см. test_post.py).
+      # (post_validator.py) кого-то отклонил в ЭТОМ прогоне, это ЛЕГИТИМНЫЙ
+      # рабочий вывод гейта (не поломка), job не проваливаем (не exit 1).
+      # Настоящие сбои (краш/исключение) не проходят через rejected_posts.log
+      # вообще — уже валят ПРЕДЫДУЩИЙ шаг собственным ненулевым exit code,
+      # этот шаг тот сигнал не подменяет и не глушит. Пропускается целиком в
+      # режиме test_post — там отказ гейта одному из перебираемых кандидатов
+      # ожидаем и не является поломкой (см. test_post.py).
       - name: Проверить rejected_posts.log (гейт validate_post_before_publish)
         if: ${{ always() && github.event.inputs.test_post != 'true' }}
         run: |
           if [ -s rejected_posts.log ]; then
-            echo "::error::validate_post_before_publish() отклонил пост(ы) в этом прогоне:"
+            echo "::warning::validate_post_before_publish() отклонил пост(ы) в этом прогоне (легитимный отказ, не поломка):"
             cat rejected_posts.log
-            exit 1
+            {
+              echo "### ⚠️ Гейт validate_post_before_publish() отклонил лот(ы)"
+              echo '```'
+              cat rejected_posts.log
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "rejected_posts.log пуст — гейт ничего не отклонил в этом прогоне"
           fi
-          echo "rejected_posts.log пуст — гейт ничего не отклонил в этом прогоне"
 
       # Шаг 5: сохраняем обновлённую базу данных и лог обратно в репозиторий,
       # чтобы следующий прогон "помнил", что уже публиковалось.

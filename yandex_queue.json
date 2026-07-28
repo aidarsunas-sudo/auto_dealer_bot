@@ -1,83 +1,6 @@
 [
   {
     "car": {
-      "brand": "Volkswagen",
-      "model": "Tiguan",
-      "trim": "",
-      "external_id": "28539660",
-      "year": 2023,
-      "month": 9,
-      "mileage_km": 39491,
-      "cc": 1968,
-      "hp": 150,
-      "fuel_code": "diesel",
-      "price": 67900000,
-      "specs": "1968 см³, 150 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28539660_2059964193651671.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28539660_2059964620057380.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28539660_2059964998507126.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28539660_2059965406616080.jpeg?width=720"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28539660",
-      "raw_title": "폭스바겐 더 뉴 티구안 2.0 TDI Prestige",
-      "source": "kbchachacha"
-    },
-    "added_at": "2026-07-21T02:54:33.817373"
-  },
-  {
-    "car": {
-      "brand": "Audi",
-      "model": "Q3",
-      "trim": "",
-      "external_id": "28569842",
-      "year": 2022,
-      "month": 7,
-      "mileage_km": 25431,
-      "cc": 1968,
-      "hp": 150,
-      "fuel_code": "diesel",
-      "price": 62900000,
-      "specs": "1968 см³, 150 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2856/28569842_2788198689794114.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2856/28569842_2788199091790105.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2856/28569842_2788199606339210.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2856/28569842_2788200094838122.jpeg?width=720"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28569842",
-      "raw_title": "아우디 The New Q3(F3) 35 TDI Quattro Sportback Premium",
-      "source": "kbchachacha"
-    },
-    "added_at": "2026-07-21T02:57:39.877898"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "2.0 LPe LE 2WD",
-      "external_id": "42343670",
-      "year": 2022,
-      "month": 7,
-      "mileage_km": 26448,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 17390000.0,
-      "specs": "1998 см³, 144 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42343670",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture03/pic4233/42339569_001.jpg",
-        "https://ci.encar.com/carpicture03/pic4233/42339569_003.jpg",
-        "https://ci.encar.com/carpicture03/pic4233/42339569_004.jpg",
-        "https://ci.encar.com/carpicture03/pic4233/42339569_007.jpg"
-      ]
-    },
-    "added_at": "2026-07-21T19:29:15.443947"
-  },
-  {
-    "car": {
       "brand": "",
       "model": "Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)",
       "trim": "",
@@ -177,5 +100,55 @@
       ]
     },
     "added_at": "2026-07-23T14:06:19.995314"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42370938",
+      "year": 2023,
+      "month": 5,
+      "mileage_km": 25937,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 20500000.0,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42370938",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture07/pic4237/42370938_001.jpg",
+        "https://ci.encar.com/carpicture07/pic4237/42370938_003.jpg",
+        "https://ci.encar.com/carpicture07/pic4237/42370938_004.jpg",
+        "https://ci.encar.com/carpicture07/pic4237/42370938_007.jpg"
+      ]
+    },
+    "added_at": "2026-07-28T08:52:57.788537"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 ACTIV",
+      "external_id": "42268046",
+      "year": 2023,
+      "month": 6,
+      "mileage_km": 31407,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 21230000.0,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42268046",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture05/pic4225/42254521_001.jpg",
+        "https://ci.encar.com/carpicture05/pic4225/42254521_003.jpg",
+        "https://ci.encar.com/carpicture05/pic4225/42254521_004.jpg",
+        "https://ci.encar.com/carpicture05/pic4225/42254521_007.jpg"
+      ]
+    },
+    "added_at": "2026-07-28T08:53:15.908460"
   }
 ]

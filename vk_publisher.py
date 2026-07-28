@@ -20,6 +20,7 @@ vk_publisher.py — публикация готового поста на сте
 """
 
 import logging
+import re
 import sys
 import time
 from pathlib import Path
@@ -72,6 +73,23 @@ def _referer_for(photo_url: str) -> str:
     return f"{parsed.scheme}://{parsed.netloc}/"
 
 
+_TOKEN_PATTERN = re.compile(r"vk1\.[aA]\.[A-Za-z0-9_\-]{10,}")
+
+
+def _mask_secret(text: str) -> str:
+    """
+    Защита на случай, если VK_TOKEN всё же попадёт в текст исключения/URL
+    (например, будущая правка случайно вернёт GET с access_token в query —
+    см. инцидент со смоук-тестом 2026-07-28, где токен утёк именно так через
+    requests.get(params=...) в разовом диагностическом скрипте, НЕ в этом
+    файле — здесь все вызовы VK API и так POST с телом, access_token в URL
+    не попадает). Заменяет любую подстроку вида "vk1.a...." на маску — из
+    предосторожности применяется ко ВСЕМ сообщениям об ошибках ниже, даже
+    там, где токен по построению не должен там оказаться.
+    """
+    return _TOKEN_PATTERN.sub("vk1.a.***MASKED***", text)
+
+
 def _safe_print(text: str) -> None:
     """
     Текст поста содержит эмодзи — на Windows-консоли с не-UTF8 кодировкой
@@ -101,10 +119,10 @@ def _api_call(method: str, params: dict, timeout: int = 20) -> dict | None:
         response.raise_for_status()
         data = response.json()
     except requests.RequestException as error:
-        logger.error(f"VK API {method}: сетевая ошибка ({error})")
+        logger.error(f"VK API {method}: сетевая ошибка ({_mask_secret(str(error))})")
         return None
     except ValueError as error:
-        logger.error(f"VK API {method}: не удалось разобрать ответ ({error})")
+        logger.error(f"VK API {method}: не удалось разобрать ответ ({_mask_secret(str(error))})")
         return None
 
     if "error" in data:
@@ -265,10 +283,10 @@ def _video_save(group_id: int, name: str, description: str) -> dict | None:
         response.raise_for_status()
         data = response.json()
     except requests.RequestException as error:
-        logger.error(f"VK API video.save: сетевая ошибка ({error})")
+        logger.error(f"VK API video.save: сетевая ошибка ({_mask_secret(str(error))})")
         return None
     except ValueError as error:
-        logger.error(f"VK API video.save: не удалось разобрать ответ ({error})")
+        logger.error(f"VK API video.save: не удалось разобрать ответ ({_mask_secret(str(error))})")
         return None
 
     if "error" in data:

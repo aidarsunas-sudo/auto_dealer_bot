@@ -175,5 +175,30 @@
       ]
     },
     "added_at": "2026-07-28T14:25:47.339042"
+  },
+  {
+    "car": {
+      "brand": "",
+      "model": "Hyundai Avante Hybrid 1.6 G+E",
+      "trim": "",
+      "external_id": "42385689",
+      "year": 2022,
+      "month": 5,
+      "mileage_km": 36986,
+      "cc": 1580,
+      "hp": 141,
+      "fuel_code": "hybrid_p",
+      "price": 16990000.0,
+      "specs": "1580 см³, 141 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42385689",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4238/42380486_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4238/42380486_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4238/42380486_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4238/42380486_007.jpg"
+      ]
+    },
+    "added_at": "2026-07-29T08:50:18.072569"
   }
 ]

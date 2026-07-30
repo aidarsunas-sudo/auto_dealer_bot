@@ -98,5 +98,30 @@
       ]
     },
     "published_at": "2026-07-29T08:50:18.072981"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "42375303",
+      "year": 2022,
+      "month": 6,
+      "mileage_km": 36634,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 25900000.0,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42375303",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture07/pic4237/42375303_001.jpg",
+        "https://ci.encar.com/carpicture07/pic4237/42375303_003.jpg",
+        "https://ci.encar.com/carpicture07/pic4237/42375303_004.jpg",
+        "https://ci.encar.com/carpicture07/pic4237/42375303_007.jpg"
+      ]
+    },
+    "published_at": "2026-07-30T02:40:29.069449"
   }
 ]

@@ -7743,7 +7743,9 @@
   },
   "https://fem.encar.com/cars/detail/42375303": {
     "first_seen": "2026-07-16T08:17:07",
-    "posted_at": null
+    "posted_at": "2026-07-30T02:40:29",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://fem.encar.com/cars/detail/42386180": {
     "first_seen": "2026-07-16T08:17:07",
@@ -11853,6 +11855,46 @@
   },
   "https://fem.encar.com/cars/detail/42430900": {
     "first_seen": "2026-07-29T19:22:41",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42458478": {
+    "first_seen": "2026-07-30T02:40:14",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42458149": {
+    "first_seen": "2026-07-30T02:40:14",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42458240": {
+    "first_seen": "2026-07-30T02:40:14",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42456367": {
+    "first_seen": "2026-07-30T02:40:14",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42458614": {
+    "first_seen": "2026-07-30T02:40:14",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42451242": {
+    "first_seen": "2026-07-30T02:40:14",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42428408": {
+    "first_seen": "2026-07-30T02:40:14",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28591906": {
+    "first_seen": "2026-07-30T02:40:14",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42458624": {
+    "first_seen": "2026-07-30T02:40:14",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42459214": {
+    "first_seen": "2026-07-30T02:40:14",
     "posted_at": null
   }
 }

@@ -8375,7 +8375,9 @@
   },
   "https://fem.encar.com/cars/detail/42348417": {
     "first_seen": "2026-07-17T13:46:47",
-    "posted_at": null
+    "posted_at": "2026-07-31T08:57:32",
+    "brand": "",
+    "model": "Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)"
   },
   "https://fem.encar.com/cars/detail/42272073": {
     "first_seen": "2026-07-17T13:46:47",
@@ -12007,6 +12009,50 @@
   },
   "https://fem.encar.com/cars/detail/42361718": {
     "first_seen": "2026-07-31T02:59:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42468606": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42467639": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28621894": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42467614": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42458065": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42468696": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42468312": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42467834": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42459431": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42470514": {
+    "first_seen": "2026-07-31T08:57:01",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/40725440": {
+    "first_seen": "2026-07-31T08:57:01",
     "posted_at": null
   }
 }

@@ -123,5 +123,31 @@
       ]
     },
     "added_at": "2026-07-31T08:57:32.069378"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "SM6",
+      "trim": "",
+      "external_id": "28393207",
+      "year": 2022,
+      "month": 11,
+      "mileage_km": 31587,
+      "cc": 1332,
+      "hp": 156,
+      "fuel_code": "petrol",
+      "price": 18500000,
+      "specs": "1332 см³, 156 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2839/28393207_5776074647139135.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2839/28393207_5776074733059790.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2839/28393207_5776074819290477.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2839/28393207_5776074904662609.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28393207",
+      "raw_title": "르노코리아 The New SM6 1.3 TCe 260 필",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-08-01T08:30:45.119434"
   }
 ]

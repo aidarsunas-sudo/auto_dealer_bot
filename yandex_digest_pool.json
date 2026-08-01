@@ -1,56 +1,6 @@
 [
   {
     "car": {
-      "brand": "Kia",
-      "model": "K3",
-      "trim": "1.6",
-      "external_id": "42370938",
-      "year": 2023,
-      "month": 5,
-      "mileage_km": 25937,
-      "cc": 1598,
-      "hp": 123,
-      "fuel_code": "petrol",
-      "price": 20500000.0,
-      "specs": "1598 см³, 123 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42370938",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture07/pic4237/42370938_001.jpg",
-        "https://ci.encar.com/carpicture07/pic4237/42370938_003.jpg",
-        "https://ci.encar.com/carpicture07/pic4237/42370938_004.jpg",
-        "https://ci.encar.com/carpicture07/pic4237/42370938_007.jpg"
-      ]
-    },
-    "published_at": "2026-07-28T08:52:57.788949"
-  },
-  {
-    "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "1.2 ACTIV",
-      "external_id": "42268046",
-      "year": 2023,
-      "month": 6,
-      "mileage_km": 31407,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 21230000.0,
-      "specs": "1198 см³, 139 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42268046",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture05/pic4225/42254521_001.jpg",
-        "https://ci.encar.com/carpicture05/pic4225/42254521_003.jpg",
-        "https://ci.encar.com/carpicture05/pic4225/42254521_004.jpg",
-        "https://ci.encar.com/carpicture05/pic4225/42254521_007.jpg"
-      ]
-    },
-    "published_at": "2026-07-28T08:53:15.909162"
-  },
-  {
-    "car": {
       "brand": "Renault",
       "model": "QM6",
       "trim": "2.0 LPe RE 2WD",
@@ -174,5 +124,30 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-08-01T08:30:45.119807"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42393233",
+      "year": 2022,
+      "month": 6,
+      "mileage_km": 23652,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 28500000.0,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42393233",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture09/pic4239/42393233_001.jpg",
+        "https://ci.encar.com/carpicture09/pic4239/42393233_003.jpg",
+        "https://ci.encar.com/carpicture09/pic4239/42393233_004.jpg",
+        "https://ci.encar.com/carpicture09/pic4239/42393233_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-01T13:37:24.512443"
   }
 ]

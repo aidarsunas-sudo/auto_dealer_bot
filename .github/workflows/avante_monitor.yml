@@ -1,0 +1,91 @@
+name: Avante Monitor (HeyDealer)
+
+# Мониторинг Hyundai Avante CN7 на HeyDealer: каждые 6 часов проверяем зал и,
+# если появился НОВЫЙ подходящий лот, шлём в служебный чат alert-отчёт (HTML)
+# документом + сводку со ссылками. Дедуп — avante_monitor/seen_lots.json,
+# он коммитится обратно в репозиторий (иначе на чистой VM состояние теряется
+# и бот шлёт одни и те же лоты каждые 6 часов).
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Прогон без отправки в Telegram и без записи состояния"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить зависимости
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Подготовить credentials.json для HeyDealer
+        # credentials.json в .gitignore (секреты не в репозитории), поэтому на
+        # чистой VM собираем его из GitHub Secrets — иначе логин невозможен.
+        env:
+          HEYDEALER_ID: ${{ secrets.HEYDEALER_ID }}
+          HEYDEALER_PW: ${{ secrets.HEYDEALER_PW }}
+        run: |
+          python - <<'PY'
+          import json, os
+          creds = {"heydealer": {"id": os.environ["HEYDEALER_ID"],
+                                 "password": os.environ["HEYDEALER_PW"]}}
+          with open("credentials.json", "w", encoding="utf-8") as fh:
+              json.dump(creds, fh, ensure_ascii=False)
+          print("credentials.json создан")
+          PY
+
+      - name: Прогон мониторинга
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
+          LOGISTICS_RUB: ${{ secrets.LOGISTICS_RUB }}
+          BROKER_FEE_RUB: ${{ secrets.BROKER_FEE_RUB }}
+          MARGIN_RUB: ${{ secrets.MARGIN_RUB }}
+          BANK_COMMISSION_PCT: ${{ secrets.BANK_COMMISSION_PCT }}
+          IMPORTER_TYPE: ${{ secrets.IMPORTER_TYPE }}
+        run: |
+          python avante_monitor/monitor_avante.py ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Сохранить состояние дедупа и отчёты
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Коммитим ТОЛЬКО лёгкое состояние: seen_lots.json (дедуп) и лог.
+          # report.html/alert_*.html сюда НЕ добавляем — в них фото в base64
+          # (~1 МБ на файл), и коммит каждые 6 часов раздул бы репозиторий на
+          # гигабайты за год. Отчёты забираются артефактом (шаг ниже).
+          for f in avante_monitor/seen_lots.json avante_monitor/monitor.log; do
+            [ -e "$f" ] && git add "$f"
+          done
+          git diff --staged --quiet || git commit -m "Автообновление мониторинга Avante [skip ci]"
+          git push || echo "нечего пушить"
+
+      - name: Выгрузить отчёты артефактом
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avante-monitor-reports
+          path: |
+            avante_monitor/report.html
+            avante_monitor/report.xlsx
+            avante_monitor/alert_*.html
+          if-no-files-found: ignore
+          retention-days: 14

@@ -17,6 +17,7 @@ telegram_publisher.py — здесь код, который отправляет
 """
 
 import logging
+import os
 import sys
 import requests
 
@@ -56,7 +57,63 @@ def _safe_print(text: str) -> None:
         print(text.encode(encoding, errors="replace").decode(encoding, errors="replace"))
 
 
-def send_to_telegram(text: str, dry_run: bool = False, chat_id: str | None = None) -> bool:
+def send_document_to_telegram(document: str, caption: str = "", dry_run: bool = False,
+                              chat_id: str | None = None, parse_mode: str | None = None) -> bool:
+    """
+    Отправляет ЛОКАЛЬНЫЙ файл (например, HTML-отчёт) как документ — Bot API
+    sendDocument. Нужен, чтобы прислать самодостаточный report.html: получатель
+    открывает его одним файлом, со встроенными фото и кликабельными ссылками.
+
+    Сделано по образцу agent_publisher.send_video_to_telegram (тот же приём
+    multipart-загрузки локального файла), но с параметром chat_id — отчёты
+    мониторинга уходят в служебный чат (config.ADMIN_CHAT_ID), а не в
+    публичный канал лидогена.
+
+    Args:
+        document: путь к локальному файлу либо прямая ссылка/file_id.
+        caption: подпись (лимит Telegram — 1024 символа, обрезается).
+        dry_run: ничего не отправлять, только напечатать.
+        chat_id: адресат; по умолчанию config.TELEGRAM_CHAT_ID.
+        parse_mode: "HTML" — если в подписи есть разметка/ссылки.
+
+    Returns:
+        True при успехе (или dry_run), False при любой ошибке. Исключение
+        не поднимает — как и остальные отправки в этом проекте.
+    """
+    chat_id = chat_id if chat_id is not None else config.TELEGRAM_CHAT_ID
+
+    if dry_run:
+        print("=" * 50)
+        print(f"ТЕСТОВЫЙ РЕЖИМ (документ не отправлен). document={document}")
+        _safe_print(caption)
+        print("=" * 50)
+        return True
+
+    api_url = f"https://api.telegram.org/bot{config.BOT_TOKEN}/sendDocument"
+    data = {"chat_id": chat_id, "caption": _safe_caption(caption)}
+    if parse_mode:
+        data["parse_mode"] = parse_mode
+
+    is_local = (not document.startswith(("http://", "https://"))) and os.path.exists(document)
+    try:
+        if is_local:
+            with open(document, "rb") as fh:
+                response = requests.post(api_url, data=data, files={"document": fh}, timeout=120)
+        else:
+            data["document"] = document
+            response = requests.post(api_url, data=data, timeout=60)
+        if response.status_code == 200:
+            logger.info("Документ отправлен в Telegram")
+            return True
+        logger.error(f"Telegram sendDocument вернул {response.status_code}: {response.text[:300]}")
+        return False
+    except Exception as error:
+        logger.error(f"Не удалось отправить документ в Telegram: {error}")
+        return False
+
+
+def send_to_telegram(text: str, dry_run: bool = False, chat_id: str | None = None,
+                     parse_mode: str | None = None) -> bool:
     """
     Отправляет текстовое сообщение в Telegram-канал.
 
@@ -96,6 +153,11 @@ def send_to_telegram(text: str, dry_run: bool = False, chat_id: str | None = Non
         "chat_id": chat_id,
         "text": text,
     }
+    # parse_mode нужен, когда в тексте есть разметка — например, кликабельные
+    # <a href> ссылки в сводке мониторинга. По умолчанию None: существующие
+    # вызовы (лидоген) шлют обычный текст и ведут себя как раньше.
+    if parse_mode:
+        request_data["parse_mode"] = parse_mode
 
     try:
         # requests.post() отправляет данные на сервер Telegram и ждёт ответа.

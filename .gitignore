@@ -89,3 +89,11 @@ content_reels.log
 
 # Регресс-тест shorts_generator — локальный, в репозитории не нужен.
 test_shorts.py
+
+# Мониторинг Avante: в git только код и лёгкое состояние (seen_lots.json).
+# Отчёты и фото — тяжёлые (base64 внутри HTML), забираются артефактом Actions.
+avante_monitor/photos/
+avante_monitor/report.html
+avante_monitor/report.xlsx
+avante_monitor/alert_*.html
+avante_monitor/__pycache__/

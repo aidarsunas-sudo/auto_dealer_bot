@@ -30,3 +30,11 @@ edge-tts
 # _detect_beats() просто отключает beat sync (не ошибка, см. её докстринг).
 pydub
 audioop-lts; python_version >= "3.13"
+
+# Отчёты подбора авто (скилл car-report, avante_monitor/monitor_avante.py):
+# openpyxl — выгрузка report.xlsx (гиперссылки, автофильтр, закреплённая
+# шапка); Pillow — ресайз и пережатие фото перед встраиванием в HTML как
+# base64 data URI (car_report_photo_embed.py), чтобы отчёт открывался одним
+# файлом на любом устройстве и не весил лишнего.
+openpyxl
+Pillow

@@ -149,5 +149,30 @@
       ]
     },
     "added_at": "2026-08-01T13:37:24.511842"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 ACTIV",
+      "external_id": "42393004",
+      "year": 2023,
+      "month": 6,
+      "mileage_km": 17523,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 26500000.0,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42393004",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4238/42385936_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4238/42385936_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4238/42385936_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4238/42385936_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-02T13:36:26.363622"
   }
 ]

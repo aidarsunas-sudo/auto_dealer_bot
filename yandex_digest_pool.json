@@ -1,56 +1,6 @@
 [
   {
     "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "2.0 LPe RE 2WD",
-      "external_id": "42200218",
-      "year": 2023,
-      "month": 12,
-      "mileage_km": 30432,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 21900000.0,
-      "specs": "1998 см³, 144 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42200218",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture10/pic4220/42200218_001.jpg",
-        "https://ci.encar.com/carpicture10/pic4220/42200218_003.jpg",
-        "https://ci.encar.com/carpicture10/pic4220/42200218_004.jpg",
-        "https://ci.encar.com/carpicture10/pic4220/42200218_007.jpg"
-      ]
-    },
-    "published_at": "2026-07-28T14:25:47.339437"
-  },
-  {
-    "car": {
-      "brand": "",
-      "model": "Hyundai Avante Hybrid 1.6 G+E",
-      "trim": "",
-      "external_id": "42385689",
-      "year": 2022,
-      "month": 5,
-      "mileage_km": 36986,
-      "cc": 1580,
-      "hp": 141,
-      "fuel_code": "hybrid_p",
-      "price": 16990000.0,
-      "specs": "1580 см³, 141 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42385689",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture08/pic4238/42380486_001.jpg",
-        "https://ci.encar.com/carpicture08/pic4238/42380486_003.jpg",
-        "https://ci.encar.com/carpicture08/pic4238/42380486_004.jpg",
-        "https://ci.encar.com/carpicture08/pic4238/42380486_007.jpg"
-      ]
-    },
-    "published_at": "2026-07-29T08:50:18.072981"
-  },
-  {
-    "car": {
       "brand": "Kia",
       "model": "K5",
       "trim": "2.0",
@@ -149,5 +99,30 @@
       ]
     },
     "published_at": "2026-08-01T13:37:24.512443"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 ACTIV",
+      "external_id": "42393004",
+      "year": 2023,
+      "month": 6,
+      "mileage_km": 17523,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 26500000.0,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42393004",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4238/42385936_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4238/42385936_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4238/42385936_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4238/42385936_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-02T13:36:26.364295"
   }
 ]

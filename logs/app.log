@@ -3052,3 +3052,49 @@
 2026-08-03 14:10:16,168 [WARNING] Не удалось обработать:
 • Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
 2026-08-03 14:10:16,724 [INFO] Уведомление об ошибке отправлено администратору
+2026-08-03 19:15:12,267 [INFO] === Запуск ===
+2026-08-03 19:15:13,020 [INFO] Получены свежие курсы ЦБ: EUR=91.96 USD=80.07 KRW(за 1000)=55.85
+2026-08-03 19:15:13,022 [INFO] ── Проверяю: BMW New X6 ──
+2026-08-03 19:15:13,022 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11565 (попытка 1/3)
+2026-08-03 19:15:14,102 [WARNING] Попытка 1 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11565
+2026-08-03 19:15:16,102 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11565 (попытка 2/3)
+2026-08-03 19:15:16,251 [WARNING] Попытка 2 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11565
+2026-08-03 19:15:20,252 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11565 (попытка 3/3)
+2026-08-03 19:15:20,399 [WARNING] Попытка 3 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11565
+2026-08-03 19:15:20,399 [ERROR] Пропускаю BMW New X6: не удалось загрузить страницу (500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11565)
+2026-08-03 19:15:20,399 [INFO] ── Проверяю: Kia Sportage ──
+2026-08-03 19:15:20,399 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11722 (попытка 1/3)
+2026-08-03 19:15:20,547 [WARNING] Попытка 1 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11722
+2026-08-03 19:15:22,547 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11722 (попытка 2/3)
+2026-08-03 19:15:22,695 [WARNING] Попытка 2 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11722
+2026-08-03 19:15:26,695 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11722 (попытка 3/3)
+2026-08-03 19:15:26,844 [WARNING] Попытка 3 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11722
+2026-08-03 19:15:26,844 [ERROR] Пропускаю Kia Sportage: не удалось загрузить страницу (500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11722)
+2026-08-03 19:15:26,844 [INFO] ── Проверяю: Mercedes-Benz GLB-Class ──
+2026-08-03 19:15:26,844 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11641 (попытка 1/3)
+2026-08-03 19:15:26,991 [WARNING] Попытка 1 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11641
+2026-08-03 19:15:28,992 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11641 (попытка 2/3)
+2026-08-03 19:15:29,140 [WARNING] Попытка 2 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11641
+2026-08-03 19:15:33,140 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11641 (попытка 3/3)
+2026-08-03 19:15:33,955 [WARNING] Попытка 3 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11641
+2026-08-03 19:15:33,955 [ERROR] Пропускаю Mercedes-Benz GLB-Class: не удалось загрузить страницу (500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/11641)
+2026-08-03 19:15:33,955 [INFO] ── Проверяю: Renault XM3 ──
+2026-08-03 19:15:33,955 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/10397-110253 (попытка 1/3)
+2026-08-03 19:15:34,100 [WARNING] Попытка 1 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/10397-110253
+2026-08-03 19:15:36,101 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/10397-110253 (попытка 2/3)
+2026-08-03 19:15:36,248 [WARNING] Попытка 2 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/10397-110253
+2026-08-03 19:15:40,248 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/10397-110253 (попытка 3/3)
+2026-08-03 19:15:40,395 [WARNING] Попытка 3 не удалась: 500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/10397-110253
+2026-08-03 19:15:40,395 [ERROR] Пропускаю Renault XM3: не удалось загрузить страницу (500 Server Error: Internal Server Error for url: https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
+2026-08-03 19:15:40,395 [INFO] ── Проверяю б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'} ──
+2026-08-03 19:15:40,395 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-03 19:15:41,553 [INFO] Страница 1: найдено 9 объявлений (новых 9)
+2026-08-03 19:15:42,554 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-08-03 19:15:42,714 [INFO] Страница 2: пусто, останавливаюсь
+2026-08-03 19:15:42,714 [INFO] === Готово ===
+2026-08-03 19:15:42,715 [WARNING] Не удалось обработать:
+• BMW New X6 (https://www.carnoon.co.kr/newcar/vehicle/11565)
+• Kia Sportage (https://www.carnoon.co.kr/newcar/vehicle/11722)
+• Mercedes-Benz GLB-Class (https://www.carnoon.co.kr/newcar/vehicle/11641)
+• Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
+2026-08-03 19:15:43,241 [INFO] Уведомление об ошибке отправлено администратору

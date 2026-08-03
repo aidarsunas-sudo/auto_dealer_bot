@@ -174,5 +174,30 @@
       ]
     },
     "added_at": "2026-08-02T13:36:26.363622"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42402260",
+      "year": 2022,
+      "month": 4,
+      "mileage_km": 17420,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 25000000.0,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42402260",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture10/pic4240/42402260_001.jpg",
+        "https://ci.encar.com/carpicture10/pic4240/42402260_003.jpg",
+        "https://ci.encar.com/carpicture10/pic4240/42402260_004.jpg",
+        "https://ci.encar.com/carpicture10/pic4240/42402260_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-03T09:56:12.148382"
   }
 ]

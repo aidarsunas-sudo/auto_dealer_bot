@@ -174,5 +174,31 @@
       ]
     },
     "added_at": "2026-08-03T09:56:12.148382"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28585018",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 23644,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 28300000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2858/28585018_3972434936253342.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2858/28585018_3972435234705272.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2858/28585018_3972435523676079.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2858/28585018_3972435863934588.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28585018",
+      "raw_title": "기아 K5 3세대 2.0 가솔린 프레스티지",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-08-04T08:51:06.444098"
   }
 ]

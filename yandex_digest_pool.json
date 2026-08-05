@@ -1,57 +1,6 @@
 [
   {
     "car": {
-      "brand": "",
-      "model": "Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)",
-      "trim": "",
-      "external_id": "42348417",
-      "year": 2023,
-      "month": 10,
-      "mileage_km": 17634,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 44000000.0,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42348417",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture04/pic4234/42345805_001.jpg",
-        "https://ci.encar.com/carpicture04/pic4234/42345805_003.jpg",
-        "https://ci.encar.com/carpicture04/pic4234/42345805_004.jpg",
-        "https://ci.encar.com/carpicture04/pic4234/42345805_007.jpg"
-      ]
-    },
-    "published_at": "2026-07-31T08:57:32.069807"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "SM6",
-      "trim": "",
-      "external_id": "28393207",
-      "year": 2022,
-      "month": 11,
-      "mileage_km": 31587,
-      "cc": 1332,
-      "hp": 156,
-      "fuel_code": "petrol",
-      "price": 18500000,
-      "specs": "1332 см³, 156 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2839/28393207_5776074647139135.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2839/28393207_5776074733059790.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2839/28393207_5776074819290477.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2839/28393207_5776074904662609.jpeg?width=720"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28393207",
-      "raw_title": "르노코리아 The New SM6 1.3 TCe 260 필",
-      "source": "kbchachacha"
-    },
-    "published_at": "2026-08-01T08:30:45.119807"
-  },
-  {
-    "car": {
       "brand": "Hyundai",
       "model": "Sonata",
       "trim": "2.0",
@@ -150,5 +99,31 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-08-04T08:51:06.444819"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "",
+      "external_id": "28593110",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 31227,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 27990000,
+      "specs": "1998 см³, 144 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896454410591.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896560755463.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896660502855.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896754609372.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28593110",
+      "raw_title": "르노코리아 뉴 QM6 2.0 GDe 2WD RE",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-08-05T08:42:23.690674"
   }
 ]

@@ -11151,7 +11151,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28593110": {
     "first_seen": "2026-07-23T08:38:44",
-    "posted_at": null
+    "posted_at": "2026-08-05T08:42:23",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://fem.encar.com/cars/detail/42420580": {
     "first_seen": "2026-07-23T08:38:44",
@@ -12439,6 +12441,86 @@
   },
   "https://fem.encar.com/cars/detail/42266615": {
     "first_seen": "2026-08-05T02:46:25",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42494422": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28635748": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42496558": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42482185": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42495653": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42490019": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42494346": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42493197": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28635346": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28635599": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42493634": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/019fd02f-ca1e-7ebd-8d3b-a2e7a0b06f16": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42494644": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42481429": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42496107": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/019fd0a1-b630-7a83-be9d-8ce9a9bed8f6": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28635015": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42481836": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28548930": {
+    "first_seen": "2026-08-05T08:42:04",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42265694": {
+    "first_seen": "2026-08-05T08:42:04",
     "posted_at": null
   }
 }

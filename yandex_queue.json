@@ -200,5 +200,31 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-08-04T08:51:06.444098"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "",
+      "external_id": "28593110",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 31227,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 27990000,
+      "specs": "1998 см³, 144 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896454410591.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896560755463.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896660502855.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896754609372.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28593110",
+      "raw_title": "르노코리아 뉴 QM6 2.0 GDe 2WD RE",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-08-05T08:42:23.689977"
   }
 ]

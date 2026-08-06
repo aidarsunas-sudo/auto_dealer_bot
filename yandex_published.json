@@ -1,5 +1,5 @@
 {
-  "last_sent_at": "2026-08-03T19:53:42.268560",
+  "last_sent_at": "2026-08-06T02:42:47.713483",
   "history": [
     {
       "brand": "Kia",
@@ -30,6 +30,11 @@
       "brand": "",
       "model": "Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)",
       "sent_at": "2026-08-03T19:53:42.268560"
+    },
+    {
+      "brand": "Renault",
+      "model": "SM6",
+      "sent_at": "2026-08-06T02:42:47.713483"
     }
   ]
 }

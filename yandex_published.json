@@ -1,5 +1,5 @@
 {
-  "last_sent_at": "2026-08-06T02:42:47.713483",
+  "last_sent_at": "2026-08-08T07:02:39.083237",
   "history": [
     {
       "brand": "Kia",
@@ -35,6 +35,11 @@
       "brand": "Renault",
       "model": "SM6",
       "sent_at": "2026-08-06T02:42:47.713483"
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "sent_at": "2026-08-08T07:02:39.083237"
     }
   ]
 }

@@ -11491,7 +11491,9 @@
   },
   "https://fem.encar.com/cars/detail/42438450": {
     "first_seen": "2026-07-28T08:50:28",
-    "posted_at": null
+    "posted_at": "2026-08-10T13:24:01",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://fem.encar.com/cars/detail/42428207": {
     "first_seen": "2026-07-28T08:50:28",
@@ -13021,6 +13023,38 @@
   },
   "https://fem.encar.com/cars/detail/42517776": {
     "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28649610": {
+    "first_seen": "2026-08-10T13:23:43",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42523095": {
+    "first_seen": "2026-08-10T13:23:43",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42522686": {
+    "first_seen": "2026-08-10T13:23:43",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28649566": {
+    "first_seen": "2026-08-10T13:23:43",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28648919": {
+    "first_seen": "2026-08-10T13:23:43",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42523720": {
+    "first_seen": "2026-08-10T13:23:43",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42523758": {
+    "first_seen": "2026-08-10T13:23:43",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42521946": {
+    "first_seen": "2026-08-10T13:23:43",
     "posted_at": null
   }
 }

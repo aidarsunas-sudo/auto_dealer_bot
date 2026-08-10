@@ -1,58 +1,6 @@
 [
   {
     "car": {
-      "brand": "Kia",
-      "model": "K5",
-      "trim": "",
-      "external_id": "28585018",
-      "year": 2022,
-      "month": 9,
-      "mileage_km": 23644,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 28300000,
-      "specs": "1999 см³, 160 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2858/28585018_3972434936253342.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2858/28585018_3972435234705272.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2858/28585018_3972435523676079.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2858/28585018_3972435863934588.jpeg?width=720"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28585018",
-      "raw_title": "기아 K5 3세대 2.0 가솔린 프레스티지",
-      "source": "kbchachacha"
-    },
-    "published_at": "2026-08-04T08:51:06.444819"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "",
-      "external_id": "28593110",
-      "year": 2023,
-      "month": 10,
-      "mileage_km": 31227,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 27990000,
-      "specs": "1998 см³, 144 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896454410591.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896560755463.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896660502855.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2859/28593110_3428896754609372.jpeg?width=720"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28593110",
-      "raw_title": "르노코리아 뉴 QM6 2.0 GDe 2WD RE",
-      "source": "kbchachacha"
-    },
-    "published_at": "2026-08-05T08:42:23.690674"
-  },
-  {
-    "car": {
       "brand": "Chevrolet",
       "model": "Trax",
       "trim": "",
@@ -76,5 +24,80 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-08-07T19:05:52.950124"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42425636",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 30726,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 22500000.0,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42425636",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture01/pic4241/42415305_001.jpg",
+        "https://ci.encar.com/carpicture01/pic4241/42415305_003.jpg",
+        "https://ci.encar.com/carpicture01/pic4241/42415305_004.jpg",
+        "https://ci.encar.com/carpicture01/pic4241/42415305_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-10T08:12:02.011152"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "42425225",
+      "year": 2022,
+      "month": 11,
+      "mileage_km": 32540,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 27500000.0,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42425225",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture02/pic4242/42421263_001.jpg",
+        "https://ci.encar.com/carpicture02/pic4242/42421263_003.jpg",
+        "https://ci.encar.com/carpicture02/pic4242/42421263_004.jpg",
+        "https://ci.encar.com/carpicture02/pic4242/42421263_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-10T08:12:20.941048"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42439945",
+      "year": 2023,
+      "month": 1,
+      "mileage_km": 22913,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 33330000.0,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42439945",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture03/pic4243/42436472_027.jpg",
+        "https://ci.encar.com/carpicture03/pic4243/42436472_003.jpg",
+        "https://ci.encar.com/carpicture03/pic4243/42436472_004.jpg",
+        "https://ci.encar.com/carpicture03/pic4243/42436472_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-10T08:14:34.589415"
   }
 ]

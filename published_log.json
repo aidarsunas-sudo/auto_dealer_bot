@@ -11253,7 +11253,9 @@
   },
   "https://fem.encar.com/cars/detail/42425636": {
     "first_seen": "2026-07-28T08:50:28",
-    "posted_at": null
+    "posted_at": "2026-08-10T08:12:02",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://fem.encar.com/cars/detail/42415305": {
     "first_seen": "2026-07-28T08:50:28",
@@ -11285,7 +11287,9 @@
   },
   "https://fem.encar.com/cars/detail/42425225": {
     "first_seen": "2026-07-28T08:50:28",
-    "posted_at": null
+    "posted_at": "2026-08-10T08:12:20",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://fem.encar.com/cars/detail/42421263": {
     "first_seen": "2026-07-28T08:50:28",
@@ -11413,7 +11417,9 @@
   },
   "https://fem.encar.com/cars/detail/42439945": {
     "first_seen": "2026-07-28T08:50:28",
-    "posted_at": null
+    "posted_at": "2026-08-10T08:14:34",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://fem.encar.com/cars/detail/42434596": {
     "first_seen": "2026-07-28T08:50:28",
@@ -12927,6 +12933,94 @@
   },
   "https://fem.encar.com/cars/detail/42516746": {
     "first_seen": "2026-08-10T01:54:58",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42521194": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42516467": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42520336": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42519475": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42520038": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42516459": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42521820": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42516958": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42522186": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42516213": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42522537": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42519397": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42520078": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42517459": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42521080": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42520136": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42522810": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42522355": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42522253": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42521534": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42518331": {
+    "first_seen": "2026-08-10T08:11:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42517776": {
+    "first_seen": "2026-08-10T08:11:44",
     "posted_at": null
   }
 }

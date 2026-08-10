@@ -55112,3 +55112,586 @@ Call log:
 2026-08-10 01:54:58,452 [ERROR] Не удалось опубликовать Peugeot 3008: Пост https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28148700 заблокирован: фото 1 < минимума 3
 2026-08-10 01:54:58,461 [INFO] yandex_queue: рано — интервал ещё не прошёл
 2026-08-10 01:54:58,461 [INFO] === Готово: опубликовано 0 постов ===
+2026-08-10 07:42:28,875 [INFO] === Запуск main_pipeline ===
+2026-08-10 07:42:29,603 [INFO] Получены свежие курсы ЦБ: EUR=94.84 USD=82.17 KRW(за 1000)=57.91
+2026-08-10 07:42:29,604 [INFO] Режим поиска: both
+2026-08-10 07:42:29,604 [INFO] ── Целевая модель: Audi Q3 (kbchachacha) ──
+2026-08-10 07:42:29,604 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:42:45,186 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Read timed out. (read timeout=15)
+2026-08-10 07:42:47,186 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:43:02,205 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=109&classCode=1959&carCode=3090&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc79e0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:43:06,205 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:43:21,627 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=109&classCode=1959&carCode=3090&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc6b40>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:43:21,627 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=109&classCode=1959&carCode=3090&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc6b40>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:43:21,627 [INFO] kbchachacha: Audi Q3 -> найдено 0 (после фильтров)
+2026-08-10 07:43:21,627 [INFO] ── Целевая модель: Audi Q3 (encar) ──
+2026-08-10 07:43:21,903 [INFO] encar: Audi Q3 -> найдено 53 (после фильтров)
+2026-08-10 07:43:21,904 [INFO] ── Целевая модель: Audi Q3 (charancha) ──
+2026-08-10 07:43:22,628 [INFO] charancha: Audi Q3 -> найдено 0 (после фильтров)
+2026-08-10 07:43:22,629 [INFO] ── Целевая модель: Audi Q3 (onbid) ──
+2026-08-10 07:43:25,955 [INFO] onbid: Audi Q3 -> найдено 0 (после фильтров)
+2026-08-10 07:43:25,956 [INFO] ── Целевая модель: Volkswagen Tiguan (kbchachacha) ──
+2026-08-10 07:43:25,957 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:43:41,377 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=112&classCode=1983&carCode=2941&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be49b0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:43:43,378 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:43:58,804 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=112&classCode=1983&carCode=2941&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be43e0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:44:02,804 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:44:18,232 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=112&classCode=1983&carCode=2941&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be5580>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:44:18,232 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=112&classCode=1983&carCode=2941&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be5580>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:44:18,232 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:44:33,660 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=112&classCode=1983&carCode=2925&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be5d30>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:44:35,660 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:44:51,084 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=112&classCode=1983&carCode=2925&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be61e0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:44:55,085 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:45:10,507 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=112&classCode=1983&carCode=2925&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be5b50>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:45:10,507 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=112&classCode=1983&carCode=2925&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be5b50>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:45:10,507 [INFO] kbchachacha: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-08-10 07:45:10,507 [INFO] ── Целевая модель: Volkswagen Tiguan (encar) ──
+2026-08-10 07:45:12,664 [INFO] encar: Volkswagen Tiguan -> найдено 62 (после фильтров)
+2026-08-10 07:45:12,665 [INFO] ── Целевая модель: Volkswagen Tiguan (charancha) ──
+2026-08-10 07:45:14,626 [INFO] charancha: Volkswagen Tiguan -> найдено 1 (после фильтров)
+2026-08-10 07:45:14,627 [INFO] ── Целевая модель: Volkswagen Tiguan (onbid) ──
+2026-08-10 07:45:17,954 [INFO] onbid: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-08-10 07:45:17,956 [INFO] ── Целевая модель: Kia K3 (kbchachacha) ──
+2026-08-10 07:45:17,956 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:45:33,386 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1240&carCode=3175&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be2bd0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:45:35,386 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:45:50,821 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1240&carCode=3175&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be1b80>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:45:54,821 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:46:09,840 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1240&carCode=3175&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3350>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:46:09,840 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1240&carCode=3175&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3350>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:46:09,840 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:46:25,272 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1240&carCode=3176&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be16a0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:46:27,272 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:46:42,696 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1240&carCode=3176&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3140>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:46:46,696 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:47:01,716 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1240&carCode=3176&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be1730>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:47:01,716 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1240&carCode=3176&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be1730>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:47:01,716 [INFO] kbchachacha: Kia K3 -> найдено 0 (после фильтров)
+2026-08-10 07:47:01,716 [INFO] ── Целевая модель: Kia K3 (encar) ──
+2026-08-10 07:47:10,867 [INFO] encar: Kia K3 -> найдено 233 (после фильтров)
+2026-08-10 07:47:10,868 [INFO] ── Целевая модель: Kia K3 (charancha) ──
+2026-08-10 07:47:14,970 [INFO] charancha: Kia K3 -> найдено 1 (после фильтров)
+2026-08-10 07:47:14,971 [INFO] ── Целевая модель: Kia K3 (onbid) ──
+2026-08-10 07:47:17,987 [INFO] onbid: Kia K3 -> найдено 0 (после фильтров)
+2026-08-10 07:47:17,988 [INFO] ── Целевая модель: Kia K5 (kbchachacha) ──
+2026-08-10 07:47:17,988 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:47:33,410 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3374&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3350>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:47:35,410 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:47:50,429 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3374&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be10d0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:47:54,430 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:48:09,581 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3374&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3740>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:48:09,581 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3374&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3740>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:48:09,581 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:48:25,004 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3375&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be2300>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:48:27,005 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:48:42,428 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3375&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be1df0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:48:46,429 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:49:01,862 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3375&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3260>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:49:01,862 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3375&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3260>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:49:01,862 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:49:17,004 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3051&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3c80>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:49:19,005 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:49:34,432 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3051&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3e30>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:49:38,432 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:49:53,879 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3051&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3e60>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:49:53,879 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3051&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3e60>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:49:53,880 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:50:08,902 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3052&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be0d70>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:50:10,903 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:50:25,922 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3052&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be0680>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:50:29,922 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:50:45,363 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3052&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be2de0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:50:45,363 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=3052&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be2de0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:50:45,363 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:51:00,380 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=2793&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be0fb0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:51:02,381 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:51:17,785 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=2793&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be2e70>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:51:21,786 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:51:36,799 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=2793&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3e00>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:51:36,799 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=1225&carCode=2793&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be3e00>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:51:36,799 [INFO] kbchachacha: Kia K5 -> найдено 0 (после фильтров)
+2026-08-10 07:51:36,799 [INFO] ── Целевая модель: Kia K5 (encar) ──
+2026-08-10 07:51:46,855 [INFO] encar: Kia K5 -> найдено 202 (после фильтров)
+2026-08-10 07:51:46,858 [INFO] ── Целевая модель: Kia K5 (charancha) ──
+2026-08-10 07:51:55,700 [INFO] charancha: Kia K5 -> найдено 14 (после фильтров)
+2026-08-10 07:51:55,701 [INFO] ── Целевая модель: Kia K5 (onbid) ──
+2026-08-10 07:51:58,997 [INFO] onbid: Kia K5 -> найдено 0 (после фильтров)
+2026-08-10 07:51:58,998 [INFO] ── Целевая модель: Hyundai Sonata (kbchachacha) ──
+2026-08-10 07:51:58,999 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:52:14,431 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3330&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc7a10>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:52:16,431 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:52:31,854 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3330&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc5340>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:52:35,854 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:52:51,020 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Read timed out. (read timeout=15)
+2026-08-10 07:52:51,020 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Read timed out. (read timeout=15))
+2026-08-10 07:52:51,020 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:53:06,583 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Read timed out. (read timeout=15)
+2026-08-10 07:53:08,583 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:53:24,060 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3331&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc6150>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:53:28,060 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:53:43,533 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3331&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc5010>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:53:43,534 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3331&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc5010>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:53:43,534 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:53:58,540 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3332&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6a2be60>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:54:00,541 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:54:15,961 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3332&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6a2bcb0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:54:19,962 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:54:34,972 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3332&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6a2be30>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:54:34,972 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3332&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6a2be30>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:54:34,972 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:54:50,396 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=2994&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6a289e0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:54:52,396 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:55:07,819 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=2994&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc6a20>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:55:11,819 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:55:26,972 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=2994&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc5460>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:55:26,972 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=2994&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc5460>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:55:26,972 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:55:41,991 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3147&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc4b60>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:55:43,991 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:55:59,011 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3147&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc78c0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:56:03,011 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:56:18,159 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3147&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc78f0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:56:18,160 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3147&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc78f0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:56:18,160 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:56:33,587 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3021&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc5700>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:56:35,587 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:56:50,607 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3021&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6a29190>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:56:54,607 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:57:10,041 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3021&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6a29340>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:57:10,041 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=101&classCode=1108&carCode=3021&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6a29340>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:57:10,041 [INFO] kbchachacha: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-08-10 07:57:10,041 [INFO] ── Целевая модель: Hyundai Sonata (encar) ──
+2026-08-10 07:57:19,725 [INFO] encar: Hyundai Sonata -> найдено 202 (после фильтров)
+2026-08-10 07:57:19,727 [INFO] ── Целевая модель: Hyundai Sonata (charancha) ──
+2026-08-10 07:57:28,911 [INFO] charancha: Hyundai Sonata -> найдено 15 (после фильтров)
+2026-08-10 07:57:28,912 [INFO] ── Целевая модель: Hyundai Sonata (onbid) ──
+2026-08-10 07:57:32,337 [INFO] onbid: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-08-10 07:57:32,338 [INFO] ── Целевая модель: Kia Tasman (kbchachacha) ──
+2026-08-10 07:57:32,339 [INFO] kbchachacha: Kia Tasman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 07:57:32,339 [INFO] ── Целевая модель: Kia Tasman (encar) ──
+2026-08-10 07:57:32,339 [INFO] ── Целевая модель: Kia Tasman (charancha) ──
+2026-08-10 07:57:32,339 [INFO] ── Целевая модель: Kia Tasman (onbid) ──
+2026-08-10 07:57:35,723 [INFO] onbid: Kia Tasman -> найдено 0 (после фильтров)
+2026-08-10 07:57:35,724 [INFO] ── Целевая модель: Hyundai Venue (kbchachacha) ──
+2026-08-10 07:57:35,724 [INFO] kbchachacha: Hyundai Venue -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 07:57:35,724 [INFO] ── Целевая модель: Hyundai Venue (encar) ──
+2026-08-10 07:57:35,725 [INFO] ── Целевая модель: Hyundai Venue (charancha) ──
+2026-08-10 07:57:35,725 [INFO] ── Целевая модель: Hyundai Venue (onbid) ──
+2026-08-10 07:57:39,094 [INFO] onbid: Hyundai Venue -> найдено 0 (после фильтров)
+2026-08-10 07:57:39,095 [INFO] ── Целевая модель: Hyundai Casper (kbchachacha) ──
+2026-08-10 07:57:39,095 [INFO] kbchachacha: Hyundai Casper -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 07:57:39,095 [INFO] ── Целевая модель: Hyundai Casper (encar) ──
+2026-08-10 07:57:39,096 [INFO] ── Целевая модель: Hyundai Casper (charancha) ──
+2026-08-10 07:57:39,096 [INFO] ── Целевая модель: Hyundai Casper (onbid) ──
+2026-08-10 07:57:42,456 [INFO] onbid: Hyundai Casper -> найдено 0 (после фильтров)
+2026-08-10 07:57:42,457 [INFO] ── Целевая модель: Kia Ray (kbchachacha) ──
+2026-08-10 07:57:42,458 [INFO] kbchachacha: Kia Ray -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 07:57:42,458 [INFO] ── Целевая модель: Kia Ray (encar) ──
+2026-08-10 07:57:42,458 [INFO] ── Целевая модель: Kia Ray (charancha) ──
+2026-08-10 07:57:42,459 [INFO] ── Целевая модель: Kia Ray (onbid) ──
+2026-08-10 07:57:45,883 [INFO] onbid: Kia Ray -> найдено 0 (после фильтров)
+2026-08-10 07:57:45,884 [INFO] ── Целевая модель: Hyundai IONIQ 5 (kbchachacha) ──
+2026-08-10 07:57:45,885 [INFO] kbchachacha: Hyundai IONIQ 5 -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 07:57:45,885 [INFO] ── Целевая модель: Hyundai IONIQ 5 (encar) ──
+2026-08-10 07:57:45,885 [INFO] ── Целевая модель: Hyundai IONIQ 5 (charancha) ──
+2026-08-10 07:57:45,885 [INFO] ── Целевая модель: Hyundai IONIQ 5 (onbid) ──
+2026-08-10 07:57:48,821 [INFO] onbid: Hyundai IONIQ 5 -> найдено 0 (после фильтров)
+2026-08-10 07:57:48,822 [INFO] ── Целевая модель: Kia EV9 (kbchachacha) ──
+2026-08-10 07:57:48,823 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:58:04,236 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=2843&carCode=3333&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be42c0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:58:06,237 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:58:21,667 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=2843&carCode=3333&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be4590>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:58:25,668 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:58:41,100 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=2843&carCode=3333&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be4aa0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:58:41,100 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=2843&carCode=3333&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be4aa0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:58:41,100 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:58:56,525 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=2843&carCode=3447&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be6060>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:58:58,526 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 07:59:13,545 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=2843&carCode=3447&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be6e70>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:59:17,545 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 07:59:32,567 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=2843&carCode=3447&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be6120>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:59:32,567 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=102&classCode=2843&carCode=3447&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be6120>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 07:59:32,567 [INFO] kbchachacha: Kia EV9 -> найдено 0 (после фильтров)
+2026-08-10 07:59:32,567 [INFO] ── Целевая модель: Kia EV9 (encar) ──
+2026-08-10 07:59:32,813 [INFO] encar: Kia EV9 -> найдено 28 (после фильтров)
+2026-08-10 07:59:32,814 [INFO] ── Целевая модель: Kia EV9 (charancha) ──
+2026-08-10 07:59:33,391 [INFO] charancha: Kia EV9 -> найдено 2 (после фильтров)
+2026-08-10 07:59:33,392 [INFO] ── Целевая модель: Kia EV9 (onbid) ──
+2026-08-10 07:59:36,573 [INFO] onbid: Kia EV9 -> найдено 0 (после фильтров)
+2026-08-10 07:59:36,574 [INFO] ── Целевая модель: Genesis GV60 (kbchachacha) ──
+2026-08-10 07:59:36,575 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 07:59:51,596 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=189&classCode=2805&carCode=3236&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6ab0dd0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 07:59:53,596 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:00:08,623 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=189&classCode=2805&carCode=3236&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6ab29f0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:00:12,623 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:00:27,642 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=189&classCode=2805&carCode=3236&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6ab24b0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:00:27,642 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=189&classCode=2805&carCode=3236&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6ab24b0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:00:27,642 [INFO] kbchachacha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-08-10 08:00:27,642 [INFO] ── Целевая модель: Genesis GV60 (encar) ──
+2026-08-10 08:00:27,891 [INFO] encar: Genesis GV60 -> найдено 17 (после фильтров)
+2026-08-10 08:00:27,893 [INFO] ── Целевая модель: Genesis GV60 (charancha) ──
+2026-08-10 08:00:28,632 [INFO] charancha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-08-10 08:00:28,633 [INFO] ── Целевая модель: Genesis GV60 (onbid) ──
+2026-08-10 08:00:31,800 [INFO] onbid: Genesis GV60 -> найдено 0 (после фильтров)
+2026-08-10 08:00:31,801 [INFO] ── Целевая модель: BYD SEALION 7 (kbchachacha) ──
+2026-08-10 08:00:31,802 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:00:47,240 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=176&classCode=2892&carCode=3885&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69311c0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:00:49,241 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:01:04,673 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=176&classCode=2892&carCode=3885&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6930b00>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:01:08,673 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:01:24,097 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=176&classCode=2892&carCode=3885&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6930e90>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:01:24,097 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=176&classCode=2892&carCode=3885&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6930e90>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:01:24,097 [INFO] kbchachacha: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-08-10 08:01:24,097 [INFO] ── Целевая модель: BYD SEALION 7 (encar) ──
+2026-08-10 08:01:24,097 [INFO] ── Целевая модель: BYD SEALION 7 (charancha) ──
+2026-08-10 08:01:24,098 [INFO] ── Целевая модель: BYD SEALION 7 (onbid) ──
+2026-08-10 08:01:27,374 [INFO] onbid: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-08-10 08:01:27,375 [INFO] ── Целевая модель: Kia Sportage (kbchachacha) ──
+2026-08-10 08:01:27,375 [INFO] kbchachacha: Kia Sportage -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 08:01:27,375 [INFO] ── Целевая модель: Kia Sportage (encar) ──
+2026-08-10 08:01:27,375 [INFO] ── Целевая модель: Kia Sportage (charancha) ──
+2026-08-10 08:01:27,376 [INFO] ── Целевая модель: Kia Sportage (onbid) ──
+2026-08-10 08:01:30,758 [INFO] onbid: Kia Sportage -> найдено 0 (после фильтров)
+2026-08-10 08:01:30,759 [INFO] ── Целевая модель: Renault QM6 (kbchachacha) ──
+2026-08-10 08:01:30,759 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:01:45,909 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3367&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6930aa0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:01:47,909 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:02:02,928 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3367&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6930c80>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:02:06,928 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:02:21,945 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3367&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6933a10>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:02:21,945 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3367&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6933a10>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:02:21,945 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:02:37,364 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3316&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6931130>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:02:39,365 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:02:54,774 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3316&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69336b0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:02:58,775 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:03:14,343 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Read timed out. (read timeout=15)
+2026-08-10 08:03:14,343 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Read timed out. (read timeout=15))
+2026-08-10 08:03:14,343 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:03:29,368 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3315&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69308c0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:03:31,368 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:03:46,799 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3315&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d8950b90>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:03:50,800 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:04:06,228 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3315&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69314c0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:04:06,228 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3315&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69314c0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:04:06,228 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:04:21,692 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3156&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6931940>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:04:23,693 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:04:38,714 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3156&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6930110>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:04:42,715 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:04:58,141 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3156&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69339e0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:04:58,142 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2678&carCode=3156&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69339e0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:04:58,142 [INFO] kbchachacha: Renault QM6 -> найдено 0 (после фильтров)
+2026-08-10 08:04:58,142 [INFO] ── Целевая модель: Renault QM6 (encar) ──
+2026-08-10 08:05:04,919 [INFO] encar: Renault QM6 -> найдено 126 (после фильтров)
+2026-08-10 08:05:04,920 [INFO] ── Целевая модель: Renault QM6 (charancha) ──
+2026-08-10 08:05:09,317 [INFO] charancha: Renault QM6 -> найдено 7 (после фильтров)
+2026-08-10 08:05:09,318 [INFO] ── Целевая модель: Renault QM6 (onbid) ──
+2026-08-10 08:05:12,677 [INFO] onbid: Renault QM6 -> найдено 0 (после фильтров)
+2026-08-10 08:05:12,678 [INFO] ── Целевая модель: Renault SM6 (kbchachacha) ──
+2026-08-10 08:05:12,678 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:05:28,097 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2651&carCode=3108&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6820680>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:05:30,097 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:05:45,529 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2651&carCode=3108&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6820c50>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:05:49,529 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:06:04,953 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2651&carCode=3108&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6820830>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:06:04,953 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=105&classCode=2651&carCode=3108&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6820830>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:06:04,953 [INFO] kbchachacha: Renault SM6 -> найдено 0 (после фильтров)
+2026-08-10 08:06:04,953 [INFO] ── Целевая модель: Renault SM6 (encar) ──
+2026-08-10 08:06:10,336 [INFO] encar: Renault SM6 -> найдено 36 (после фильтров)
+2026-08-10 08:06:10,337 [INFO] ── Целевая модель: Renault SM6 (charancha) ──
+2026-08-10 08:06:12,389 [INFO] charancha: Renault SM6 -> найдено 3 (после фильтров)
+2026-08-10 08:06:12,390 [INFO] ── Целевая модель: Renault SM6 (onbid) ──
+2026-08-10 08:06:16,715 [INFO] onbid: Renault SM6 -> найдено 0 (после фильтров)
+2026-08-10 08:06:16,716 [INFO] ── Целевая модель: Chevrolet Malibu (kbchachacha) ──
+2026-08-10 08:06:16,716 [INFO] kbchachacha: Chevrolet Malibu -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 08:06:16,716 [INFO] ── Целевая модель: Chevrolet Malibu (encar) ──
+2026-08-10 08:06:16,717 [INFO] ── Целевая модель: Chevrolet Malibu (charancha) ──
+2026-08-10 08:06:16,717 [INFO] ── Целевая модель: Chevrolet Malibu (onbid) ──
+2026-08-10 08:06:20,112 [INFO] onbid: Chevrolet Malibu -> найдено 0 (после фильтров)
+2026-08-10 08:06:20,113 [INFO] ── Целевая модель: Chevrolet Spark (kbchachacha) ──
+2026-08-10 08:06:20,114 [INFO] kbchachacha: Chevrolet Spark -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 08:06:20,114 [INFO] ── Целевая модель: Chevrolet Spark (encar) ──
+2026-08-10 08:06:20,114 [INFO] ── Целевая модель: Chevrolet Spark (charancha) ──
+2026-08-10 08:06:20,114 [INFO] ── Целевая модель: Chevrolet Spark (onbid) ──
+2026-08-10 08:06:23,349 [INFO] onbid: Chevrolet Spark -> найдено 0 (после фильтров)
+2026-08-10 08:06:23,350 [INFO] ── Целевая модель: Chevrolet Trax (kbchachacha) ──
+2026-08-10 08:06:23,351 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:06:38,356 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=103&classCode=1241&carCode=3319&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6933350>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:06:40,356 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:06:55,796 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=103&classCode=1241&carCode=3319&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6932a50>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:06:59,797 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:07:14,822 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=103&classCode=1241&carCode=3319&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6933ec0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:07:14,822 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=103&classCode=1241&carCode=3319&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6933ec0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:07:14,822 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:07:30,252 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=103&classCode=1241&carCode=2885&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6932e70>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:07:32,252 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:07:47,679 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=103&classCode=1241&carCode=2885&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6932240>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:07:51,680 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:08:06,841 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=103&classCode=1241&carCode=2885&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6933c80>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:08:06,842 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=103&classCode=1241&carCode=2885&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6933c80>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:08:06,842 [INFO] kbchachacha: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-08-10 08:08:06,842 [INFO] ── Целевая модель: Chevrolet Trax (encar) ──
+2026-08-10 08:08:11,850 [INFO] encar: Chevrolet Trax -> найдено 139 (после фильтров)
+2026-08-10 08:08:11,852 [INFO] ── Целевая модель: Chevrolet Trax (charancha) ──
+2026-08-10 08:08:13,933 [INFO] charancha: Chevrolet Trax -> найдено 3 (после фильтров)
+2026-08-10 08:08:13,934 [INFO] ── Целевая модель: Chevrolet Trax (onbid) ──
+2026-08-10 08:08:17,119 [INFO] onbid: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-08-10 08:08:17,120 [INFO] ── Целевая модель: Chevrolet Trailblazer (kbchachacha) ──
+2026-08-10 08:08:17,120 [INFO] kbchachacha: Chevrolet Trailblazer -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 08:08:17,120 [INFO] ── Целевая модель: Chevrolet Trailblazer (encar) ──
+2026-08-10 08:08:17,121 [INFO] ── Целевая модель: Chevrolet Trailblazer (charancha) ──
+2026-08-10 08:08:17,121 [INFO] ── Целевая модель: Chevrolet Trailblazer (onbid) ──
+2026-08-10 08:08:20,376 [INFO] onbid: Chevrolet Trailblazer -> найдено 0 (после фильтров)
+2026-08-10 08:08:20,377 [INFO] ── Целевая модель: Mini Countryman (kbchachacha) ──
+2026-08-10 08:08:20,378 [INFO] kbchachacha: Mini Countryman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 08:08:20,378 [INFO] ── Целевая модель: Mini Countryman (encar) ──
+2026-08-10 08:08:20,378 [INFO] ── Целевая модель: Mini Countryman (charancha) ──
+2026-08-10 08:08:20,378 [INFO] ── Целевая модель: Mini Countryman (onbid) ──
+2026-08-10 08:08:23,761 [INFO] onbid: Mini Countryman -> найдено 0 (после фильтров)
+2026-08-10 08:08:23,762 [INFO] ── Целевая модель: Mini Clubman (kbchachacha) ──
+2026-08-10 08:08:23,763 [INFO] kbchachacha: Mini Clubman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 08:08:23,763 [INFO] ── Целевая модель: Mini Clubman (encar) ──
+2026-08-10 08:08:23,763 [INFO] ── Целевая модель: Mini Clubman (charancha) ──
+2026-08-10 08:08:23,763 [INFO] ── Целевая модель: Mini Clubman (onbid) ──
+2026-08-10 08:08:26,666 [INFO] onbid: Mini Clubman -> найдено 0 (после фильтров)
+2026-08-10 08:08:26,667 [INFO] ── Целевая модель: Mini Convertible (kbchachacha) ──
+2026-08-10 08:08:26,667 [INFO] kbchachacha: Mini Convertible -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-08-10 08:08:26,668 [INFO] ── Целевая модель: Mini Convertible (encar) ──
+2026-08-10 08:08:26,668 [INFO] ── Целевая модель: Mini Convertible (charancha) ──
+2026-08-10 08:08:26,668 [INFO] ── Целевая модель: Mini Convertible (onbid) ──
+2026-08-10 08:08:29,580 [INFO] onbid: Mini Convertible -> найдено 0 (после фильтров)
+2026-08-10 08:08:29,581 [INFO] ── Целевая модель: Peugeot 3008 (kbchachacha) ──
+2026-08-10 08:08:29,581 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:08:44,600 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=110&classCode=2494&carCode=2880&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69b3b90>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:08:46,600 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:09:02,031 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=110&classCode=2494&carCode=2880&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69b22d0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:09:06,031 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:09:21,587 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=110&classCode=2494&carCode=2880&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69b1f70>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:09:21,587 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=110&classCode=2494&carCode=2880&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d69b1f70>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:09:21,587 [INFO] kbchachacha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-08-10 08:09:21,587 [INFO] ── Целевая модель: Peugeot 3008 (encar) ──
+2026-08-10 08:09:21,868 [INFO] encar: Peugeot 3008 -> найдено 6 (после фильтров)
+2026-08-10 08:09:21,870 [INFO] ── Целевая модель: Peugeot 3008 (charancha) ──
+2026-08-10 08:09:22,606 [INFO] charancha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-08-10 08:09:22,607 [INFO] ── Целевая модель: Peugeot 3008 (onbid) ──
+2026-08-10 08:09:25,938 [INFO] onbid: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-08-10 08:09:25,939 [INFO] ── Целевая модель: Peugeot 5008 (kbchachacha) ──
+2026-08-10 08:09:25,939 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:09:41,375 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=110&classCode=2700&carCode=2909&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc4d70>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:09:43,375 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:09:58,797 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=110&classCode=2700&carCode=2909&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc7080>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:10:02,797 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:10:18,210 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=110&classCode=2700&carCode=2909&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc6e10>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:10:18,211 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?makerCode=110&classCode=2700&carCode=2909&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6bc6e10>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:10:18,211 [INFO] kbchachacha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-08-10 08:10:18,211 [INFO] ── Целевая модель: Peugeot 5008 (encar) ──
+2026-08-10 08:10:18,472 [INFO] encar: Peugeot 5008 -> найдено 8 (после фильтров)
+2026-08-10 08:10:18,473 [INFO] ── Целевая модель: Peugeot 5008 (charancha) ──
+2026-08-10 08:10:19,077 [INFO] charancha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-08-10 08:10:19,078 [INFO] ── Целевая модель: Peugeot 5008 (onbid) ──
+2026-08-10 08:10:22,293 [INFO] onbid: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-08-10 08:10:22,294 [INFO] filter_year_range (target_collector): отброшено 162 объявлений вне диапазона года 2022-2023 (или без года)
+2026-08-10 08:10:22,295 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42460977): цена 70,200,000 ₩ выше 1.3x медианы партии по модели (52,900,000 ₩, 53 лотов) на 32%
+2026-08-10 08:10:22,295 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42317887): цена 69,500,000 ₩ выше 1.3x медианы партии по модели (52,900,000 ₩, 53 лотов) на 31%
+2026-08-10 08:10:22,295 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42316528): цена 69,500,000 ₩ выше 1.3x медианы партии по модели (52,900,000 ₩, 53 лотов) на 31%
+2026-08-10 08:10:22,295 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42462544): цена 69,900,000 ₩ выше 1.3x медианы партии по модели (52,900,000 ₩, 53 лотов) на 32%
+2026-08-10 08:10:22,295 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42468845): цена 70,900,000 ₩ выше 1.3x медианы партии по модели (52,900,000 ₩, 53 лотов) на 34%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42465986): цена 70,900,000 ₩ выше 1.3x медианы партии по модели (52,900,000 ₩, 53 лотов) на 34%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42458621): цена 69,900,000 ₩ выше 1.3x медианы партии по модели (52,900,000 ₩, 53 лотов) на 32%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42409079): цена 62,900,000 ₩ выше 1.3x медианы партии по модели (48,300,000 ₩, 53 лотов) на 30%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42407688): цена 62,900,000 ₩ выше 1.3x медианы партии по модели (48,300,000 ₩, 53 лотов) на 30%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42384954): цена 66,500,000 ₩ выше 1.3x медианы партии по модели (48,300,000 ₩, 53 лотов) на 37%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42435086): цена 26,700,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 33%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42433259): цена 26,700,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 33%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42127009): цена 26,000,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 30%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42325897): цена 27,800,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 39%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42322329): цена 27,800,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 39%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42390142): цена 27,800,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 39%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42404152): цена 88,990,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 345%
+2026-08-10 08:10:22,296 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42401113): цена 88,990,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 345%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42275666): цена 29,900,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 49%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42267146): цена 29,900,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 49%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42313408): цена 26,000,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 30%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42513109): цена 27,300,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 36%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42501529): цена 27,300,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 36%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42452351): цена 27,500,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 37%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42256910): цена 57,800,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 189%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42252028): цена 57,800,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 189%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42421547): цена 26,700,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 33%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42416676): цена 26,700,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 33%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42253418): цена 26,400,000 ₩ выше 1.3x медианы партии по модели (19,990,000 ₩, 234 лотов) на 32%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42336568): цена 38,990,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 41%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42331853): цена 38,990,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 41%
+2026-08-10 08:10:22,297 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42424820): цена 41,560,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 51%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42412414): цена 38,900,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 41%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42424360): цена 41,560,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 51%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42409200): цена 38,900,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 41%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42265694): цена 40,900,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 48%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42264437): цена 40,900,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 48%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42391803): цена 37,500,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 36%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42265903): цена 37,950,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 37%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42264176): цена 37,950,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 37%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42285194): цена 35,990,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 30%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42017989): цена 39,500,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 43%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42369113): цена 40,560,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 47%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42417806): цена 40,900,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 48%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42358488): цена 40,560,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 47%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42417166): цена 40,900,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 48%
+2026-08-10 08:10:22,298 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42428330): цена 55,000,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 100%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/41951824): цена 36,700,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 33%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/41947985): цена 36,700,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 33%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42467023): цена 41,000,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 49%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42463681): цена 41,000,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 49%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42053410): цена 36,500,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 32%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42302905): цена 37,500,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 36%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42293918): цена 37,500,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 36%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42333616): цена 39,990,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 45%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42453499): цена 42,000,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 52%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42163928): цена 39,900,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 45%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42322333): цена 39,990,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 45%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42479280): цена 40,500,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 47%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42326276): цена 42,900,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 56%
+2026-08-10 08:10:22,299 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42311231): цена 42,900,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 56%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f497c-8883-78fa-b1b8-ae3ca253c0d9): цена 36,000,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 30%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f4411-b192-7937-94cf-24935acbf488): цена 40,000,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 45%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f83d3-4d91-702d-a422-9f8acb2afdbd): цена 38,500,000 ₩ выше 1.3x медианы партии по модели (27,500,000 ₩, 216 лотов) на 39%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42342969): цена 38,860,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 44%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42334375): цена 38,860,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 44%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42460109): цена 37,800,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 40%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42449053): цена 37,800,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 40%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42465801): цена 99,990,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 271%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42456665): цена 99,990,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 271%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42348417): цена 42,500,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 57%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42345805): цена 42,500,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 57%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42222093): цена 35,000,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 30%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42218489): цена 35,000,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 30%
+2026-08-10 08:10:22,300 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42293445): цена 43,500,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 61%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42280255): цена 42,500,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 57%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42373282): цена 36,500,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 35%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42369339): цена 36,500,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 35%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://www.charancha.com/cars/019ed42b-c57e-7f5d-a42b-8f9549cb77c0): цена 35,700,000 ₩ выше 1.3x медианы партии по модели (26,900,000 ₩, 153 лотов) на 32%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42469442): цена 33,500,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 42%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42468648): цена 33,500,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 42%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42502658): цена 35,500,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 51%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42494463): цена 35,500,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 51%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42201984): цена 30,700,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 30%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42200640): цена 30,700,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 30%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42508941): цена 99,990,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 325%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42499147): цена 99,990,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 325%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42397287): цена 32,000,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 36%
+2026-08-10 08:10:22,301 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42394274): цена 32,000,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 36%
+2026-08-10 08:10:22,302 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42299110): цена 31,000,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 31%
+2026-08-10 08:10:22,302 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42283919): цена 31,000,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 31%
+2026-08-10 08:10:22,302 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42323272): цена 31,500,000 ₩ выше 1.3x медианы партии по модели (23,490,000 ₩, 85 лотов) на 34%
+2026-08-10 08:10:22,302 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42510315): цена 27,500,000 ₩ выше 1.3x медианы партии по модели (18,500,000 ₩, 31 лотов) на 48%
+2026-08-10 08:10:22,302 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42509157): цена 27,500,000 ₩ выше 1.3x медианы партии по модели (18,500,000 ₩, 31 лотов) на 48%
+2026-08-10 08:10:22,302 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42486921): цена 99,990,000 ₩ выше 1.3x медианы партии по модели (25,000,000 ₩, 139 лотов) на 299%
+2026-08-10 08:10:22,302 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42172246): цена 53,900,000 ₩ выше 1.3x медианы партии по модели (25,000,000 ₩, 139 лотов) на 115%
+2026-08-10 08:10:22,302 [INFO] check_price_vs_batch_median (target_collector): отброшено 96 лотов дороже 1.3x медианы своей модели в партии
+2026-08-10 08:10:22,303 [INFO] broad_search: сегмент этого прогона — мощнее / бизнес-класс (140-160 л.с.) (3/4)
+2026-08-10 08:10:22,303 [INFO] ── Широкий поиск: kbchachacha (hp в [140, 160]) ──
+2026-08-10 08:10:22,303 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-08-10 08:10:37,323 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be4680>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:10:39,323 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-08-10 08:10:54,732 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be5be0>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:10:58,733 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-08-10 08:11:13,888 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be7470>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-08-10 08:11:13,888 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7fe5d6be7470>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-08-10 08:11:13,888 [INFO] kbchachacha (broad): найдено 0 машин с hp в [140, 160]
+2026-08-10 08:11:13,888 [INFO] ── Широкий поиск: encar (hp в [140, 160]) ──
+2026-08-10 08:11:17,458 [INFO] encar (broad): найдено 48 машин с hp в [140, 160]
+2026-08-10 08:11:17,460 [INFO] ── Широкий поиск: charancha (hp в [140, 160]) ──
+2026-08-10 08:11:23,347 [INFO] charancha (broad): найдено 1 машин с hp в [140, 160]
+2026-08-10 08:11:23,348 [INFO] ── Широкий поиск: onbid (hp в [140, 160]) ──
+2026-08-10 08:11:43,784 [INFO] onbid (broad): найдено 0 машин с hp в [140, 160]
+2026-08-10 08:11:43,785 [INFO] filter_year_range (broad_collector): отброшено 40 объявлений вне диапазона года 2022-2023 (или без года)
+2026-08-10 08:11:43,785 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42443760): цена 26,950,000 ₩ выше 1.3x медианы партии по модели (19,500,000 ₩, 5 лотов) на 38%
+2026-08-10 08:11:43,785 [INFO] check_price_vs_batch_median (broad_collector): отброшено 1 лотов дороже 1.3x медианы своей модели в партии
+2026-08-10 08:11:43,786 [WARNING] check_source_health: Источник(и) не дали НИ ОДНОГО объявления за этот прогон main_pipeline.py (targeted+broad суммарно): kbchachacha, onbid. Похоже на 'тихую смерть' резолвера/поиска — см. FINAL_STATE.md про инцидент 2026-07-20 (kbchachacha/charancha молчали неделями незамеченными).
+2026-08-10 08:11:44,321 [INFO] Уведомление об ошибке отправлено администратору
+2026-08-10 08:11:44,335 [INFO] Найдено 908 объявлений, кандидатов на публикацию (новые, не старше 14 дн., пробег до 40000 км, ещё не опубликованные): 218
+2026-08-10 08:11:44,335 [INFO] Отфильтровано 72 кандидатов недавно опубликованных моделей (за последние 5 дн.): {('Chevrolet', 'Trax'), ('Renault', 'QM6')}
+2026-08-10 08:11:44,336 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Volkswagen Tiguan 2.0 TDI 프레스티지')) — Volkswagen Tiguan
+2026-08-10 08:11:44,565 [WARNING] check_price_vs_new_krw: нет эталонной цены нового (new_price_max_krw не заполнен) для 'Kia K3 1.6 (база, Смартстрим Гамма-II MPI)' — не могу проверить цену 22,500,000 ₩
+2026-08-10 08:11:45,418 [INFO] ✅ Альбом из 4 фото успешно отправлен в Telegram
+2026-08-10 08:11:46,187 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:11:47,941 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:11:49,694 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:11:49,695 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture01/pic4241/42415305_001.jpg за 3 попыток(и)
+2026-08-10 08:11:50,545 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:11:52,120 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:11:53,979 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:11:53,980 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture01/pic4241/42415305_003.jpg за 3 попыток(и)
+2026-08-10 08:11:54,567 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:11:56,356 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:11:58,009 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:11:58,010 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture01/pic4241/42415305_004.jpg за 3 попыток(и)
+2026-08-10 08:11:58,787 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:00,404 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:02,009 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:02,010 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture01/pic4241/42415305_007.jpg за 3 попыток(и)
+2026-08-10 08:12:02,010 [WARNING] VK: не удалось прикрепить 4/4 фото после ретраев: ['https://ci.encar.com/carpicture01/pic4241/42415305_001.jpg', 'https://ci.encar.com/carpicture01/pic4241/42415305_003.jpg', 'https://ci.encar.com/carpicture01/pic4241/42415305_004.jpg', 'https://ci.encar.com/carpicture01/pic4241/42415305_007.jpg']
+2026-08-10 08:12:02,010 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-08-10 08:12:02,010 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-08-10 08:12:02,011 [INFO] [1/5] Опубликовано: Kia K3 1.6
+2026-08-10 08:12:04,940 [INFO] ✅ Альбом из 4 фото успешно отправлен в Telegram
+2026-08-10 08:12:05,524 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:07,111 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:08,964 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:08,965 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture02/pic4242/42421263_001.jpg за 3 попыток(и)
+2026-08-10 08:12:09,554 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:11,136 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:12,908 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:12,909 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture02/pic4242/42421263_003.jpg за 3 попыток(и)
+2026-08-10 08:12:13,734 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:15,318 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:17,142 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:17,143 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture02/pic4242/42421263_004.jpg за 3 попыток(и)
+2026-08-10 08:12:17,730 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:19,337 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:20,939 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:12:20,940 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture02/pic4242/42421263_007.jpg за 3 попыток(и)
+2026-08-10 08:12:20,940 [WARNING] VK: не удалось прикрепить 4/4 фото после ретраев: ['https://ci.encar.com/carpicture02/pic4242/42421263_001.jpg', 'https://ci.encar.com/carpicture02/pic4242/42421263_003.jpg', 'https://ci.encar.com/carpicture02/pic4242/42421263_004.jpg', 'https://ci.encar.com/carpicture02/pic4242/42421263_007.jpg']
+2026-08-10 08:12:20,940 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-08-10 08:12:20,940 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-08-10 08:12:20,941 [INFO] [2/5] Опубликовано: Kia K5 2.0
+2026-08-10 08:12:23,210 [WARNING] check_price_vs_new_krw: нет эталонной цены нового (new_price_max_krw не заполнен) для 'Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)' — не могу проверить цену 33,330,000 ₩
+2026-08-10 08:12:56,672 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-10 08:12:56,689 [INFO] tts_generator: текст подводки сгенерирован (вариант 1, 60 слов, 438 вх. + 174 исх. токенов)
+2026-08-10 08:12:56,690 [INFO] tts_generator: пробую озвучку через edge
+2026-08-10 08:13:08,421 [INFO] tts_generator: озвучка готова (edge)
+2026-08-10 08:13:52,928 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-08-10 08:13:52,929 [INFO] tts_generator: текст подводки сгенерирован (вариант 1, 44 слов, 438 вх. + 136 исх. токенов)
+2026-08-10 08:13:52,929 [INFO] tts_generator: пробую озвучку через edge
+2026-08-10 08:14:01,975 [INFO] tts_generator: озвучка готова (edge)
+2026-08-10 08:14:15,199 [INFO] ✅ Альбом из 4 фото успешно отправлен в Telegram
+2026-08-10 08:14:15,958 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:17,758 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:19,536 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:19,537 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture03/pic4243/42436472_027.jpg за 3 попыток(и)
+2026-08-10 08:14:20,282 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:22,078 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:23,652 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:23,653 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture03/pic4243/42436472_003.jpg за 3 попыток(и)
+2026-08-10 08:14:24,433 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:26,222 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:27,979 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:27,980 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture03/pic4243/42436472_004.jpg за 3 попыток(и)
+2026-08-10 08:14:28,566 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:30,149 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:31,930 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: user is blocked.
+2026-08-10 08:14:31,931 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture03/pic4243/42436472_007.jpg за 3 попыток(и)
+2026-08-10 08:14:31,932 [WARNING] VK: не удалось прикрепить 4/4 фото после ретраев: ['https://ci.encar.com/carpicture03/pic4243/42436472_027.jpg', 'https://ci.encar.com/carpicture03/pic4243/42436472_003.jpg', 'https://ci.encar.com/carpicture03/pic4243/42436472_004.jpg', 'https://ci.encar.com/carpicture03/pic4243/42436472_007.jpg']
+2026-08-10 08:14:31,932 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-08-10 08:14:31,932 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-08-10 08:14:34,000 [INFO] ✅ Видео успешно отправлено в Telegram
+2026-08-10 08:14:34,585 [ERROR] VK API video.save: ошибка 18 — User was deleted or banned
+2026-08-10 08:14:34,586 [WARNING] Видео: не удалось загрузить вертикальную версию в VK
+2026-08-10 08:14:34,589 [INFO] [3/5] Опубликовано: Hyundai Sonata 2.0
+2026-08-10 08:14:36,589 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Peugeot 3008 1.2 Pure Tech 알뤼르')) — Peugeot 3008
+2026-08-10 08:14:36,599 [INFO] yandex_queue: выкинуто 1 протухших лотов (старше 7 дн.)
+2026-08-10 08:14:37,084 [INFO] ✅ Сообщение успешно отправлено в Telegram
+2026-08-10 08:14:37,085 [INFO] yandex_queue: черновик отправлен (Kia K3), в очереди осталось 6
+2026-08-10 08:14:37,086 [INFO] === Готово: опубликовано 3 постов ===

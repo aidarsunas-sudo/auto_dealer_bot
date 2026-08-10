@@ -1,56 +1,6 @@
 [
   {
     "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "1.2 ACTIV",
-      "external_id": "42393004",
-      "year": 2023,
-      "month": 6,
-      "mileage_km": 17523,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 26500000.0,
-      "specs": "1198 см³, 139 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42393004",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture08/pic4238/42385936_001.jpg",
-        "https://ci.encar.com/carpicture08/pic4238/42385936_003.jpg",
-        "https://ci.encar.com/carpicture08/pic4238/42385936_004.jpg",
-        "https://ci.encar.com/carpicture08/pic4238/42385936_007.jpg"
-      ]
-    },
-    "added_at": "2026-08-02T13:36:26.363622"
-  },
-  {
-    "car": {
-      "brand": "Kia",
-      "model": "K3",
-      "trim": "1.6",
-      "external_id": "42402260",
-      "year": 2022,
-      "month": 4,
-      "mileage_km": 17420,
-      "cc": 1598,
-      "hp": 123,
-      "fuel_code": "petrol",
-      "price": 25000000.0,
-      "specs": "1598 см³, 123 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42402260",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture10/pic4240/42402260_001.jpg",
-        "https://ci.encar.com/carpicture10/pic4240/42402260_003.jpg",
-        "https://ci.encar.com/carpicture10/pic4240/42402260_004.jpg",
-        "https://ci.encar.com/carpicture10/pic4240/42402260_007.jpg"
-      ]
-    },
-    "added_at": "2026-08-03T09:56:12.148382"
-  },
-  {
-    "car": {
       "brand": "Kia",
       "model": "K5",
       "trim": "",
@@ -126,5 +76,80 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-08-07T19:05:52.949719"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42425636",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 30726,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 22500000.0,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42425636",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture01/pic4241/42415305_001.jpg",
+        "https://ci.encar.com/carpicture01/pic4241/42415305_003.jpg",
+        "https://ci.encar.com/carpicture01/pic4241/42415305_004.jpg",
+        "https://ci.encar.com/carpicture01/pic4241/42415305_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-10T08:12:02.010714"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "42425225",
+      "year": 2022,
+      "month": 11,
+      "mileage_km": 32540,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 27500000.0,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42425225",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture02/pic4242/42421263_001.jpg",
+        "https://ci.encar.com/carpicture02/pic4242/42421263_003.jpg",
+        "https://ci.encar.com/carpicture02/pic4242/42421263_004.jpg",
+        "https://ci.encar.com/carpicture02/pic4242/42421263_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-10T08:12:20.940617"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42439945",
+      "year": 2023,
+      "month": 1,
+      "mileage_km": 22913,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 33330000.0,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42439945",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture03/pic4243/42436472_027.jpg",
+        "https://ci.encar.com/carpicture03/pic4243/42436472_003.jpg",
+        "https://ci.encar.com/carpicture03/pic4243/42436472_004.jpg",
+        "https://ci.encar.com/carpicture03/pic4243/42436472_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-10T08:14:34.589104"
   }
 ]

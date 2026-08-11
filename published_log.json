@@ -13166,5 +13166,27 @@
   "https://fem.encar.com/cars/detail/42519469": {
     "first_seen": "2026-08-11T13:24:52",
     "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28654284": {
+    "first_seen": "2026-08-11T19:10:23",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28654469": {
+    "first_seen": "2026-08-11T19:10:23",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28654363": {
+    "first_seen": "2026-08-11T19:10:23",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42461378": {
+    "first_seen": "2026-08-11T19:10:23",
+    "posted_at": "2026-08-11T19:12:50",
+    "brand": "",
+    "model": "Renault XM3 1.3 TCe Turbo"
+  },
+  "https://fem.encar.com/cars/detail/42454000": {
+    "first_seen": "2026-08-11T19:10:23",
+    "posted_at": null
   }
 }

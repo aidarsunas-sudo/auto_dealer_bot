@@ -124,5 +124,30 @@
       ]
     },
     "published_at": "2026-08-10T13:24:01.083831"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "SM6",
+      "trim": "2.0 LPe LE",
+      "external_id": "42485604",
+      "year": 2022,
+      "month": 8,
+      "mileage_km": 30793,
+      "cc": 1998,
+      "hp": 140,
+      "fuel_code": "lpg",
+      "price": 15900000.0,
+      "specs": "1998 см³, 140 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42485604",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4248/42485025_027.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42485025_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42485025_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42485025_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-11T13:25:10.336533"
   }
 ]

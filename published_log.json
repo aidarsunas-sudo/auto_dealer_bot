@@ -12327,7 +12327,9 @@
   },
   "https://fem.encar.com/cars/detail/42485604": {
     "first_seen": "2026-08-04T08:50:41",
-    "posted_at": null
+    "posted_at": "2026-08-11T13:25:10",
+    "brand": "Renault",
+    "model": "SM6"
   },
   "https://fem.encar.com/cars/detail/42485025": {
     "first_seen": "2026-08-04T08:50:41",
@@ -13127,6 +13129,42 @@
   },
   "https://fem.encar.com/cars/detail/42442932": {
     "first_seen": "2026-08-11T07:13:46",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28654187": {
+    "first_seen": "2026-08-11T13:24:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42530898": {
+    "first_seen": "2026-08-11T13:24:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42529412": {
+    "first_seen": "2026-08-11T13:24:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42531341": {
+    "first_seen": "2026-08-11T13:24:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42522794": {
+    "first_seen": "2026-08-11T13:24:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42531161": {
+    "first_seen": "2026-08-11T13:24:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42530171": {
+    "first_seen": "2026-08-11T13:24:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42531107": {
+    "first_seen": "2026-08-11T13:24:52",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42519469": {
+    "first_seen": "2026-08-11T13:24:52",
     "posted_at": null
   }
 }

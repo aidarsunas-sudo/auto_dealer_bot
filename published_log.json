@@ -12255,7 +12255,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28630321": {
     "first_seen": "2026-08-04T08:50:41",
-    "posted_at": null
+    "posted_at": "2026-08-12T07:32:51",
+    "brand": "Audi",
+    "model": "Q3"
   },
   "https://fem.encar.com/cars/detail/42486340": {
     "first_seen": "2026-08-04T08:50:41",
@@ -13217,6 +13219,50 @@
   },
   "https://fem.encar.com/cars/detail/42428274": {
     "first_seen": "2026-08-12T02:07:45",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28657043": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42538665": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42525194": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42527010": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/019ff462-a30d-7961-9fa9-774e6e44922d": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28657667": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42537024": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42533340": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42536659": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28657007": {
+    "first_seen": "2026-08-12T07:32:31",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42534011": {
+    "first_seen": "2026-08-12T07:32:31",
     "posted_at": null
   }
 }

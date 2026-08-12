@@ -251,5 +251,31 @@
       ]
     },
     "added_at": "2026-08-12T02:08:01.081214"
+  },
+  {
+    "car": {
+      "brand": "Audi",
+      "model": "Q3",
+      "trim": "",
+      "external_id": "28630321",
+      "year": 2023,
+      "month": 7,
+      "mileage_km": 32386,
+      "cc": 1968,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 56900000,
+      "specs": "1968 см³, 150 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28630321_4458504271097039.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28630321_4458504363920655.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28630321_4458504452594359.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28630321_4458504540072947.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28630321",
+      "raw_title": "아우디 The New Q3(F3) 35 TDI Sportback 기본형",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-08-12T07:32:51.428860"
   }
 ]

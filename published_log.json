@@ -12337,7 +12337,9 @@
   },
   "https://fem.encar.com/cars/detail/42488382": {
     "first_seen": "2026-08-04T08:50:41",
-    "posted_at": null
+    "posted_at": "2026-08-12T02:08:01",
+    "brand": "Peugeot",
+    "model": "3008"
   },
   "https://fem.encar.com/cars/detail/42488075": {
     "first_seen": "2026-08-04T08:50:41",
@@ -13187,6 +13189,34 @@
   },
   "https://fem.encar.com/cars/detail/42454000": {
     "first_seen": "2026-08-11T19:10:23",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42534980": {
+    "first_seen": "2026-08-12T02:07:45",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42533987": {
+    "first_seen": "2026-08-12T02:07:45",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42533717": {
+    "first_seen": "2026-08-12T02:07:45",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28650268": {
+    "first_seen": "2026-08-12T02:07:45",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42534344": {
+    "first_seen": "2026-08-12T02:07:45",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42525584": {
+    "first_seen": "2026-08-12T02:07:45",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42428274": {
+    "first_seen": "2026-08-12T02:07:45",
     "posted_at": null
   }
 }

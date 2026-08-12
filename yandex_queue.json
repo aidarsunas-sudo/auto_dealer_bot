@@ -226,5 +226,30 @@
       ]
     },
     "added_at": "2026-08-11T19:12:50.984636"
+  },
+  {
+    "car": {
+      "brand": "Peugeot",
+      "model": "3008",
+      "trim": "1.2 Pure Tech GT Pack",
+      "external_id": "42488382",
+      "year": 2022,
+      "month": 12,
+      "mileage_km": 27292,
+      "cc": 1499,
+      "hp": 130,
+      "fuel_code": "diesel",
+      "price": 24200000.0,
+      "specs": "1499 см³, 130 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42488382",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4248/42488075_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42488075_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42488075_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42488075_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-12T02:08:01.081214"
   }
 ]

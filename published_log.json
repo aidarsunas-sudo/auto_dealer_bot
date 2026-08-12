@@ -11963,7 +11963,9 @@
   },
   "https://fem.encar.com/cars/detail/42457924": {
     "first_seen": "2026-07-30T08:36:31",
-    "posted_at": null
+    "posted_at": "2026-08-12T19:20:56",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://fem.encar.com/cars/detail/42460229": {
     "first_seen": "2026-07-30T08:36:31",
@@ -12525,7 +12527,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28635015": {
     "first_seen": "2026-08-05T08:42:04",
-    "posted_at": null
+    "posted_at": "2026-08-12T19:21:34",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://fem.encar.com/cars/detail/42481836": {
     "first_seen": "2026-08-05T08:42:04",
@@ -13319,6 +13323,20 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28657762": {
     "first_seen": "2026-08-12T13:15:58",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28658883": {
+    "first_seen": "2026-08-12T19:18:19",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41517296": {
+    "first_seen": "2026-08-12T19:18:19",
+    "posted_at": "2026-08-12T19:21:14",
+    "brand": "",
+    "model": "Audi Q2 35 TFSI"
+  },
+  "https://fem.encar.com/cars/detail/41462312": {
+    "first_seen": "2026-08-12T19:18:19",
     "posted_at": null
   }
 }

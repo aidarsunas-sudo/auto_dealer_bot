@@ -199,5 +199,81 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-08-12T07:32:51.429452"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 RS",
+      "external_id": "42457924",
+      "year": 2023,
+      "month": 9,
+      "mileage_km": 16181,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 27900000.0,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42457924",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture05/pic4245/42457924_001.jpg",
+        "https://ci.encar.com/carpicture05/pic4245/42457924_003.jpg",
+        "https://ci.encar.com/carpicture05/pic4245/42457924_004.jpg",
+        "https://ci.encar.com/carpicture05/pic4245/42457924_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-12T19:20:56.374213"
+  },
+  {
+    "car": {
+      "brand": "",
+      "model": "Audi Q2 35 TFSI",
+      "trim": "",
+      "external_id": "41517296",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 17755,
+      "cc": 1498,
+      "hp": 150,
+      "fuel_code": "petrol",
+      "price": 34900000.0,
+      "specs": "1498 см³, 150 л.с.",
+      "url": "https://fem.encar.com/cars/detail/41517296",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture01/pic4151/41517296_001.jpg",
+        "https://ci.encar.com/carpicture01/pic4151/41517296_003.jpg",
+        "https://ci.encar.com/carpicture01/pic4151/41517296_004.jpg",
+        "https://ci.encar.com/carpicture01/pic4151/41517296_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-12T19:21:14.039783"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "",
+      "external_id": "28635015",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 37150,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 26700000,
+      "specs": "1198 см³, 139 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28635015_4466880440373213.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28635015_4466880545785030.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28635015_4466880647882986.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28635015_4466880746880783.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28635015",
+      "raw_title": "한국GM 트랙스 크로스오버 1.2 가솔린 2WD RS",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-08-12T19:21:34.560999"
   }
 ]

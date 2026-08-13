@@ -301,5 +301,30 @@
       ]
     },
     "added_at": "2026-08-13T02:07:14.115985"
+  },
+  {
+    "car": {
+      "brand": "",
+      "model": "Kia Seltos 2.0 Gasoline",
+      "trim": "",
+      "external_id": "42541392",
+      "year": 2023,
+      "month": 5,
+      "mileage_km": 11685,
+      "cc": 1999,
+      "hp": 149,
+      "fuel_code": "petrol",
+      "price": 24700000.0,
+      "specs": "1999 см³, 149 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42541392",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture04/pic4254/42541391_027.jpg",
+        "https://ci.encar.com/carpicture04/pic4254/42541391_003.jpg",
+        "https://ci.encar.com/carpicture04/pic4254/42541391_004.jpg",
+        "https://ci.encar.com/carpicture04/pic4254/42541391_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-13T19:09:32.739965"
   }
 ]

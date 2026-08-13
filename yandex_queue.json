@@ -276,5 +276,30 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-08-12T19:21:34.560247"
+  },
+  {
+    "car": {
+      "brand": "",
+      "model": "Renault QM6 2.0 GDe",
+      "trim": "",
+      "external_id": "42468648",
+      "year": 2023,
+      "month": 5,
+      "mileage_km": 15828,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 33500000.0,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42468648",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture06/pic4246/42468648_027.jpg",
+        "https://ci.encar.com/carpicture06/pic4246/42468648_003.jpg",
+        "https://ci.encar.com/carpicture06/pic4246/42468648_004.jpg",
+        "https://ci.encar.com/carpicture06/pic4246/42468648_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-13T02:07:14.115985"
   }
 ]

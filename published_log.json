@@ -13338,5 +13338,31 @@
   "https://fem.encar.com/cars/detail/41462312": {
     "first_seen": "2026-08-12T19:18:19",
     "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28567920": {
+    "first_seen": "2026-08-13T02:04:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42542382": {
+    "first_seen": "2026-08-13T02:04:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42537608": {
+    "first_seen": "2026-08-13T02:04:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42542647": {
+    "first_seen": "2026-08-13T02:04:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42541380": {
+    "first_seen": "2026-08-13T02:04:44",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42468648": {
+    "first_seen": "2026-08-13T02:04:44",
+    "posted_at": "2026-08-13T02:07:14",
+    "brand": "",
+    "model": "Renault QM6 2.0 GDe"
   }
 }

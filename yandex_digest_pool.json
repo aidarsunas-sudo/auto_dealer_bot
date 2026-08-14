@@ -325,5 +325,30 @@
       ]
     },
     "published_at": "2026-08-13T19:09:32.740596"
+  },
+  {
+    "car": {
+      "brand": "",
+      "model": "Mercedes-Benz GLB 200d",
+      "trim": "",
+      "external_id": "42442932",
+      "year": 2023,
+      "month": 3,
+      "mileage_km": 12930,
+      "cc": 1950,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 60500000.0,
+      "specs": "1950 см³, 150 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42442932",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture04/pic4244/42442605_027.jpg",
+        "https://ci.encar.com/carpicture04/pic4244/42442605_003.jpg",
+        "https://ci.encar.com/carpicture04/pic4244/42442605_004.jpg",
+        "https://ci.encar.com/carpicture04/pic4244/42442605_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-14T02:15:34.948525"
   }
 ]

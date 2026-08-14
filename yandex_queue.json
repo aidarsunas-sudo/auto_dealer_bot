@@ -351,5 +351,30 @@
       ]
     },
     "added_at": "2026-08-14T02:15:34.947608"
+  },
+  {
+    "car": {
+      "brand": "",
+      "model": "Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)",
+      "trim": "",
+      "external_id": "42460109",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 23855,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 37800000.0,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42460109",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture04/pic4244/42449053_001.jpg",
+        "https://ci.encar.com/carpicture04/pic4244/42449053_003.jpg",
+        "https://ci.encar.com/carpicture04/pic4244/42449053_004.jpg",
+        "https://ci.encar.com/carpicture04/pic4244/42449053_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-14T07:33:16.203642"
   }
 ]

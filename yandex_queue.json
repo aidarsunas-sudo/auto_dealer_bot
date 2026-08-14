@@ -1,32 +1,6 @@
 [
   {
     "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "",
-      "external_id": "28601431",
-      "year": 2023,
-      "month": 10,
-      "mileage_km": 20223,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 23990000,
-      "specs": "1198 см³, 139 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2860/28601431_3600553544486117.jpg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2860/28601431_3600553578869314.jpg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2860/28601431_3600553616607877.jpg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2860/28601431_3600553652657758.jpg?width=720"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28601431",
-      "raw_title": "한국GM 트랙스 크로스오버 1.2 가솔린 2WD RS",
-      "source": "kbchachacha"
-    },
-    "added_at": "2026-08-07T19:05:52.949719"
-  },
-  {
-    "car": {
       "brand": "Kia",
       "model": "K3",
       "trim": "1.6",
@@ -74,31 +48,6 @@
       ]
     },
     "added_at": "2026-08-10T08:14:34.589104"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "2.0 LPe RE 2WD",
-      "external_id": "42438450",
-      "year": 2023,
-      "month": 5,
-      "mileage_km": 27767,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 23490000.0,
-      "specs": "1998 см³, 144 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42438450",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture02/pic4242/42428207_027.jpg",
-        "https://ci.encar.com/carpicture02/pic4242/42428207_003.jpg",
-        "https://ci.encar.com/carpicture02/pic4242/42428207_004.jpg",
-        "https://ci.encar.com/carpicture02/pic4242/42428207_007.jpg"
-      ]
-    },
-    "added_at": "2026-08-10T13:24:01.083040"
   },
   {
     "car": {

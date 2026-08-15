@@ -1,131 +1,6 @@
 [
   {
     "car": {
-      "brand": "Kia",
-      "model": "K3",
-      "trim": "1.6",
-      "external_id": "42425636",
-      "year": 2023,
-      "month": 12,
-      "mileage_km": 30726,
-      "cc": 1598,
-      "hp": 123,
-      "fuel_code": "petrol",
-      "price": 22500000.0,
-      "specs": "1598 см³, 123 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42425636",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture01/pic4241/42415305_001.jpg",
-        "https://ci.encar.com/carpicture01/pic4241/42415305_003.jpg",
-        "https://ci.encar.com/carpicture01/pic4241/42415305_004.jpg",
-        "https://ci.encar.com/carpicture01/pic4241/42415305_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-10T08:12:02.011152"
-  },
-  {
-    "car": {
-      "brand": "Kia",
-      "model": "K5",
-      "trim": "2.0",
-      "external_id": "42425225",
-      "year": 2022,
-      "month": 11,
-      "mileage_km": 32540,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 27500000.0,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42425225",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture02/pic4242/42421263_001.jpg",
-        "https://ci.encar.com/carpicture02/pic4242/42421263_003.jpg",
-        "https://ci.encar.com/carpicture02/pic4242/42421263_004.jpg",
-        "https://ci.encar.com/carpicture02/pic4242/42421263_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-10T08:12:20.941048"
-  },
-  {
-    "car": {
-      "brand": "Hyundai",
-      "model": "Sonata",
-      "trim": "2.0",
-      "external_id": "42439945",
-      "year": 2023,
-      "month": 1,
-      "mileage_km": 22913,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 33330000.0,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42439945",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture03/pic4243/42436472_027.jpg",
-        "https://ci.encar.com/carpicture03/pic4243/42436472_003.jpg",
-        "https://ci.encar.com/carpicture03/pic4243/42436472_004.jpg",
-        "https://ci.encar.com/carpicture03/pic4243/42436472_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-10T08:14:34.589415"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "2.0 LPe RE 2WD",
-      "external_id": "42438450",
-      "year": 2023,
-      "month": 5,
-      "mileage_km": 27767,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 23490000.0,
-      "specs": "1998 см³, 144 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42438450",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture02/pic4242/42428207_027.jpg",
-        "https://ci.encar.com/carpicture02/pic4242/42428207_003.jpg",
-        "https://ci.encar.com/carpicture02/pic4242/42428207_004.jpg",
-        "https://ci.encar.com/carpicture02/pic4242/42428207_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-10T13:24:01.083831"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "SM6",
-      "trim": "2.0 LPe LE",
-      "external_id": "42485604",
-      "year": 2022,
-      "month": 8,
-      "mileage_km": 30793,
-      "cc": 1998,
-      "hp": 140,
-      "fuel_code": "lpg",
-      "price": 15900000.0,
-      "specs": "1998 см³, 140 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42485604",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture08/pic4248/42485025_027.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42485025_003.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42485025_004.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42485025_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-11T13:25:10.336533"
-  },
-  {
-    "car": {
       "brand": "",
       "model": "Renault XM3 1.3 TCe Turbo",
       "trim": "",
@@ -375,5 +250,31 @@
       ]
     },
     "published_at": "2026-08-14T07:33:16.204342"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "28627360",
+      "year": 2022,
+      "month": 7,
+      "mileage_km": 36623,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 15200000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2862/28627360_4390893576705333.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2862/28627360_4390894437560580.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2862/28627360_4390895335871223.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2862/28627360_4390896250842621.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28627360",
+      "raw_title": "현대 쏘나타 (DN8) 2.0 LPG 렌터카 스타일",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-08-15T18:46:00.839039"
   }
 ]

@@ -12189,7 +12189,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28627360": {
     "first_seen": "2026-08-03T09:53:36",
-    "posted_at": null
+    "posted_at": "2026-08-15T18:46:00",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://fem.encar.com/cars/detail/42473293": {
     "first_seen": "2026-08-03T09:53:36",

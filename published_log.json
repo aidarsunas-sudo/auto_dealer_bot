@@ -12341,7 +12341,9 @@
   },
   "https://fem.encar.com/cars/detail/42485025": {
     "first_seen": "2026-08-04T08:50:41",
-    "posted_at": null
+    "posted_at": "2026-08-16T18:47:21",
+    "brand": "Renault",
+    "model": "SM6"
   },
   "https://fem.encar.com/cars/detail/42488382": {
     "first_seen": "2026-08-04T08:50:41",

@@ -1,31 +1,6 @@
 [
   {
     "car": {
-      "brand": "",
-      "model": "Renault XM3 1.3 TCe Turbo",
-      "trim": "",
-      "external_id": "42461378",
-      "year": 2023,
-      "month": 5,
-      "mileage_km": 31586,
-      "cc": 1332,
-      "hp": 152,
-      "fuel_code": "petrol",
-      "price": 25500000.0,
-      "specs": "1332 см³, 152 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42461378",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture05/pic4245/42454000_027.jpg",
-        "https://ci.encar.com/carpicture05/pic4245/42454000_003.jpg",
-        "https://ci.encar.com/carpicture05/pic4245/42454000_004.jpg",
-        "https://ci.encar.com/carpicture05/pic4245/42454000_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-11T19:12:50.985110"
-  },
-  {
-    "car": {
       "brand": "Peugeot",
       "model": "3008",
       "trim": "1.2 Pure Tech GT Pack",
@@ -276,5 +251,30 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-08-15T18:46:00.839039"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "2.0 GDe RE 2WD",
+      "external_id": "42482362",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 38323,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 26500000.0,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42482362",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4248/42482362_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42482362_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42482362_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42482362_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-16T01:27:01.930810"
   }
 ]

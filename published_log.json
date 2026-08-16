@@ -12247,7 +12247,9 @@
   },
   "https://fem.encar.com/cars/detail/42482362": {
     "first_seen": "2026-08-04T02:40:00",
-    "posted_at": null
+    "posted_at": "2026-08-16T01:27:01",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28629985": {
     "first_seen": "2026-08-04T02:40:00",

@@ -376,5 +376,55 @@
       ]
     },
     "added_at": "2026-08-16T18:47:21.024537"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42476157",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 32720,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 21800000.0,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42476157",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture07/pic4247/42476157_001.jpg",
+        "https://ci.encar.com/carpicture07/pic4247/42476157_003.jpg",
+        "https://ci.encar.com/carpicture07/pic4247/42476157_004.jpg",
+        "https://ci.encar.com/carpicture07/pic4247/42476157_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-17T07:10:13.492793"
+  },
+  {
+    "car": {
+      "brand": "Peugeot",
+      "model": "3008",
+      "trim": "1.2 Pure Tech GT Pack",
+      "external_id": "42488075",
+      "year": 2022,
+      "month": 12,
+      "mileage_km": 27292,
+      "cc": 1499,
+      "hp": 130,
+      "fuel_code": "diesel",
+      "price": 24200000.0,
+      "specs": "1499 см³, 130 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42488075",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4248/42488075_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42488075_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42488075_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42488075_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-17T07:10:30.499987"
   }
 ]

@@ -12177,7 +12177,9 @@
   },
   "https://fem.encar.com/cars/detail/42476157": {
     "first_seen": "2026-08-03T09:53:36",
-    "posted_at": null
+    "posted_at": "2026-08-17T07:10:13",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://fem.encar.com/cars/detail/42477278": {
     "first_seen": "2026-08-03T09:53:36",
@@ -12353,7 +12355,9 @@
   },
   "https://fem.encar.com/cars/detail/42488075": {
     "first_seen": "2026-08-04T08:50:41",
-    "posted_at": null
+    "posted_at": "2026-08-17T07:10:30",
+    "brand": "Peugeot",
+    "model": "3008"
   },
   "https://fem.encar.com/cars/detail/42453145": {
     "first_seen": "2026-08-04T08:50:41",
@@ -13691,6 +13695,18 @@
   },
   "https://fem.encar.com/cars/detail/42551884": {
     "first_seen": "2026-08-17T01:23:43",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28669593": {
+    "first_seen": "2026-08-17T07:09:57",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/41835988": {
+    "first_seen": "2026-08-17T07:09:57",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28224075": {
+    "first_seen": "2026-08-17T07:09:57",
     "posted_at": null
   }
 }

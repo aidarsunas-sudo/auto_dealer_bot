@@ -1,107 +1,6 @@
 [
   {
     "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "1.2 RS",
-      "external_id": "42457924",
-      "year": 2023,
-      "month": 9,
-      "mileage_km": 16181,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 27900000.0,
-      "specs": "1198 см³, 139 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42457924",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture05/pic4245/42457924_001.jpg",
-        "https://ci.encar.com/carpicture05/pic4245/42457924_003.jpg",
-        "https://ci.encar.com/carpicture05/pic4245/42457924_004.jpg",
-        "https://ci.encar.com/carpicture05/pic4245/42457924_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-12T19:20:56.374213"
-  },
-  {
-    "car": {
-      "brand": "",
-      "model": "Audi Q2 35 TFSI",
-      "trim": "",
-      "external_id": "41517296",
-      "year": 2023,
-      "month": 12,
-      "mileage_km": 17755,
-      "cc": 1498,
-      "hp": 150,
-      "fuel_code": "petrol",
-      "price": 34900000.0,
-      "specs": "1498 см³, 150 л.с.",
-      "url": "https://fem.encar.com/cars/detail/41517296",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture01/pic4151/41517296_001.jpg",
-        "https://ci.encar.com/carpicture01/pic4151/41517296_003.jpg",
-        "https://ci.encar.com/carpicture01/pic4151/41517296_004.jpg",
-        "https://ci.encar.com/carpicture01/pic4151/41517296_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-12T19:21:14.039783"
-  },
-  {
-    "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "",
-      "external_id": "28635015",
-      "year": 2023,
-      "month": 10,
-      "mileage_km": 37150,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 26700000,
-      "specs": "1198 см³, 139 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28635015_4466880440373213.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28635015_4466880545785030.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28635015_4466880647882986.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2863/28635015_4466880746880783.jpeg?width=720"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28635015",
-      "raw_title": "한국GM 트랙스 크로스오버 1.2 가솔린 2WD RS",
-      "source": "kbchachacha"
-    },
-    "published_at": "2026-08-12T19:21:34.560999"
-  },
-  {
-    "car": {
-      "brand": "",
-      "model": "Renault QM6 2.0 GDe",
-      "trim": "",
-      "external_id": "42468648",
-      "year": 2023,
-      "month": 5,
-      "mileage_km": 15828,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 33500000.0,
-      "specs": "1998 см³, 144 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42468648",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture06/pic4246/42468648_027.jpg",
-        "https://ci.encar.com/carpicture06/pic4246/42468648_003.jpg",
-        "https://ci.encar.com/carpicture06/pic4246/42468648_004.jpg",
-        "https://ci.encar.com/carpicture06/pic4246/42468648_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-13T02:07:14.116547"
-  },
-  {
-    "car": {
       "brand": "",
       "model": "Kia Seltos 2.0 Gasoline",
       "trim": "",
@@ -250,5 +149,55 @@
       ]
     },
     "published_at": "2026-08-16T18:47:21.025163"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42476157",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 32720,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 21800000.0,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42476157",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture07/pic4247/42476157_001.jpg",
+        "https://ci.encar.com/carpicture07/pic4247/42476157_003.jpg",
+        "https://ci.encar.com/carpicture07/pic4247/42476157_004.jpg",
+        "https://ci.encar.com/carpicture07/pic4247/42476157_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-17T07:10:13.493786"
+  },
+  {
+    "car": {
+      "brand": "Peugeot",
+      "model": "3008",
+      "trim": "1.2 Pure Tech GT Pack",
+      "external_id": "42488075",
+      "year": 2022,
+      "month": 12,
+      "mileage_km": 27292,
+      "cc": 1499,
+      "hp": 130,
+      "fuel_code": "diesel",
+      "price": 24200000.0,
+      "specs": "1499 см³, 130 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42488075",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4248/42488075_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42488075_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42488075_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4248/42488075_007.jpg"
+      ]
+    },
+    "published_at": "2026-08-17T07:10:30.500928"
   }
 ]

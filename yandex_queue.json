@@ -426,5 +426,30 @@
       ]
     },
     "added_at": "2026-08-17T07:10:30.499987"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 RS",
+      "external_id": "42491532",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 30186,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 22900000.0,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42491532",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture09/pic4249/42491532_001.jpg",
+        "https://ci.encar.com/carpicture09/pic4249/42491532_003.jpg",
+        "https://ci.encar.com/carpicture09/pic4249/42491532_004.jpg",
+        "https://ci.encar.com/carpicture09/pic4249/42491532_007.jpg"
+      ]
+    },
+    "added_at": "2026-08-18T01:36:32.629886"
   }
 ]

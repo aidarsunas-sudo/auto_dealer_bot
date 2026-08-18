@@ -12461,7 +12461,9 @@
   },
   "https://fem.encar.com/cars/detail/42491532": {
     "first_seen": "2026-08-05T02:46:25",
-    "posted_at": null
+    "posted_at": "2026-08-18T01:36:32",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://fem.encar.com/cars/detail/42439847": {
     "first_seen": "2026-08-05T02:46:25",
@@ -13715,6 +13717,14 @@
   },
   "https://fem.encar.com/cars/detail/42558993": {
     "first_seen": "2026-08-17T18:45:07",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42559835": {
+    "first_seen": "2026-08-18T01:33:54",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/42560771": {
+    "first_seen": "2026-08-18T01:33:54",
     "posted_at": null
   }
 }

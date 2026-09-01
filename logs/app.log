@@ -4459,3 +4459,72 @@
 2026-08-19 00:30:30,231 [WARNING] Не удалось обработать:
 • Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
 2026-08-19 00:30:30,793 [INFO] Уведомление об ошибке отправлено администратору
+2026-09-01 02:17:04,651 [INFO] === Запуск ===
+2026-09-01 02:17:05,317 [INFO] Получены свежие курсы ЦБ: EUR=100.57 USD=86.38 KRW(за 1000)=62.75
+2026-09-01 02:17:05,319 [INFO] ── Проверяю: BMW New X6 ──
+2026-09-01 02:17:05,319 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11565 (попытка 1/3)
+2026-09-01 02:17:06,611 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/11565 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-01 02:17:06,611 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-01 02:17:06,611 [WARNING] На странице BMW New X6 ничего не найдено
+2026-09-01 02:17:06,611 [INFO] ── Проверяю: Kia Sportage ──
+2026-09-01 02:17:06,611 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11722 (попытка 1/3)
+2026-09-01 02:17:06,883 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/11722 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-01 02:17:06,883 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-01 02:17:06,883 [WARNING] На странице Kia Sportage ничего не найдено
+2026-09-01 02:17:06,883 [INFO] ── Проверяю: Mercedes-Benz GLB-Class ──
+2026-09-01 02:17:06,883 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11641 (попытка 1/3)
+2026-09-01 02:17:07,156 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/11641 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-01 02:17:07,156 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-01 02:17:07,156 [WARNING] На странице Mercedes-Benz GLB-Class ничего не найдено
+2026-09-01 02:17:07,156 [INFO] ── Проверяю: Renault XM3 ──
+2026-09-01 02:17:07,156 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/10397-110253 (попытка 1/3)
+2026-09-01 02:17:07,424 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/10397-110253 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-01 02:17:07,424 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-01 02:17:07,424 [WARNING] На странице Renault XM3 ничего не найдено
+2026-09-01 02:17:07,424 [INFO] ── Проверяю б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'} ──
+2026-09-01 02:17:07,424 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-09-01 02:17:08,535 [INFO] Страница 1: найдено 11 объявлений (новых 11)
+2026-09-01 02:17:09,536 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-09-01 02:17:09,689 [INFO] Страница 2: пусто, останавливаюсь
+2026-09-01 02:17:09,691 [INFO] Новая машина в базе:  Mercedes-Benz GLB 200d 
+2026-09-01 02:17:09,691 [INFO] [new] Mercedes-Benz GLB 200d (carSeq=28708950)
+2026-09-01 02:17:09,692 [ERROR] Пост отклонён (https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28708950): пробег 72 162 км выше допустимого 40 000 км
+2026-09-01 02:17:09,692 [ERROR] Ошибка при обработке объявления 28708950: Пост https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28708950 заблокирован: пробег 72 162 км выше допустимого 40 000 км
+2026-09-01 02:17:09,693 [INFO] Новая машина в базе:  Mercedes-Benz GLB 200d 
+2026-09-01 02:17:09,693 [INFO] [new] Mercedes-Benz GLB 200d (carSeq=28699595)
+2026-09-01 02:17:09,694 [WARNING] check_price_vs_new_krw: нет эталонной цены нового (new_price_max_krw не заполнен) для 'Mercedes-Benz GLB 200d' — не могу проверить цену 58,000,000 ₩
+2026-09-01 02:17:13,554 [INFO] ✅ Альбом из 4 фото успешно отправлен в Telegram
+2026-09-01 02:17:14,493 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:16,276 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:18,054 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:18,055 [ERROR] VK: не удалось прикрепить фото https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699595_6384520371552054.jpeg?width=720 за 3 попыток(и)
+2026-09-01 02:17:18,674 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:20,418 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:22,178 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:22,179 [ERROR] VK: не удалось прикрепить фото https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699595_6384520467925669.jpeg?width=720 за 3 попыток(и)
+2026-09-01 02:17:22,938 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:24,539 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:26,301 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:26,303 [ERROR] VK: не удалось прикрепить фото https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699595_6384520561176663.jpeg?width=720 за 3 попыток(и)
+2026-09-01 02:17:26,898 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:28,648 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:30,213 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-09-01 02:17:30,214 [ERROR] VK: не удалось прикрепить фото https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699595_6384520642593922.jpeg?width=720 за 3 попыток(и)
+2026-09-01 02:17:30,215 [WARNING] VK: не удалось прикрепить 4/4 фото после ретраев: ['https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699595_6384520371552054.jpeg?width=720', 'https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699595_6384520467925669.jpeg?width=720', 'https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699595_6384520561176663.jpeg?width=720', 'https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699595_6384520642593922.jpeg?width=720']
+2026-09-01 02:17:30,215 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-09-01 02:17:30,215 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-09-01 02:17:32,217 [INFO] Новая машина в базе:  Mercedes-Benz GLB 200d 
+2026-09-01 02:17:32,217 [INFO] [new] Mercedes-Benz GLB 200d (carSeq=28698031)
+2026-09-01 02:17:32,217 [ERROR] Пост отклонён (https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28698031): пробег 63 384 км выше допустимого 40 000 км
+2026-09-01 02:17:32,217 [ERROR] Ошибка при обработке объявления 28698031: Пост https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28698031 заблокирован: пробег 63 384 км выше допустимого 40 000 км
+2026-09-01 02:17:32,218 [INFO] Цена изменилась:  Mercedes-Benz GLB 200d  (49500000 -> 46500000)
+2026-09-01 02:17:32,218 [INFO] [updated] Mercedes-Benz GLB 200d (carSeq=28601276)
+2026-09-01 02:17:32,219 [ERROR] Пост отклонён (https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28601276): фото 1 < минимума 3
+2026-09-01 02:17:32,219 [ERROR] Ошибка при обработке объявления 28601276: Пост https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28601276 заблокирован: фото 1 < минимума 3
+2026-09-01 02:17:32,219 [INFO] === Готово ===
+2026-09-01 02:17:32,219 [WARNING] Не удалось обработать:
+• BMW New X6 (https://www.carnoon.co.kr/newcar/vehicle/11565)
+• Kia Sportage (https://www.carnoon.co.kr/newcar/vehicle/11722)
+• Mercedes-Benz GLB-Class (https://www.carnoon.co.kr/newcar/vehicle/11641)
+• Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
+2026-09-01 02:17:32,753 [INFO] Уведомление об ошибке отправлено администратору

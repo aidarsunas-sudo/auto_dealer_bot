@@ -1,203 +1,28 @@
 [
   {
     "car": {
-      "brand": "",
-      "model": "Mercedes-Benz GLB 200d",
+      "brand": "Volkswagen",
+      "model": "Tiguan",
       "trim": "",
-      "external_id": "42442932",
+      "external_id": "28704352",
       "year": 2023,
-      "month": 3,
-      "mileage_km": 12930,
-      "cc": 1950,
+      "month": 5,
+      "mileage_km": 23104,
+      "cc": 1968,
       "hp": 150,
       "fuel_code": "diesel",
-      "price": 60500000.0,
-      "specs": "1950 см³, 150 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42442932",
-      "source": "encar",
+      "price": 44000000,
+      "specs": "1968 см³, 150 л.с.",
       "photos": [
-        "https://ci.encar.com/carpicture04/pic4244/42442605_027.jpg",
-        "https://ci.encar.com/carpicture04/pic4244/42442605_003.jpg",
-        "https://ci.encar.com/carpicture04/pic4244/42442605_004.jpg",
-        "https://ci.encar.com/carpicture04/pic4244/42442605_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-14T02:15:34.948525"
-  },
-  {
-    "car": {
-      "brand": "",
-      "model": "Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)",
-      "trim": "",
-      "external_id": "42460109",
-      "year": 2023,
-      "month": 11,
-      "mileage_km": 23855,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 37800000.0,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42460109",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture04/pic4244/42449053_001.jpg",
-        "https://ci.encar.com/carpicture04/pic4244/42449053_003.jpg",
-        "https://ci.encar.com/carpicture04/pic4244/42449053_004.jpg",
-        "https://ci.encar.com/carpicture04/pic4244/42449053_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-14T07:33:16.204342"
-  },
-  {
-    "car": {
-      "brand": "Hyundai",
-      "model": "Sonata",
-      "trim": "",
-      "external_id": "28627360",
-      "year": 2022,
-      "month": 7,
-      "mileage_km": 36623,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 15200000,
-      "specs": "1999 см³, 160 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2862/28627360_4390893576705333.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2862/28627360_4390894437560580.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2862/28627360_4390895335871223.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2862/28627360_4390896250842621.jpeg?width=720"
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2870/28704352_6474500120312190.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2870/28704352_6474500232891295.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2870/28704352_6474500319712112.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2870/28704352_6474500410886097.jpeg?width=720"
       ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28627360",
-      "raw_title": "현대 쏘나타 (DN8) 2.0 LPG 렌터카 스타일",
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28704352",
+      "raw_title": "폭스바겐 더 뉴 티구안 2.0 TDI Premium",
       "source": "kbchachacha"
     },
-    "published_at": "2026-08-15T18:46:00.839039"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "2.0 GDe RE 2WD",
-      "external_id": "42482362",
-      "year": 2023,
-      "month": 12,
-      "mileage_km": 38323,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 26500000.0,
-      "specs": "1998 см³, 144 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42482362",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture08/pic4248/42482362_001.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42482362_003.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42482362_004.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42482362_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-16T01:27:01.930810"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "SM6",
-      "trim": "2.0 LPe LE",
-      "external_id": "42485025",
-      "year": 2022,
-      "month": 8,
-      "mileage_km": 30793,
-      "cc": 1998,
-      "hp": 140,
-      "fuel_code": "lpg",
-      "price": 15400000.0,
-      "specs": "1998 см³, 140 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42485025",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture08/pic4248/42485025_027.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42485025_003.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42485025_004.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42485025_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-16T18:47:21.025163"
-  },
-  {
-    "car": {
-      "brand": "Kia",
-      "model": "K3",
-      "trim": "1.6",
-      "external_id": "42476157",
-      "year": 2022,
-      "month": 9,
-      "mileage_km": 32720,
-      "cc": 1598,
-      "hp": 123,
-      "fuel_code": "petrol",
-      "price": 21800000.0,
-      "specs": "1598 см³, 123 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42476157",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture07/pic4247/42476157_001.jpg",
-        "https://ci.encar.com/carpicture07/pic4247/42476157_003.jpg",
-        "https://ci.encar.com/carpicture07/pic4247/42476157_004.jpg",
-        "https://ci.encar.com/carpicture07/pic4247/42476157_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-17T07:10:13.493786"
-  },
-  {
-    "car": {
-      "brand": "Peugeot",
-      "model": "3008",
-      "trim": "1.2 Pure Tech GT Pack",
-      "external_id": "42488075",
-      "year": 2022,
-      "month": 12,
-      "mileage_km": 27292,
-      "cc": 1499,
-      "hp": 130,
-      "fuel_code": "diesel",
-      "price": 24200000.0,
-      "specs": "1499 см³, 130 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42488075",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture08/pic4248/42488075_001.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42488075_003.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42488075_004.jpg",
-        "https://ci.encar.com/carpicture08/pic4248/42488075_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-17T07:10:30.500928"
-  },
-  {
-    "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "1.2 RS",
-      "external_id": "42491532",
-      "year": 2023,
-      "month": 10,
-      "mileage_km": 30186,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 22900000.0,
-      "specs": "1198 см³, 139 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42491532",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture09/pic4249/42491532_001.jpg",
-        "https://ci.encar.com/carpicture09/pic4249/42491532_003.jpg",
-        "https://ci.encar.com/carpicture09/pic4249/42491532_004.jpg",
-        "https://ci.encar.com/carpicture09/pic4249/42491532_007.jpg"
-      ]
-    },
-    "published_at": "2026-08-18T01:36:32.630637"
+    "published_at": "2026-09-01T04:06:22.824111"
   }
 ]

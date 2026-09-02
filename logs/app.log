@@ -4736,3 +4736,37 @@
 • Mercedes-Benz GLB-Class (https://www.carnoon.co.kr/newcar/vehicle/11641)
 • Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
 2026-09-02 15:28:13,808 [INFO] Уведомление об ошибке отправлено администратору
+2026-09-02 20:12:16,241 [INFO] === Запуск ===
+2026-09-02 20:12:16,796 [INFO] Получены свежие курсы ЦБ: EUR=100.83 USD=87.00 KRW(за 1000)=63.49
+2026-09-02 20:12:16,798 [INFO] ── Проверяю: BMW New X6 ──
+2026-09-02 20:12:16,798 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11565 (попытка 1/3)
+2026-09-02 20:12:19,261 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/11565 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-02 20:12:19,262 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-02 20:12:19,262 [WARNING] На странице BMW New X6 ничего не найдено
+2026-09-02 20:12:19,262 [INFO] ── Проверяю: Kia Sportage ──
+2026-09-02 20:12:19,262 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11722 (попытка 1/3)
+2026-09-02 20:12:19,666 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/11722 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-02 20:12:19,666 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-02 20:12:19,666 [WARNING] На странице Kia Sportage ничего не найдено
+2026-09-02 20:12:19,666 [INFO] ── Проверяю: Mercedes-Benz GLB-Class ──
+2026-09-02 20:12:19,666 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11641 (попытка 1/3)
+2026-09-02 20:12:20,073 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/11641 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-02 20:12:20,081 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-02 20:12:20,081 [WARNING] На странице Mercedes-Benz GLB-Class ничего не найдено
+2026-09-02 20:12:20,081 [INFO] ── Проверяю: Renault XM3 ──
+2026-09-02 20:12:20,081 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/10397-110253 (попытка 1/3)
+2026-09-02 20:12:20,484 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/10397-110253 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-02 20:12:20,485 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-02 20:12:20,485 [WARNING] На странице Renault XM3 ничего не найдено
+2026-09-02 20:12:20,485 [INFO] ── Проверяю б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'} ──
+2026-09-02 20:12:20,485 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-09-02 20:12:21,959 [INFO] Страница 1: найдено 11 объявлений (новых 11)
+2026-09-02 20:12:22,960 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-09-02 20:12:23,171 [INFO] Страница 2: пусто, останавливаюсь
+2026-09-02 20:12:23,172 [INFO] === Готово ===
+2026-09-02 20:12:23,172 [WARNING] Не удалось обработать:
+• BMW New X6 (https://www.carnoon.co.kr/newcar/vehicle/11565)
+• Kia Sportage (https://www.carnoon.co.kr/newcar/vehicle/11722)
+• Mercedes-Benz GLB-Class (https://www.carnoon.co.kr/newcar/vehicle/11641)
+• Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
+2026-09-02 20:12:23,545 [INFO] Уведомление об ошибке отправлено администратору

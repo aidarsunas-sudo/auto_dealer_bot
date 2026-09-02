@@ -14143,7 +14143,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28679157": {
     "first_seen": "2026-09-01T04:06:04",
-    "posted_at": null
+    "posted_at": "2026-09-02T11:01:42",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28706960": {
     "first_seen": "2026-09-01T04:06:04",
@@ -14227,6 +14229,34 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28718174": {
     "first_seen": "2026-09-01T20:54:26",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28683049": {
+    "first_seen": "2026-09-02T11:01:20",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28720688": {
+    "first_seen": "2026-09-02T11:01:20",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28721207": {
+    "first_seen": "2026-09-02T11:01:20",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28720843": {
+    "first_seen": "2026-09-02T11:01:20",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a060d2-36f4-7dc4-9051-d2e5165656a2": {
+    "first_seen": "2026-09-02T11:01:20",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a06110-8e53-78c7-bee0-fd5111009dd1": {
+    "first_seen": "2026-09-02T11:01:20",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28720606": {
+    "first_seen": "2026-09-02T11:01:20",
     "posted_at": null
   }
 }

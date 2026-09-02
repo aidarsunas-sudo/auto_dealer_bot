@@ -76,5 +76,31 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-09-02T03:17:05.732711"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "",
+      "external_id": "28679157",
+      "year": 2023,
+      "month": 3,
+      "mileage_km": 38412,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 16990000,
+      "specs": "1998 см³, 144 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28679157_5839222976935510.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28679157_5839223075470244.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28679157_5839223170798161.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28679157_5839223260059890.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28679157",
+      "raw_title": "르노코리아 The New QM6 QUEST(HZG PH3) 2.0 LPe LE",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-02T11:01:42.046860"
   }
 ]

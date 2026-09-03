@@ -1,5 +1,5 @@
 {
-  "last_sent_at": "2026-09-01T04:06:25.198626",
+  "last_sent_at": "2026-09-03T10:52:12.837298",
   "history": [
     {
       "brand": "Kia",
@@ -70,6 +70,11 @@
       "brand": "Volkswagen",
       "model": "Tiguan",
       "sent_at": "2026-09-01T04:06:25.198626"
+    },
+    {
+      "brand": "Audi",
+      "model": "Q3",
+      "sent_at": "2026-09-03T10:52:12.837298"
     }
   ]
 }

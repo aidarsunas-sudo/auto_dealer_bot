@@ -102,5 +102,31 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-09-02T11:01:42.046860"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "",
+      "external_id": "28699918",
+      "year": 2023,
+      "month": 5,
+      "mileage_km": 24410,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 22100000,
+      "specs": "1198 см³, 139 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699918_6407155150420832.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699918_6407155416685581.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699918_6407155637481452.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699918_6407155898845189.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28699918",
+      "raw_title": "한국GM 트랙스 크로스오버 1.2 가솔린 2WD ACTIV",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-04T03:21:24.986866"
   }
 ]

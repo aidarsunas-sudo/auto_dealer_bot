@@ -1,32 +1,6 @@
 [
   {
     "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "",
-      "external_id": "28699918",
-      "year": 2023,
-      "month": 5,
-      "mileage_km": 24410,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 22100000,
-      "specs": "1198 см³, 139 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699918_6407155150420832.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699918_6407155416685581.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699918_6407155637481452.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699918_6407155898845189.jpeg?width=720"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28699918",
-      "raw_title": "한국GM 트랙스 크로스오버 1.2 가솔린 2WD ACTIV",
-      "source": "kbchachacha"
-    },
-    "published_at": "2026-09-04T03:21:24.986866"
-  },
-  {
-    "car": {
       "brand": "Kia",
       "model": "K3",
       "trim": "",
@@ -50,5 +24,154 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-09-07T03:18:45.787949"
+  },
+  {
+    "car": {
+      "brand": "Volkswagen",
+      "model": "Tiguan",
+      "trim": "",
+      "external_id": "01a04698-0c89-7fab-91cd-1ba7a722d8fe",
+      "year": 2022,
+      "month": 3,
+      "mileage_km": 29894,
+      "cc": 1968,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 46900000,
+      "specs": "1968 см³, 150 л.с.",
+      "url": "https://www.charancha.com/cars/01a04698-0c89-7fab-91cd-1ba7a722d8fe",
+      "source": "charancha",
+      "photos": [
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b230-7335-a114-6c0d8b5b78af.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b235-7394-bde4-6655910b15b9.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b238-78f4-8595-cad2443e85d1.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b243-70e9-830e-2bdb19079a40.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b248-79e4-a36b-1ad8b5ac40dd.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b24b-7d3f-98c6-381ef7b14b72.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b254-7f76-9da5-ca980023d5f6.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b27a-7cd2-8897-10bfddb40fd5.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b280-7b85-9891-46a96610af11.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b283-7edc-a0ee-57f205e9e3ac.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b287-7bc9-b3a1-5fb62387d9b3.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b28b-7e5d-ae89-12e522fe3375.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b28f-7eeb-b3fb-33686c943aac.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2aa-7d15-b51e-e1fb519a4223.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2b0-7a3c-8f4e-f553b468950b.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2b7-7a96-b6a0-627d95c502ed.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2c1-7c78-8f60-11618c0bc1eb.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2cc-705f-9909-64c4e00a89a1.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2d8-76bc-83b8-fcb4efb337d9.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2dc-721b-a766-a5f865e024aa.jpg"
+      ],
+      "transmission": "자동",
+      "is_accident": null,
+      "is_seizure": null,
+      "color": "흰색"
+    },
+    "published_at": "2026-09-09T18:19:54.992281"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28674874",
+      "year": 2023,
+      "month": 5,
+      "mileage_km": 22125,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 31200000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28674874_5752748801334059.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28674874_5752748905482952.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28674874_5752749012431205.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28674874_5752749116281253.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28674874",
+      "raw_title": "기아 K5 3세대 2.0 가솔린 프레스티지",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-09T18:22:08.117868"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "28684226",
+      "year": 2022,
+      "month": 4,
+      "mileage_km": 25733,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 24300000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28684226_5942501331985709.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28684226_5942501498962870.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28684226_5942501656930554.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28684226_5942501809212446.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28684226",
+      "raw_title": "현대 쏘나타 (DN8) 2.0 센슈어스 프리미엄 플러스",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-09T18:22:27.962853"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "",
+      "external_id": "28699224",
+      "year": 2022,
+      "month": 7,
+      "mileage_km": 24103,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 24800000,
+      "specs": "1998 см³, 144 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699224_6377364698438911.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699224_6377364798674350.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699224_6377364897426870.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699224_6377364998627826.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28699224",
+      "raw_title": "르노코리아 뉴 QM6 2.0 GDe 2WD LE Signature",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-09T18:22:46.949368"
+  },
+  {
+    "car": {
+      "brand": "Audi",
+      "model": "Q3",
+      "trim": "",
+      "external_id": "28735293",
+      "year": 2022,
+      "month": 7,
+      "mileage_km": 35400,
+      "cc": 1968,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 42900000,
+      "specs": "1968 см³, 150 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735293_7406160384971387.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735293_7406160498598393.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735293_7406160614536841.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735293_7406160721712304.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28735293",
+      "raw_title": "아우디 The New Q3(F3) 35 TDI Premium",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-09T18:25:00.873999"
   }
 ]

@@ -13865,7 +13865,9 @@
   },
   "https://www.charancha.com/cars/01a04698-0c89-7fab-91cd-1ba7a722d8fe": {
     "first_seen": "2026-09-01T04:06:04",
-    "posted_at": null
+    "posted_at": "2026-09-09T18:19:54",
+    "brand": "Volkswagen",
+    "model": "Tiguan"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28675634": {
     "first_seen": "2026-09-01T04:06:04",
@@ -13993,7 +13995,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28674874": {
     "first_seen": "2026-09-01T04:06:04",
-    "posted_at": null
+    "posted_at": "2026-09-09T18:22:08",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28684463": {
     "first_seen": "2026-09-01T04:06:04",
@@ -14089,7 +14093,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28684226": {
     "first_seen": "2026-09-01T04:06:04",
-    "posted_at": null
+    "posted_at": "2026-09-09T18:22:27",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28695633": {
     "first_seen": "2026-09-01T04:06:04",
@@ -14159,7 +14165,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28699224": {
     "first_seen": "2026-09-01T04:06:04",
-    "posted_at": null
+    "posted_at": "2026-09-09T18:22:46",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28699588": {
     "first_seen": "2026-09-01T04:06:04",
@@ -14377,7 +14385,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28735293": {
     "first_seen": "2026-09-07T11:49:25",
-    "posted_at": null
+    "posted_at": "2026-09-09T18:25:00",
+    "brand": "Audi",
+    "model": "Q3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28735530": {
     "first_seen": "2026-09-07T11:49:25",

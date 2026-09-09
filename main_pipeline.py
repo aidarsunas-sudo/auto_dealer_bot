@@ -62,6 +62,7 @@ from telegram_publisher import send_to_telegram
 
 FRESHNESS_DAYS = 14
 POST_LIMIT = 5
+DIVERSIFY_BUFFER = 5  # diversify() вернёт до POST_LIMIT * DIVERSIFY_BUFFER кандидатов
 
 LOG_FILE_PATH = "logs/main_pipeline.log"
 
@@ -76,6 +77,22 @@ def setup_logging() -> logging.Logger:
         ],
     )
     return logging.getLogger("main_pipeline")
+
+
+def _prefilter_publishable(candidates: list) -> list:
+    """Убирает кандидатов, которые заведомо провалят build_lead_post()
+    (нет cc/hp/fuel_code/price для расчёта цены) или validate_post_before_publish()
+    (фото меньше MIN_PHOTOS_PER_POST). Пустой список = все отсеяны."""
+    min_photos = config.MIN_PHOTOS_PER_POST
+    result = []
+    for car in candidates:
+        photos = car.get("photos") or []
+        if len(photos) < min_photos:
+            continue
+        if not all([car.get("price"), car.get("cc"), car.get("hp"), car.get("fuel_code")]):
+            continue
+        result.append(car)
+    return result
 
 
 def run() -> None:
@@ -153,11 +170,29 @@ def run() -> None:
         log.info(f"Отфильтровано {before_recent_filter - len(candidates)} кандидатов недавно "
                   f"опубликованных моделей (за последние {config.RECENT_MODEL_DAYS} дн.): {recent_models}")
 
+    # Пре-фильтр: убираем кандидатов, которые точно не пройдут (нет данных
+    # для расчёта цены или слишком мало фото) — чтобы diversify() не тратила
+    # слоты на заведомо непубликуемые лоты. Fallback: если пре-фильтр убрал
+    # ВСЕХ — возвращаем исходный список (лучше попробовать, чем молчать).
+    before_prefilter = len(candidates)
+    filtered = _prefilter_publishable(candidates)
+    if not filtered:
+        log.warning(f"Пре-фильтр: убраны ВСЕ {before_prefilter} кандидатов — "
+                     f"fallback на исходный список (все провалят валидацию)")
+    elif len(filtered) < before_prefilter:
+        log.info(f"Пре-фильтр: убрано {before_prefilter - len(filtered)} кандидатов "
+                  f"без данных для расчёта цены или с < {config.MIN_PHOTOS_PER_POST} фото")
+        candidates = filtered
+    else:
+        candidates = filtered
+
     # Без этого шага все POST_LIMIT постов могут оказаться одной моделью с
     # одного источника (см. разбор бага: при первом запуске у всех кандидатов
     # почти одинаковый first_seen, и порядок вырождается в порядок сбора,
     # где один источник может отдать десятки объявлений одной модели подряд).
-    candidates = diversify(candidates, post_limit, MAX_PER_MODEL)
+    # DIVERSIFY_BUFFER: берём с запасом, чтобы цикл публикации мог попробовать
+    # больше кандидатов, если первые не пройдут валидацию (фото/цена/данные).
+    candidates = diversify(candidates, post_limit * DIVERSIFY_BUFFER, MAX_PER_MODEL)
 
     # Ещё один слой поверх diversify(): та же МАРКА (Hyundai Avante, потом
     # Hyundai Casper — diversify() это пропускает, там развод только по

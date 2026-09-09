@@ -34,10 +34,9 @@ used_car_scraper.parse_all_pages() НАПРЯМУЮ, минуя kbchachacha_targ
     3. Расчёт цены под ключ должен получиться (calculate_price_details()
        не вернул None — не хватает price/cc/hp/fuel_code).
 
-КПП (transmission): "не указано" — это ОСОЗНАННОЕ поведение для источников,
-которые не отдают трансмиссию без доп. запроса к детальной странице (Encar/
-kbchachacha/OnBid — см. _translate_transmission ниже), а не баг. Проверено:
-единственный источник, отдающий transmissionName — Charancha.
+КПП (transmission): "не указано" — для источников, которые не отдают
+трансмиссию (kbchachacha/OnBid — HTML поиска не содержит этих данных).
+Encar (поле "Transmission") и Charancha (поле "transmissionName") — отдают.
 """
 
 import logging
@@ -68,6 +67,7 @@ ALLOWED_TITLE_RE = re.compile(r"^[A-Za-zА-Яа-яЁё0-9 \-.,()+/]+$")
 # для показа в посте; CVT уже латиницей на самой площадке, перевод не нужен.
 _TRANSMISSION_RU = {
     "자동": "автомат",
+    "오토": "автомат",
     "수동": "механика",
 }
 

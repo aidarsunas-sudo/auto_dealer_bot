@@ -225,5 +225,154 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-09-10T14:13:18.252692"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "28682994",
+      "year": 2022,
+      "month": 7,
+      "mileage_km": 25828,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 23000000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28682994_5870806277119247.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28682994_5870806389179857.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28682994_5870806493337258.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28682994_5870806582643306.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28682994",
+      "raw_title": "현대 쏘나타 하이브리드 (DN8) 2.0 하이브리드 프리미엄 플러스",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-10T16:04:15.210046"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28711695",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 39692,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 15500000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28711695_6784176475814977.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28711695_6784176569368009.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28711695_6784176658598656.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28711695_6784176745149592.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28711695",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 트렌디",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-10T16:04:38.140101"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28713663",
+      "year": 2023,
+      "month": 2,
+      "mileage_km": 14826,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 20990000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28713663_6799663232927241.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28713663_6799663333164525.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28713663_6799663428811971.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28713663_6799663520681057.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28713663",
+      "raw_title": "기아 K5 3세대 2.0 LPI 프레스티지",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-10T16:04:59.737191"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "",
+      "external_id": "01a03161-dc1c-7569-b974-02e54f07fcb4",
+      "year": 2022,
+      "month": 11,
+      "mileage_km": 17762,
+      "cc": 1997,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 19900000,
+      "specs": "1997 см³, 144 л.с.",
+      "url": "https://www.charancha.com/cars/01a03161-dc1c-7569-b974-02e54f07fcb4",
+      "source": "charancha",
+      "photos": [
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cf89-7cce-b560-9cef46b6b3d6.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cf8e-7431-84b0-8c8a224f99d4.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cf93-7dbb-9dbf-c41c8cd2498b.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cf97-796e-9071-449df7af8918.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cf9b-7df9-b6a8-271e8b5d86af.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cf9f-7379-8c05-355abbed3a94.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfa3-7ab1-82f4-bbac5717efe8.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfa7-77ab-80f5-9093eae5cbe1.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfaf-7061-877a-c565a5fe76cd.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfb3-7184-bc43-fa6e8c74508d.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfb6-7586-ab1b-0353e860ba9f.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfba-7f83-abf9-f5d150ee141a.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfbe-7071-8ebd-58206b3d1ac7.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfc2-7a5d-a952-ad026033ef49.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfc8-790a-a69d-1944f985fd52.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfcc-70ac-955f-7fdcdaceeae6.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfd3-7d07-a164-3de558e8a173.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfd7-74f6-b7f8-6696892e874a.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfdc-7437-9a57-8490b7cb16c0.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a03161-cfe0-75e0-b982-5453327aec9c.jpg"
+      ],
+      "transmission": "CVT",
+      "is_accident": true,
+      "is_seizure": null,
+      "color": "검정색"
+    },
+    "published_at": "2026-09-10T16:08:15.548994"
+  },
+  {
+    "car": {
+      "brand": "Volkswagen",
+      "model": "Tiguan",
+      "trim": "",
+      "external_id": "28721207",
+      "year": 2022,
+      "month": 12,
+      "mileage_km": 37763,
+      "cc": 1968,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 57000000,
+      "specs": "1968 см³, 150 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2872/28721207_6974913381627466.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2872/28721207_6974913496215130.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2872/28721207_6974913606291644.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2872/28721207_6974913697640435.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28721207",
+      "raw_title": "폭스바겐 더 뉴 티구안 2.0 TDI 4Motion Prestige",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-10T16:08:36.494033"
   }
 ]

@@ -4,6 +4,7 @@ main_pipeline.py — сквозной автоматический пайпла�
 постов (Telegram-only, канал @auto_generals).
 
     сбор (4 источника без логина) → дедуп/фильтр актуальности/пробега →
+    пре-фильтр publishable (цена/фото/заголовок) →
     фильтр недавно опубликованных моделей → round-robin разнообразие →
     расчёт цены под ключ → генерация поста по внешнему шаблону → публикация
 
@@ -50,7 +51,7 @@ from published_log import (
 )
 from candidate_diversity import diversify, filter_recent_models, limit_consecutive_brand, check_source_health, MAX_PER_MODEL
 from lead_post_builder import build_lead_post
-from post_text_builder import prepare_post_fields
+from post_text_builder import prepare_post_fields, HANGUL_RE, ALLOWED_TITLE_RE
 from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
@@ -80,9 +81,17 @@ def setup_logging() -> logging.Logger:
 
 
 def _prefilter_publishable(candidates: list) -> list:
-    """Убирает кандидатов, которые заведомо провалят build_lead_post()
-    (нет cc/hp/fuel_code/price для расчёта цены) или validate_post_before_publish()
-    (фото меньше MIN_PHOTOS_PER_POST). Пустой список = все отсеяны."""
+    """Убирает кандидатов, которые заведомо провалят build_lead_post():
+    нет cc/hp/fuel_code/price для расчёта цены, фото меньше MIN_PHOTOS_PER_POST,
+    или нечитаемый заголовок (пустой / корейский / недопустимые символы).
+
+    Проверка заголовка повторяет ту же логику, что prepare_post_fields()
+    (HANGUL_RE / ALLOWED_TITLE_RE из post_text_builder.py — один источник
+    правды на regex). Это нужно, чтобы filter_recent_models() ниже по
+    пайплайну работал ТОЛЬКО с publishable кандидатами и его fallback
+    ("все недавние → используем всех") срабатывал корректно.
+
+    Пустой список = все отсеяны."""
     min_photos = config.MIN_PHOTOS_PER_POST
     result = []
     for car in candidates:
@@ -90,6 +99,14 @@ def _prefilter_publishable(candidates: list) -> list:
         if len(photos) < min_photos:
             continue
         if not all([car.get("price"), car.get("cc"), car.get("hp"), car.get("fuel_code")]):
+            continue
+        parts = []
+        for v in (car.get("brand"), car.get("model"), car.get("trim")):
+            v = (v or "").strip()
+            if v and v not in parts:
+                parts.append(v)
+        title = " ".join(parts)
+        if not title or HANGUL_RE.search(title) or not ALLOWED_TITLE_RE.match(title):
             continue
         result.append(car)
     return result
@@ -159,32 +176,41 @@ def run() -> None:
         log.info("Публиковать нечего")
         return
 
-    # Модели, опубликованные за последние RECENT_MODEL_DAYS дней, — убираем,
-    # если есть альтернативы (fallback внутри filter_recent_models: если
-    # ВСЕ кандидаты окажутся недавно опубликованными моделями — разрешаем
-    # повтор, а не пропускаем прогон целиком).
-    recent_models = recently_posted_models(pub_log, config.RECENT_MODEL_DAYS)
-    before_recent_filter = len(candidates)
-    candidates = filter_recent_models(candidates, recent_models)
-    if len(candidates) < before_recent_filter:
-        log.info(f"Отфильтровано {before_recent_filter - len(candidates)} кандидатов недавно "
-                  f"опубликованных моделей (за последние {config.RECENT_MODEL_DAYS} дн.): {recent_models}")
-
-    # Пре-фильтр: убираем кандидатов, которые точно не пройдут (нет данных
-    # для расчёта цены или слишком мало фото) — чтобы diversify() не тратила
-    # слоты на заведомо непубликуемые лоты. Fallback: если пре-фильтр убрал
-    # ВСЕХ — возвращаем исходный список (лучше попробовать, чем молчать).
+    # Пре-фильтр: убираем кандидатов, которые заведомо не пройдут валидацию
+    # (нет данных для цены, мало фото, нечитаемый заголовок).
+    # ВАЖНО: выполняется ДО filter_recent_models, чтобы fallback фильтра
+    # недавних моделей работал корректно — если ВСЕ publishable кандидаты
+    # окажутся недавними моделями, они будут опубликованы (лучше повтор
+    # модели, чем тишина в канале на несколько дней).
     before_prefilter = len(candidates)
-    filtered = _prefilter_publishable(candidates)
-    if not filtered:
+    publishable = _prefilter_publishable(candidates)
+    if not publishable:
         log.warning(f"Пре-фильтр: убраны ВСЕ {before_prefilter} кандидатов — "
                      f"fallback на исходный список (все провалят валидацию)")
-    elif len(filtered) < before_prefilter:
-        log.info(f"Пре-фильтр: убрано {before_prefilter - len(filtered)} кандидатов "
-                  f"без данных для расчёта цены или с < {config.MIN_PHOTOS_PER_POST} фото")
-        candidates = filtered
-    else:
-        candidates = filtered
+        notify_error(
+            f"⚠️ main_pipeline: пре-фильтр убрал ВСЕ {before_prefilter} кандидатов "
+            f"(нет данных для цены / мало фото / нечитаемый заголовок у каждого). "
+            f"Используем fallback, но это системная проблема.")
+        publishable = candidates
+    elif len(publishable) < before_prefilter:
+        log.info(f"Пре-фильтр: убрано {before_prefilter - len(publishable)} из {before_prefilter} "
+                  f"кандидатов (нет данных для цены / < {config.MIN_PHOTOS_PER_POST} фото / "
+                  f"нечитаемый заголовок)")
+
+    # Модели, опубликованные за последние RECENT_MODEL_DAYS дней, — убираем
+    # среди publishable, если есть альтернативы. filter_recent_models
+    # возвращает все publishable без изменений, если после удаления недавних
+    # не осталось ни одного — лучше повтор модели, чем пустой прогон.
+    recent_models = recently_posted_models(pub_log, config.RECENT_MODEL_DAYS)
+    before_recent_filter = len(publishable)
+    candidates = filter_recent_models(publishable, recent_models)
+    if len(candidates) < before_recent_filter:
+        log.info(f"Фильтр недавних моделей: убрано {before_recent_filter - len(candidates)} "
+                  f"из {before_recent_filter} кандидатов (за последние "
+                  f"{config.RECENT_MODEL_DAYS} дн.): {recent_models}")
+    elif recent_models and len(candidates) == before_recent_filter:
+        log.info(f"Фильтр недавних моделей: все {before_recent_filter} publishable "
+                  f"кандидатов — недавние, используем всех (fallback)")
 
     # Без этого шага все POST_LIMIT постов могут оказаться одной моделью с
     # одного источника (см. разбор бага: при первом запуске у всех кандидатов

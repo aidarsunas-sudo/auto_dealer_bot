@@ -191,11 +191,12 @@ MAX_MILEAGE_KM: int = int(os.getenv("MAX_MILEAGE_KM", "40000"))
 # Сколько дней модель (brand+model) считается "недавно опубликованной" —
 # main_pipeline.py избегает повторно постить ту же модель в этот период,
 # если есть альтернативы (см. candidate_diversity.filter_recent_models).
-# 5 дней (поднято с 3 дней 2026-07-20 по прямому ТЗ — "та же модель не чаще
-# раза в 5 дней") — target_models.json вырос до 25+ моделей плюс
-# broad-режим (любые hp<=160), запас достаточный, откат "разрешить повтор"
-# не должен стать нормой. Можно увеличивать по мере роста model_specs.py.
-RECENT_MODEL_DAYS: int = int(os.getenv("RECENT_MODEL_DAYS", "5"))
+# 2 дня: при текущих ~6 реально publishable моделях (Encar мёртв,
+# kbchachacha targeted в отрицательном кэше) блокировка на 5 дней
+# математически гарантировала пустые прогоны — 5 из 6 моделей заблокированы,
+# единственная оставшаяся не покрывала POST_LIMIT. Когда Encar вернётся
+# и kbchachacha targeted заработает (25+ моделей), можно поднять обратно.
+RECENT_MODEL_DAYS: int = int(os.getenv("RECENT_MODEL_DAYS", "2"))
 
 # Та же марка — не больше MAX_SAME_BRAND_IN_A_ROW постов ПОДРЯД (даже
 # разными моделями — напр. Hyundai Avante, потом Hyundai Casper, потом

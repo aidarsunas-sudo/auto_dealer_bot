@@ -627,5 +627,135 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-09-11T03:28:22.208055"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28722679",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 37477,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 14100000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2872/28722679_7012338421753080.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2872/28722679_7012338757471027.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2872/28722679_7012339082072184.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img02/img2872/28722679_7012339424674398.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28722679",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 트렌디",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-11T10:54:19.692583"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "28733548",
+      "year": 2022,
+      "month": 11,
+      "mileage_km": 39192,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 19200000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28733548_7339376207457463.jpg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28733548_7318152877845187.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28733548_7318153015180798.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28733548_7318153173878108.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28733548",
+      "raw_title": "현대 쏘나타 (DN8) 2.0 LPG 렌터카 프리미엄",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-11T10:54:57.493457"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28747676",
+      "year": 2022,
+      "month": 10,
+      "mileage_km": 35115,
+      "cc": 1598,
+      "hp": 204,
+      "fuel_code": "petrol",
+      "price": 19500000,
+      "specs": "1598 см³, 204 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28747676_7654935325655483.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28747676_7654935428861343.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28747676_7654935539393173.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28747676_7654935650400764.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28747676",
+      "raw_title": "기아 더 뉴 K3 GT(BD) 1.6 T-GDi 5도어 시그니처",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-11T10:57:49.337921"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28733434",
+      "year": 2022,
+      "month": 10,
+      "mileage_km": 27126,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 18000000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28733434_7339350793328876.jpg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28733434_7318139481721986.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28733434_7318139626737603.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28733434_7318139775386752.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28733434",
+      "raw_title": "기아 K5 3세대 2.0 LPI 렌터카 스탠다드",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-11T10:58:07.866835"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "28744709",
+      "year": 2022,
+      "month": 3,
+      "mileage_km": 36313,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 24500000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28744709_7579683504535788.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28744709_7579683601648146.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28744709_7579683694215939.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28744709_7579683779344055.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28744709",
+      "raw_title": "현대 쏘나타 (DN8) 2.0 모던",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-11T10:58:27.968397"
   }
 ]

@@ -14305,7 +14305,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28722679": {
     "first_seen": "2026-09-02T20:41:02",
-    "posted_at": null
+    "posted_at": "2026-09-11T10:54:19",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28722711": {
     "first_seen": "2026-09-02T20:41:02",
@@ -14395,11 +14397,15 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28733434": {
     "first_seen": "2026-09-05T10:12:36",
-    "posted_at": null
+    "posted_at": "2026-09-11T10:58:07",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28733548": {
     "first_seen": "2026-09-05T10:12:36",
-    "posted_at": null
+    "posted_at": "2026-09-11T10:54:57",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28733322": {
     "first_seen": "2026-09-05T10:12:36",
@@ -14499,7 +14505,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28744709": {
     "first_seen": "2026-09-09T10:59:25",
-    "posted_at": null
+    "posted_at": "2026-09-11T10:58:27",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28744327": {
     "first_seen": "2026-09-09T10:59:25",
@@ -14515,7 +14523,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28747676": {
     "first_seen": "2026-09-10T03:30:28",
-    "posted_at": null
+    "posted_at": "2026-09-11T10:57:49",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28745028": {
     "first_seen": "2026-09-10T03:30:28",
@@ -14545,6 +14555,10 @@
   },
   "https://www.onbid.co.kr/op/cltrpbancinf/cltrpbanc/CltrPbancDetail.do?onbidCltrno=2052274": {
     "first_seen": "2026-09-11T03:24:56",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28752711": {
+    "first_seen": "2026-09-11T10:51:44",
     "posted_at": null
   }
 }

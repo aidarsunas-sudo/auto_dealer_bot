@@ -6135,3 +6135,42 @@
 • Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
 • б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'}
 2026-09-11 10:07:14,997 [INFO] Уведомление об ошибке отправлено администратору
+2026-09-11 15:22:30,970 [INFO] === Запуск ===
+2026-09-11 15:22:31,708 [INFO] Получены свежие курсы ЦБ: EUR=97.87 USD=84.26 KRW(за 1000)=62.96
+2026-09-11 15:22:31,709 [INFO] ── Проверяю: BMW New X6 ──
+2026-09-11 15:22:31,709 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11565 (попытка 1/3)
+2026-09-11 15:22:33,277 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/11565 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-11 15:22:33,277 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-11 15:22:33,277 [WARNING] На странице BMW New X6 ничего не найдено
+2026-09-11 15:22:33,277 [INFO] ── Проверяю: Kia Sportage ──
+2026-09-11 15:22:33,277 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11722 (попытка 1/3)
+2026-09-11 15:22:33,559 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/11722 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-11 15:22:33,560 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-11 15:22:33,560 [WARNING] На странице Kia Sportage ничего не найдено
+2026-09-11 15:22:33,560 [INFO] ── Проверяю: Mercedes-Benz GLB-Class ──
+2026-09-11 15:22:33,560 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11641 (попытка 1/3)
+2026-09-11 15:22:33,844 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/11641 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-11 15:22:33,844 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-11 15:22:33,844 [WARNING] На странице Mercedes-Benz GLB-Class ничего не найдено
+2026-09-11 15:22:33,845 [INFO] ── Проверяю: Renault XM3 ──
+2026-09-11 15:22:33,845 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/10397-110253 (попытка 1/3)
+2026-09-11 15:22:34,128 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/10397-110253 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-09-11 15:22:34,129 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-09-11 15:22:34,129 [WARNING] На странице Renault XM3 ничего не найдено
+2026-09-11 15:22:34,129 [INFO] ── Проверяю б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'} ──
+2026-09-11 15:22:34,129 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-09-11 15:22:49,695 [WARNING] Попытка 1 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Read timed out. (read timeout=15)
+2026-09-11 15:22:51,695 [INFO] Загружаю список б/у авто, страница 1 (попытка 2/3)
+2026-09-11 15:23:07,117 [WARNING] Попытка 2 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?countryOrder=2&makerCode=108&classCode=2763&carCode=3123&modelCode=26172&regiDay=2022%2C2023&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7f79c6268f20>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-09-11 15:23:11,117 [INFO] Загружаю список б/у авто, страница 1 (попытка 3/3)
+2026-09-11 15:23:26,535 [WARNING] Попытка 3 не удалась: HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?countryOrder=2&makerCode=108&classCode=2763&carCode=3123&modelCode=26172&regiDay=2022%2C2023&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7f79c62d8200>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)'))
+2026-09-11 15:23:26,535 [ERROR] Страница 1: не удалось загрузить (HTTPSConnectionPool(host='www.kbchachacha.com', port=443): Max retries exceeded with url: /public/search/list.empty?countryOrder=2&makerCode=108&classCode=2763&carCode=3123&modelCode=26172&regiDay=2022%2C2023&page=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.kbchachacha.com', port=443) at 0x7f79c62d8200>, 'Connection to www.kbchachacha.com timed out. (connect timeout=15)')))
+2026-09-11 15:23:26,535 [WARNING] По запросу {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'} ничего не найдено
+2026-09-11 15:23:26,535 [INFO] === Готово ===
+2026-09-11 15:23:26,535 [WARNING] Не удалось обработать:
+• BMW New X6 (https://www.carnoon.co.kr/newcar/vehicle/11565)
+• Kia Sportage (https://www.carnoon.co.kr/newcar/vehicle/11722)
+• Mercedes-Benz GLB-Class (https://www.carnoon.co.kr/newcar/vehicle/11641)
+• Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
+• б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'}
+2026-09-11 15:23:27,034 [INFO] Уведомление об ошибке отправлено администратору

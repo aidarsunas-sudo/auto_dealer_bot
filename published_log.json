@@ -13905,7 +13905,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28690983": {
     "first_seen": "2026-09-01T04:06:04",
-    "posted_at": null
+    "posted_at": "2026-09-11T03:25:16",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28692586": {
     "first_seen": "2026-09-01T04:06:04",
@@ -14125,7 +14127,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28703286": {
     "first_seen": "2026-09-01T04:06:04",
-    "posted_at": null
+    "posted_at": "2026-09-11T03:25:37",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28682994": {
     "first_seen": "2026-09-01T04:06:04",
@@ -14237,7 +14241,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28716374": {
     "first_seen": "2026-09-01T11:20:15",
-    "posted_at": null
+    "posted_at": "2026-09-11T03:27:42",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28716845": {
     "first_seen": "2026-09-01T11:20:15",
@@ -14463,7 +14469,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28735845": {
     "first_seen": "2026-09-08T20:59:08",
-    "posted_at": null
+    "posted_at": "2026-09-11T03:28:03",
+    "brand": "Volkswagen",
+    "model": "Tiguan"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28743993": {
     "first_seen": "2026-09-09T03:29:55",
@@ -14523,10 +14531,20 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28749098": {
     "first_seen": "2026-09-10T10:51:03",
-    "posted_at": null
+    "posted_at": "2026-09-11T03:28:22",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28749672": {
     "first_seen": "2026-09-10T14:12:41",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28747716": {
+    "first_seen": "2026-09-11T03:24:56",
+    "posted_at": null
+  },
+  "https://www.onbid.co.kr/op/cltrpbancinf/cltrpbanc/CltrPbancDetail.do?onbidCltrno=2052274": {
+    "first_seen": "2026-09-11T03:24:56",
     "posted_at": null
   }
 }

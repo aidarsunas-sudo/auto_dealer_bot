@@ -523,5 +523,135 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-09-10T20:46:07.947983"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28690983",
+      "year": 2023,
+      "month": 6,
+      "mileage_km": 29471,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 18950000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28690983_6236068251184157.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28690983_6236068572502362.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28690983_6236068871783314.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28690983_6236069188484073.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28690983",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 트렌디",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T03:25:16.415667"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "28703286",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 32281,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 24900000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2870/28703286_6473551034885521.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2870/28703286_6473551202557245.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2870/28703286_6473551352342339.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2870/28703286_6473551505947207.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28703286",
+      "raw_title": "현대 쏘나타 하이브리드 (DN8) 2.0 하이브리드 프리미엄 플러스",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T03:25:37.380744"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28716374",
+      "year": 2023,
+      "month": 8,
+      "mileage_km": 32693,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 23900000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28716374_6879501839933712.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28716374_6879501950155405.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28716374_6879502050610456.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img01/img2871/28716374_6879502134675250.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28716374",
+      "raw_title": "기아 K5 3세대 2.0 가솔린 트렌디",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T03:27:42.704245"
+  },
+  {
+    "car": {
+      "brand": "Volkswagen",
+      "model": "Tiguan",
+      "trim": "",
+      "external_id": "28735845",
+      "year": 2022,
+      "month": 10,
+      "mileage_km": 30483,
+      "cc": 1968,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 62000000,
+      "specs": "1968 см³, 150 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735845_7414179034388576.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735845_7414179148494296.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735845_7414179249181058.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735845_7414179358220794.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28735845",
+      "raw_title": "폭스바겐 더 뉴 티구안 2.0 TDI 4Motion Prestige",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T03:28:03.190411"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "",
+      "external_id": "28749098",
+      "year": 2022,
+      "month": 8,
+      "mileage_km": 37085,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 16700000,
+      "specs": "1998 см³, 144 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28749098_7672670754520822.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28749098_7672671658324782.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28749098_7672672559112529.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28749098_7672673435322735.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28749098",
+      "raw_title": "르노코리아 뉴 QM6 2.0 LPe 2WD LE Signature",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T03:28:22.207389"
   }
 ]

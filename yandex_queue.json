@@ -783,5 +783,83 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-09-11T10:58:27.966769"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28748410",
+      "year": 2023,
+      "month": 7,
+      "mileage_km": 17731,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 21000000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28748410_7662521754304974.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28748410_7662521849237537.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28748410_7662521936773729.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28748410_7662522033193329.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28748410",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 프레스티지",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T16:12:48.753325"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28735332",
+      "year": 2023,
+      "month": 8,
+      "mileage_km": 33489,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 23900000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735332_7406955234181530.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735332_7406955327957262.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735332_7406955414745156.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735332_7406955506531911.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28735332",
+      "raw_title": "기아 K5 3세대 2.0 가솔린 트렌디",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T16:13:06.590291"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28747716",
+      "year": 2022,
+      "month": 7,
+      "mileage_km": 35943,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 12200000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28747716_7649897660708174.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28747716_7649897753372248.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28747716_7649897840956584.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28747716_7649897930652619.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28747716",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 프레스티지",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T16:16:07.278997"
   }
 ]

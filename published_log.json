@@ -14437,7 +14437,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28735103": {
     "first_seen": "2026-09-07T11:49:25",
-    "posted_at": null
+    "posted_at": "2026-09-11T20:42:30",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28735940": {
     "first_seen": "2026-09-07T11:49:25",
@@ -14565,6 +14567,20 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28752711": {
     "first_seen": "2026-09-11T10:51:44",
+    "posted_at": "2026-09-11T20:39:38",
+    "brand": "Kia",
+    "model": "K3"
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28754373": {
+    "first_seen": "2026-09-11T20:39:00",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28754259": {
+    "first_seen": "2026-09-11T20:39:00",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28754261": {
+    "first_seen": "2026-09-11T20:39:00",
     "posted_at": null
   }
 }

@@ -72,32 +72,6 @@
   },
   {
     "car": {
-      "brand": "Kia",
-      "model": "K5",
-      "trim": "",
-      "external_id": "28674874",
-      "year": 2023,
-      "month": 5,
-      "mileage_km": 22125,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 31200000,
-      "specs": "1999 см³, 160 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28674874_5752748801334059.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28674874_5752748905482952.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28674874_5752749012431205.jpeg?width=720",
-        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2867/28674874_5752749116281253.jpeg?width=720"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28674874",
-      "raw_title": "기아 K5 3세대 2.0 가솔린 프레스티지",
-      "source": "kbchachacha"
-    },
-    "added_at": "2026-09-09T18:22:08.117595"
-  },
-  {
-    "car": {
       "brand": "Hyundai",
       "model": "Sonata",
       "trim": "",
@@ -861,5 +835,57 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-09-11T16:16:07.278997"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28752711",
+      "year": 2022,
+      "month": 7,
+      "mileage_km": 38058,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 11700000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28752711_7750730677615773.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28752711_7750730766768525.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28752711_7750730851602785.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28752711_7750730936952186.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28752711",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 트렌디",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T20:39:38.257768"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28735103",
+      "year": 2022,
+      "month": 8,
+      "mileage_km": 39416,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 21300000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735103_7403289344244249.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735103_7403289425697654.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735103_7403289495465288.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28735103_7403289562842345.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28735103",
+      "raw_title": "기아 K5 3세대 2.0 가솔린 프레스티지",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-11T20:42:30.460973"
   }
 ]

@@ -14584,5 +14584,15 @@
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28754261": {
     "first_seen": "2026-09-11T20:39:00",
     "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28756390": {
+    "first_seen": "2026-09-12T20:20:15",
+    "posted_at": "2026-09-12T20:23:18",
+    "brand": "Kia",
+    "model": "K3"
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28756495": {
+    "first_seen": "2026-09-12T20:20:15",
+    "posted_at": null
   }
 }

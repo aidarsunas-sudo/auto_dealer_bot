@@ -887,5 +887,31 @@
       "source": "kbchachacha"
     },
     "published_at": "2026-09-11T20:42:30.461703"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28743993",
+      "year": 2023,
+      "month": 6,
+      "mileage_km": 39000,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 22990000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28743993_7603124465639464.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28743993_7603130934048622.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28743993_7603124800373211.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img04/img2874/28743993_7603125093796949.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28743993",
+      "raw_title": "기아 K5 하이브리드 3세대 2.0 HEV 노블레스",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-09-12T03:30:41.074323"
   }
 ]

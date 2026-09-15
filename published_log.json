@@ -14271,7 +14271,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28683049": {
     "first_seen": "2026-09-02T11:01:20",
-    "posted_at": null
+    "posted_at": "2026-09-15T03:49:32",
+    "brand": "Audi",
+    "model": "Q3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28720688": {
     "first_seen": "2026-09-02T11:01:20",
@@ -14633,6 +14635,22 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28759364": {
     "first_seen": "2026-09-14T12:04:34",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28759836": {
+    "first_seen": "2026-09-15T03:47:24",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28761722": {
+    "first_seen": "2026-09-15T03:47:24",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28761639": {
+    "first_seen": "2026-09-15T03:47:24",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28761657": {
+    "first_seen": "2026-09-15T03:47:24",
     "posted_at": null
   }
 }

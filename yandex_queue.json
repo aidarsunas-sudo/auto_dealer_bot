@@ -887,5 +887,31 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-09-12T20:23:18.466736"
+  },
+  {
+    "car": {
+      "brand": "Audi",
+      "model": "Q3",
+      "trim": "",
+      "external_id": "28683049",
+      "year": 2023,
+      "month": 7,
+      "mileage_km": 34869,
+      "cc": 1968,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 63900000,
+      "specs": "1968 см³, 150 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28683049_5917996852300539.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28683049_5917996932288277.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28683049_5917997000525252.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2868/28683049_5917997067817066.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28683049",
+      "raw_title": "아우디 The New Q3(F3) 35 TDI Quattro Premium",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-15T03:49:32.253413"
   }
 ]

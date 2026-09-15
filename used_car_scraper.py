@@ -134,11 +134,36 @@ def parse_used_car_list(html: str) -> list[dict]:
         # антибот-защиту специально не пытаемся, этого и не требуется:
         # список даёт достаточно фото сам по себе. Дедуп на всякий случай
         # (реальных дублей на сайте не встречалось, но не полагаемся).
+        #
+        # 2026-09-15: на GitHub Actions IP массово приходит только 1 фото
+        # вместо 4 (локально — стабильно 4/4), хотя фикс уже в main —
+        # похоже на анти-бот деградацию контента по IP (тот же класс, что
+        # уже был у encar). Добавлены: (1) фолбэк на lazy-load атрибуты
+        # (data-src и т.п.) — вдруг сайт на некоторых IP отдаёт превью
+        # именно так, а не в src; (2) диагностика в лог при недоборе —
+        # именно то, чего не хватало, чтобы понять, ЧТО приходит вместо
+        # фото 2..N на GHA, не гадая локально (см. FINAL_STATE.md).
+        thumnail_div = area.select_one("div.thumnail")
+        img_tags = thumnail_div.select("img") if thumnail_div else []
+
         photo_urls = []
-        for img in area.select("div.thumnail img"):
-            src = img.get("src")
+        for img in img_tags:
+            src = (img.get("src") or img.get("data-src") or img.get("data-original")
+                   or img.get("data-lazy-src") or img.get("data-lazy"))
             if src and src.startswith("http") and src not in photo_urls:
                 photo_urls.append(src)
+
+        if len(photo_urls) < config.MIN_PHOTOS_PER_POST:
+            attrs_dump = [
+                {k: v for k, v in img.attrs.items()
+                 if k in ("src", "data-src", "data-original", "data-lazy-src", "data-lazy", "class")}
+                for img in img_tags
+            ]
+            logger.warning(
+                f"used_car_scraper: carSeq={car_seq} — только {len(photo_urls)} фото "
+                f"(<img> тегов найдено: {len(img_tags)}, div.thumnail найден: {thumnail_div is not None}), "
+                f"атрибуты картинок: {attrs_dump}"
+            )
 
         data_line = area.select_one("div.data-line")
         year_month_raw, mileage_raw, region = None, None, None

@@ -29,6 +29,14 @@ builder, что и у обычной публикации) добавляетс�
 кандидат отклонён гейтом (например, аномальная цена — не связано с этим
 тестом), пробует следующего, не больше MAX_CANDIDATES_TO_TRY раз, чтобы не
 уйти в долгий перебор при неудачном стечении обстоятельств.
+
+Модель/источник — переключаемые (см. FALLBACK_TARGETS, 2026-09-15): цель
+этого теста — проверить КАНАЛЫ публикации (Telegram/VK), а не конкретную
+площадку. Если у запрошенной --brand/--model на данный момент недобор фото
+у всех кандидатов (например, конкретный источник временно деградирует на
+IP GitHub Actions — см. FINAL_STATE.md, инцидент с kbchachacha), тест сам
+переключается на следующую модель из резервного пула вместо того, чтобы
+провалиться целиком, так и не дойдя до проверки самих каналов.
 """
 
 import argparse
@@ -49,6 +57,18 @@ DEFAULT_BRAND = "Kia"
 DEFAULT_MODEL = "K3"
 MAX_CANDIDATES_TO_TRY = 10
 
+# Резервный пул — разные модели, исторически покрытые РАЗНЫМИ источниками
+# (не все четыре площадки одновременно капризничают), чтобы тест дошёл до
+# проверки каналов публикации, даже если у --brand/--model сейчас недобор
+# фото на всех источниках сразу. Порядок — от наиболее надёжного.
+FALLBACK_TARGETS = [
+    ("Kia", "K3"),
+    ("Chevrolet", "Trax"),
+    ("Renault", "XM3"),
+    ("Kia", "K5"),
+    ("Hyundai", "Avante"),
+]
+
 
 def find_candidates(brand: str, model: str) -> list:
     target = {"brand": brand, "model": model, "year_from": 2020, "year_to": 2026}
@@ -62,22 +82,28 @@ def find_candidates(brand: str, model: str) -> list:
         logger.info(f"{source_name}: найдено {len(found)}")
         cars.extend(found)
 
-    cars = [c for c in cars if c.get("photos")]
+    # Строгий пре-фильтр — НЕ "хоть одно фото", а >= порога гейта
+    # (config.MIN_PHOTOS_PER_POST). Раньше пропускали кандидатов с 1-2
+    # фото дальше, и они съедали весь бюджет MAX_CANDIDATES_TO_TRY, ни разу
+    # не пройдя гейт — до проверки самих каналов (Telegram/VK) дело не
+    # доходило (см. 2026-09-15: kbchachacha временно отдавал по 1 фото на
+    # IP GitHub Actions — 10 из 10 кандидатов Kia K3 отсеялись впустую).
+    before = len(cars)
+    cars = [c for c in cars if len(c.get("photos") or []) >= config.MIN_PHOTOS_PER_POST]
+    if before != len(cars):
+        logger.info(f"Пре-фильтр по фото (>= {config.MIN_PHOTOS_PER_POST}): "
+                    f"{before} -> {len(cars)} кандидатов")
     cars.sort(key=lambda c: c.get("mileage_km") if c.get("mileage_km") is not None else 10**9)
     return cars
 
 
-def run() -> None:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--brand", default=DEFAULT_BRAND)
-    parser.add_argument("--model", default=DEFAULT_MODEL)
-    args = parser.parse_args()
-
-    config.check_config()
-    logger.info(f"=== Тестовая публикация (дедуп игнорируется): {args.brand} {args.model} ===")
-    rates = fetch_cbr_rates()
-    candidates = find_candidates(args.brand, args.model)
-    logger.info(f"Кандидатов с фото: {len(candidates)}")
+def _try_target(brand: str, model: str, rates: dict) -> bool:
+    """Пробует опубликовать тестовый пост по одной модели. Возвращает True
+    при успехе, False — если ни один кандидат этой модели не прошёл гейт
+    (вызывающий код тогда переключается на следующую модель из пула)."""
+    logger.info(f"=== Тестовая публикация (дедуп игнорируется): {brand} {model} ===")
+    candidates = find_candidates(brand, model)
+    logger.info(f"Кандидатов с фото (>= {config.MIN_PHOTOS_PER_POST}): {len(candidates)}")
 
     tried = 0
     for car in candidates:
@@ -103,12 +129,37 @@ def run() -> None:
         if ok:
             logger.info(f"✅ Тестовый пост опубликован: {car.get('brand')} {car.get('model')} "
                         f"{car.get('trim')} ({car.get('url')})")
-            return
+            return True
         logger.warning("Telegram не подтвердил отправку — пробую следующего кандидата")
 
+    logger.warning(f"{brand} {model}: ни один из {tried} проверенных кандидатов ({len(candidates)} "
+                    f"с достаточным числом фото) не прошёл гейт")
+    return False
+
+
+def run() -> None:
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--brand", default=DEFAULT_BRAND)
+    parser.add_argument("--model", default=DEFAULT_MODEL)
+    args = parser.parse_args()
+
+    config.check_config()
+    rates = fetch_cbr_rates()
+
+    requested = (args.brand, args.model)
+    targets_to_try = [requested] + [t for t in FALLBACK_TARGETS if t != requested]
+
+    for i, (brand, model) in enumerate(targets_to_try, start=1):
+        if _try_target(brand, model, rates):
+            return
+        if i < len(targets_to_try):
+            logger.info(f"Переключаюсь на следующую модель из резервного пула "
+                        f"({i}/{len(targets_to_try)} испробовано)")
+
     raise SystemExit(
-        f"Не нашлось ни одного кандидата {args.brand} {args.model} (из {len(candidates)} с фото, "
-        f"проверено {tried}), прошедшего гейт публикации — тестовый пост не отправлен."
+        f"Не нашлось ни одного кандидата, прошедшего гейт публикации, ни по одной из "
+        f"{len(targets_to_try)} испробованных моделей ({', '.join(f'{b} {m}' for b, m in targets_to_try)}) "
+        f"— тестовый пост не отправлен."
     )
 
 

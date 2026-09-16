@@ -1,51 +1,6 @@
 [
   {
     "car": {
-      "brand": "Volkswagen",
-      "model": "Tiguan",
-      "trim": "",
-      "external_id": "01a04698-0c89-7fab-91cd-1ba7a722d8fe",
-      "year": 2022,
-      "month": 3,
-      "mileage_km": 29894,
-      "cc": 1968,
-      "hp": 150,
-      "fuel_code": "diesel",
-      "price": 46900000,
-      "specs": "1968 см³, 150 л.с.",
-      "url": "https://www.charancha.com/cars/01a04698-0c89-7fab-91cd-1ba7a722d8fe",
-      "source": "charancha",
-      "photos": [
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b230-7335-a114-6c0d8b5b78af.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b235-7394-bde4-6655910b15b9.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b238-78f4-8595-cad2443e85d1.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b243-70e9-830e-2bdb19079a40.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b248-79e4-a36b-1ad8b5ac40dd.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b24b-7d3f-98c6-381ef7b14b72.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b254-7f76-9da5-ca980023d5f6.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b27a-7cd2-8897-10bfddb40fd5.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b280-7b85-9891-46a96610af11.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b283-7edc-a0ee-57f205e9e3ac.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b287-7bc9-b3a1-5fb62387d9b3.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b28b-7e5d-ae89-12e522fe3375.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b28f-7eeb-b3fb-33686c943aac.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2aa-7d15-b51e-e1fb519a4223.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2b0-7a3c-8f4e-f553b468950b.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2b7-7a96-b6a0-627d95c502ed.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2c1-7c78-8f60-11618c0bc1eb.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2cc-705f-9909-64c4e00a89a1.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2d8-76bc-83b8-fcb4efb337d9.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a04697-b2dc-721b-a766-a5f865e024aa.jpg"
-      ],
-      "transmission": "자동",
-      "is_accident": null,
-      "is_seizure": null,
-      "color": "흰색"
-    },
-    "added_at": "2026-09-09T18:19:54.991902"
-  },
-  {
-    "car": {
       "brand": "Renault",
       "model": "QM6",
       "trim": "",

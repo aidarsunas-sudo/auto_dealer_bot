@@ -43,13 +43,15 @@ def run() -> None:
     if today.month > 1:
         results.append(_check("Январь N-3 года — уже прошло >=3 лет", jan_minus_3, 1, "35"))
 
-    # 3. Месяц неизвестен (None) — должен вести себя как декабрь (консервативно).
-    none_month = age_bucket_from_year(dec_minus_3, None)
-    december_equiv = age_bucket_from_year(dec_minus_3, 12)
-    ok3 = none_month == december_equiv
+    # 3. Месяц неизвестен (None) — ведёт себя как январь (максимально старая,
+    # чтобы не занижать утильсбор — исправлено при аудите 2026-09-18).
+    jan_minus_3 = today.year - 3
+    none_month = age_bucket_from_year(jan_minus_3, None)
+    january_equiv = age_bucket_from_year(jan_minus_3, 1)
+    ok3 = none_month == january_equiv
     results.append(ok3)
-    print(f"[{'OK' if ok3 else 'FAIL'}] month=None ведёт себя как month=12: "
-          f"{none_month!r} == {december_equiv!r}")
+    print(f"[{'OK' if ok3 else 'FAIL'}] month=None ведёт себя как month=1: "
+          f"{none_month!r} == {january_equiv!r}")
 
     # 4. Январь N-5 года — наивно "5 лет" (уложилось бы в 35), реально уже
     # больше 5 лет (если сегодня не январь) — должно быть 57.

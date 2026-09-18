@@ -72,18 +72,25 @@ def calculate_price_details(car: dict, rates: dict) -> dict | None:
         rates=rates,
     )
 
-    # Банк.комиссия — только от цены самой машины (result["price_rub"]),
+    # Банковский спред на KRW: реальный курс покупки воны в банке выше ЦБ
+    # на EXCHANGE_SPREAD_PCT (типично ~14%). Таможня считается по ЦБ (закон),
+    # а ЗА МАШИНУ покупатель платит по банковскому — разница ложится сюда.
+    exchange_spread = result["price_rub"] * config.EXCHANGE_SPREAD_PCT
+    car_price_real = result["price_rub"] + exchange_spread
+
+    # Банк.комиссия — от РЕАЛЬНОЙ цены перевода (с учётом спреда),
     # НЕ от таможни/утильсбора/доставки/брокера/наценки.
-    bank_commission = result["price_rub"] * config.BANK_COMMISSION_PCT
+    bank_commission = car_price_real * config.BANK_COMMISSION_PCT
     extra_costs = config.LOGISTICS_RUB + config.BROKER_FEE_RUB + config.MARGIN_RUB
-    total_rub = int(result["total_with_car"] + bank_commission + extra_costs)
+    total_rub = int(car_price_real + result["with_util"] + bank_commission + extra_costs)
 
     return {
         "total_rub": total_rub,
-        "car_price_rub": int(result["price_rub"]),
+        "car_price_rub": int(car_price_real),
         "bank_commission_rub": int(bank_commission),
         "customs_rub": int(result["with_util"]),
         "extra_costs_rub": int(extra_costs),
+        "exchange_spread_rub": int(exchange_spread),
         "age_bucket": age,
     }
 

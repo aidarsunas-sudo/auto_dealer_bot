@@ -14716,5 +14716,29 @@
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28774009": {
     "first_seen": "2026-09-18T03:34:23",
     "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28774850": {
+    "first_seen": "2026-09-18T07:01:17",
+    "posted_at": "2026-09-18T07:01:54",
+    "brand": "Kia",
+    "model": "K3"
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28765885": {
+    "first_seen": "2026-09-18T07:01:17",
+    "posted_at": "2026-09-18T07:04:13",
+    "brand": "Kia",
+    "model": "K3"
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28774912": {
+    "first_seen": "2026-09-18T07:01:17",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28774871": {
+    "first_seen": "2026-09-18T07:01:17",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a0b2dd-774c-7e64-b629-a2597b5e6d07": {
+    "first_seen": "2026-09-18T07:01:17",
+    "posted_at": null
   }
 }

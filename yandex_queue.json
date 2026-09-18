@@ -868,5 +868,57 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-09-15T03:49:32.253413"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28774850",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 32352,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 23000000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2877/28774850_8356528188523209.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2877/28774850_8356528252295007.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2877/28774850_8356528311586020.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img07/img2877/28774850_8356528370792618.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28774850",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 프레스티지",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-18T07:01:54.473300"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28765885",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 32352,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 23000000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2876/28765885_8206086331663042.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2876/28765885_8206086464418510.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2876/28765885_8206086573679891.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img06/img2876/28765885_8206086704642991.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28765885",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 프레스티지",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-18T07:04:13.944489"
   }
 ]

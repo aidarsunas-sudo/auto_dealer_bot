@@ -56,6 +56,7 @@ from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
 from models_to_watch import sync_to_target_models
+from used_car_scraper import enrich_photos_from_detail
 import yandex_queue
 from yandex_publisher import send_yandex_draft
 from yandex_digest_builder import record_published_lot
@@ -175,6 +176,17 @@ def run() -> None:
     if not candidates:
         log.info("Публиковать нечего")
         return
+
+    # Обогащение фото: на GHA IP kbchachacha отдаёт 1 фото в карусели
+    # списка вместо 4 (анти-бот деградация). Detail-страница при этом
+    # работает и содержит 15-20 фото в JSON-LD. Дозагружаем ДО пре-фильтра,
+    # чтобы лоты не отсеялись по MIN_PHOTOS_PER_POST.
+    kb_cars = [c for c in candidates
+               if "kbchachacha.com" in (c.get("url") or "")
+               and len(c.get("photos") or []) < config.MIN_PHOTOS_PER_POST]
+    if kb_cars:
+        enriched_count = enrich_photos_from_detail(kb_cars)
+        log.info(f"Обогащение фото kbchachacha: {enriched_count}/{len(kb_cars)} лотов дозагружены")
 
     # Пре-фильтр: убираем кандидатов, которые заведомо не пройдут валидацию
     # (нет данных для цены, мало фото, нечитаемый заголовок).

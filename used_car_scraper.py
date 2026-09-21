@@ -12,21 +12,18 @@ kbchachacha.com (в отличие от scraper.py, который смотри�
   модель, год, пробег, регион, цена) — поэтому для расчёта таможни нужен
   отдельный справочник моделей (см. model_specs.py), который сопоставляет
   название модели с её реальными характеристиками.
-- Фото — берутся ПРЯМО со страницы списка (карусель превью в каждой
-  карточке объявления, 1-4 штуки, ?width=720) — добавлено 2026-07-20 как
-  единственный БОЕВОЙ источник фото для kbchachacha (targeted и broad
-  режимы через kbchachacha_target_adapter.py, USED_CAR_SEARCHES через
-  main.py — оба пути идут через parse_all_pages() ниже, чинить один раз
-  здесь, не в каждом вызывающем коде). Сознательно НЕ используется
-  детальная страница объявления (car/detail.kbc) — она защищена reCAPTCHA
-  ("로봇여부 확인"), которую не проходит даже headless-браузер (Playwright,
-  см. kb_detail_scraper.py — этот модуль остался для ручного
-  model_search.py, который извлекал оттуда доп. данные вроде страховой
-  истории, но фото сейчас там не получить в принципе, не только через
-  него) — специально обходить антибот-защиту не пытаемся, страница списка
-  и так даёт достаточно фото.
+- Фото — два источника:
+  1) Страница СПИСКА (карусель превью, 1-4 штуки, ?width=720) — основной
+     источник, добавлен 2026-07-20.
+  2) Detail-страница (car/detail.kbc) — fallback через enrich_photos_from_detail(),
+     добавлен 2026-09-21. На GHA IP список отдаёт только 1 фото (анти-бот
+     деградация по IP дата-центра), а detail-страница работает через plain
+     requests (Session + прогрев куки + паузы) и содержит 15-20 фото в JSON-LD
+     (schema.org/Product). Обогащение вызывается из main_pipeline.py ДО
+     пре-фильтра MIN_PHOTOS_PER_POST.
 """
 
+import json
 import re
 import logging
 
@@ -40,6 +37,7 @@ logger = logging.getLogger("used_car_scraper")
 
 BASE_URL = "https://www.kbchachacha.com"
 LIST_ENDPOINT = f"{BASE_URL}/public/search/list.empty"
+DETAIL_URL_TEMPLATE = f"{BASE_URL}/public/car/detail.kbc?carSeq={{seq}}"
 
 _session = requests.Session()
 _session.headers.update({
@@ -292,3 +290,108 @@ def parse_all_pages(search_params: dict, max_pages: int = 10, delay: float = 1.0
         time.sleep(delay)
 
     return all_cars
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Обогащение фото с detail-страницы kbchachacha
+# ═══════════════════════════════════════════════════════════════════
+# На GHA IP kbchachacha отдаёт только 1 фото в карусели списка вместо 4
+# (анти-бот деградация контента по IP дата-центра). Detail-страница при
+# этом отдаётся нормально через plain requests (без Playwright/reCAPTCHA),
+# если прогреть Session GET-запросом на главную и выдерживать паузы
+# (проверено в enrich_kb.py 2026-09). JSON-LD (schema.org/Product)
+# содержит 15-20 фото — берём оттуда.
+
+_detail_session: requests.Session | None = None
+
+
+def _get_detail_session() -> requests.Session:
+    global _detail_session
+    if _detail_session is not None:
+        return _detail_session
+    s = requests.Session()
+    s.headers.update({
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.8",
+        "Referer": f"{BASE_URL}/public/search/main.kbc",
+        "Connection": "keep-alive",
+    })
+    try:
+        s.get(f"{BASE_URL}/public/search/main.kbc", timeout=20)
+    except Exception:
+        pass
+    _detail_session = s
+    return s
+
+
+def _fetch_detail_photos(car_seq: str, session: requests.Session) -> list[str] | None:
+    """Достаёт список фото из JSON-LD на detail-странице kbchachacha."""
+    import time
+    url = DETAIL_URL_TEMPLATE.format(seq=car_seq)
+    for attempt in range(3):
+        try:
+            r = session.get(url, timeout=25)
+            if r.status_code != 200 or len(r.text) < 50000:
+                time.sleep(2.0 * (attempt + 1))
+                continue
+            m = re.search(
+                r'<script\s+type="application/ld\+json">(.*?)</script>',
+                r.text, re.S,
+            )
+            if not m:
+                return None
+            ld = json.loads(m.group(1))
+            images = [u for u in (ld.get("image") or [])
+                      if isinstance(u, str) and u.startswith("http")]
+            return images if images else None
+        except Exception as e:
+            logger.debug(f"detail fetch {car_seq} attempt {attempt+1}: {e}")
+            time.sleep(2.0 * (attempt + 1))
+    return None
+
+
+def enrich_photos_from_detail(
+    cars: list[dict],
+    min_photos: int | None = None,
+    delay: float = 1.5,
+) -> int:
+    """Дозагружает фото с detail-страницы для лотов с недостатком фото.
+
+    Мутирует car["photos"] in-place. Возвращает число обогащённых лотов.
+    """
+    import time
+    if min_photos is None:
+        min_photos = config.MIN_PHOTOS_PER_POST
+    need_enrich = [c for c in cars if len(c.get("photos") or []) < min_photos]
+    if not need_enrich:
+        return 0
+
+    logger.info(
+        f"enrich_photos: {len(need_enrich)} лотов с <{min_photos} фото, "
+        f"дозагружаю с detail-страниц kbchachacha"
+    )
+    session = _get_detail_session()
+    enriched = 0
+    for i, car in enumerate(need_enrich):
+        seq = car.get("external_id")
+        if not seq:
+            continue
+        photos = _fetch_detail_photos(str(seq), session)
+        if photos and len(photos) >= min_photos:
+            car["photos"] = photos
+            enriched += 1
+            logger.info(f"enrich_photos [{i+1}/{len(need_enrich)}]: "
+                        f"carSeq={seq} — {len(photos)} фото из detail-страницы")
+        else:
+            logger.warning(f"enrich_photos [{i+1}/{len(need_enrich)}]: "
+                           f"carSeq={seq} — detail не помогла "
+                           f"({len(photos) if photos else 0} фото)")
+        if i < len(need_enrich) - 1:
+            time.sleep(delay)
+
+    logger.info(f"enrich_photos: обогащено {enriched}/{len(need_enrich)} лотов")
+    return enriched

@@ -14473,7 +14473,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28739791": {
     "first_seen": "2026-09-08T03:27:53",
-    "posted_at": null
+    "posted_at": "2026-09-21T13:03:45",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28741377": {
     "first_seen": "2026-09-08T10:54:58",
@@ -14493,7 +14495,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28743702": {
     "first_seen": "2026-09-09T03:29:55",
-    "posted_at": null
+    "posted_at": "2026-09-21T13:04:27",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28743896": {
     "first_seen": "2026-09-09T03:29:55",
@@ -14501,7 +14505,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28744711": {
     "first_seen": "2026-09-09T10:59:25",
-    "posted_at": null
+    "posted_at": "2026-09-21T13:07:49",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28744951": {
     "first_seen": "2026-09-09T10:59:25",
@@ -14611,7 +14617,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28758247": {
     "first_seen": "2026-09-14T12:04:34",
-    "posted_at": null
+    "posted_at": "2026-09-21T13:08:31",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28758679": {
     "first_seen": "2026-09-14T12:04:34",
@@ -14639,7 +14647,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28759836": {
     "first_seen": "2026-09-15T03:47:24",
-    "posted_at": null
+    "posted_at": "2026-09-21T13:09:13",
+    "brand": "Audi",
+    "model": "Q3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28761722": {
     "first_seen": "2026-09-15T03:47:24",
@@ -14739,6 +14749,66 @@
   },
   "https://www.charancha.com/cars/01a0b2dd-774c-7e64-b629-a2597b5e6d07": {
     "first_seen": "2026-09-18T07:01:17",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28780922": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28758832": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28775108": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28775162": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28778653": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28776254": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28781179": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28778792": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28776166": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28776381": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28776378": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28775212": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28775780": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28761158": {
+    "first_seen": "2026-09-21T12:58:35",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28775946": {
+    "first_seen": "2026-09-21T12:58:35",
     "posted_at": null
   }
 }

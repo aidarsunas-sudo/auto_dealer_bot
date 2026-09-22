@@ -14705,11 +14705,15 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28763908": {
     "first_seen": "2026-09-16T03:46:33",
-    "posted_at": null
+    "posted_at": "2026-09-22T21:27:58",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28766805": {
     "first_seen": "2026-09-16T11:02:10",
-    "posted_at": null
+    "posted_at": "2026-09-22T21:28:38",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28768037": {
     "first_seen": "2026-09-16T21:04:21",
@@ -14717,7 +14721,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28769373": {
     "first_seen": "2026-09-17T03:48:28",
-    "posted_at": null
+    "posted_at": "2026-09-22T21:29:18",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28770841": {
     "first_seen": "2026-09-17T11:10:29",
@@ -14835,7 +14841,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28775780": {
     "first_seen": "2026-09-21T12:58:35",
-    "posted_at": null
+    "posted_at": "2026-09-22T21:33:16",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28761158": {
     "first_seen": "2026-09-21T12:58:35",
@@ -14855,7 +14863,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28784981": {
     "first_seen": "2026-09-22T04:22:14",
-    "posted_at": null
+    "posted_at": "2026-09-22T21:32:35",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28784145": {
     "first_seen": "2026-09-22T04:22:14",
@@ -14889,6 +14899,10 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28786278": {
     "first_seen": "2026-09-22T16:46:09",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28786917": {
+    "first_seen": "2026-09-22T21:21:51",
     "posted_at": null
   }
 }

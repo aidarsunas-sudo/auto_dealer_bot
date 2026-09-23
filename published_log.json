@@ -14731,7 +14731,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28769562": {
     "first_seen": "2026-09-17T11:10:29",
-    "posted_at": null
+    "posted_at": "2026-09-23T04:31:03",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28771108": {
     "first_seen": "2026-09-17T16:27:21",
@@ -14755,11 +14757,15 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28774184": {
     "first_seen": "2026-09-18T03:34:23",
-    "posted_at": null
+    "posted_at": "2026-09-23T04:34:12",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28774016": {
     "first_seen": "2026-09-18T03:34:23",
-    "posted_at": null
+    "posted_at": "2026-09-23T04:34:53",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28774009": {
     "first_seen": "2026-09-18T03:34:23",
@@ -14847,7 +14853,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28761158": {
     "first_seen": "2026-09-21T12:58:35",
-    "posted_at": null
+    "posted_at": "2026-09-23T04:35:31",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28775946": {
     "first_seen": "2026-09-21T12:58:35",
@@ -14883,7 +14891,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28773963": {
     "first_seen": "2026-09-22T11:31:32",
-    "posted_at": null
+    "posted_at": "2026-09-23T04:38:25",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28778043": {
     "first_seen": "2026-09-22T11:31:32",
@@ -14903,6 +14913,10 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28786917": {
     "first_seen": "2026-09-22T21:21:51",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28788654": {
+    "first_seen": "2026-09-23T04:28:06",
     "posted_at": null
   }
 }

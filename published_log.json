@@ -14837,7 +14837,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28776166": {
     "first_seen": "2026-09-21T12:58:35",
-    "posted_at": null
+    "posted_at": "2026-09-23T21:28:46",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28776381": {
     "first_seen": "2026-09-21T12:58:35",
@@ -14871,11 +14873,15 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28782257": {
     "first_seen": "2026-09-21T21:57:19",
-    "posted_at": null
+    "posted_at": "2026-09-23T21:32:06",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28784220": {
     "first_seen": "2026-09-22T04:22:14",
-    "posted_at": null
+    "posted_at": "2026-09-23T21:32:25",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28784981": {
     "first_seen": "2026-09-22T04:22:14",
@@ -14951,6 +14957,30 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28790783": {
     "first_seen": "2026-09-23T11:20:16",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28791210": {
+    "first_seen": "2026-09-23T21:26:07",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28745462": {
+    "first_seen": "2026-09-23T21:26:07",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28790849": {
+    "first_seen": "2026-09-23T21:26:07",
+    "posted_at": "2026-09-23T21:36:09",
+    "brand": "Kia",
+    "model": "K5"
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28790064": {
+    "first_seen": "2026-09-23T21:26:07",
+    "posted_at": "2026-09-23T21:36:51",
+    "brand": "Hyundai",
+    "model": "Sonata"
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28791218": {
+    "first_seen": "2026-09-23T21:26:07",
     "posted_at": null
   }
 }

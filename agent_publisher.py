@@ -50,7 +50,6 @@ import shutil
 import requests
 
 import config
-import vk_publisher
 import video_generator
 import video_state
 from telegram_publisher import send_to_telegram, send_photo_to_telegram, send_media_group_to_telegram
@@ -219,14 +218,22 @@ def _publish_video_extra(videos: dict, video_name: str, text: str, dry_run: bool
         - VK: если VIDEO_POST_MODE=separate — отдельный wall.post только
           с горизонтальным видео (в режиме "same" он уже ушёл вместе с
           фото внутри publish_post()).
-        - VK: вертикальная версия — ВСЕГДА просто как обычное видео (не
-          в Клипы — VK API не даёт грузить в Клипы от имени сообщества
-          программно, выдумывать обход не стали, см. video_generator.py
-          и FINAL_STATE.md) — Клипы из неё нужно будет оформить вручную
-          через приложение/сайт VK.
+        - VK: вертикальная версия НЕ загружается (см. ниже) — раньше
+          планировалось "обычным видео, Клипы оформить вручную", но
+          предположение "в Клипы само не попадёт" не подтвердилось на
+          практике (инцидент 2026-09-24: пользователь обнаружил в
+          разделе Клипы сообщества видео с прошлых тестовых прогонов —
+          VK сам вложил туда вертикальный ролик, загруженный через
+          video.save, без текста/цены/ссылки на бота, 0 просмотров кроме
+          нашего собственного — т.е. VK API САМ публично выкладывает
+          вертикальное видео сообщества как Клип, вопреки старому
+          комментарию). Публиковать туда "осиротевший" ролик без
+          контекста хуже, чем не публиковать вообще — поэтому загрузку
+          отключили; video_generator.py продолжает генерировать vertical
+          (используется как есть — не трогаем), просто здесь его не
+          отправляем.
     """
     horizontal = videos.get("horizontal")
-    vertical = videos.get("vertical")
 
     if horizontal:
         caption = text if config.VIDEO_POST_MODE == "separate" else ""
@@ -242,15 +249,9 @@ def _publish_video_extra(videos: dict, video_name: str, text: str, dry_run: bool
             except Exception as error:
                 logger.error(f"VK: неожиданная ошибка при публикации видео-поста ({error})")
 
-    if vertical and not dry_run and vk_publisher.is_configured():
-        group_id = abs(int(config.VK_OWNER_ID))
-        attachment = vk_publisher.upload_video_attachment(vertical, group_id, f"{video_name} (вертикальный)")
-        if attachment:
-            logger.info(f"Видео: вертикальная версия загружена в VK ({attachment}) — "
-                        f"в Клипы автоматически НЕ попадает, нужно оформить вручную "
-                        f"через приложение/сайт VK (см. video_generator.py)")
-        else:
-            logger.warning("Видео: не удалось загрузить вертикальную версию в VK")
+    # Вертикальная версия в VK больше НЕ загружается — см. докстринг
+    # функции выше (инцидент 2026-09-24, "осиротевшие" Клипы без текста/
+    # цены/ссылки). videos.get("vertical") здесь намеренно не используется.
 
 
 def send_video_to_telegram(video: str, caption: str = "", dry_run: bool = False) -> bool:

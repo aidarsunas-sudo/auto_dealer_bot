@@ -118,6 +118,11 @@ _TOKEN_ERROR_HINTS = {
     27: "токен группового типа (community token) — нужен именно пользовательский",
     15: "токену не хватает прав (scope) на этот метод — переиздать с правами "
         "photos,wall,groups,video,offline",
+    # НЕ про токен вообще (инцидент 2026-09-24) — токен рабочий, просто VK
+    # временно ограничил частоту вызовов этого метода (слишком много
+    # проверок подряд). Проверку стоит повторить позже, не переиздавать токен.
+    9: "это флуд-контроль VK (слишком много вызовов подряд), не признак битого токена — "
+       "подожди несколько минут и проверь ещё раз, переиздавать токен не нужно",
 }
 
 
@@ -191,6 +196,43 @@ def _api_call(method: str, params: dict, timeout: int = 20) -> dict | None:
     return data.get("response")
 
 
+def _api_call_with_code(method: str, params: dict, timeout: int = 20) -> tuple:
+    """
+    Как _api_call(), но дополнительно возвращает КОД ошибки VK API (или
+    None при сетевой/JSON-ошибке, когда кода просто нет). _api_call() саму
+    не трогаем — её простой контракт "dict или None" используется в
+    ~10 местах, менять рискованно. Этот хелпер — для мест, которым важно
+    ОТЛИЧИТЬ флуд-контроль (код 9) от прочих сбоев, чтобы решить, ждать ли
+    дольше перед повтором (см. _upload_one_photo() и инцидент 2026-09-24 —
+    короткая пауза между ретраями сама провоцировала каскад флуд-контроля
+    на всех 4 фото поста разом, см. FINAL_STATE.md).
+
+    Returns:
+        (response_dict, None) — успех.
+        (None, error_code) — ошибка VK API с известным кодом.
+        (None, None) — сетевая/JSON-ошибка (кода нет).
+    """
+    request_params = {**params, "access_token": config.VK_TOKEN, "v": API_VERSION}
+    try:
+        response = requests.post(f"{API_BASE}/{method}", data=request_params, timeout=timeout)
+        response.raise_for_status()
+        data = response.json()
+    except requests.RequestException as error:
+        logger.error(f"VK API {method}: сетевая ошибка ({_mask_secret(str(error))})")
+        return None, None
+    except ValueError as error:
+        logger.error(f"VK API {method}: не удалось разобрать ответ ({_mask_secret(str(error))})")
+        return None, None
+
+    if "error" in data:
+        error_info = data["error"]
+        code = error_info.get("error_code")
+        logger.error(f"VK API {method}: ошибка {code} — {error_info.get('error_msg')}")
+        return None, code
+
+    return data.get("response"), None
+
+
 def _download_photo(photo_url: str) -> bytes | None:
     """
     Скачивает фото с браузерными заголовками (User-Agent + Referer сайта-
@@ -254,6 +296,17 @@ def _download_photo(photo_url: str) -> bytes | None:
 # итоговых фото >= config.MIN_PHOTOS_FOR_POST).
 _UPLOAD_RETRIES = 3
 
+# Код ошибки VK "Flood control". Инцидент 2026-09-24: пауза между
+# ретраями была одинаковой (1с) для ЛЮБОЙ ошибки — для флуд-контроля
+# этого мало (окно ощутимо дольше), из-за чего один пойманный флуд-
+# контроль каскадом проваливал ВСЕ последующие попытки на ВСЕХ 4 фото
+# поста разом (до 12 вызовов photos.getWallUploadServer подряд с
+# секундными паузами — ни разу не дав лимиту VK реально сброситься),
+# см. FINAL_STATE.md. Теперь при этом коде — отдельная, заметно более
+# длинная пауза, вместо той же секунды, что и для обычных сбоев.
+_FLOOD_CONTROL_CODE = 9
+_FLOOD_CONTROL_BACKOFF_SEC = 12
+
 
 def _upload_one_photo(photo_url: str, group_id: int) -> str | None:
     """
@@ -263,12 +316,17 @@ def _upload_one_photo(photo_url: str, group_id: int) -> str | None:
     одна из попыток не сработала — вызывающий код пропускает это фото, не
     всю отправку (см. send_to_vk()).
     """
+    wait_before_next = 1  # обычная пауза; вырастет до _FLOOD_CONTROL_BACKOFF_SEC при коде 9 ниже
+
     for attempt in range(1, _UPLOAD_RETRIES + 1):
         if attempt > 1:
-            time.sleep(1)
+            time.sleep(wait_before_next)
+        wait_before_next = 1  # сбрасываем — увеличим заново, только если СНОВА поймаем флуд-контроль
 
-        upload_server = _api_call("photos.getWallUploadServer", {"group_id": group_id})
+        upload_server, error_code = _api_call_with_code("photos.getWallUploadServer", {"group_id": group_id})
         if upload_server is None:
+            if error_code == _FLOOD_CONTROL_CODE:
+                wait_before_next = _FLOOD_CONTROL_BACKOFF_SEC
             continue
         upload_url = upload_server.get("upload_url")
         if not upload_url:
@@ -296,17 +354,20 @@ def _upload_one_photo(photo_url: str, group_id: int) -> str | None:
                             f"на сервер VK — {error}")
             continue
 
-        saved = _api_call("photos.saveWallPhoto", {
+        saved, save_error_code = _api_call_with_code("photos.saveWallPhoto", {
             "group_id": group_id,
             "photo": upload_result.get("photo"),
             "server": upload_result.get("server"),
             "hash": upload_result.get("hash"),
         })
         if not saved:
-            # _api_call уже залогировал код/текст ошибки VK API — здесь
-            # дополнительно печатаем то, что реально вернул upload-сервер
-            # (server/photo/hash), чтобы при "photo is undefined" сразу
-            # было видно, пустой ли это ответ или что-то более конкретное.
+            if save_error_code == _FLOOD_CONTROL_CODE:
+                wait_before_next = _FLOOD_CONTROL_BACKOFF_SEC
+            # _api_call_with_code уже залогировал код/текст ошибки VK API —
+            # здесь дополнительно печатаем то, что реально вернул
+            # upload-сервер (server/photo/hash), чтобы при "photo is
+            # undefined" сразу было видно, пустой ли это ответ или что-то
+            # более конкретное.
             logger.warning(f"VK: попытка {attempt}/{_UPLOAD_RETRIES}, ответ upload-сервера "
                             f"для {photo_url}: server={upload_result.get('server')!r}, "
                             f"photo={upload_result.get('photo')!r}, "

@@ -1765,5 +1765,116 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-09-23T21:36:51.419012"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "28786365",
+      "year": 2022,
+      "month": 8,
+      "mileage_km": 26500,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 18200000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721516495709441.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721516576604064.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721516646064096.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721516728202836.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721516801055750.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721516861442285.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721516941824504.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517024922188.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517105880055.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517169455100.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517255020699.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517327133017.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517416094462.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517481629882.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517562831467.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517651655532.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517716378773.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517817348626.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28786365_8721517880212421.jpeg"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28786365",
+      "raw_title": "현대 쏘나타 (DN8) 2.0 프리미엄",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-24T04:20:32.959299"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28791210",
+      "year": 2022,
+      "month": 10,
+      "mileage_km": 26150,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 19490000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811869300885623.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811869375119873.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811869443716482.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811869514791004.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811869579093957.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811869652670981.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811869739588370.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811869845393598.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811869922109680.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811870032780517.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811870133599614.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811870234521388.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811870339585459.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791210_8811870422902778.jpeg"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28791210",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 시그니처",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-24T04:24:49.926447"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "",
+      "external_id": "28791218",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 26369,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 24800000,
+      "specs": "1198 см³, 139 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811886752249885.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811886918848490.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811887087434828.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811887259864497.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811887417768863.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811887564263978.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811887719539794.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811887816799766.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811887925908357.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811888016381218.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811888125521034.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28791218_8811888221349582.jpeg"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28791218",
+      "raw_title": "한국GM 트랙스 크로스오버 1.2 가솔린 2WD LS",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-24T04:25:35.777331"
   }
 ]

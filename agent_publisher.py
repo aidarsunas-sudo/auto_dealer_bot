@@ -27,6 +27,9 @@ VK (vk_publisher.py) — ВТОРОЙ канал, best-effort по отноше�
 неудача НЕ влияет на результат Telegram (см. publish_post() ниже). Но
 внутри самого VK действует та же защита — если хотя бы одно фото не
 прикрепилось, VK-пост тоже не публикуется (см. vk_publisher.send_to_vk()).
+Если это и заблокировало пост (мало фото), а видео (VIDEO_POST_MODE=
+"same") было готово — publish_post() пробует спасти хотя бы видео,
+опубликовав его отдельным постом (см. ниже, инцидент 2026-09-24).
 Вызов send_to_vk() здесь дополнительно обёрнут в try/except (2026-07-17) —
 защита от НЕОЖИДАННЫХ ошибок (не сетевых/API, те уже ловятся внутри
 vk_publisher.py и возвращают False), чтобы вообще ничего из VK не могло
@@ -165,6 +168,27 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
     try:
         if not send_to_vk(text, photos, dry_run=dry_run, video_path=inline_video, video_name=video_name):
             logger.warning("Не удалось опубликовать в VK — Telegram это не затрагивает")
+            # Инцидент 2026-09-24 (разбор архитектуры, без live-теста): в
+            # режиме VIDEO_POST_MODE="same" видео уходит В ТОМ ЖЕ вызове
+            # send_to_vk(), что и фото — если фото не набрали
+            # MIN_PHOTOS_FOR_POST, send_to_vk() возвращает False ДО того,
+            # как дойти до прикрепления video_path (см. vk_publisher.py),
+            # и готовое видео пропадает вместе с постом, хотя видео тут
+            # само по себе ни при чём. Раз основной пост не вышел —
+            # пробуем спасти хотя бы видео отдельным постом (та же логика,
+            # что и у VIDEO_POST_MODE="separate" в _publish_video_extra()
+            # ниже, но для его действительно-запланированного повтора там
+            # проверка config.VIDEO_POST_MODE == "separate" не сработает,
+            # поэтому дублируем здесь, а не переиспользуем).
+            if inline_video is not None:
+                logger.info("VK: пробую опубликовать видео отдельным постом, раз основной пост не вышел")
+                try:
+                    caption_vk = text if text else video_name
+                    if not send_to_vk(caption_vk, photos=None, dry_run=dry_run,
+                                       video_path=inline_video, video_name=video_name):
+                        logger.warning("VK: не удалось опубликовать видео и отдельным постом тоже")
+                except Exception as error:
+                    logger.error(f"VK: неожиданная ошибка при резервной публикации видео ({error})")
     except Exception as error:
         logger.error(f"VK: неожиданная ошибка при публикации ({error}) — Telegram это не затрагивает")
 

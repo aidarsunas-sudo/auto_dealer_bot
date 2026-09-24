@@ -108,6 +108,64 @@ def is_configured() -> bool:
     return bool(config.VK_ENABLED and config.VK_TOKEN and config.VK_OWNER_ID)
 
 
+# Коды ошибок VK API, с которыми мы уже сталкивались вживую на битом/не
+# том токене (см. инциденты 2026-07-28/2026-09-15) — распознаём их явно,
+# чтобы check_token_health() сразу называл ПРИЧИНУ, а не просто "не работает".
+_TOKEN_ERROR_HINTS = {
+    5: "токен недействителен/просрочен — нужен новый (см. SETUP_GITHUB_ACTIONS.md, "
+       "пользовательский токен через Kate Mobile/аналогичное Standalone-приложение, "
+       "НЕ VK ID confidential-приложение — тот выдаёт токен без прав wall/photos/video)",
+    27: "токен группового типа (community token) — нужен именно пользовательский",
+    15: "токену не хватает прав (scope) на этот метод — переиздать с правами "
+        "photos,wall,groups,video,offline",
+}
+
+
+def check_token_health() -> tuple[bool, str]:
+    """
+    Дешёвая проверка VK_TOKEN ПЕРЕД тем, как пайплайн потратит время на
+    сбор/генерацию контента — чтобы битый токен был виден сразу явным
+    сообщением (см. notifier.notify_error() у вызывающего кода), а не
+    тонул в ретраях загрузки фото глубоко внутри публикации (именно так
+    была обнаружена как минимум половина инцидентов с токеном в этом
+    проекте — см. FINAL_STATE.md). Ничего не публикует, только спрашивает
+    photos.getWallUploadServer — тот же метод, что первым падает при
+    реальной публикации, так что бьёт точно в то же место.
+
+    Returns:
+        (True, "") — VK не настроен (см. is_configured()) или токен рабочий.
+        (False, reason) — токен нерабочий, reason — человекочитаемая причина.
+    """
+    if not is_configured():
+        return True, ""  # не настроен — не наша забота здесь, см. is_configured()
+
+    group_id = abs(int(config.VK_OWNER_ID))
+    try:
+        resp = requests.post(f"{API_BASE}/photos.getWallUploadServer", data={
+            "group_id": group_id, "access_token": config.VK_TOKEN, "v": API_VERSION,
+        }, timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
+    except requests.RequestException as error:
+        return False, f"сетевая ошибка при проверке токена: {_mask_secret(str(error))}"
+    except ValueError as error:
+        return False, f"не удалось разобрать ответ VK API при проверке токена: {_mask_secret(str(error))}"
+
+    if "error" in data:
+        code = data["error"].get("error_code")
+        msg = data["error"].get("error_msg", "")
+        hint = _TOKEN_ERROR_HINTS.get(code)
+        reason = f"VK API photos.getWallUploadServer: ошибка {code} — {msg}"
+        if hint:
+            reason += f" ({hint})"
+        return False, reason
+
+    if not (data.get("response") or {}).get("upload_url"):
+        return False, f"неожиданный ответ VK API (нет upload_url): {data}"
+
+    return True, ""
+
+
 def _api_call(method: str, params: dict, timeout: int = 20) -> dict | None:
     """
     Общий вызов метода VK API. Возвращает словарь из поля "response",

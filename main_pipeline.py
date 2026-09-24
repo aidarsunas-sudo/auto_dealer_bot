@@ -55,6 +55,7 @@ from post_text_builder import prepare_post_fields, HANGUL_RE, ALLOWED_TITLE_RE
 from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
+import vk_publisher
 from models_to_watch import sync_to_target_models
 from used_car_scraper import enrich_photos_from_detail
 import yandex_queue
@@ -133,6 +134,20 @@ def run() -> None:
     log.info("=== Запуск main_pipeline ===")
 
     config.check_config()
+
+    # Дешёвая проверка VK_TOKEN В САМОМ НАЧАЛЕ прогона (см. vk_publisher.
+    # check_token_health()) — не блокирует Telegram (та же логика "одно не
+    # мешает другому", что и у agent_publisher.publish_post()), но делает
+    # битый токен ВИДНЫМ сразу явным логом/уведомлением админу, а не
+    # тонущим в ретраях загрузки фото где-то в середине прогона — именно
+    # так терялись прошлые инциденты с токеном (см. FINAL_STATE.md).
+    if not args.dry_run:
+        vk_ok, vk_reason = vk_publisher.check_token_health()
+        if not vk_ok:
+            log.error(f"VK_TOKEN не рабочий — публикация в VK в этом прогоне будет проваливаться: {vk_reason}")
+            notify_error(f"⚠️ VK_TOKEN не прошёл проверку перед прогоном main_pipeline: {vk_reason}")
+        else:
+            log.info("VK_TOKEN проверен — рабочий" if config.VK_ENABLED else "VK не настроен, пропускаю")
 
     # Простой список моделей без JSON (models_to_watch.txt) — переносит в
     # target_models.json всё, чего там ещё нет, до того как target_collector.py

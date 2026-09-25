@@ -544,7 +544,13 @@ def send_to_vk(text: str, photos: list | None = None, dry_run: bool = False,
         logger.warning(f"VK: не удалось прикрепить {len(failed_photos)}/{len(photos)} фото "
                         f"после ретраев: {failed_photos}")
 
-    if len(attachments) < config.MIN_PHOTOS_FOR_POST:
+    # Инцидент 2026-09-25: порог проверялся БЕЗУСЛОВНО, даже когда photos
+    # изначально пуст/None (видео-only пост — см. video_path ниже и
+    # agent_publisher._publish_video_extra()/резервную публикацию видео в
+    # publish_post()) — 0 успешных фото при 0 запрошенных всегда < порога,
+    # так что такой пост блокировался ВСЕГДА, независимо от видео. Порог
+    # имеет смысл только когда фото вообще заявлены.
+    if photos and len(attachments) < config.MIN_PHOTOS_FOR_POST:
         logger.error(f"VK: успешных фото {len(attachments)} < порога MIN_PHOTOS_FOR_POST="
                      f"{config.MIN_PHOTOS_FOR_POST} — публикация заблокирована")
         return False

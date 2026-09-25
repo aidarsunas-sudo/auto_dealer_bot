@@ -95,6 +95,63 @@ def _check_flood_control_backoff() -> bool:
         time_module.sleep = original_sleep
 
 
+def _check_video_only_post_not_blocked_by_photo_threshold() -> bool:
+    """
+    Инцидент 2026-09-25 (обнаружено разбором лога боевого прогона main_
+    pipeline): send_to_vk(photos=None, video_path=...) — видео-only пост
+    (см. agent_publisher._publish_video_extra()/резервную публикацию видео
+    в publish_post()) — блокировался тем же порогом MIN_PHOTOS_FOR_POST, что
+    и обычный фото-пост: 0 успешных фото < порога истинно ВСЕГДА, даже
+    когда фото вообще не запрашивались. Из-за этого резервная публикация
+    видео не срабатывала ни разу, хотя код её вызывал. Проверяет, что
+    send_to_vk(photos=None, video_path=...) реально доходит до wall.post
+    с видео-вложением, а не блокируется этим порогом.
+    """
+    original_api_call = vk._api_call
+    original_upload_video = vk.upload_video_attachment
+    original_enabled = config.VK_ENABLED
+    original_token = config.VK_TOKEN
+    original_owner = config.VK_OWNER_ID
+    original_min = config.MIN_PHOTOS_FOR_POST
+
+    wall_post_calls = []
+
+    def fake_api_call(method, params, timeout=30):
+        if method == "wall.post":
+            wall_post_calls.append(params)
+            return {"post_id": 777}
+        raise AssertionError(f"неожиданный метод в тесте: {method}")
+
+    try:
+        config.VK_ENABLED = True
+        config.VK_TOKEN = "fake-token"
+        config.VK_OWNER_ID = "-1"
+        config.MIN_PHOTOS_FOR_POST = 3
+
+        vk._api_call = fake_api_call
+        vk.upload_video_attachment = lambda video_path, group_id, name: "video1_555"
+
+        ok = vk.send_to_vk("текст видео-поста", photos=None, dry_run=False,
+                            video_path="/fake/video.mp4", video_name="Kia K3")
+
+        passed = (
+            ok is True
+            and len(wall_post_calls) == 1
+            and wall_post_calls[0].get("attachments") == "video1_555"
+        )
+        status = "OK" if passed else "FAIL"
+        _safe_print(f"[{status}] Видео-only пост (photos=None) не блокируется порогом "
+                    f"MIN_PHOTOS_FOR_POST: published={ok}, wall_post_calls={wall_post_calls}")
+        return passed
+    finally:
+        vk._api_call = original_api_call
+        vk.upload_video_attachment = original_upload_video
+        config.VK_ENABLED = original_enabled
+        config.VK_TOKEN = original_token
+        config.VK_OWNER_ID = original_owner
+        config.MIN_PHOTOS_FOR_POST = original_min
+
+
 def _run_case(label: str, photos: list, failing_urls: set, min_photos_for_post: int,
               expect_ok: bool) -> bool:
     original_upload = vk._upload_one_photo
@@ -135,6 +192,9 @@ def run() -> None:
 
     # Инцидент 2026-09-24: флуд-контроль должен ждать дольше обычного ретрая.
     results.append(_check_flood_control_backoff())
+
+    # Инцидент 2026-09-25: видео-only пост не должен блокироваться порогом фото.
+    results.append(_check_video_only_post_not_blocked_by_photo_threshold())
 
     # Регрессия самого инцидента: 1 из 4 не прикрепилось, порог=3 — публикуем.
     results.append(_run_case(

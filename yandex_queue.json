@@ -85,48 +85,6 @@
   },
   {
     "car": {
-      "brand": "Kia",
-      "model": "K5",
-      "trim": "",
-      "external_id": "28758247",
-      "year": 2023,
-      "month": 4,
-      "mileage_km": 28333,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 24990000,
-      "specs": "1999 см³, 160 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029128876484510.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029129018791248.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029129167020845.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029129287049582.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029129420500993.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029129577882522.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029129742709644.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029129891524474.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029130040929812.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029130158236840.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029130324322089.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029130497278445.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029130640565350.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029130750513209.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029130860527726.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029130973583094.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029131075997319.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029131227562817.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029131374859366.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28758247_8029131588859147.jpeg"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28758247",
-      "raw_title": "기아 K5 하이브리드 3세대 2.0 HEV 노블레스",
-      "source": "kbchachacha"
-    },
-    "added_at": "2026-09-21T13:08:31.833158"
-  },
-  {
-    "car": {
       "brand": "Audi",
       "model": "Q3",
       "trim": "",

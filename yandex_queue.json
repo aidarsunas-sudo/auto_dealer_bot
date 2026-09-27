@@ -1988,5 +1988,71 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-09-26T21:05:03.403337"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28788654",
+      "year": 2022,
+      "month": 10,
+      "mileage_km": 8226,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 26600000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765617073323181.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765617166820495.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765617262491376.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765617353802701.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765617441102331.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765617571759398.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765617654241191.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765617735072864.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765617832718001.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765618097879081.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765618203831101.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765618305650282.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765618407822086.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765618475323180.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765618545830670.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765618653669119.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765618728849866.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img08/img2878/28788654_8765618831184504.jpeg"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28788654",
+      "raw_title": "기아 K5 3세대 2.0 가솔린 노블레스",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-27T04:56:42.442637"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "",
+      "external_id": "28794329",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 27316,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 17900000,
+      "specs": "1598 см³, 123 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28794329_9129422841311499.jpg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28794329_9129422961043275.jpg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28794329_9129423107016161.jpg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28794329_9129423196994353.jpg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28794329",
+      "raw_title": "기아 더 뉴 K3(BD) 1.6 가솔린 트렌디",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-27T04:57:01.728117"
   }
 ]

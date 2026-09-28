@@ -15014,5 +15014,19 @@
     "posted_at": "2026-09-28T04:55:22",
     "brand": "Kia",
     "model": "K5"
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28796846": {
+    "first_seen": "2026-09-28T13:33:52",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28796811": {
+    "first_seen": "2026-09-28T13:33:52",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28795823": {
+    "first_seen": "2026-09-28T13:33:52",
+    "posted_at": "2026-09-28T13:36:21",
+    "brand": "Renault",
+    "model": "QM6"
   }
 }

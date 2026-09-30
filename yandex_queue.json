@@ -990,5 +990,73 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-09-29T12:51:02.225583"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28797424",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 24074,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 23600000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797424_9268861203497334.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797424_9268861489085138.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797424_9268861824524046.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797424_9268862167465473.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28797424",
+      "raw_title": "기아 더 뉴 K5 3세대 2.0 가솔린 프레스티지",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-30T05:14:19.878809"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28797308",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 29751,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 24200000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260128321350859.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260128628955170.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260128907969796.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260129179499342.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260129443593435.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260129744098336.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260130066371393.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260130429132194.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260130788207658.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260131167014032.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260131492089978.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260131828800818.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260132204323046.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260132531349391.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260132870428475.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260133174462934.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260133467576317.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260133761865299.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260134068373950.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28797308_9260134446361279.jpeg"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28797308",
+      "raw_title": "기아 K5 3세대 2.0 가솔린 트렌디",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-09-30T05:15:47.170776"
   }
 ]

@@ -15091,11 +15091,15 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28802121": {
     "first_seen": "2026-09-30T05:08:48",
-    "posted_at": null
+    "posted_at": "2026-10-01T13:03:32",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28802384": {
     "first_seen": "2026-09-30T05:08:48",
-    "posted_at": null
+    "posted_at": "2026-10-01T13:07:29",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28804697": {
     "first_seen": "2026-10-01T05:20:09",
@@ -15129,6 +15133,30 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28807688": {
     "first_seen": "2026-10-01T05:20:09",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28808992": {
+    "first_seen": "2026-10-01T12:56:15",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28808540": {
+    "first_seen": "2026-10-01T12:56:15",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28808991": {
+    "first_seen": "2026-10-01T12:56:15",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28808770": {
+    "first_seen": "2026-10-01T12:56:15",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28808609": {
+    "first_seen": "2026-10-01T12:56:15",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28809112": {
+    "first_seen": "2026-10-01T12:56:15",
     "posted_at": null
   }
 }

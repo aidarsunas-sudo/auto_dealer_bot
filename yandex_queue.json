@@ -553,5 +553,102 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-10-01T13:07:29.089069"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28808540",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 19198,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 23000000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28808540_9476983683225116.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28808540_9476983767503818.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28808540_9476983848758321.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28808540_9476983946852453.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28808540",
+      "raw_title": "기아 K5 3세대 2.0 LPI 렌터카 스탠다드",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-10-02T12:35:31.034985"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "",
+      "external_id": "28808991",
+      "year": 2022,
+      "month": 12,
+      "mileage_km": 31334,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 25000000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28808991_9483285370058955.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28808991_9483285460434712.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28808991_9483285568237721.jpeg?width=720",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28808991_9483285669736376.jpeg?width=720"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28808991",
+      "raw_title": "기아 K5 3세대 2.0 가솔린 시그니처",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-10-02T12:39:31.658340"
+  },
+  {
+    "car": {
+      "brand": "Volkswagen",
+      "model": "Tiguan",
+      "trim": "",
+      "external_id": "01a0fb11-f368-7231-a656-98223acd76b8",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 29494,
+      "cc": 1968,
+      "hp": 150,
+      "fuel_code": "diesel",
+      "price": 41500000,
+      "specs": "1968 см³, 150 л.с.",
+      "url": "https://www.charancha.com/cars/01a0fb11-f368-7231-a656-98223acd76b8",
+      "source": "charancha",
+      "photos": [
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc22-7b1f-9acf-07c364729abc.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc25-70eb-a5eb-9465e01c457b.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc29-738e-b973-5bb5b5f175e8.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc2d-78a6-ac24-4a6af9090801.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc31-77a9-83ce-12db3e097cdd.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc34-7759-a9cf-be5ba06e875d.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc37-7c56-ac7f-5c0c105cb165.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc3b-7d47-a65d-9a80f76f7be1.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc3e-7876-92eb-6a2a479b39a6.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc40-7fa8-8981-0949c2fcedf3.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc43-71a8-b5c1-00da9e844c0e.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc46-764c-a71a-d0c042d14386.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc49-7ac4-b8e9-016c5ad166f3.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc4d-7a33-8d65-68bc0ba8aa10.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc50-7722-8805-ee661dac8561.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc54-7e9c-9d89-c8c6b0f46b60.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc57-7f87-9fc5-dce8097b3d20.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc5a-73b6-a9ec-2f82dd87ea93.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc5d-7887-99f3-2109e16908c9.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a0fb11-bc60-7d59-af13-375e7c0de7e1.jpg"
+      ],
+      "transmission": "자동",
+      "is_accident": null,
+      "is_seizure": null,
+      "color": "흰색"
+    },
+    "added_at": "2026-10-02T12:40:11.141475"
   }
 ]

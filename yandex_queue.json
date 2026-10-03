@@ -650,5 +650,47 @@
       "color": "흰색"
     },
     "added_at": "2026-10-02T12:40:11.141475"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "28809999",
+      "year": 2023,
+      "month": 5,
+      "mileage_km": 34012,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 25400000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517313107354222.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517313658828527.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517314276380174.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517314873092379.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517315452027601.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517316031294559.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517316530055767.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517317033671443.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517317479104504.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517317884426836.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517318334113726.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517318811376196.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517319265611633.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517319718235763.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517320177395914.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517320645752710.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517321005630040.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517321134012894.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517321715797907.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517322226567915.jpeg"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28809999",
+      "raw_title": "현대 쏘나타 디 엣지 하이브리드(DN8) 2.0 HEV 인스퍼레이션",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-10-03T11:36:32.923660"
   }
 ]

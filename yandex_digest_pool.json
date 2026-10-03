@@ -1,46 +1,6 @@
 [
   {
     "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "",
-      "external_id": "28795823",
-      "year": 2022,
-      "month": 3,
-      "mileage_km": 35533,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 19500000,
-      "specs": "1998 см³, 144 л.с.",
-      "photos": [
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220434480143225.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220434702698897.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220434904588031.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220435108918596.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220435414201267.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220435697111249.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220435955353271.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220436188745624.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220436501739941.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220436739850105.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220436960450641.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220437191726989.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220437403295148.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220437620468005.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220437879773489.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220438243988435.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220438491167249.jpeg",
-        "https://img.kbchachacha.com/IMG/carimg/l/img09/img2879/28795823_9220438775484798.jpeg"
-      ],
-      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28795823",
-      "raw_title": "르노코리아 뉴 QM6 2.0 LPe 2WD RE Signature",
-      "source": "kbchachacha"
-    },
-    "published_at": "2026-09-28T13:36:21.269443"
-  },
-  {
-    "car": {
       "brand": "Chevrolet",
       "model": "Trax",
       "trim": "",
@@ -403,5 +363,47 @@
       "color": "흰색"
     },
     "published_at": "2026-10-02T12:40:11.142874"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "28809999",
+      "year": 2023,
+      "month": 5,
+      "mileage_km": 34012,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 25400000,
+      "specs": "1999 см³, 160 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517313107354222.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517313658828527.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517314276380174.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517314873092379.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517315452027601.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517316031294559.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517316530055767.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517317033671443.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517317479104504.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517317884426836.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517318334113726.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517318811376196.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517319265611633.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517319718235763.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517320177395914.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517320645752710.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517321005630040.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517321134012894.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517321715797907.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28809999_9517322226567915.jpeg"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28809999",
+      "raw_title": "현대 쏘나타 디 엣지 하이브리드(DN8) 2.0 HEV 인스퍼레이션",
+      "source": "kbchachacha"
+    },
+    "published_at": "2026-10-03T11:36:32.924575"
   }
 ]

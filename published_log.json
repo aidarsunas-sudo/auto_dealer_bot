@@ -15165,7 +15165,9 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28809999": {
     "first_seen": "2026-10-01T22:37:54",
-    "posted_at": null
+    "posted_at": "2026-10-03T11:36:32",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28810074": {
     "first_seen": "2026-10-01T22:37:54",
@@ -15239,6 +15241,10 @@
   },
   "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28814633": {
     "first_seen": "2026-10-02T22:17:18",
+    "posted_at": null
+  },
+  "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28817050": {
+    "first_seen": "2026-10-03T11:30:28",
     "posted_at": null
   }
 }

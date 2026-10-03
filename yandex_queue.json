@@ -692,5 +692,46 @@
       "source": "kbchachacha"
     },
     "added_at": "2026-10-03T11:36:32.923660"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "",
+      "external_id": "28800129",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 7450,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 23800000,
+      "specs": "1198 см³, 139 л.с.",
+      "photos": [
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306081865265529.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306082780152961.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306081470496337.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306082316209521.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306083267195707.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306083714203000.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306084121734281.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306084601759588.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306085039202383.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306085429720383.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306085850798420.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306086304995496.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306086697064717.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306087085800294.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306087542515265.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306088012337681.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306088488279070.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306088899252672.jpeg",
+        "https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28800129_9306089298061022.jpeg"
+      ],
+      "url": "https://www.kbchachacha.com/public/car/detail.kbc?carSeq=28800129",
+      "raw_title": "한국GM 트랙스 크로스오버 1.2 가솔린 2WD RS",
+      "source": "kbchachacha"
+    },
+    "added_at": "2026-10-03T16:25:25.614193"
   }
 ]

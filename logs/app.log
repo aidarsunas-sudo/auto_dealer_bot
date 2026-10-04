@@ -9620,3 +9620,35 @@
 2026-10-03 20:17:33,885 [WARNING] Не удалось обработать:
 • Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
 2026-10-03 20:17:34,199 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-04 03:05:49,655 [INFO] === Запуск ===
+2026-10-04 03:05:50,382 [INFO] Получены свежие курсы ЦБ: EUR=94.32 USD=83.48 KRW(за 1000)=61.40
+2026-10-04 03:05:50,384 [INFO] ── Проверяю: BMW New X6 ──
+2026-10-04 03:05:50,384 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11565 (попытка 1/3)
+2026-10-04 03:05:51,803 [INFO] ── Проверяю: Kia Sportage ──
+2026-10-04 03:05:51,803 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11722 (попытка 1/3)
+2026-10-04 03:05:52,512 [INFO] ── Проверяю: Mercedes-Benz GLB-Class ──
+2026-10-04 03:05:52,512 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11641 (попытка 1/3)
+2026-10-04 03:05:52,774 [INFO] ── Проверяю: Renault XM3 ──
+2026-10-04 03:05:52,774 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/10397-110253 (попытка 1/3)
+2026-10-04 03:05:53,135 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/10397-110253 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-10-04 03:05:53,135 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-10-04 03:05:53,136 [WARNING] На странице Renault XM3 ничего не найдено
+2026-10-04 03:05:53,136 [INFO] ── Проверяю б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'} ──
+2026-10-04 03:05:53,136 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-04 03:05:54,361 [WARNING] used_car_scraper: carSeq=28708950 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img10/img2870/28708950_6620299515864543.jpeg?width=720'}]
+2026-10-04 03:05:54,362 [WARNING] used_car_scraper: carSeq=28698031 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28698031_6359390385771162.jpeg?width=720'}]
+2026-10-04 03:05:54,363 [WARNING] used_car_scraper: carSeq=28731478 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img03/img2873/28731478_7401629207774564.jpeg?width=720'}]
+2026-10-04 03:05:54,363 [WARNING] used_car_scraper: carSeq=28539177 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img03/img2853/28539177_2054197821362253.jpeg?width=720'}]
+2026-10-04 03:05:54,364 [WARNING] used_car_scraper: carSeq=28699595 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img09/img2869/28699595_6384520371552054.jpeg?width=720'}]
+2026-10-04 03:05:54,365 [WARNING] used_car_scraper: carSeq=28816615 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img01/img2881/28816615_9641623704287006.jpeg?width=360'}]
+2026-10-04 03:05:54,365 [WARNING] used_car_scraper: carSeq=28803075 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img10/img2880/28803075_9491610909299676.jpeg?width=360'}]
+2026-10-04 03:05:54,366 [WARNING] used_car_scraper: carSeq=28754389 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img05/img2875/28754389_7797974641279876.jpeg?width=360'}]
+2026-10-04 03:05:54,367 [WARNING] used_car_scraper: carSeq=28019641 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img01/img2801/28019641_1650249733366568.jpeg?width=360'}]
+2026-10-04 03:05:54,367 [WARNING] used_car_scraper: carSeq=26608954 — только 1 фото (<img> тегов найдено: 1, div.thumnail найден: True), атрибуты картинок: [{'src': 'https://img.kbchachacha.com/IMG/carimg/l/img10/img2660/26608954_26412440695848372.jpeg?width=360'}]
+2026-10-04 03:05:54,368 [INFO] Страница 1: найдено 14 объявлений (новых 14)
+2026-10-04 03:05:55,368 [INFO] Загружаю список б/у авто, страница 2 (попытка 1/3)
+2026-10-04 03:05:55,524 [INFO] Страница 2: пусто, останавливаюсь
+2026-10-04 03:05:55,525 [INFO] === Готово ===
+2026-10-04 03:05:55,525 [WARNING] Не удалось обработать:
+• Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
+2026-10-04 03:05:56,118 [INFO] Уведомление об ошибке отправлено администратору

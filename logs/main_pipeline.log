@@ -339976,3 +339976,280 @@ Call log:
 2026-10-04 21:36:49,696 [INFO] Уведомление об ошибке отправлено администратору
 2026-10-04 21:36:49,698 [INFO] yandex_queue: рано — интервал ещё не прошёл
 2026-10-04 21:36:49,698 [INFO] === Готово: опубликовано 0 постов ===
+2026-10-05 05:02:22,211 [INFO] === Запуск main_pipeline ===
+2026-10-05 05:02:22,997 [ERROR] VK_TOKEN не рабочий — публикация в VK в этом прогоне будет проваливаться: VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4). (токен недействителен/просрочен — нужен новый (см. SETUP_GITHUB_ACTIONS.md, пользовательский токен через Kate Mobile/аналогичное Standalone-приложение, НЕ VK ID confidential-приложение — тот выдаёт токен без прав wall/photos/video))
+2026-10-05 05:02:23,633 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-05 05:02:24,428 [INFO] Получены свежие курсы ЦБ: EUR=94.32 USD=83.48 KRW(за 1000)=61.40
+2026-10-05 05:02:24,429 [INFO] Режим поиска: both
+2026-10-05 05:02:24,430 [INFO] ── Целевая модель: Audi Q3 (kbchachacha) ──
+2026-10-05 05:02:24,430 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:25,447 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:25,447 [INFO] kbchachacha: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-05 05:02:25,447 [INFO] ── Целевая модель: Audi Q3 (encar) ──
+2026-10-05 05:02:25,656 [ERROR] encar: ошибка запроса для Audi Q3: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%EC%95%84%EC%9A%B0%EB%94%94._.ModelGroup.Q3.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:02:25,656 [INFO] encar: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-05 05:02:25,657 [INFO] ── Целевая модель: Audi Q3 (charancha) ──
+2026-10-05 05:02:26,129 [INFO] charancha: Audi Q3 -> найдено 2 (после фильтров)
+2026-10-05 05:02:26,130 [INFO] ── Целевая модель: Audi Q3 (onbid) ──
+2026-10-05 05:02:29,453 [INFO] onbid: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-05 05:02:29,454 [INFO] ── Целевая модель: Volkswagen Tiguan (kbchachacha) ──
+2026-10-05 05:02:29,455 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:30,282 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:30,282 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:31,092 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:31,092 [INFO] kbchachacha: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-05 05:02:31,092 [INFO] ── Целевая модель: Volkswagen Tiguan (encar) ──
+2026-10-05 05:02:31,256 [ERROR] encar: ошибка запроса для Volkswagen Tiguan: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%ED%8F%AD%EC%8A%A4%EB%B0%94%EA%B2%90._.ModelGroup.%ED%8B%B0%EA%B5%AC%EC%95%88.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:02:31,256 [INFO] encar: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-05 05:02:31,257 [INFO] ── Целевая модель: Volkswagen Tiguan (charancha) ──
+2026-10-05 05:02:32,664 [INFO] charancha: Volkswagen Tiguan -> найдено 1 (после фильтров)
+2026-10-05 05:02:32,665 [INFO] ── Целевая модель: Volkswagen Tiguan (onbid) ──
+2026-10-05 05:02:36,130 [INFO] onbid: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-05 05:02:36,132 [INFO] ── Целевая модель: Kia K3 (kbchachacha) ──
+2026-10-05 05:02:36,132 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:36,959 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:36,959 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:37,498 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:37,499 [INFO] kbchachacha: Kia K3 -> найдено 0 (после фильтров)
+2026-10-05 05:02:37,499 [INFO] ── Целевая модель: Kia K3 (encar) ──
+2026-10-05 05:02:37,670 [ERROR] encar: ошибка запроса для Kia K3: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EA%B8%B0%EC%95%84._.ModelGroup.K3.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:02:37,670 [INFO] encar: Kia K3 -> найдено 0 (после фильтров)
+2026-10-05 05:02:37,671 [INFO] ── Целевая модель: Kia K3 (charancha) ──
+2026-10-05 05:02:40,188 [INFO] charancha: Kia K3 -> найдено 8 (после фильтров)
+2026-10-05 05:02:40,189 [INFO] ── Целевая модель: Kia K3 (onbid) ──
+2026-10-05 05:02:44,737 [INFO] onbid: Kia K3 -> найдено 0 (после фильтров)
+2026-10-05 05:02:44,738 [INFO] ── Целевая модель: Kia K5 (kbchachacha) ──
+2026-10-05 05:02:44,739 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:45,150 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:45,151 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:45,561 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:45,561 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:46,376 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:46,376 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:47,221 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:47,221 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:47,630 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:47,630 [INFO] kbchachacha: Kia K5 -> найдено 0 (после фильтров)
+2026-10-05 05:02:47,631 [INFO] ── Целевая модель: Kia K5 (encar) ──
+2026-10-05 05:02:47,806 [ERROR] encar: ошибка запроса для Kia K5: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EA%B8%B0%EC%95%84._.ModelGroup.K5.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:02:47,806 [INFO] encar: Kia K5 -> найдено 0 (после фильтров)
+2026-10-05 05:02:47,807 [INFO] ── Целевая модель: Kia K5 (charancha) ──
+2026-10-05 05:02:53,862 [INFO] charancha: Kia K5 -> найдено 12 (после фильтров)
+2026-10-05 05:02:53,864 [INFO] ── Целевая модель: Kia K5 (onbid) ──
+2026-10-05 05:02:57,009 [INFO] onbid: Kia K5 -> найдено 0 (после фильтров)
+2026-10-05 05:02:57,010 [INFO] ── Целевая модель: Hyundai Sonata (kbchachacha) ──
+2026-10-05 05:02:57,011 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:57,834 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:57,834 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:58,246 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:58,246 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:58,659 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:58,659 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:59,071 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:59,071 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:02:59,482 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:02:59,482 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:00,309 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:00,309 [INFO] kbchachacha: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-05 05:03:00,309 [INFO] ── Целевая модель: Hyundai Sonata (encar) ──
+2026-10-05 05:03:00,470 [ERROR] encar: ошибка запроса для Hyundai Sonata: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%ED%98%84%EB%8C%80._.ModelGroup.%EC%8F%98%EB%82%98%ED%83%80.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:03:00,470 [INFO] encar: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-05 05:03:00,471 [INFO] ── Целевая модель: Hyundai Sonata (charancha) ──
+2026-10-05 05:03:07,188 [INFO] charancha: Hyundai Sonata -> найдено 8 (после фильтров)
+2026-10-05 05:03:07,189 [INFO] ── Целевая модель: Hyundai Sonata (onbid) ──
+2026-10-05 05:03:11,110 [INFO] onbid: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-05 05:03:11,111 [INFO] ── Целевая модель: Kia Tasman (kbchachacha) ──
+2026-10-05 05:03:11,111 [INFO] kbchachacha: Kia Tasman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:03:11,111 [INFO] ── Целевая модель: Kia Tasman (encar) ──
+2026-10-05 05:03:11,112 [INFO] ── Целевая модель: Kia Tasman (charancha) ──
+2026-10-05 05:03:11,113 [INFO] ── Целевая модель: Kia Tasman (onbid) ──
+2026-10-05 05:03:14,484 [INFO] onbid: Kia Tasman -> найдено 0 (после фильтров)
+2026-10-05 05:03:14,486 [INFO] ── Целевая модель: Hyundai Venue (kbchachacha) ──
+2026-10-05 05:03:14,486 [INFO] kbchachacha: Hyundai Venue -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:03:14,486 [INFO] ── Целевая модель: Hyundai Venue (encar) ──
+2026-10-05 05:03:14,487 [INFO] ── Целевая модель: Hyundai Venue (charancha) ──
+2026-10-05 05:03:14,487 [INFO] ── Целевая модель: Hyundai Venue (onbid) ──
+2026-10-05 05:03:17,924 [INFO] onbid: Hyundai Venue -> найдено 0 (после фильтров)
+2026-10-05 05:03:17,925 [INFO] ── Целевая модель: Hyundai Casper (kbchachacha) ──
+2026-10-05 05:03:17,925 [INFO] kbchachacha: Hyundai Casper -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:03:17,926 [INFO] ── Целевая модель: Hyundai Casper (encar) ──
+2026-10-05 05:03:17,926 [INFO] ── Целевая модель: Hyundai Casper (charancha) ──
+2026-10-05 05:03:17,926 [INFO] ── Целевая модель: Hyundai Casper (onbid) ──
+2026-10-05 05:03:21,268 [INFO] onbid: Hyundai Casper -> найдено 0 (после фильтров)
+2026-10-05 05:03:21,269 [INFO] ── Целевая модель: Kia Ray (kbchachacha) ──
+2026-10-05 05:03:21,270 [INFO] kbchachacha: Kia Ray -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:03:21,270 [INFO] ── Целевая модель: Kia Ray (encar) ──
+2026-10-05 05:03:21,270 [INFO] ── Целевая модель: Kia Ray (charancha) ──
+2026-10-05 05:03:21,271 [INFO] ── Целевая модель: Kia Ray (onbid) ──
+2026-10-05 05:03:24,447 [INFO] onbid: Kia Ray -> найдено 0 (после фильтров)
+2026-10-05 05:03:24,448 [INFO] ── Целевая модель: Hyundai IONIQ 5 (kbchachacha) ──
+2026-10-05 05:03:24,448 [INFO] kbchachacha: Hyundai IONIQ 5 -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:03:24,448 [INFO] ── Целевая модель: Hyundai IONIQ 5 (encar) ──
+2026-10-05 05:03:24,449 [INFO] ── Целевая модель: Hyundai IONIQ 5 (charancha) ──
+2026-10-05 05:03:24,449 [INFO] ── Целевая модель: Hyundai IONIQ 5 (onbid) ──
+2026-10-05 05:03:27,403 [INFO] onbid: Hyundai IONIQ 5 -> найдено 0 (после фильтров)
+2026-10-05 05:03:27,404 [INFO] ── Целевая модель: Kia EV9 (kbchachacha) ──
+2026-10-05 05:03:27,405 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:28,219 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:28,219 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:28,632 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:28,632 [INFO] kbchachacha: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-05 05:03:28,632 [INFO] ── Целевая модель: Kia EV9 (encar) ──
+2026-10-05 05:03:28,841 [ERROR] encar: ошибка запроса для Kia EV9: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EA%B8%B0%EC%95%84._.ModelGroup.EV9.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:03:28,841 [INFO] encar: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-05 05:03:28,842 [INFO] ── Целевая модель: Kia EV9 (charancha) ──
+2026-10-05 05:03:29,288 [INFO] charancha: Kia EV9 -> найдено 1 (после фильтров)
+2026-10-05 05:03:29,289 [INFO] ── Целевая модель: Kia EV9 (onbid) ──
+2026-10-05 05:03:32,251 [INFO] onbid: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-05 05:03:32,252 [INFO] ── Целевая модель: Genesis GV60 (kbchachacha) ──
+2026-10-05 05:03:32,253 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:33,076 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:33,076 [INFO] kbchachacha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-05 05:03:33,076 [INFO] ── Целевая модель: Genesis GV60 (encar) ──
+2026-10-05 05:03:33,248 [ERROR] encar: ошибка запроса для Genesis GV60: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4._.ModelGroup.GV60.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:03:33,249 [INFO] encar: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-05 05:03:33,250 [INFO] ── Целевая модель: Genesis GV60 (charancha) ──
+2026-10-05 05:03:33,685 [INFO] charancha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-05 05:03:33,686 [INFO] ── Целевая модель: Genesis GV60 (onbid) ──
+2026-10-05 05:03:37,674 [INFO] onbid: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-05 05:03:37,675 [INFO] ── Целевая модель: BYD SEALION 7 (kbchachacha) ──
+2026-10-05 05:03:37,676 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:38,090 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:38,090 [INFO] kbchachacha: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-05 05:03:38,090 [INFO] ── Целевая модель: BYD SEALION 7 (encar) ──
+2026-10-05 05:03:38,091 [INFO] ── Целевая модель: BYD SEALION 7 (charancha) ──
+2026-10-05 05:03:38,091 [INFO] ── Целевая модель: BYD SEALION 7 (onbid) ──
+2026-10-05 05:03:41,035 [INFO] onbid: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-05 05:03:41,036 [INFO] ── Целевая модель: Kia Sportage (kbchachacha) ──
+2026-10-05 05:03:41,037 [INFO] kbchachacha: Kia Sportage -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:03:41,037 [INFO] ── Целевая модель: Kia Sportage (encar) ──
+2026-10-05 05:03:41,037 [INFO] ── Целевая модель: Kia Sportage (charancha) ──
+2026-10-05 05:03:41,038 [INFO] ── Целевая модель: Kia Sportage (onbid) ──
+2026-10-05 05:03:45,017 [INFO] onbid: Kia Sportage -> найдено 0 (после фильтров)
+2026-10-05 05:03:45,018 [INFO] ── Целевая модель: Renault QM6 (kbchachacha) ──
+2026-10-05 05:03:45,019 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:45,432 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:45,433 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:45,844 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:45,844 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:46,256 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:46,256 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:46,672 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:46,672 [INFO] kbchachacha: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-05 05:03:46,672 [INFO] ── Целевая модель: Renault QM6 (encar) ──
+2026-10-05 05:03:46,843 [ERROR] encar: ошибка запроса для Renault QM6: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EB%A5%B4%EB%85%B8%EC%BD%94%EB%A6%AC%EC%95%84%28%EC%82%BC%EC%84%B1%29._.ModelGroup.QM6.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:03:46,843 [INFO] encar: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-05 05:03:46,845 [INFO] ── Целевая модель: Renault QM6 (charancha) ──
+2026-10-05 05:03:49,225 [INFO] charancha: Renault QM6 -> найдено 3 (после фильтров)
+2026-10-05 05:03:49,226 [INFO] ── Целевая модель: Renault QM6 (onbid) ──
+2026-10-05 05:03:52,142 [INFO] onbid: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-05 05:03:52,143 [INFO] ── Целевая модель: Renault SM6 (kbchachacha) ──
+2026-10-05 05:03:52,144 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:03:52,556 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:03:52,556 [INFO] kbchachacha: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-05 05:03:52,557 [INFO] ── Целевая модель: Renault SM6 (encar) ──
+2026-10-05 05:03:52,727 [ERROR] encar: ошибка запроса для Renault SM6: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EB%A5%B4%EB%85%B8%EC%BD%94%EB%A6%AC%EC%95%84%28%EC%82%BC%EC%84%B1%29._.ModelGroup.SM6.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:03:52,727 [INFO] encar: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-05 05:03:52,728 [INFO] ── Целевая модель: Renault SM6 (charancha) ──
+2026-10-05 05:03:54,115 [INFO] charancha: Renault SM6 -> найдено 2 (после фильтров)
+2026-10-05 05:03:54,116 [INFO] ── Целевая модель: Renault SM6 (onbid) ──
+2026-10-05 05:03:57,542 [INFO] onbid: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-05 05:03:57,543 [INFO] ── Целевая модель: Chevrolet Malibu (kbchachacha) ──
+2026-10-05 05:03:57,544 [INFO] kbchachacha: Chevrolet Malibu -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:03:57,544 [INFO] ── Целевая модель: Chevrolet Malibu (encar) ──
+2026-10-05 05:03:57,544 [INFO] ── Целевая модель: Chevrolet Malibu (charancha) ──
+2026-10-05 05:03:57,545 [INFO] ── Целевая модель: Chevrolet Malibu (onbid) ──
+2026-10-05 05:04:01,548 [INFO] onbid: Chevrolet Malibu -> найдено 0 (после фильтров)
+2026-10-05 05:04:01,549 [INFO] ── Целевая модель: Chevrolet Spark (kbchachacha) ──
+2026-10-05 05:04:01,549 [INFO] kbchachacha: Chevrolet Spark -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:04:01,549 [INFO] ── Целевая модель: Chevrolet Spark (encar) ──
+2026-10-05 05:04:01,550 [INFO] ── Целевая модель: Chevrolet Spark (charancha) ──
+2026-10-05 05:04:01,550 [INFO] ── Целевая модель: Chevrolet Spark (onbid) ──
+2026-10-05 05:04:04,939 [INFO] onbid: Chevrolet Spark -> найдено 0 (после фильтров)
+2026-10-05 05:04:04,940 [INFO] ── Целевая модель: Chevrolet Trax (kbchachacha) ──
+2026-10-05 05:04:04,941 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:04:05,751 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:04:05,751 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:04:06,565 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:04:06,565 [INFO] kbchachacha: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-05 05:04:06,565 [INFO] ── Целевая модель: Chevrolet Trax (encar) ──
+2026-10-05 05:04:06,756 [ERROR] encar: ошибка запроса для Chevrolet Trax: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EC%89%90%EB%B3%B4%EB%A0%88%28GM%EB%8C%80%EC%9A%B0%29._.ModelGroup.%ED%8A%B8%EB%9E%99%EC%8A%A4.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:04:06,756 [INFO] encar: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-05 05:04:06,757 [INFO] ── Целевая модель: Chevrolet Trax (charancha) ──
+2026-10-05 05:04:08,127 [INFO] charancha: Chevrolet Trax -> найдено 4 (после фильтров)
+2026-10-05 05:04:08,128 [INFO] ── Целевая модель: Chevrolet Trax (onbid) ──
+2026-10-05 05:04:11,431 [INFO] onbid: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-05 05:04:11,432 [INFO] ── Целевая модель: Chevrolet Trailblazer (kbchachacha) ──
+2026-10-05 05:04:11,433 [INFO] kbchachacha: Chevrolet Trailblazer -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:04:11,433 [INFO] ── Целевая модель: Chevrolet Trailblazer (encar) ──
+2026-10-05 05:04:11,433 [INFO] ── Целевая модель: Chevrolet Trailblazer (charancha) ──
+2026-10-05 05:04:11,434 [INFO] ── Целевая модель: Chevrolet Trailblazer (onbid) ──
+2026-10-05 05:04:15,724 [INFO] onbid: Chevrolet Trailblazer -> найдено 0 (после фильтров)
+2026-10-05 05:04:15,726 [INFO] ── Целевая модель: Mini Countryman (kbchachacha) ──
+2026-10-05 05:04:15,726 [INFO] kbchachacha: Mini Countryman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:04:15,727 [INFO] ── Целевая модель: Mini Countryman (encar) ──
+2026-10-05 05:04:15,727 [INFO] ── Целевая модель: Mini Countryman (charancha) ──
+2026-10-05 05:04:15,727 [INFO] ── Целевая модель: Mini Countryman (onbid) ──
+2026-10-05 05:04:19,124 [INFO] onbid: Mini Countryman -> найдено 0 (после фильтров)
+2026-10-05 05:04:19,125 [INFO] ── Целевая модель: Mini Clubman (kbchachacha) ──
+2026-10-05 05:04:19,126 [INFO] kbchachacha: Mini Clubman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:04:19,126 [INFO] ── Целевая модель: Mini Clubman (encar) ──
+2026-10-05 05:04:19,127 [INFO] ── Целевая модель: Mini Clubman (charancha) ──
+2026-10-05 05:04:19,127 [INFO] ── Целевая модель: Mini Clubman (onbid) ──
+2026-10-05 05:04:23,302 [INFO] onbid: Mini Clubman -> найдено 0 (после фильтров)
+2026-10-05 05:04:23,303 [INFO] ── Целевая модель: Mini Convertible (kbchachacha) ──
+2026-10-05 05:04:23,304 [INFO] kbchachacha: Mini Convertible -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 05:04:23,304 [INFO] ── Целевая модель: Mini Convertible (encar) ──
+2026-10-05 05:04:23,304 [INFO] ── Целевая модель: Mini Convertible (charancha) ──
+2026-10-05 05:04:23,305 [INFO] ── Целевая модель: Mini Convertible (onbid) ──
+2026-10-05 05:04:26,690 [INFO] onbid: Mini Convertible -> найдено 0 (после фильтров)
+2026-10-05 05:04:26,691 [INFO] ── Целевая модель: Peugeot 3008 (kbchachacha) ──
+2026-10-05 05:04:26,692 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:04:27,116 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:04:27,116 [INFO] kbchachacha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-05 05:04:27,116 [INFO] ── Целевая модель: Peugeot 3008 (encar) ──
+2026-10-05 05:04:27,287 [ERROR] encar: ошибка запроса для Peugeot 3008: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%ED%91%B8%EC%A1%B0._.ModelGroup.3008.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:04:27,287 [INFO] encar: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-05 05:04:27,289 [INFO] ── Целевая модель: Peugeot 3008 (charancha) ──
+2026-10-05 05:04:27,768 [INFO] charancha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-05 05:04:27,769 [INFO] ── Целевая модель: Peugeot 3008 (onbid) ──
+2026-10-05 05:04:30,733 [INFO] onbid: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-05 05:04:30,734 [INFO] ── Целевая модель: Peugeot 5008 (kbchachacha) ──
+2026-10-05 05:04:30,735 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:04:31,678 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:04:31,678 [INFO] kbchachacha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-05 05:04:31,679 [INFO] ── Целевая модель: Peugeot 5008 (encar) ──
+2026-10-05 05:04:31,991 [ERROR] encar: ошибка запроса для Peugeot 5008: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%ED%91%B8%EC%A1%B0._.ModelGroup.5008.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:04:31,991 [INFO] encar: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-05 05:04:31,992 [INFO] ── Целевая модель: Peugeot 5008 (charancha) ──
+2026-10-05 05:04:32,467 [INFO] charancha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-05 05:04:32,468 [INFO] ── Целевая модель: Peugeot 5008 (onbid) ──
+2026-10-05 05:04:35,680 [INFO] onbid: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-05 05:04:35,681 [INFO] filter_year_range (target_collector): отброшено 6 объявлений вне диапазона года 2022-2023 (или без года)
+2026-10-05 05:04:35,682 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f4411-b192-7937-94cf-24935acbf488): цена 40,000,000 ₩ выше 1.3x медианы партии по модели (27,100,000 ₩, 12 лотов) на 47%
+2026-10-05 05:04:35,682 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f497c-8883-78fa-b1b8-ae3ca253c0d9): цена 36,000,000 ₩ выше 1.3x медианы партии по модели (27,100,000 ₩, 12 лотов) на 32%
+2026-10-05 05:04:35,682 [INFO] check_price_vs_batch_median (target_collector): отброшено 2 лотов дороже 1.3x медианы своей модели в партии
+2026-10-05 05:04:35,683 [INFO] broad_search: сегмент этого прогона — мощнее / бизнес-класс (140-160 л.с.) (3/4)
+2026-10-05 05:04:35,683 [INFO] ── Широкий поиск: kbchachacha (hp в [140, 160]) ──
+2026-10-05 05:04:35,683 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 05:04:36,619 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 05:04:36,619 [INFO] kbchachacha (broad): найдено 0 машин с hp в [140, 160]
+2026-10-05 05:04:36,620 [INFO] ── Широкий поиск: encar (hp в [140, 160]) ──
+2026-10-05 05:04:36,793 [ERROR] encar (broad): ошибка запроса: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 05:04:36,793 [INFO] encar (broad): найдено 0 машин с hp в [140, 160]
+2026-10-05 05:04:36,795 [INFO] ── Широкий поиск: charancha (hp в [140, 160]) ──
+2026-10-05 05:04:41,318 [INFO] charancha (broad): найдено 0 машин с hp в [140, 160]
+2026-10-05 05:04:41,320 [INFO] ── Широкий поиск: onbid (hp в [140, 160]) ──
+2026-10-05 05:05:02,120 [INFO] onbid (broad): найдено 1 машин с hp в [140, 160]
+2026-10-05 05:05:02,121 [WARNING] check_source_health: Источник(и) не дали НИ ОДНОГО объявления за этот прогон main_pipeline.py (targeted+broad суммарно): kbchachacha, encar. Похоже на 'тихую смерть' резолвера/поиска — см. FINAL_STATE.md про инцидент 2026-07-20 (kbchachacha/charancha молчали неделями незамеченными).
+2026-10-05 05:05:02,674 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-05 05:05:02,691 [INFO] Найдено 34 объявлений, кандидатов на публикацию (новые, не старше 14 дн., пробег до 40000 км, ещё не опубликованные): 3
+2026-10-05 05:05:02,691 [WARNING] Пре-фильтр: убраны ВСЕ 3 кандидатов — fallback на исходный список (все провалят валидацию)
+2026-10-05 05:05:03,185 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-05 05:05:03,187 [INFO] Фильтр недавних моделей: все 3 publishable кандидатов — недавние, используем всех (fallback)
+2026-10-05 05:05:03,188 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Kia K5 노블레스')) — Kia K5
+2026-10-05 05:05:03,188 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Kia K3 시그니처')) — Kia K3
+2026-10-05 05:05:03,188 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Kia K3 트렌디')) — Kia K3
+2026-10-05 05:05:03,709 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-05 05:05:03,710 [INFO] yandex_queue: рано — интервал ещё не прошёл
+2026-10-05 05:05:03,710 [INFO] === Готово: опубликовано 0 постов ===

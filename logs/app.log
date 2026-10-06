@@ -9814,3 +9814,25 @@
 • Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
 • б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'}
 2026-10-05 23:25:10,749 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-06 03:31:57,182 [INFO] === Запуск ===
+2026-10-06 03:31:57,850 [INFO] Получены свежие курсы ЦБ: EUR=95.33 USD=84.93 KRW(за 1000)=62.47
+2026-10-06 03:31:57,852 [INFO] ── Проверяю: BMW New X6 ──
+2026-10-06 03:31:57,852 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11565 (попытка 1/3)
+2026-10-06 03:31:59,156 [INFO] ── Проверяю: Kia Sportage ──
+2026-10-06 03:31:59,156 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11722 (попытка 1/3)
+2026-10-06 03:31:59,812 [INFO] ── Проверяю: Mercedes-Benz GLB-Class ──
+2026-10-06 03:31:59,812 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/11641 (попытка 1/3)
+2026-10-06 03:32:00,084 [INFO] ── Проверяю: Renault XM3 ──
+2026-10-06 03:32:00,084 [INFO] Загружаю https://www.carnoon.co.kr/newcar/vehicle/10397-110253 (попытка 1/3)
+2026-10-06 03:32:00,475 [WARNING] На странице https://www.carnoon.co.kr/newcar/vehicle/10397-110253 не нашлось ни одной комплектации. Возможно, изменилась вёрстка сайта, или нужные данные грузятся через JavaScript (тогда requests их не увидит).
+2026-10-06 03:32:00,476 [INFO] Сохранил текст страницы для отладки: debug_last_failed_page.txt
+2026-10-06 03:32:00,476 [WARNING] На странице Renault XM3 ничего не найдено
+2026-10-06 03:32:00,476 [INFO] ── Проверяю б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'} ──
+2026-10-06 03:32:00,476 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 03:32:01,503 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 03:32:01,504 [WARNING] По запросу {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'} ничего не найдено
+2026-10-06 03:32:01,504 [INFO] === Готово ===
+2026-10-06 03:32:01,504 [WARNING] Не удалось обработать:
+• Renault XM3 (https://www.carnoon.co.kr/newcar/vehicle/10397-110253)
+• б/у авто: {'countryOrder': 2, 'makerCode': 108, 'classCode': 2763, 'carCode': 3123, 'modelCode': 26172, 'regiDay': '2022,2023'}
+2026-10-06 03:32:02,006 [INFO] Уведомление об ошибке отправлено администратору

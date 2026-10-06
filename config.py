@@ -157,6 +157,8 @@ SCRIPT_ENABLED: bool = os.getenv("SCRIPT_ENABLED", "false").strip().lower() == "
 SCRIPT_DRY_RUN: bool = os.getenv("SCRIPT_DRY_RUN", "true").strip().lower() == "true"
 # Сколько последних хуков из лога передавать в previous_hooks.
 SCRIPT_PREVIOUS_HOOKS_N: int = int(os.getenv("SCRIPT_PREVIOUS_HOOKS_N", "10"))
+# Пакетный режим (lot_reel_script_batch.py): лотов в одном запросе к API.
+SCRIPT_BATCH_MAX: int = int(os.getenv("SCRIPT_BATCH_MAX", "8"))
 
 # --- Настройки парсинга ---
 # float() превращает текст "3" в число 3.0, с которым можно делать математику

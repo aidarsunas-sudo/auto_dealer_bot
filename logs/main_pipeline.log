@@ -340530,3 +340530,292 @@ Call log:
 2026-10-05 14:14:25,650 [INFO] Уведомление об ошибке отправлено администратору
 2026-10-05 14:14:25,651 [INFO] yandex_queue: рано — интервал ещё не прошёл
 2026-10-05 14:14:25,651 [INFO] === Готово: опубликовано 0 постов ===
+2026-10-05 23:56:09,459 [INFO] === Запуск main_pipeline ===
+2026-10-05 23:56:09,995 [ERROR] VK_TOKEN не рабочий — публикация в VK в этом прогоне будет проваливаться: VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4). (токен недействителен/просрочен — нужен новый (см. SETUP_GITHUB_ACTIONS.md, пользовательский токен через Kate Mobile/аналогичное Standalone-приложение, НЕ VK ID confidential-приложение — тот выдаёт токен без прав wall/photos/video))
+2026-10-05 23:56:10,325 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-05 23:56:10,843 [INFO] Получены свежие курсы ЦБ: EUR=95.33 USD=84.93 KRW(за 1000)=62.47
+2026-10-05 23:56:10,844 [INFO] Режим поиска: both
+2026-10-05 23:56:10,845 [INFO] ── Целевая модель: Audi Q3 (kbchachacha) ──
+2026-10-05 23:56:10,845 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:56:12,066 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:56:12,066 [INFO] kbchachacha: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-05 23:56:12,066 [INFO] ── Целевая модель: Audi Q3 (encar) ──
+2026-10-05 23:56:12,479 [ERROR] encar: ошибка запроса для Audi Q3: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%EC%95%84%EC%9A%B0%EB%94%94._.ModelGroup.Q3.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 23:56:12,479 [INFO] encar: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-05 23:56:12,480 [INFO] ── Целевая модель: Audi Q3 (charancha) ──
+2026-10-05 23:56:13,203 [INFO] charancha: Audi Q3 -> найдено 2 (после фильтров)
+2026-10-05 23:56:13,204 [INFO] ── Целевая модель: Audi Q3 (onbid) ──
+2026-10-05 23:56:38,862 [ERROR] onbid: страница 1 для Audi Q3: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd329520>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-05 23:56:38,863 [INFO] onbid: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-05 23:56:38,863 [INFO] ── Целевая модель: Volkswagen Tiguan (kbchachacha) ──
+2026-10-05 23:56:38,864 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:56:40,013 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:56:40,013 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:56:41,242 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:56:41,242 [INFO] kbchachacha: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-05 23:56:41,242 [INFO] ── Целевая модель: Volkswagen Tiguan (encar) ──
+2026-10-05 23:56:41,542 [ERROR] encar: ошибка запроса для Volkswagen Tiguan: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%ED%8F%AD%EC%8A%A4%EB%B0%94%EA%B2%90._.ModelGroup.%ED%8B%B0%EA%B5%AC%EC%95%88.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 23:56:41,543 [INFO] encar: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-05 23:56:41,544 [INFO] ── Целевая модель: Volkswagen Tiguan (charancha) ──
+2026-10-05 23:56:43,559 [INFO] charancha: Volkswagen Tiguan -> найдено 1 (после фильтров)
+2026-10-05 23:56:43,560 [INFO] ── Целевая модель: Volkswagen Tiguan (onbid) ──
+2026-10-05 23:56:47,347 [INFO] onbid: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-05 23:56:47,348 [INFO] ── Целевая модель: Kia K3 (kbchachacha) ──
+2026-10-05 23:56:47,349 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:56:48,377 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:56:48,377 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:56:48,963 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:56:48,963 [INFO] kbchachacha: Kia K3 -> найдено 0 (после фильтров)
+2026-10-05 23:56:48,963 [INFO] ── Целевая модель: Kia K3 (encar) ──
+2026-10-05 23:56:49,328 [ERROR] encar: ошибка запроса для Kia K3: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EA%B8%B0%EC%95%84._.ModelGroup.K3.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 23:56:49,328 [INFO] encar: Kia K3 -> найдено 0 (после фильтров)
+2026-10-05 23:56:49,329 [INFO] ── Целевая модель: Kia K3 (charancha) ──
+2026-10-05 23:56:52,411 [INFO] charancha: Kia K3 -> найдено 8 (после фильтров)
+2026-10-05 23:56:52,412 [INFO] ── Целевая модель: Kia K3 (onbid) ──
+2026-10-05 23:57:18,132 [ERROR] onbid: страница 1 для Kia K3: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd324bc0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-05 23:57:18,132 [INFO] onbid: Kia K3 -> найдено 0 (после фильтров)
+2026-10-05 23:57:18,132 [INFO] ── Целевая модель: Kia K5 (kbchachacha) ──
+2026-10-05 23:57:18,134 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:57:19,339 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:57:19,340 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:57:20,405 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:57:20,405 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:57:20,973 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:57:20,973 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:57:22,173 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:57:22,173 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:57:23,331 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:57:23,331 [INFO] kbchachacha: Kia K5 -> найдено 0 (после фильтров)
+2026-10-05 23:57:23,331 [INFO] ── Целевая модель: Kia K5 (encar) ──
+2026-10-05 23:57:23,720 [ERROR] encar: ошибка запроса для Kia K5: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EA%B8%B0%EC%95%84._.ModelGroup.K5.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 23:57:23,720 [INFO] encar: Kia K5 -> найдено 0 (после фильтров)
+2026-10-05 23:57:23,722 [INFO] ── Целевая модель: Kia K5 (charancha) ──
+2026-10-05 23:57:31,774 [INFO] charancha: Kia K5 -> найдено 12 (после фильтров)
+2026-10-05 23:57:31,775 [INFO] ── Целевая модель: Kia K5 (onbid) ──
+2026-10-05 23:57:57,340 [ERROR] onbid: страница 1 для Kia K5: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd364050>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-05 23:57:57,340 [INFO] onbid: Kia K5 -> найдено 0 (после фильтров)
+2026-10-05 23:57:57,340 [INFO] ── Целевая модель: Hyundai Sonata (kbchachacha) ──
+2026-10-05 23:57:57,340 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:57:58,463 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:57:58,463 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:57:59,022 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:57:59,022 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:58:00,091 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:58:00,091 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:58:01,234 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:58:01,234 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:58:02,366 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:58:02,366 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:58:03,482 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:58:03,482 [INFO] kbchachacha: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-05 23:58:03,482 [INFO] ── Целевая модель: Hyundai Sonata (encar) ──
+2026-10-05 23:58:04,013 [ERROR] encar: ошибка запроса для Hyundai Sonata: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%ED%98%84%EB%8C%80._.ModelGroup.%EC%8F%98%EB%82%98%ED%83%80.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 23:58:04,013 [INFO] encar: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-05 23:58:04,015 [INFO] ── Целевая модель: Hyundai Sonata (charancha) ──
+2026-10-05 23:58:12,461 [INFO] charancha: Hyundai Sonata -> найдено 8 (после фильтров)
+2026-10-05 23:58:12,462 [INFO] ── Целевая модель: Hyundai Sonata (onbid) ──
+2026-10-05 23:58:38,107 [ERROR] onbid: страница 1 для Hyundai Sonata: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd364a70>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-05 23:58:38,107 [INFO] onbid: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-05 23:58:38,108 [INFO] ── Целевая модель: Kia Tasman (kbchachacha) ──
+2026-10-05 23:58:38,108 [INFO] kbchachacha: Kia Tasman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 23:58:38,108 [INFO] ── Целевая модель: Kia Tasman (encar) ──
+2026-10-05 23:58:38,109 [INFO] ── Целевая модель: Kia Tasman (charancha) ──
+2026-10-05 23:58:38,109 [INFO] ── Целевая модель: Kia Tasman (onbid) ──
+2026-10-05 23:58:41,771 [INFO] onbid: Kia Tasman -> найдено 0 (после фильтров)
+2026-10-05 23:58:41,773 [INFO] ── Целевая модель: Hyundai Venue (kbchachacha) ──
+2026-10-05 23:58:41,773 [INFO] kbchachacha: Hyundai Venue -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 23:58:41,773 [INFO] ── Целевая модель: Hyundai Venue (encar) ──
+2026-10-05 23:58:41,774 [INFO] ── Целевая модель: Hyundai Venue (charancha) ──
+2026-10-05 23:58:41,774 [INFO] ── Целевая модель: Hyundai Venue (onbid) ──
+2026-10-05 23:58:45,553 [INFO] onbid: Hyundai Venue -> найдено 0 (после фильтров)
+2026-10-05 23:58:45,554 [INFO] ── Целевая модель: Hyundai Casper (kbchachacha) ──
+2026-10-05 23:58:45,555 [INFO] kbchachacha: Hyundai Casper -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 23:58:45,555 [INFO] ── Целевая модель: Hyundai Casper (encar) ──
+2026-10-05 23:58:45,556 [INFO] ── Целевая модель: Hyundai Casper (charancha) ──
+2026-10-05 23:58:45,556 [INFO] ── Целевая модель: Hyundai Casper (onbid) ──
+2026-10-05 23:59:10,588 [ERROR] onbid: страница 1 для Hyundai Casper: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd3652b0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-05 23:59:10,588 [INFO] onbid: Hyundai Casper -> найдено 0 (после фильтров)
+2026-10-05 23:59:10,588 [INFO] ── Целевая модель: Kia Ray (kbchachacha) ──
+2026-10-05 23:59:10,589 [INFO] kbchachacha: Kia Ray -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 23:59:10,589 [INFO] ── Целевая модель: Kia Ray (encar) ──
+2026-10-05 23:59:10,590 [INFO] ── Целевая модель: Kia Ray (charancha) ──
+2026-10-05 23:59:10,590 [INFO] ── Целевая модель: Kia Ray (onbid) ──
+2026-10-05 23:59:14,302 [INFO] onbid: Kia Ray -> найдено 0 (после фильтров)
+2026-10-05 23:59:14,303 [INFO] ── Целевая модель: Hyundai IONIQ 5 (kbchachacha) ──
+2026-10-05 23:59:14,304 [INFO] kbchachacha: Hyundai IONIQ 5 -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-05 23:59:14,304 [INFO] ── Целевая модель: Hyundai IONIQ 5 (encar) ──
+2026-10-05 23:59:14,304 [INFO] ── Целевая модель: Hyundai IONIQ 5 (charancha) ──
+2026-10-05 23:59:14,305 [INFO] ── Целевая модель: Hyundai IONIQ 5 (onbid) ──
+2026-10-05 23:59:18,799 [INFO] onbid: Hyundai IONIQ 5 -> найдено 0 (после фильтров)
+2026-10-05 23:59:18,801 [INFO] ── Целевая модель: Kia EV9 (kbchachacha) ──
+2026-10-05 23:59:18,801 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:59:19,581 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:59:19,582 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:59:20,151 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:59:20,151 [INFO] kbchachacha: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-05 23:59:20,151 [INFO] ── Целевая модель: Kia EV9 (encar) ──
+2026-10-05 23:59:20,550 [ERROR] encar: ошибка запроса для Kia EV9: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EA%B8%B0%EC%95%84._.ModelGroup.EV9.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 23:59:20,550 [INFO] encar: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-05 23:59:20,552 [INFO] ── Целевая модель: Kia EV9 (charancha) ──
+2026-10-05 23:59:21,255 [INFO] charancha: Kia EV9 -> найдено 1 (после фильтров)
+2026-10-05 23:59:21,256 [INFO] ── Целевая модель: Kia EV9 (onbid) ──
+2026-10-05 23:59:46,860 [ERROR] onbid: страница 1 для Kia EV9: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd308a10>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-05 23:59:46,860 [INFO] onbid: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-05 23:59:46,860 [INFO] ── Целевая модель: Genesis GV60 (kbchachacha) ──
+2026-10-05 23:59:46,861 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:59:47,445 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:59:47,445 [INFO] kbchachacha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-05 23:59:47,445 [INFO] ── Целевая модель: Genesis GV60 (encar) ──
+2026-10-05 23:59:47,746 [ERROR] encar: ошибка запроса для Genesis GV60: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4._.ModelGroup.GV60.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-05 23:59:47,746 [INFO] encar: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-05 23:59:47,748 [INFO] ── Целевая модель: Genesis GV60 (charancha) ──
+2026-10-05 23:59:48,355 [INFO] charancha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-05 23:59:48,356 [INFO] ── Целевая модель: Genesis GV60 (onbid) ──
+2026-10-05 23:59:52,094 [INFO] onbid: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-05 23:59:52,095 [INFO] ── Целевая модель: BYD SEALION 7 (kbchachacha) ──
+2026-10-05 23:59:52,096 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-05 23:59:52,662 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-05 23:59:52,662 [INFO] kbchachacha: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-05 23:59:52,662 [INFO] ── Целевая модель: BYD SEALION 7 (encar) ──
+2026-10-05 23:59:52,663 [INFO] ── Целевая модель: BYD SEALION 7 (charancha) ──
+2026-10-05 23:59:52,664 [INFO] ── Целевая модель: BYD SEALION 7 (onbid) ──
+2026-10-06 00:00:17,693 [ERROR] onbid: страница 1 для BYD SEALION 7: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd366240>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-06 00:00:17,693 [INFO] onbid: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-06 00:00:17,693 [INFO] ── Целевая модель: Kia Sportage (kbchachacha) ──
+2026-10-06 00:00:17,694 [INFO] kbchachacha: Kia Sportage -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-06 00:00:17,694 [INFO] ── Целевая модель: Kia Sportage (encar) ──
+2026-10-06 00:00:17,695 [INFO] ── Целевая модель: Kia Sportage (charancha) ──
+2026-10-06 00:00:17,695 [INFO] ── Целевая модель: Kia Sportage (onbid) ──
+2026-10-06 00:00:22,499 [INFO] onbid: Kia Sportage -> найдено 0 (после фильтров)
+2026-10-06 00:00:22,501 [INFO] ── Целевая модель: Renault QM6 (kbchachacha) ──
+2026-10-06 00:00:22,501 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:00:23,578 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:00:23,578 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:00:24,902 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:00:24,902 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:00:26,026 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:00:26,026 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:00:27,393 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:00:27,393 [INFO] kbchachacha: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-06 00:00:27,393 [INFO] ── Целевая модель: Renault QM6 (encar) ──
+2026-10-06 00:00:27,791 [ERROR] encar: ошибка запроса для Renault QM6: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EB%A5%B4%EB%85%B8%EC%BD%94%EB%A6%AC%EC%95%84%28%EC%82%BC%EC%84%B1%29._.ModelGroup.QM6.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-06 00:00:27,791 [INFO] encar: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-06 00:00:27,792 [INFO] ── Целевая модель: Renault QM6 (charancha) ──
+2026-10-06 00:00:31,036 [INFO] charancha: Renault QM6 -> найдено 3 (после фильтров)
+2026-10-06 00:00:31,037 [INFO] ── Целевая модель: Renault QM6 (onbid) ──
+2026-10-06 00:00:56,436 [ERROR] onbid: страница 1 для Renault QM6: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd30b3e0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-06 00:00:56,436 [INFO] onbid: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-06 00:00:56,436 [INFO] ── Целевая модель: Renault SM6 (kbchachacha) ──
+2026-10-06 00:00:56,437 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:00:57,602 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:00:57,602 [INFO] kbchachacha: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-06 00:00:57,602 [INFO] ── Целевая модель: Renault SM6 (encar) ──
+2026-10-06 00:00:57,894 [ERROR] encar: ошибка запроса для Renault SM6: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EB%A5%B4%EB%85%B8%EC%BD%94%EB%A6%AC%EC%95%84%28%EC%82%BC%EC%84%B1%29._.ModelGroup.SM6.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-06 00:00:57,894 [INFO] encar: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-06 00:00:57,895 [INFO] ── Целевая модель: Renault SM6 (charancha) ──
+2026-10-06 00:00:59,968 [INFO] charancha: Renault SM6 -> найдено 2 (после фильтров)
+2026-10-06 00:00:59,969 [INFO] ── Целевая модель: Renault SM6 (onbid) ──
+2026-10-06 00:01:04,810 [INFO] onbid: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-06 00:01:04,811 [INFO] ── Целевая модель: Chevrolet Malibu (kbchachacha) ──
+2026-10-06 00:01:04,812 [INFO] kbchachacha: Chevrolet Malibu -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-06 00:01:04,812 [INFO] ── Целевая модель: Chevrolet Malibu (encar) ──
+2026-10-06 00:01:04,813 [INFO] ── Целевая модель: Chevrolet Malibu (charancha) ──
+2026-10-06 00:01:04,813 [INFO] ── Целевая модель: Chevrolet Malibu (onbid) ──
+2026-10-06 00:01:30,460 [ERROR] onbid: страница 1 для Chevrolet Malibu: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd3618e0>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-06 00:01:30,460 [INFO] onbid: Chevrolet Malibu -> найдено 0 (после фильтров)
+2026-10-06 00:01:30,460 [INFO] ── Целевая модель: Chevrolet Spark (kbchachacha) ──
+2026-10-06 00:01:30,461 [INFO] kbchachacha: Chevrolet Spark -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-06 00:01:30,461 [INFO] ── Целевая модель: Chevrolet Spark (encar) ──
+2026-10-06 00:01:30,462 [INFO] ── Целевая модель: Chevrolet Spark (charancha) ──
+2026-10-06 00:01:30,462 [INFO] ── Целевая модель: Chevrolet Spark (onbid) ──
+2026-10-06 00:01:34,379 [INFO] onbid: Chevrolet Spark -> найдено 0 (после фильтров)
+2026-10-06 00:01:34,380 [INFO] ── Целевая модель: Chevrolet Trax (kbchachacha) ──
+2026-10-06 00:01:34,381 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:01:35,502 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:01:35,502 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:01:36,716 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:01:36,716 [INFO] kbchachacha: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-06 00:01:36,716 [INFO] ── Целевая модель: Chevrolet Trax (encar) ──
+2026-10-06 00:01:37,133 [ERROR] encar: ошибка запроса для Chevrolet Trax: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EC%89%90%EB%B3%B4%EB%A0%88%28GM%EB%8C%80%EC%9A%B0%29._.ModelGroup.%ED%8A%B8%EB%9E%99%EC%8A%A4.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-06 00:01:37,133 [INFO] encar: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-06 00:01:37,134 [INFO] ── Целевая модель: Chevrolet Trax (charancha) ──
+2026-10-06 00:01:38,925 [INFO] charancha: Chevrolet Trax -> найдено 4 (после фильтров)
+2026-10-06 00:01:38,926 [INFO] ── Целевая модель: Chevrolet Trax (onbid) ──
+2026-10-06 00:02:04,540 [ERROR] onbid: страница 1 для Chevrolet Trax: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd309100>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-06 00:02:04,540 [INFO] onbid: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-06 00:02:04,540 [INFO] ── Целевая модель: Chevrolet Trailblazer (kbchachacha) ──
+2026-10-06 00:02:04,541 [INFO] kbchachacha: Chevrolet Trailblazer -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-06 00:02:04,541 [INFO] ── Целевая модель: Chevrolet Trailblazer (encar) ──
+2026-10-06 00:02:04,542 [INFO] ── Целевая модель: Chevrolet Trailblazer (charancha) ──
+2026-10-06 00:02:04,542 [INFO] ── Целевая модель: Chevrolet Trailblazer (onbid) ──
+2026-10-06 00:02:09,093 [INFO] onbid: Chevrolet Trailblazer -> найдено 0 (после фильтров)
+2026-10-06 00:02:09,094 [INFO] ── Целевая модель: Mini Countryman (kbchachacha) ──
+2026-10-06 00:02:09,094 [INFO] kbchachacha: Mini Countryman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-06 00:02:09,095 [INFO] ── Целевая модель: Mini Countryman (encar) ──
+2026-10-06 00:02:09,095 [INFO] ── Целевая модель: Mini Countryman (charancha) ──
+2026-10-06 00:02:09,095 [INFO] ── Целевая модель: Mini Countryman (onbid) ──
+2026-10-06 00:02:12,268 [INFO] onbid: Mini Countryman -> найдено 0 (после фильтров)
+2026-10-06 00:02:12,269 [INFO] ── Целевая модель: Mini Clubman (kbchachacha) ──
+2026-10-06 00:02:12,270 [INFO] kbchachacha: Mini Clubman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-06 00:02:12,270 [INFO] ── Целевая модель: Mini Clubman (encar) ──
+2026-10-06 00:02:12,270 [INFO] ── Целевая модель: Mini Clubman (charancha) ──
+2026-10-06 00:02:12,271 [INFO] ── Целевая модель: Mini Clubman (onbid) ──
+2026-10-06 00:02:37,300 [ERROR] onbid: страница 1 для Mini Clubman: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd360230>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-06 00:02:37,300 [INFO] onbid: Mini Clubman -> найдено 0 (после фильтров)
+2026-10-06 00:02:37,300 [INFO] ── Целевая модель: Mini Convertible (kbchachacha) ──
+2026-10-06 00:02:37,301 [INFO] kbchachacha: Mini Convertible -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-06 00:02:37,301 [INFO] ── Целевая модель: Mini Convertible (encar) ──
+2026-10-06 00:02:37,302 [INFO] ── Целевая модель: Mini Convertible (charancha) ──
+2026-10-06 00:02:37,302 [INFO] ── Целевая модель: Mini Convertible (onbid) ──
+2026-10-06 00:02:40,576 [INFO] onbid: Mini Convertible -> найдено 0 (после фильтров)
+2026-10-06 00:02:40,577 [INFO] ── Целевая модель: Peugeot 3008 (kbchachacha) ──
+2026-10-06 00:02:40,577 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:02:41,769 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:02:41,769 [INFO] kbchachacha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-06 00:02:41,769 [INFO] ── Целевая модель: Peugeot 3008 (encar) ──
+2026-10-06 00:02:42,149 [ERROR] encar: ошибка запроса для Peugeot 3008: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%ED%91%B8%EC%A1%B0._.ModelGroup.3008.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-06 00:02:42,149 [INFO] encar: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-06 00:02:42,150 [INFO] ── Целевая модель: Peugeot 3008 (charancha) ──
+2026-10-06 00:02:42,819 [INFO] charancha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-06 00:02:42,821 [INFO] ── Целевая модель: Peugeot 3008 (onbid) ──
+2026-10-06 00:03:08,468 [ERROR] onbid: страница 1 для Peugeot 3008: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd361c10>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-06 00:03:08,468 [INFO] onbid: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-06 00:03:08,468 [INFO] ── Целевая модель: Peugeot 5008 (kbchachacha) ──
+2026-10-06 00:03:08,469 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:03:09,645 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:03:09,646 [INFO] kbchachacha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-06 00:03:09,646 [INFO] ── Целевая модель: Peugeot 5008 (encar) ──
+2026-10-06 00:03:09,862 [ERROR] encar: ошибка запроса для Peugeot 5008: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%ED%91%B8%EC%A1%B0._.ModelGroup.5008.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-06 00:03:09,862 [INFO] encar: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-06 00:03:09,863 [INFO] ── Целевая модель: Peugeot 5008 (charancha) ──
+2026-10-06 00:03:10,628 [INFO] charancha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-06 00:03:10,629 [INFO] ── Целевая модель: Peugeot 5008 (onbid) ──
+2026-10-06 00:03:15,440 [INFO] onbid: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-06 00:03:15,441 [INFO] filter_year_range (target_collector): отброшено 6 объявлений вне диапазона года 2022-2023 (или без года)
+2026-10-06 00:03:15,441 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f4411-b192-7937-94cf-24935acbf488): цена 40,000,000 ₩ выше 1.3x медианы партии по модели (27,100,000 ₩, 12 лотов) на 47%
+2026-10-06 00:03:15,442 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f497c-8883-78fa-b1b8-ae3ca253c0d9): цена 36,000,000 ₩ выше 1.3x медианы партии по модели (27,100,000 ₩, 12 лотов) на 32%
+2026-10-06 00:03:15,442 [INFO] check_price_vs_batch_median (target_collector): отброшено 2 лотов дороже 1.3x медианы своей модели в партии
+2026-10-06 00:03:15,442 [INFO] broad_search: сегмент этого прогона — мощнее / бизнес-класс (140-160 л.с.) (3/4)
+2026-10-06 00:03:15,442 [INFO] ── Широкий поиск: kbchachacha (hp в [140, 160]) ──
+2026-10-06 00:03:15,443 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-06 00:03:16,545 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-06 00:03:16,545 [INFO] kbchachacha (broad): найдено 0 машин с hp в [140, 160]
+2026-10-06 00:03:16,545 [INFO] ── Широкий поиск: encar (hp в [140, 160]) ──
+2026-10-06 00:03:16,788 [ERROR] encar (broad): ошибка запроса: 407 Client Error: Proxy Authentication Required for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-06 00:03:16,788 [INFO] encar (broad): найдено 0 машин с hp в [140, 160]
+2026-10-06 00:03:16,790 [INFO] ── Широкий поиск: charancha (hp в [140, 160]) ──
+2026-10-06 00:03:23,573 [INFO] charancha (broad): найдено 0 машин с hp в [140, 160]
+2026-10-06 00:03:23,574 [INFO] ── Широкий поиск: onbid (hp в [140, 160]) ──
+2026-10-06 00:03:48,615 [ERROR] onbid (broad): страница 1: HTTPSConnectionPool(host='www.onbid.co.kr', port=443): Max retries exceeded with url: /op/cltrpbancinf/clbtcltrclg/cltrclbtcltrclg/CltrClbtCltrClgController/inqCltrClbtVhcClg.do (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.onbid.co.kr', port=443) at 0x7f9bcd3ed130>, 'Connection to www.onbid.co.kr timed out. (connect timeout=25)'))
+2026-10-06 00:03:48,615 [INFO] onbid (broad): найдено 0 машин с hp в [140, 160]
+2026-10-06 00:03:48,615 [WARNING] check_source_health: Источник(и) не дали НИ ОДНОГО объявления за этот прогон main_pipeline.py (targeted+broad суммарно): kbchachacha, encar, onbid. Похоже на 'тихую смерть' резолвера/поиска — см. FINAL_STATE.md про инцидент 2026-07-20 (kbchachacha/charancha молчали неделями незамеченными).
+2026-10-06 00:03:48,941 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-06 00:03:48,957 [INFO] Найдено 33 объявлений, кандидатов на публикацию (новые, не старше 14 дн., пробег до 40000 км, ещё не опубликованные): 3
+2026-10-06 00:03:48,957 [WARNING] Пре-фильтр: убраны ВСЕ 3 кандидатов — fallback на исходный список (все провалят валидацию)
+2026-10-06 00:03:49,254 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-06 00:03:49,256 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Kia K5 노블레스')) — Kia K5
+2026-10-06 00:03:49,256 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Kia K3 시그니처')) — Kia K3
+2026-10-06 00:03:49,256 [INFO] lead_post_builder: пропущено (нет читаемого названия (корейский текст: 'Kia K3 트렌디')) — Kia K3
+2026-10-06 00:03:49,572 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-06 00:03:49,573 [INFO] yandex_queue: рано — интервал ещё не прошёл
+2026-10-06 00:03:49,573 [INFO] === Готово: опубликовано 0 постов ===

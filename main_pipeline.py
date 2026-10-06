@@ -98,11 +98,16 @@ def _prefilter_publishable(candidates: list) -> list:
     Пустой список = все отсеяны."""
     min_photos = config.MIN_PHOTOS_PER_POST
     result = []
+    reasons: dict[str, int] = {}
     for car in candidates:
         photos = car.get("photos") or []
         if len(photos) < min_photos:
+            reasons["photos<min"] = reasons.get("photos<min", 0) + 1
             continue
         if not all([car.get("price"), car.get("cc"), car.get("hp"), car.get("fuel_code")]):
+            missing = [f for f in ("price", "cc", "hp", "fuel_code") if not car.get(f)]
+            key = "missing:" + "+".join(missing)
+            reasons[key] = reasons.get(key, 0) + 1
             continue
         parts = []
         for v in (car.get("brand"), car.get("model"), car.get("trim")):
@@ -111,8 +116,11 @@ def _prefilter_publishable(candidates: list) -> list:
                 parts.append(v)
         title = " ".join(parts)
         if not title or HANGUL_RE.search(title) or not ALLOWED_TITLE_RE.match(title):
+            reasons["bad_title"] = reasons.get("bad_title", 0) + 1
             continue
         result.append(car)
+    if reasons:
+        logging.getLogger("main_pipeline").info(f"Пре-фильтр причины отсева: {reasons}")
     return result
 
 

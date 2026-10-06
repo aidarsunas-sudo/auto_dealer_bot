@@ -37,6 +37,7 @@ diversify() — round-robin по (brand, model) работает одинако�
 """
 
 import argparse
+import json
 import logging
 import time
 import traceback
@@ -52,6 +53,7 @@ from published_log import (
 from candidate_diversity import diversify, filter_recent_models, limit_consecutive_brand, check_source_health, MAX_PER_MODEL
 from lead_post_builder import build_lead_post
 from post_text_builder import prepare_post_fields, HANGUL_RE, ALLOWED_TITLE_RE
+import lot_reel_script
 from agent_publisher import publish_post
 from rates import fetch_cbr_rates
 from notifier import notify_error
@@ -299,6 +301,20 @@ def run() -> None:
                 # выборке, только чистятся по возрасту. Отправка — раз в
                 # день, отдельным workflow (run_yandex_digest.py), не отсюда.
                 record_published_lot(car)
+            # Сценарий ролика «Разбор лота» — за флагом SCRIPT_ENABLED (по
+            # умолчанию выключен), по умолчанию dry-run: только лог, ничего
+            # не публикуется. Гейт — внутри generate_script_for_car()
+            # (validate_post_before_publish -> ValidatedCar). Сбой не должен
+            # ломать публикацию — try/except, как у Яндекс-шага.
+            if config.SCRIPT_ENABLED:
+                try:
+                    script = lot_reel_script.generate_script_for_car(
+                        car, fields, dry_run=args.dry_run or config.SCRIPT_DRY_RUN)
+                    if script:
+                        log.info("Сценарий ролика (dry-run, не опубликован): "
+                                  + json.dumps(script, ensure_ascii=False))
+                except Exception as error:
+                    log.error(f"lot_reel_script: сбой генерации сценария: {error}")
             posted_count += 1
             log.info(f"[{posted_count}/{post_limit}] Опубликовано: {car.get('brand', '')} "
                       f"{car.get('model', '')} {car.get('trim', '')}")

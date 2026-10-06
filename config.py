@@ -149,6 +149,15 @@ ADMIN_CHAT_ID: str = os.getenv("ADMIN_CHAT_ID", "")
 # шаблонный генератор постов (post_builder.py), программа не упадёт.
 ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
 
+# --- Сценарии роликов «Разбор лота» (lot_reel_script.py) ---
+# Новая фича — за флагом, по умолчанию выключена. SCRIPT_DRY_RUN=true (тоже
+# по умолчанию): сценарий только генерируется и пишется в лог, хук НЕ
+# записывается в lot_reel_hooks.jsonl, ничего никуда не публикуется.
+SCRIPT_ENABLED: bool = os.getenv("SCRIPT_ENABLED", "false").strip().lower() == "true"
+SCRIPT_DRY_RUN: bool = os.getenv("SCRIPT_DRY_RUN", "true").strip().lower() == "true"
+# Сколько последних хуков из лога передавать в previous_hooks.
+SCRIPT_PREVIOUS_HOOKS_N: int = int(os.getenv("SCRIPT_PREVIOUS_HOOKS_N", "10"))
+
 # --- Настройки парсинга ---
 # float() превращает текст "3" в число 3.0, с которым можно делать математику
 REQUEST_DELAY_SECONDS: float = float(os.getenv("REQUEST_DELAY_SECONDS", "3"))

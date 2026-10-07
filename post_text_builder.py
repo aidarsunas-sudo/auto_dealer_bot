@@ -84,6 +84,29 @@ def _format_number(value) -> str:
     return f"{int(value):,}".replace(",", " ")
 
 
+_FUEL_RU = {
+    "petrol": "бензин", "diesel": "дизель", "hybrid_p": "гибрид (бензин)",
+    "hybrid_d": "гибрид (дизель)", "elec": "электро", "lpg": "газ (LPG)",
+}
+
+
+def format_engine_line(cc, hp, fuel_code=None) -> str:
+    """
+    Строка «Двигатель» для текста поста (post_render.render_post): десятичная ЗАПЯТАЯ,
+    объём в см³ и вид топлива, если известны — «1,0 л (998 см³), 76 л.с., бензин».
+    Электромобиль без объёма: «электро, 150 л.с.». Нет данных — «не указан».
+    Отдельно от engine_display (десятичная точка): его читают видео/озвучка/Яндекс-потоки.
+    """
+    fuel = _FUEL_RU.get(fuel_code or "", "")
+    if fuel_code == "elec":
+        return f"{fuel}, {int(hp)} л.с." if hp else "не указан"
+    if not (cc and hp):
+        return "не указан"
+    liters = f"{cc / 1000:.1f}".replace(".", ",")
+    line = f"{liters} л ({int(cc)} см³), {int(hp)} л.с."
+    return f"{line}, {fuel}" if fuel else line
+
+
 def _build_hashtags(car: dict) -> str:
     """
     3-5 хэштегов в конец поста (TG/VK) — #автоизкореи/#казань постоянные,
@@ -121,7 +144,7 @@ def _build_title(car: dict) -> str:
     return " ".join(parts)
 
 
-def prepare_post_fields(car: dict, rates: dict) -> tuple[dict | None, str]:
+def prepare_post_fields(car: dict, rates: dict, require_photos: bool = True) -> tuple[dict | None, str]:
     """
     Готовит ВСЕ общие поля поста (title/year/mileage_km/specs/engine_display/
     transmission/цифры цены) и прогоняет обязательные блокирующие проверки
@@ -131,6 +154,8 @@ def prepare_post_fields(car: dict, rates: dict) -> tuple[dict | None, str]:
         car: словарь объявления (brand/model/trim/year/mileage_km/cc/hp/
              fuel_code/price/photos/transmission/source/...).
         rates: курсы валют (rates.fetch_cbr_rates()).
+        require_photos: False — не требовать фото (render_post для лота, у которого фото
+            приходят отдельно, например торги HeyDealer: нужен только текст).
 
     Returns:
         (fields, "") — можно строить текст, fields готов для
@@ -147,7 +172,7 @@ def prepare_post_fields(car: dict, rates: dict) -> tuple[dict | None, str]:
         return None, f"нет читаемого названия (недопустимые символы: {title!r})"
 
     photos = car.get("photos") or []
-    if len(photos) < 1:
+    if require_photos and len(photos) < 1:
         return None, "нет фото"
 
     details = calculate_price_details(car, rates)
@@ -167,6 +192,9 @@ def prepare_post_fields(car: dict, rates: dict) -> tuple[dict | None, str]:
         "mileage_km": f"{car['mileage_km']:,} км".replace(",", " ") if car.get("mileage_km") is not None else "новый",
         "specs": car.get("specs", ""),
         "engine_display": engine_display,
+        # Строка двигателя для текста поста (десятичная запятая, см³, топливо) —
+        # post_render.render_post(); engine_display выше не трогаем (видео/озвучка/Яндекс).
+        "engine_line": format_engine_line(cc, hp, car.get("fuel_code")),
         # Не все источники отдают трансмиссию (Charancha — да, Encar/
         # kbchachacha/OnBid — нет без доп. запроса к детальной странице) —
         # честно показываем "не указано", а не гадаем (не баг, см. докстринг).
@@ -183,6 +211,8 @@ def prepare_post_fields(car: dict, rates: dict) -> tuple[dict | None, str]:
         # Не влияет на template.format(**fields) — лишний неиспользуемый
         # ключ в словаре шаблону не мешает.
         "total_rub_raw": details["total_rub"],
+        # Предупреждения расчёта цены (pricing.py): коммерческий утильсбор, запасные курсы...
+        "price_warnings": list(details.get("warnings", [])),
         "cta_bot": CTA_BOT,
         "hashtags": _build_hashtags(car),
     }

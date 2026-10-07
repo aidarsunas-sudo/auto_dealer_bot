@@ -12,8 +12,13 @@ registry.py — единый реестр опубликованного в Tele
 Формат published.jsonl — одна JSON-строка на пост, дописывается построчно
 (коммитится из Actions так же, как published_log.json). Если у message_id есть
 несколько строк, действует ПОСЛЕДНЯЯ (так запись уточняют, не переписывая файл).
-Поля:
-    message_id   номер сообщения в канале (альбом — первое сообщение)
+Записи ведутся ОТДЕЛЬНО по каждой площадке публикации (channel). Старые записи без channel/status — это
+Telegram со статусом published. Поля:
+    channel      площадка публикации: telegram / instagram / youtube
+    status       published (вышло) / pending_manual (площадка не подключена или лимит исчерпан — выложить
+                 вручную; для остальных площадок публикация идёт)
+    message_id   номер сообщения в канале Telegram (альбом — первое сообщение); у Instagram/YouTube — null,
+                 ссылка на пост — post_url (дописывается register-platform)
     post_url     https://t.me/auto_generals/<message_id>
     posted_at    время публикации, ISO 8601, UTC (на странице канала время в UTC)
     lot_id       стабильный id лота ("heydealer:<hash>"), если известен
@@ -36,6 +41,7 @@ published_log.json (см. match_lots(): это автопайплайн) и за
 Команды (reconcile по умолчанию dry-run, пишет только с --apply):
     python registry.py reconcile [--days 45] [--apply]
     python registry.py register-post https://t.me/auto_generals/<номер> [--lot-id ...] [--apply]
+    python registry.py register-platform --channel instagram --lot-id heydealer:nEB6WaPQ --post-url <ссылка> [--apply]
     python registry.py list [--last 20]
 """
 
@@ -63,6 +69,11 @@ PUBLISHED_LOG_PATH = _BASE / "published_log.json"
 
 METHODS = ("auto", "manual", "unknown")
 TEMPLATES = ("lead", "auction", "free")
+# Площадки ПУБЛИКАЦИИ (где вышел пост) — не путать с полем platform (откуда лот: heydealer/charancha…).
+CHANNELS = ("telegram", "instagram", "youtube")
+# published — пост вышел; pending_manual — площадка не подключена/лимит исчерпан, пост нужно выложить
+# вручную (инструмент не считает это ошибкой и публикует на остальные площадки).
+STATUSES = ("published", "pending_manual")
 MATCH_WINDOW_SEC = 900      # запись published_log позже поста: публикация + видео (до ~7 мин)
 MATCH_CLOCK_SKEW_SEC = 1    # допуск на расхождение часов раннера и Telegram
 _USER_AGENT = "Mozilla/5.0 (compatible; pickplus-registry/1.0)"
@@ -93,14 +104,41 @@ KNOWN_POSTS = {
            "lot_id": "heydealer:nEB6WaPQ", "video": True, "deadline_msk": "2026-10-09T07:17"},
 }
 
+# Kia Ray Signature (пост Telegram 5286) вышел ещё в Instagram и YouTube; ссылки на эти посты владелец даст
+# позже (register-platform --post-url …). Записи по каждой площадке — отдельные.
+KNOWN_EXTRA_RECORDS = [
+    {"channel": channel, "status": "published", "message_id": None, "post_url": None, "posted_at": None,
+     "lot_id": "heydealer:nEB6WaPQ", "lot_url": None, "platform": "heydealer",
+     "model": "Kia Ray Signature (The New Ray)", "year": 2022, "mileage_km": 20266,
+     "method": "manual", "template": "auction", "deadline_msk": "2026-10-09T07:17", "source": "known"}
+    for channel in ("instagram", "youtube")
+]
+
 _PLATFORM_BY_DOMAIN = (("charancha.com", "charancha"), ("kbchachacha.com", "kbchachacha"),
                        ("encar.com", "encar"), ("onbid", "onbid"), ("heydealer.com", "heydealer"))
 
 
 # ── файл реестра ──────────────────────────────────────────────────────────
 
+def channel_of(record: dict) -> str:
+    """Площадка публикации; у записей, сделанных до появления поля, это Telegram."""
+    return record.get("channel") or "telegram"
+
+
+def status_of(record: dict) -> str:
+    return record.get("status") or "published"
+
+
+def record_key(record: dict):
+    """Ключ записи: Telegram — message_id (int); остальные площадки — «канал:lot_id» (одна запись
+    на лот и площадку; ссылку на пост можно дописать позже)."""
+    if channel_of(record) == "telegram":
+        return int(record["message_id"])
+    return f"{channel_of(record)}:{record['lot_id']}"
+
+
 def load_records(path: Optional[Path] = None) -> dict:
-    """{message_id: запись} — по каждому message_id побеждает последняя строка.
+    """{ключ: запись} (см. record_key) — по каждому ключу побеждает последняя строка.
     Битая строка пропускается с предупреждением (реестр не должен падать целиком)."""
     path = Path(path or REGISTRY_PATH)
     records: dict = {}
@@ -111,20 +149,28 @@ def load_records(path: Optional[Path] = None) -> dict:
             continue
         try:
             record = json.loads(line)
-            records[int(record["message_id"])] = record
+            records[record_key(record)] = record
         except (ValueError, KeyError, TypeError):
             logger.warning(f"registry: строка {number} в {path.name} не разобрана — пропущена")
     return records
 
 
 def append_record(record: dict, path: Optional[Path] = None) -> None:
-    """Дописывает запись одной строкой. Проверяет перечисления способа и шаблона."""
+    """Дописывает запись одной строкой. Проверяет перечисления способа, шаблона, площадки и статуса."""
     if record.get("method") not in METHODS:
         raise ValueError(f"method должен быть одним из {METHODS}, получено {record.get('method')!r}")
     if record.get("template") not in TEMPLATES:
         raise ValueError(f"template должен быть одним из {TEMPLATES}, получено {record.get('template')!r}")
-    if not isinstance(record.get("message_id"), int):
-        raise ValueError("message_id обязателен и должен быть целым числом")
+    channel = channel_of(record)
+    if channel not in CHANNELS:
+        raise ValueError(f"channel должен быть одним из {CHANNELS}, получено {channel!r}")
+    if status_of(record) not in STATUSES:
+        raise ValueError(f"status должен быть одним из {STATUSES}, получено {record.get('status')!r}")
+    if channel == "telegram":
+        if not isinstance(record.get("message_id"), int):
+            raise ValueError("message_id обязателен и должен быть целым числом (для Telegram)")
+    elif not record.get("lot_id"):
+        raise ValueError(f"для площадки {channel} нужен lot_id (запись ведётся по лоту)")
     path = Path(path or REGISTRY_PATH)
     with open(path, "a", encoding="utf-8", newline="\n") as handle:
         handle.write(json.dumps(record, ensure_ascii=False, sort_keys=False) + "\n")
@@ -258,6 +304,8 @@ def build_record(post: dict, lot_urls: dict, now: Optional[datetime] = None) -> 
     known = KNOWN_POSTS.get(post["message_id"], {})
     lot_url = lot_urls.get(post["message_id"])
     record = {
+        "channel": "telegram",
+        "status": "published",
         "message_id": post["message_id"],
         "post_url": f"https://t.me/{CHANNEL}/{post['message_id']}",
         "posted_at": post["posted_at"].isoformat() if post["posted_at"] else None,
@@ -326,7 +374,7 @@ def lot_title(lot: dict) -> str:
     return _build_title(lot)
 
 
-def find_duplicate(lot: dict, records: Optional[dict] = None) -> Optional[dict]:
+def find_duplicate(lot: dict, records: Optional[dict] = None, channel: str = "telegram") -> Optional[dict]:
     """
     Ищет лот в реестре. Возвращает {"record": запись, "rule": ..., "detail": ...} или None.
 
@@ -338,8 +386,11 @@ def find_duplicate(lot: dict, records: Optional[dict] = None) -> Optional[dict]:
        правилу не сравниваем, не гадаем).
     Шаблон поста значения не имеет: лот, вышедший как «торги», нельзя повторить как
     «бронирование». Тестовые посты и записи с method=unknown тоже считаются публикацией.
+    Проверка идёт ПО ПЛОЩАДКЕ (channel): лот, уже вышедший в Telegram, не считается дублем для
+    Instagram/YouTube. Учитываются только записи со статусом published (pending_manual не блокирует).
     """
     records = load_records() if records is None else records
+    records = {k: r for k, r in records.items() if channel_of(r) == channel and status_of(r) == "published"}
     keys = lot_keys(lot)
     if keys:
         for record in records.values():
@@ -377,7 +428,10 @@ class Rows(list):
 
 def _same(existing: dict, new: dict) -> bool:
     ignore = {"recorded_at"}
-    return {k: v for k, v in existing.items() if k not in ignore} == {k: v for k, v in new.items() if k not in ignore}
+
+    def normal(record):  # старые записи без channel/status равны новым со значениями по умолчанию
+        return {**{"channel": "telegram", "status": "published"}, **{k: v for k, v in record.items() if k not in ignore}}
+    return normal(existing) == normal(new)
 
 
 def reconcile(days: int = 45, apply: bool = False, max_pages: int = 120, delay: float = 0.7,
@@ -502,10 +556,64 @@ def register_post(link: str, overrides: Optional[dict] = None, apply: bool = Fal
     return status, record
 
 
+def ensure_known_extras(registry_path: Optional[Path] = None, apply: bool = False, now: Optional[datetime] = None) -> list:
+    """Добавляет в реестр записи Instagram/YouTube из KNOWN_EXTRA_RECORDS, если их ещё нет (идемпотентно).
+    Возвращает [(статус, запись)]; пишет только при apply=True."""
+    registry_path = Path(registry_path or REGISTRY_PATH)
+    existing = load_records(registry_path)
+    rows = []
+    for template in KNOWN_EXTRA_RECORDS:
+        record = dict(template)
+        old = existing.get(record_key(record))
+        status = "new" if old is None else ("same" if _same(old, record) else "same")  # уже внесённое не перетираем
+        if status == "new":
+            record["recorded_at"] = (now or datetime.now(timezone.utc)).isoformat(timespec="seconds")
+            if apply:
+                append_record(record, registry_path)
+        rows.append((status, record if old is None else old))
+    return rows
+
+
+def register_platform(channel: str, lot_id: str, overrides: Optional[dict] = None, apply: bool = False,
+                      registry_path: Optional[Path] = None, now: Optional[datetime] = None) -> tuple:
+    """
+    Запись о публикации лота на площадке (Instagram/YouTube/…): одна запись на лот и площадку.
+    Уже есть запись — меняются только переданные поля (так позже дописывают ссылку: post_url).
+    overrides: post_url, status, posted_at, model, year, mileage_km, template, method, platform,
+    deadline_msk. Нет записи — берётся основа из любой записи этого лота в реестре (модель/год/пробег).
+    Возвращает (new|update|same, запись). Dry-run по умолчанию.
+    """
+    if channel not in CHANNELS or channel == "telegram":
+        raise ValueError(f"для Telegram используйте register-post; площадка должна быть одной из {CHANNELS[1:]}")
+    registry_path = Path(registry_path or REGISTRY_PATH)
+    records = load_records(registry_path)
+    key = f"{channel}:{lot_id}"
+    old = records.get(key)
+    if old is not None:
+        record = dict(old)
+    else:
+        sibling = next((r for r in records.values() if r.get("lot_id") == lot_id), None)
+        if sibling is None and not (overrides or {}).get("model"):
+            raise LookupError(f"лота {lot_id} нет в реестре — укажите --model/--year/--mileage")
+        record = {"channel": channel, "status": "published", "message_id": None, "post_url": None, "posted_at": None,
+                  "lot_id": lot_id, "lot_url": None, "platform": (sibling or {}).get("platform"),
+                  "model": (sibling or {}).get("model"), "year": (sibling or {}).get("year"),
+                  "mileage_km": (sibling or {}).get("mileage_km"), "method": "manual",
+                  "template": (sibling or {}).get("template") or "auction", "source": "register_platform"}
+    record.update({k: v for k, v in (overrides or {}).items() if v is not None})
+    record["channel"] = channel
+    status = "new" if old is None else ("same" if _same(old, record) else "update")
+    if apply and status != "same":
+        record["recorded_at"] = (now or datetime.now(timezone.utc)).isoformat(timespec="seconds")
+        append_record(record, registry_path)
+    return status, record
+
+
 def _print_table(rows: list) -> None:
     for status, record in rows:
-        print(f"{status:<6} {record['message_id']}  {str(record['posted_at'])[:16]}  "
-              f"{record['template']:<7} {record['method']:<7} {record['platform'] or '-':<11} "
+        ident = record.get("message_id") or record.get("channel")
+        print(f"{status:<6} {str(ident):<10}  {str(record.get('posted_at'))[:16]}  "
+              f"{record['template']:<7} {record['method']:<7} {(record['platform'] or '-'):<11} {status_of(record):<14} "
               f"{(record['model'] or '-')[:34]:<34} {record['year'] or '-'} / {record['mileage_km'] or '-'} км  "
               f"{record['lot_id'] or ''}")
 
@@ -525,6 +633,11 @@ def main() -> int:
     reg.add_argument("--template", choices=TEMPLATES); reg.add_argument("--method", choices=METHODS)
     reg.add_argument("--deadline-msk", dest="deadline_msk", help="окончание торгов по Москве, ISO без пояса: 2026-10-09T07:17")
     reg.add_argument("--apply", action="store_true", help="записать в published.jsonl")
+    rp = sub.add_parser("register-platform", help="записать публикацию лота на Instagram/YouTube (dry-run по умолчанию)")
+    rp.add_argument("--channel", required=True, choices=CHANNELS[1:]); rp.add_argument("--lot-id", dest="lot_id", required=True)
+    rp.add_argument("--post-url", dest="post_url"); rp.add_argument("--status", choices=STATUSES)
+    rp.add_argument("--model"); rp.add_argument("--year", type=int); rp.add_argument("--mileage", dest="mileage_km", type=int)
+    rp.add_argument("--apply", action="store_true", help="записать в published.jsonl")
     lst = sub.add_parser("list", help="показать последние записи реестра")
     lst.add_argument("--last", type=int, default=20)
     args = parser.parse_args()
@@ -537,7 +650,21 @@ def main() -> int:
         print(f"\nпостов за {args.days} сут.: {len(rows)} | новых {counts['new']}, "
               f"уточнено {counts['update']}, без изменений {counts['same']} | "
               f"видео без подписи (дополнения к постам, не вносятся): {rows.skipped_media}")
+        extras = ensure_known_extras(apply=args.apply)
+        _print_table(extras)
         print("ЗАПИСАНО в published.jsonl" if args.apply else "DRY-RUN — ничего не записано (добавьте --apply)")
+        return 0
+
+    if args.command == "register-platform":
+        try:
+            status, record = register_platform(args.channel, args.lot_id, {k: getattr(args, k) for k in
+                                               ("post_url", "status", "model", "year", "mileage_km")}, apply=args.apply)
+        except (ValueError, LookupError) as error:
+            print(f"Ошибка: {error}")
+            return 1
+        _print_table([(status, record)])
+        print("ЗАПИСАНО в published.jsonl" if (args.apply and status != "same") else
+              ("без изменений — запись уже актуальна" if status == "same" else "DRY-RUN — ничего не записано (добавьте --apply)"))
         return 0
 
     if args.command == "register-post":
@@ -551,7 +678,9 @@ def main() -> int:
               ("без изменений — запись уже актуальна" if status == "same" else "DRY-RUN — ничего не записано (добавьте --apply)"))
         return 0
 
-    records = sorted(load_records().values(), key=lambda r: r["message_id"])[-args.last:]
+    # Telegram по message_id, затем записи Instagram/YouTube (у них message_id нет)
+    records = sorted(load_records().values(),
+                     key=lambda r: (r.get("message_id") is None, r.get("message_id") or 0, channel_of(r)))[-args.last:]
     _print_table([("-", r) for r in records])
     return 0
 

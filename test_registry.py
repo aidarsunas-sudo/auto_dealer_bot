@@ -203,6 +203,83 @@ def run() -> None:
         results.append(_check("неверный template -> ValueError", _raises(ValueError, lambda: reg.register_post("5276", {"template": "x"}, fetch=anywhere, registry_path=path))))
         results.append(_check("неизвестное поле -> ValueError", _raises(ValueError, lambda: reg.register_post("5276", {"colour": "red"}, fetch=anywhere, registry_path=path))))
 
+    # ── площадки публикации и статусы (Telegram / Instagram / YouTube) ───
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "published.jsonl"
+        legacy = {"message_id": 5286, "post_url": "https://t.me/auto_generals/5286", "posted_at": "2026-10-07T12:02:02+00:00",
+                  "lot_id": "heydealer:nEB6WaPQ", "lot_url": None, "platform": "heydealer", "model": "Kia Ray Signature (The New Ray)",
+                  "year": 2022, "mileage_km": 20266, "method": "manual", "template": "auction", "source": "known"}
+        path.write_text(json.dumps(legacy, ensure_ascii=False) + "\n", encoding="utf-8")
+        loaded = reg.load_records(path)
+        results.append(_check("старая запись без channel/status читается как Telegram + published, ключ — message_id",
+                              list(loaded) == [5286] and reg.channel_of(loaded[5286]) == "telegram" and reg.status_of(loaded[5286]) == "published"))
+        rows = reg.reconcile(days=3650, apply=True, fetch=anywhere, registry_path=path, log_entries=entries, delay=0)
+        results.append(_check("сверка не плодит дублей из-за новых полей: старая запись 5286 остаётся без изменений (same)",
+                              dict((r["message_id"], s) for s, r in rows)[5286] == "same" and len(path.read_text(encoding="utf-8").splitlines()) == 8))
+
+        extras = reg.ensure_known_extras(registry_path=path, apply=False)
+        results.append(_check("known extras (dry-run): записи Instagram и YouTube для Kia Ray Signature со статусом published, файл не тронут",
+                              [r["channel"] for _, r in extras] == ["instagram", "youtube"] and all(s == "new" for s, _ in extras)
+                              and all(r["status"] == "published" and r["post_url"] is None for _, r in extras)
+                              and len(path.read_text(encoding="utf-8").splitlines()) == 8))
+        reg.ensure_known_extras(registry_path=path, apply=True)
+        reg.ensure_known_extras(registry_path=path, apply=True)
+        recs = reg.load_records(path)
+        results.append(_check("known extras записаны один раз (повтор идемпотентен), ключи «канал:lot_id»",
+                              len(path.read_text(encoding="utf-8").splitlines()) == 10
+                              and "instagram:heydealer:nEB6WaPQ" in recs and "youtube:heydealer:nEB6WaPQ" in recs))
+
+        lot = {"lot_id": "heydealer:nEB6WaPQ", "brand": "Kia Ray Signature (The New Ray)", "model": "", "trim": "", "year": 2022, "mileage_km": 20266}
+        results.append(_check("дубль по площадке: для Telegram, Instagram и YouTube этот лот уже опубликован",
+                              all(reg.find_duplicate(lot, recs, channel=c) is not None for c in reg.CHANNELS)))
+        other = dict(lot, lot_id="heydealer:ZZZZ9999", brand="Hyundai Venue", year=2023, mileage_km=1000)
+        results.append(_check("новый лот не дубль ни на одной площадке", all(reg.find_duplicate(other, recs, channel=c) is None for c in reg.CHANNELS)))
+        only_tg = {k: v for k, v in recs.items() if reg.channel_of(v) == "telegram"}
+        results.append(_check("лот есть только в Telegram: для Telegram — дубль, для Instagram/YouTube — НЕ дубль (публикуем на остальные)",
+                              reg.find_duplicate(lot, only_tg, channel="telegram") is not None
+                              and reg.find_duplicate(lot, only_tg, channel="instagram") is None
+                              and reg.find_duplicate(lot, only_tg, channel="youtube") is None))
+
+        # pending_manual не блокирует, published блокирует
+        pending = {"channel": "youtube", "status": "pending_manual", "message_id": None, "post_url": None, "lot_id": "heydealer:NEW00001",
+                   "model": "Kia K5 Noblesse", "year": 2022, "mileage_km": 24000, "method": "manual", "template": "auction"}
+        reg.append_record(pending, path)
+        results.append(_check("pending_manual: запись есть, но дублем не считается (инструмент может повторить попытку)",
+                              reg.load_records(path)["youtube:heydealer:NEW00001"]["status"] == "pending_manual"
+                              and reg.find_duplicate({"lot_id": "heydealer:NEW00001"}, reg.load_records(path), channel="youtube") is None))
+        reg.append_record(dict(pending, status="published", post_url="https://youtube.com/shorts/abc"), path)
+        results.append(_check("после успешной публикации статус обновляется (последняя запись побеждает) и лот становится дублем",
+                              reg.find_duplicate({"lot_id": "heydealer:NEW00001"}, reg.load_records(path), channel="youtube") is not None))
+
+        # валидация
+        results.append(_check("неверная площадка -> ValueError", _raises(ValueError, lambda: reg.append_record(dict(pending, channel="tiktok"), path))))
+        results.append(_check("неверный статус -> ValueError", _raises(ValueError, lambda: reg.append_record(dict(pending, status="done"), path))))
+        results.append(_check("Instagram/YouTube без lot_id -> ValueError", _raises(ValueError, lambda: reg.append_record(dict(pending, lot_id=None), path))))
+        results.append(_check("Telegram без message_id по-прежнему -> ValueError",
+                              _raises(ValueError, lambda: reg.append_record(dict(pending, channel="telegram"), path))))
+
+        # register-platform
+        status, rec = reg.register_platform("instagram", "heydealer:nEB6WaPQ", {"post_url": "https://www.instagram.com/reel/XYZ/"}, registry_path=path)
+        results.append(_check("register_platform (dry-run): ссылка на Instagram-пост дописывается к известной записи, статус update, файл не тронут",
+                              status == "update" and rec["post_url"].endswith("/XYZ/") and rec["status"] == "published"
+                              and reg.load_records(path)["instagram:heydealer:nEB6WaPQ"]["post_url"] is None))
+        lines_before = len(path.read_text(encoding="utf-8").splitlines())
+        reg.register_platform("instagram", "heydealer:nEB6WaPQ", {"post_url": "https://www.instagram.com/reel/XYZ/"}, apply=True, registry_path=path)
+        results.append(_check("register_platform --apply: ссылка записана, остальные поля (модель, год, пробег) не потеряны",
+                              len(path.read_text(encoding="utf-8").splitlines()) == lines_before + 1
+                              and reg.load_records(path)["instagram:heydealer:nEB6WaPQ"]["post_url"].endswith("/XYZ/")
+                              and reg.load_records(path)["instagram:heydealer:nEB6WaPQ"]["year"] == 2022))
+        status, _ = reg.register_platform("instagram", "heydealer:nEB6WaPQ", {"post_url": "https://www.instagram.com/reel/XYZ/"}, apply=True, registry_path=path)
+        results.append(_check("повтор без изменений: same, дублей строк нет", status == "same" and len(path.read_text(encoding="utf-8").splitlines()) == lines_before + 1))
+        status, rec = reg.register_platform("youtube", "heydealer:NEW00002", {"model": "Kia K3 Trendy", "year": 2023, "mileage_km": 15000,
+                                                                          "status": "pending_manual"}, registry_path=path)
+        results.append(_check("новая площадка для лота, которого нет в реестре: нужна модель (задана) — запись pending_manual",
+                              status == "new" and rec["status"] == "pending_manual" and rec["model"] == "Kia K3 Trendy"))
+        results.append(_check("лот не в реестре и модель не задана -> LookupError",
+                              _raises(LookupError, lambda: reg.register_platform("youtube", "heydealer:NOPE", registry_path=path))))
+        results.append(_check("register_platform для telegram -> ValueError (там register-post)",
+                              _raises(ValueError, lambda: reg.register_platform("telegram", "heydealer:x", registry_path=path))))
+
     # ── глубина сверки ────────────────────────────────────────────────────
     with tempfile.TemporaryDirectory() as tmp:
         rows = reg.reconcile(days=1, apply=False, fetch=_fake_fetch(page), registry_path=Path(tmp) / "p.jsonl",

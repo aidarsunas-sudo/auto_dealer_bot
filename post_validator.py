@@ -490,3 +490,62 @@ def validate_post_before_publish(car: dict, fields: dict | None = None) -> tuple
         return None, rel_reason
 
     return ValidatedCar(car, _VALIDATION_TOKEN), ""
+
+
+def validate_new_catalog_post(car: dict, fields: dict | None = None) -> tuple["ValidatedCar | None", str]:
+    """
+    Гейт для НОВЫХ авто из каталога дилера (main.py, WATCHLIST: carnoon.co.kr). Заменяет прежний
+    обход skip_validation=True, который отключал ВЕСЬ гейт целиком.
+
+    От validate_post_before_publish() отличается ровно тем, чего у такого источника нет по природе:
+    фото не требуются (сайт дилера их не отдаёт) и год не требуется (car["year"] там всегда None,
+    возраст считает age_calculator.age_bucket_for_new_catalog_car()), пробега нет. Всё остальное
+    проверяется так же, как для б/у:
+        1. название читаемое: не пустое, без хангыля, только допустимые символы;
+        2. цена в вонах есть и > 0; объём (cc) и мощность (hp) известны — иначе цена под ключ
+           недостоверна;
+        3. есть ссылка на страницу каталога (ключ дедупа);
+        4. итоговая цена под ключ (fields["total_rub_raw"]) в диапазоне config.PRICE_MIN_RUB-
+           PRICE_MAX_RUB и в ModelSpec.price_range_rub модели (если fields передан).
+    Проверка «цена в вонах выше цены нового топ-трима» (check_price_vs_new_krw) здесь НЕ
+    применяется: она ловит завышенные цены б/у, а у каталога новых авто цена и есть цена нового.
+    Возврат — как у validate_post_before_publish(): (ValidatedCar, "") либо (None, причина);
+    REJECT пишется в rejected_posts.log.
+    """
+    title = _build_title(car)
+    if not title:
+        reason = "пустое название модели"
+        _log_rejection(car, reason)
+        return None, reason
+    if HANGUL_RE.search(title):
+        reason = f"корейские символы в названии: {title!r}"
+        _log_rejection(car, reason)
+        return None, reason
+    if not ALLOWED_TITLE_RE.match(title):
+        reason = f"недопустимые символы в названии: {title!r}"
+        _log_rejection(car, reason)
+        return None, reason
+
+    price = car.get("price")
+    if not price or price <= 0:
+        reason = "нет цены в вонах"
+        _log_rejection(car, reason)
+        return None, reason
+    for key, label in (("cc", "объём двигателя"), ("hp", "мощность")):
+        if not car.get(key):
+            reason = f"нет данных: {label} — цена под ключ была бы недостоверной"
+            _log_rejection(car, reason)
+            return None, reason
+    if not car.get("url"):
+        reason = "нет ссылки на страницу каталога"
+        _log_rejection(car, reason)
+        return None, reason
+
+    total_rub_raw = fields.get("total_rub_raw") if fields else None
+    for check, args in ((check_price_absolute, (total_rub_raw,)), (check_price_relative, (car, total_rub_raw))):
+        valid, reason = check(*args)
+        if not valid:
+            _log_rejection(car, reason)
+            return None, reason
+
+    return ValidatedCar(car, _VALIDATION_TOKEN), ""

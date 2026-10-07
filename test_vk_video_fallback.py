@@ -35,6 +35,7 @@ def _safe_print(text: str) -> None:
 def _check_video_rescued_when_main_vk_post_blocked() -> bool:
     original_send_to_vk = agent_publisher.send_to_vk
     original_send_photo = agent_publisher.send_photo_to_telegram
+    original_send_media_group = agent_publisher.send_media_group_to_telegram
     original_send_video = agent_publisher.send_video_to_telegram
     original_ffmpeg_available = agent_publisher.video_generator.ffmpeg_available
     original_generate_videos = agent_publisher.video_generator.generate_videos
@@ -58,16 +59,21 @@ def _check_video_rescued_when_main_vk_post_blocked() -> bool:
 
         agent_publisher.send_to_vk = fake_send_to_vk
         agent_publisher.send_photo_to_telegram = lambda photo, text, dry_run=False: True
+        # альбом (>= 3 фото) тоже подменён: тест не должен делать сетевых запросов к Telegram
+        agent_publisher.send_media_group_to_telegram = lambda photos, text, dry_run=False: True
         agent_publisher.send_video_to_telegram = lambda video, caption="", dry_run=False: True
         agent_publisher.video_generator.ffmpeg_available = lambda: True
         agent_publisher.video_generator.generate_videos = lambda car, fields: {"horizontal": fake_horizontal}
         agent_publisher.video_state.should_generate_video_for_this_post = lambda every_n: True
 
-        car = {"photos": ["https://example.com/1.jpg"], "url": "https://example.com/car/1"}
+        # Валидный б/у лот (гейт обходить нельзя): марка/модель, год в коридоре, пробег, >= MIN_PHOTOS_PER_POST фото.
+        # Пробег уникальный, чтобы сверка с реестром published.jsonl не сочла его дублем реального поста.
+        car = {"brand": "Kia", "model": "K5", "year": config.MIN_YEAR, "mileage_km": 12345, "url": "https://example.com/car/1",
+               "photos": [f"https://example.com/{i}.jpg" for i in range(config.MIN_PHOTOS_PER_POST)]}
         fields = {"title": "Kia K5", "year": "2022"}
 
         ok = agent_publisher.publish_post(car, "тестовый текст", dry_run=False,
-                                           skip_validation=True, fields=fields)
+                                           fields=fields)
 
         passed = (
             ok is True  # Telegram (единственный, что влияет на возврат) отработал успешно
@@ -84,6 +90,7 @@ def _check_video_rescued_when_main_vk_post_blocked() -> bool:
     finally:
         agent_publisher.send_to_vk = original_send_to_vk
         agent_publisher.send_photo_to_telegram = original_send_photo
+        agent_publisher.send_media_group_to_telegram = original_send_media_group
         agent_publisher.send_video_to_telegram = original_send_video
         agent_publisher.video_generator.ffmpeg_available = original_ffmpeg_available
         agent_publisher.video_generator.generate_videos = original_generate_videos
@@ -102,6 +109,7 @@ def _check_no_fallback_when_main_vk_post_succeeds() -> bool:
     """
     original_send_to_vk = agent_publisher.send_to_vk
     original_send_photo = agent_publisher.send_photo_to_telegram
+    original_send_media_group = agent_publisher.send_media_group_to_telegram
     original_send_video = agent_publisher.send_video_to_telegram
     original_ffmpeg_available = agent_publisher.video_generator.ffmpeg_available
     original_generate_videos = agent_publisher.video_generator.generate_videos
@@ -123,16 +131,21 @@ def _check_no_fallback_when_main_vk_post_succeeds() -> bool:
 
         agent_publisher.send_to_vk = fake_send_to_vk
         agent_publisher.send_photo_to_telegram = lambda photo, text, dry_run=False: True
+        # альбом (>= 3 фото) тоже подменён: тест не должен делать сетевых запросов к Telegram
+        agent_publisher.send_media_group_to_telegram = lambda photos, text, dry_run=False: True
         agent_publisher.send_video_to_telegram = lambda video, caption="", dry_run=False: True
         agent_publisher.video_generator.ffmpeg_available = lambda: True
         agent_publisher.video_generator.generate_videos = lambda car, fields: {"horizontal": fake_horizontal}
         agent_publisher.video_state.should_generate_video_for_this_post = lambda every_n: True
 
-        car = {"photos": ["https://example.com/1.jpg"], "url": "https://example.com/car/1"}
+        # Валидный б/у лот (гейт обходить нельзя): марка/модель, год в коридоре, пробег, >= MIN_PHOTOS_PER_POST фото.
+        # Пробег уникальный, чтобы сверка с реестром published.jsonl не сочла его дублем реального поста.
+        car = {"brand": "Kia", "model": "K5", "year": config.MIN_YEAR, "mileage_km": 12345, "url": "https://example.com/car/1",
+               "photos": [f"https://example.com/{i}.jpg" for i in range(config.MIN_PHOTOS_PER_POST)]}
         fields = {"title": "Kia K5", "year": "2022"}
 
         ok = agent_publisher.publish_post(car, "тестовый текст", dry_run=False,
-                                           skip_validation=True, fields=fields)
+                                           fields=fields)
 
         passed = ok is True and len(vk_calls) == 1
         status = "OK" if passed else "FAIL"
@@ -142,6 +155,7 @@ def _check_no_fallback_when_main_vk_post_succeeds() -> bool:
     finally:
         agent_publisher.send_to_vk = original_send_to_vk
         agent_publisher.send_photo_to_telegram = original_send_photo
+        agent_publisher.send_media_group_to_telegram = original_send_media_group
         agent_publisher.send_video_to_telegram = original_send_video
         agent_publisher.video_generator.ffmpeg_available = original_ffmpeg_available
         agent_publisher.video_generator.generate_videos = original_generate_videos

@@ -160,6 +160,17 @@ SCRIPT_PREVIOUS_HOOKS_N: int = int(os.getenv("SCRIPT_PREVIOUS_HOOKS_N", "10"))
 # Пакетный режим (lot_reel_script_batch.py): лотов в одном запросе к API.
 SCRIPT_BATCH_MAX: int = int(os.getenv("SCRIPT_BATCH_MAX", "8"))
 
+# --- build_video.py (ролик по лоту: publish_lot.py) ---
+# Папка готовых роликов (в .gitignore): output/<lot_id>.mp4
+VIDEO_OUTPUT_DIR: str = os.getenv("VIDEO_OUTPUT_DIR", "output")
+# Лёгкий наезд, % (не больше 5): фото растёт от (100-N)% до 100% рамки — края не обрезаются.
+BUILD_VIDEO_ZOOM_PCT: float = float(os.getenv("BUILD_VIDEO_ZOOM_PCT", "3"))
+# Длина ролика БЕЗ голосовой записи, сек (в итоге зажата в 20-30); с записью длина = длине записи.
+BUILD_VIDEO_TARGET_SEC: float = float(os.getenv("BUILD_VIDEO_TARGET_SEC", "25"))
+# Громкость музыки, LUFS: когда она единственный звук / когда подложена под голос (голос -16 LUFS).
+BUILD_VIDEO_MUSIC_LUFS: int = int(os.getenv("BUILD_VIDEO_MUSIC_LUFS", "-26"))
+BUILD_VIDEO_MUSIC_UNDER_VOICE_LUFS: int = int(os.getenv("BUILD_VIDEO_MUSIC_UNDER_VOICE_LUFS", "-38"))
+
 # --- Источники объявлений ---
 # Encar закрыт AWS WAF для IP GitHub (ответы 407/404 -> has_been_cr_blocked_AWS), починить
 # кодом нельзя. false = main_pipeline не обращается к Encar (см. source_health.py). В

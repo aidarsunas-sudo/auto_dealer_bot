@@ -54,7 +54,8 @@ import video_generator
 import video_state
 from telegram_publisher import send_to_telegram, send_photo_to_telegram, send_media_group_to_telegram
 from vk_publisher import send_to_vk
-from post_validator import validate_post_before_publish, PublishBlockedError, ValidatedCar
+from post_validator import (validate_post_before_publish, validate_new_catalog_post,
+                            PublishBlockedError, ValidatedCar)
 import registry
 
 logger = logging.getLogger("agent_publisher")
@@ -80,14 +81,20 @@ def _generate_video_safe(car: ValidatedCar, fields: dict) -> dict | None:
         return None
 
 
-def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: bool = False,
-                  fields: dict | None = None, skip_duplicate_check: bool = False) -> bool:
+CAR_KINDS = ("used", "new_catalog")
+
+
+def publish_post(car: dict, text: str, dry_run: bool = False,
+                  fields: dict | None = None, skip_duplicate_check: bool = False,
+                  car_kind: str = "used") -> bool:
     """
     Публикует готовый текст поста в Telegram (основной канал) и, следом,
     в VK (второй канал, best-effort — см. докстринг файла).
 
-    Первым делом (кроме одного явного исключения ниже) прогоняет car через
-    validate_post_before_publish() — фото/название/год, см. post_validator.py.
+    Первым делом прогоняет car через гейт: для б/у (car_kind="used", по умолчанию) —
+    validate_post_before_publish() (фото/название/год/пробег/цена), для новых авто из
+    каталога дилера (car_kind="new_catalog") — validate_new_catalog_post() (то же без
+    фото и года). Обхода гейта нет: прежний параметр skip_validation удалён.
     Нарушение — PublishBlockedError, HTTP-запрос к Telegram/VK не делается
     вообще. Это ЕДИНСТВЕННОЕ место в проекте, где стоит эта проверка —
     вызывающий код (main.py/main_pipeline.py/publish_now.py) НЕ должен
@@ -99,13 +106,11 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
              сам текст поста уже готов заранее (см. text).
         text: готовый текст поста.
         dry_run: не публиковать по-настоящему, только показать в консоли.
-        skip_validation: пропустить гейт. ЕДИНСТВЕННЫЙ законный случай —
-            новые авто из дилерского каталога (main.py: process_one_page,
-            WATCHLIST) — там car["year"] намеренно всегда None и сайт
-            дилера вообще не отдаёт фото (см. scraper.py,
-            calculate_price_details: age_bucket_for_new_catalog_car()) —
-            это не брак данных, а другой класс объявлений. Для ЛЮБОГО
-            источника б/у авто — оставлять False.
+        car_kind: "used" (по умолчанию) — полный гейт; "new_catalog" — новые авто из
+            дилерского каталога (main.py: process_one_page, WATCHLIST): там car["year"]
+            намеренно всегда None и сайт дилера не отдаёт фото (см. scraper.py,
+            age_bucket_for_new_catalog_car()) — это другой класс объявлений, для него
+            отдельный гейт validate_new_catalog_post(), а не отключение проверок.
         fields: словарь из post_text_builder.prepare_post_fields() (та же
             структура, что использует lead_post_builder.py для текста) —
             используется для видео (title/year/mileage_km/engine_display/
@@ -128,7 +133,8 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
             сами — они публикуются вне дедупа намеренно.
 
     Raises:
-        PublishBlockedError: гейт не пройден (см. skip_validation выше).
+        PublishBlockedError: гейт не пройден (см. car_kind выше).
+        ValueError: неизвестный car_kind.
             Вызывающий код должен ловить её на уровне цикла по машинам
             (продолжить со следующей), а не давать упасть всему прогону.
         registry.DuplicatePostError (подкласс PublishBlockedError): лот уже есть
@@ -136,16 +142,18 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
             + пробег (у ручных постов lot_id может не быть). Ничего не отправляется,
             причина — в логе и в тексте исключения. Сверка идёт и при dry_run.
     """
-    if not skip_validation:
-        validated, reason = validate_post_before_publish(car, fields)
-        if validated is None:
-            identifier = car.get("url") or car.get("external_id") or "?"
-            raise PublishBlockedError(f"Пост {identifier} заблокирован: {reason}")
-        # ValidatedCar (не голый dict) — дальше по функции, включая видео/
-        # озвучку (_generate_video_safe -> video_generator.generate_videos()),
-        # используется именно эта проверенная обёртка (см. её докстринг в
-        # post_validator.py про то, зачем это физическое разделение типов).
-        car = validated
+    if car_kind not in CAR_KINDS:
+        raise ValueError(f"car_kind должен быть одним из {CAR_KINDS}, получено {car_kind!r}")
+    gate = validate_post_before_publish if car_kind == "used" else validate_new_catalog_post
+    validated, reason = gate(car, fields)
+    if validated is None:
+        identifier = car.get("url") or car.get("external_id") or "?"
+        raise PublishBlockedError(f"Пост {identifier} заблокирован: {reason}")
+    # ValidatedCar (не голый dict) — дальше по функции, включая видео/
+    # озвучку (_generate_video_safe -> video_generator.generate_videos()),
+    # используется именно эта проверенная обёртка (см. её докстринг в
+    # post_validator.py про то, зачем это физическое разделение типов).
+    car = validated
 
     # Дубли: единое место, как и у гейта выше — вызывающий код сверку не дублирует.
     # ДО видео/озвучки и до любой отправки. Не мешает записи published_log (его

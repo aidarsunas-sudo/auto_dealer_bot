@@ -35,6 +35,7 @@ published_log.json (см. match_lots(): это автопайплайн) и за
 
 Команды (reconcile по умолчанию dry-run, пишет только с --apply):
     python registry.py reconcile [--days 45] [--apply]
+    python registry.py register-post https://t.me/auto_generals/<номер> [--lot-id ...] [--apply]
     python registry.py list [--last 20]
 """
 
@@ -440,6 +441,70 @@ def reconcile(days: int = 45, apply: bool = False, max_pages: int = 120, delay: 
     return result
 
 
+# ── ручная регистрация поста, вышедшего вне системы ───────────────────────
+
+_OVERRIDE_KEYS = ("lot_id", "lot_url", "platform", "model", "year", "mileage_km", "template", "method", "deadline_msk")
+
+
+def parse_post_link(link: str) -> int:
+    """https://t.me/auto_generals/5286 (или .../s/auto_generals/5286, или просто номер) -> 5286."""
+    found = re.search(r"t\.me/(?:s/)?%s/(\d+)" % re.escape(CHANNEL), str(link)) or re.fullmatch(r"\s*(\d+)\s*", str(link))
+    if not found:
+        raise ValueError(f"не похоже на ссылку на пост канала @{CHANNEL}: {link!r} (ожидается https://t.me/{CHANNEL}/<номер>)")
+    return int(found.group(1))
+
+
+def register_post(link: str, overrides: Optional[dict] = None, apply: bool = False,
+                  fetch: Callable[[Optional[int]], str] = fetch_channel_page,
+                  registry_path: Optional[Path] = None, now: Optional[datetime] = None) -> tuple:
+    """
+    Вносит в реестр пост, опубликованный ВНЕ системы (вручную в Telegram, отдельной сессией).
+    Пост читается с публичной страницы канала (текст, время, шаблон, модель, год, пробег),
+    данные лота, которых в тексте нет (lot_id, площадка, дедлайн торгов…), берутся из overrides.
+    По умолчанию способ = manual. Уже есть запись по этому message_id — меняются только поля
+    из overrides (остальное не теряется). Dry-run по умолчанию; запись — только apply=True.
+
+    Возвращает (статус, запись): new / update / same. Для альбома указывайте ссылку на ПЕРВОЕ
+    сообщение (так он показан на странице канала). Поднимает ValueError (плохая ссылка/значения)
+    и LookupError (поста нет на странице).
+    """
+    overrides = {k: v for k, v in (overrides or {}).items() if v is not None}
+    unknown = set(overrides) - set(_OVERRIDE_KEYS)
+    if unknown:
+        raise ValueError(f"неизвестные поля: {sorted(unknown)}; допустимо: {_OVERRIDE_KEYS}")
+    message_id = parse_post_link(link)
+    registry_path = Path(registry_path or REGISTRY_PATH)
+    existing = load_records(registry_path).get(message_id)
+
+    if existing is not None:
+        record = dict(existing)
+    else:
+        post = next((p for p in parse_channel_html(fetch(message_id + 1)) if p["message_id"] == message_id), None)
+        if post is None:
+            raise LookupError(f"пост {message_id} не найден на публичной странице канала "
+                              f"(для альбома укажите номер ПЕРВОГО сообщения альбома)")
+        if not post["text"] and not overrides.get("model"):
+            raise ValueError("у поста нет подписи — укажите модель (--model), иначе запись будет пустой")
+        record = build_record(post, {}, now)
+        if message_id not in KNOWN_POSTS:
+            record["method"] = "manual"  # команда нужна именно для постов вне системы
+        record["source"] = "register_post"
+    record.update(overrides)
+    for key, allowed in (("method", METHODS), ("template", TEMPLATES)):
+        if record.get(key) not in allowed:
+            raise ValueError(f"{key} должен быть одним из {allowed}, получено {record.get(key)!r}")
+    for key in ("year", "mileage_km"):
+        if record.get(key) is not None:
+            record[key] = int(record[key])
+    if overrides and existing is not None:
+        record["source"] = "register_post"
+    status = "new" if existing is None else ("same" if _same(existing, record) else "update")
+    if apply and status != "same":
+        record["recorded_at"] = (now or datetime.now(timezone.utc)).isoformat(timespec="seconds")
+        append_record(record, registry_path)
+    return status, record
+
+
 def _print_table(rows: list) -> None:
     for status, record in rows:
         print(f"{status:<6} {record['message_id']}  {str(record['posted_at'])[:16]}  "
@@ -455,6 +520,14 @@ def main() -> int:
     rec.add_argument("--days", type=int, default=45, help="глубина сверки, суток (по умолчанию 45)")
     rec.add_argument("--apply", action="store_true", help="записать изменения в published.jsonl")
     rec.add_argument("--max-pages", type=int, default=120)
+    reg = sub.add_parser("register-post", help="внести в реестр пост, опубликованный вне системы (dry-run по умолчанию)")
+    reg.add_argument("link", help=f"ссылка на пост: https://t.me/{CHANNEL}/<номер> (для альбома — первое сообщение)")
+    reg.add_argument("--lot-id", dest="lot_id"); reg.add_argument("--lot-url", dest="lot_url")
+    reg.add_argument("--platform"); reg.add_argument("--model")
+    reg.add_argument("--year", type=int); reg.add_argument("--mileage", dest="mileage_km", type=int)
+    reg.add_argument("--template", choices=TEMPLATES); reg.add_argument("--method", choices=METHODS)
+    reg.add_argument("--deadline-msk", dest="deadline_msk", help="окончание торгов по Москве, ISO без пояса: 2026-10-09T07:17")
+    reg.add_argument("--apply", action="store_true", help="записать в published.jsonl")
     lst = sub.add_parser("list", help="показать последние записи реестра")
     lst.add_argument("--last", type=int, default=20)
     args = parser.parse_args()
@@ -468,6 +541,17 @@ def main() -> int:
               f"уточнено {counts['update']}, без изменений {counts['same']} | "
               f"видео без подписи (дополнения к постам, не вносятся): {rows.skipped_media}")
         print("ЗАПИСАНО в published.jsonl" if args.apply else "DRY-RUN — ничего не записано (добавьте --apply)")
+        return 0
+
+    if args.command == "register-post":
+        try:
+            status, record = register_post(args.link, {k: getattr(args, k) for k in _OVERRIDE_KEYS}, apply=args.apply)
+        except (ValueError, LookupError) as error:
+            print(f"Ошибка: {error}")
+            return 1
+        _print_table([(status, record)])
+        print("ЗАПИСАНО в published.jsonl" if (args.apply and status != "same") else
+              ("без изменений — запись уже актуальна" if status == "same" else "DRY-RUN — ничего не записано (добавьте --apply)"))
         return 0
 
     records = sorted(load_records().values(), key=lambda r: r["message_id"])[-args.last:]

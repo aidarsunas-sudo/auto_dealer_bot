@@ -174,6 +174,35 @@ def run() -> None:
     results.append(_check("пост без признаков: method=unknown, template=free, lot_id=None",
                           unknown["method"] == "unknown" and unknown["template"] == "free" and unknown["lot_id"] is None))
 
+    # ── register_post: пост, вышедший вне системы ────────────────────────
+    anywhere = lambda before=None: page  # страница с 8 реальными постами при любом before
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "published.jsonl"
+        status, rec = reg.register_post("https://t.me/auto_generals/5254", fetch=anywhere, registry_path=path)
+        results.append(_check("register_post (dry-run): ручной пост 5254 найден на странице, статус new, файл не создан",
+                              status == "new" and rec["message_id"] == 5254 and rec["method"] == "manual" and rec["template"] == "free"
+                              and not path.exists()))
+        reg.register_post("https://t.me/auto_generals/5254", fetch=anywhere, registry_path=path, apply=True)
+        results.append(_check("register_post --apply записывает одну строку", len(path.read_text(encoding="utf-8").splitlines()) == 1))
+        status, _ = reg.register_post("https://t.me/auto_generals/5254", fetch=anywhere, registry_path=path, apply=True)
+        results.append(_check("повтор без изменений: статус same, дублей нет", status == "same" and len(path.read_text(encoding="utf-8").splitlines()) == 1))
+
+        status, rec = reg.register_post("t.me/auto_generals/5239", {"lot_id": "heydealer:XYZ12345", "platform": "heydealer"},
+                                        fetch=anywhere, registry_path=path, apply=True)
+        results.append(_check("данные лота из команды попадают в запись (lot_id, площадка), остальное — из текста поста",
+                              status == "new" and rec["lot_id"] == "heydealer:XYZ12345" and rec["year"] == 2022 and rec["source"] == "register_post"))
+        status, rec = reg.register_post("5239", {"deadline_msk": "2026-10-08T08:00"}, fetch=anywhere, registry_path=path, apply=True)
+        results.append(_check("повторная регистрация меняет только переданные поля (lot_id не теряется)",
+                              status == "update" and rec["lot_id"] == "heydealer:XYZ12345" and rec["deadline_msk"] == "2026-10-08T08:00"
+                              and reg.load_records(path)[5239]["deadline_msk"] == "2026-10-08T08:00"))
+        status, rec = reg.register_post("5266", {"method": "unknown", "template": "lead"}, fetch=anywhere, registry_path=path)
+        results.append(_check("способ и шаблон можно задать явно", rec["method"] == "unknown" and rec["template"] == "lead"))
+        results.append(_check("поста нет на странице -> LookupError с подсказкой про первое сообщение альбома",
+                              _raises(LookupError, lambda: reg.register_post("5999", fetch=anywhere, registry_path=path))))
+        results.append(_check("чужая ссылка -> ValueError", _raises(ValueError, lambda: reg.register_post("https://t.me/other/5", fetch=anywhere, registry_path=path))))
+        results.append(_check("неверный template -> ValueError", _raises(ValueError, lambda: reg.register_post("5276", {"template": "x"}, fetch=anywhere, registry_path=path))))
+        results.append(_check("неизвестное поле -> ValueError", _raises(ValueError, lambda: reg.register_post("5276", {"colour": "red"}, fetch=anywhere, registry_path=path))))
+
     # ── глубина сверки ────────────────────────────────────────────────────
     with tempfile.TemporaryDirectory() as tmp:
         rows = reg.reconcile(days=1, apply=False, fetch=_fake_fetch(page), registry_path=Path(tmp) / "p.jsonl",

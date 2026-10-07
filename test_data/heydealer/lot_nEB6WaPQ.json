@@ -1,0 +1,58 @@
+{
+ "hash_id": "nEB6WaPQ",
+ "detail": {
+  "full_name": "더 뉴 기아 레이 시그니처",
+  "brand_name": "기아",
+  "model_part_name": "더 뉴 기아 레이",
+  "grade_part_name": "시그니처",
+  "year": 2023,
+  "mileage": 20266,
+  "fuel": "gasoline",
+  "transmission": "auto",
+  "vehicle_information": {
+   "manufactured_date": "2022-12-09 00:00:00",
+   "year": 2023
+  },
+  "carhistory": {
+   "displacement": 998,
+   "my_car_accident_count": 0,
+   "other_car_accident_count": 0,
+   "my_car_accident_cost": 0,
+   "other_car_accident_cost": 0,
+   "owner_changed_count": 2,
+   "stolen_count": 0,
+   "total_loss_count": 0,
+   "flooded_count": 0,
+   "has_rent_use_record": false,
+   "has_business_use_record": false,
+   "has_public_use_record": false,
+   "use": "자가용",
+   "owner_changed_list": [
+    {
+     "owner_changed_date": "2025-09-22"
+    },
+    {
+     "owner_changed_date": "2025-08-22"
+    }
+   ]
+  },
+  "image_urls": [
+   "https://example.com/heydealer/nEB6WaPQ/01.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/02.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/03.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/04.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/05.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/06.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/07.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/08.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/09.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/10.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/11.jpg",
+   "https://example.com/heydealer/nEB6WaPQ/12.jpg"
+  ]
+ },
+ "auction": {
+  "end_at": "2026-10-09 13:17:09"
+ },
+ "_note": "Обезличено: значения реальные (лот nEB6WaPQ, Kia Ray Signature, пост 5286); VIN, номер авто и ссылки на фото убраны, фото заменены example.com"
+}

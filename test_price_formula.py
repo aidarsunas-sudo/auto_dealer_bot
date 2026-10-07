@@ -1,26 +1,27 @@
 # -*- coding: utf-8 -*-
 """
-test_price_formula.py — контрольные точки цены «под ключ в Казани»
-(python test_price_formula.py, без pytest и без сети).
+test_price_formula.py — контрольные точки цены «под ключ в Казани» и предупреждения
+pricing.calculate_price() (python test_price_formula.py, без pytest и без сети).
 
-Курсы и параметры формулы ЗАФИКСИРОВАНЫ внутри теста (не живой ЦБ и не .env/
-секреты Actions) — тест проверяет арифметику calculate_price_details(), а не
-текущие настройки. Параметры (с 2026-10-07):
-    корейская надбавка к цене по ЦБ  EXCHANGE_SPREAD_PCT   = 14%  (аукцион, экспортные
-                                                                    документы, спред по воне)
-    комиссия банка                    BANK_COMMISSION_PCT   = 0,5% (от цены с надбавкой)
-    логистика + брокер + наценка      320 000 + 100 000 + 150 000 = 570 000 ₽
-    ввоз физлицом на себя             IMPORTER_TYPE = phys
+Курсы и параметры ЗАФИКСИРОВАНЫ внутри теста (не живой ЦБ и не .env/секреты Actions) —
+тест проверяет арифметику формулы, а не текущие настройки. Параметры (с 2026-10-07):
+    корейская надбавка к цене по ЦБ  KOREA_COSTS_PCT      = 14%  (аукцион, экспортные
+                                                                   документы, спред по воне)
+    банковский перевод               BANK_COMMISSION_PCT  = 0,5% (от цены с надбавкой)
+    логистика + брокер + наценка     320 000 + 100 000 + 150 000 = 570 000 ₽
+    ввоз физлицом на себя            IMPORTER_TYPE = phys
 
 Лот: Kia Ray Signature, 998 см³, 76 л.с., бензин, выпуск 12.2022.
 """
 
 import config
 import post_builder
+import pricing
+from pricing import PricingParams, calculate_price
 
 RATES = {"krw_rub": 0.0625, "eur_rub": 95.33, "usd_rub": 85.0, "cny_rub": 12.0, "jpy_rub": 0.55}
-PARAMS = {"EXCHANGE_SPREAD_PCT": 0.14, "BANK_COMMISSION_PCT": 0.005, "LOGISTICS_RUB": 320000.0,
-          "BROKER_FEE_RUB": 100000.0, "MARGIN_RUB": 150000.0, "IMPORTER_TYPE": "phys"}
+PARAMS = PricingParams(korea_costs_pct=0.14, bank_commission_pct=0.005, logistics_rub=320000.0,
+                       broker_fee_rub=100000.0, margin_rub=150000.0, importer_type="phys")
 KIA_RAY = {"cc": 998, "hp": 76, "fuel_code": "petrol", "year": 2022, "month": 12}
 
 
@@ -29,39 +30,83 @@ def _check(name: str, condition: bool) -> bool:
     return bool(condition)
 
 
-def _price(bid: int) -> dict:
-    return post_builder.calculate_price_details(dict(KIA_RAY, price=bid), RATES)
-
-
 def run() -> None:
-    saved = {name: getattr(config, name) for name in PARAMS}
-    for name, value in PARAMS.items():
-        setattr(config, name, value)
     results = []
+    ray = lambda bid, **kw: calculate_price(dict(KIA_RAY, price=bid, **kw), RATES, PARAMS)
+    p12, p13 = ray(12_000_000), ray(13_000_000)
+
+    # ── контрольные точки Kia Ray ─────────────────────────────────────────
+    results.append(_check("12 млн ₩: машина по ЦБ 750 000 + надбавка 14% = 855 000",
+                          p12.car_price_cbr_rub == 750_000 and p12.korea_costs_rub == 105_000 and p12.car_price_rub == 855_000))
+    results.append(_check("12 млн ₩: банковский перевод 0,5% от 855 000 = 4 275", p12.bank_commission_rub == 4_275))
+    results.append(_check("таможня Kia Ray = сбор 6 775 + ЕТС + льготный утильсбор 5 200 = 154 684 при евро 95,33",
+                          p12.customs_rub == 154_684 and p12.fee_rub == 6_775 and p12.util_rub == 5_200
+                          and p12.fee_rub + p12.duty_rub + p12.util_rub == p12.customs_rub))
+    results.append(_check("логистика + брокер + наценка = 570 000", p12.extra_costs_rub == 570_000))
+    results.append(_check("12 млн ₩: итого под ключ 1 583 959",
+                          p12.total_rub == 855_000 + 154_684 + 4_275 + 570_000 == 1_583_959))
+    results.append(_check("13 млн ₩: итого под ключ 1 655 565",
+                          p13.total_rub == 926_250 + 154_684 + 4_631 + 570_000 == 1_655_565))
+    results.append(_check("каждый +1 млн ₩ ≈ +71,6 тыс. ₽", 70_000 < p13.total_rub - p12.total_rub < 73_000))
+    results.append(_check("возрастная категория 3–5 лет", p12.age_bucket == "35"))
+    results.append(_check("Kia Ray (физлицо, 76 л.с., месяц известен): предупреждений нет", p12.warnings == []))
+
+    # ── параметры работают, а не зашиты ──────────────────────────────────
+    bank25 = calculate_price(dict(KIA_RAY, price=12_000_000), RATES, PricingParams(**{**PARAMS.__dict__, "bank_commission_pct": 0.025}))
+    results.append(_check("комиссия 2,5% вместо 0,5% -> итог выше ровно на 17 100 ₽ (2% от 855 000)",
+                          bank25.total_rub - p12.total_rub == 17_100))
+    no_costs = calculate_price(dict(KIA_RAY, price=12_000_000), RATES, PricingParams(**{**PARAMS.__dict__, "korea_costs_pct": 0.0}))
+    results.append(_check("надбавка 0% -> машина по ЦБ без надбавки", no_costs.car_price_rub == 750_000 and no_costs.korea_costs_rub == 0))
+
+    # ── предупреждения про утильсбор ─────────────────────────────────────
+    touareg = calculate_price({"price": 40_000_000, "cc": 2998, "hp": 286, "fuel_code": "diesel", "year": 2022, "month": 6}, RATES, PARAMS)
+    results.append(_check("286 л.с.: коммерческий утильсбор 2 011 200 ₽, предупреждение называет мощность",
+                          touareg.util_lgota is False and touareg.util_rub == 2_011_200
+                          and any("КОММЕРЧЕСКИЙ" in w and "2 011 200" in w and "286" in w for w in touareg.warnings)))
+    big_engine = calculate_price({"price": 30_000_000, "cc": 3500, "hp": 150, "fuel_code": "petrol", "year": 2022, "month": 6}, RATES, PARAMS)
+    results.append(_check("3500 см³ при 150 л.с.: нет льготы, причина — объём",
+                          big_engine.util_lgota is False and any("объём 3500" in w for w in big_engine.warnings)))
+    legal = calculate_price(dict(KIA_RAY, price=12_000_000), RATES, PricingParams(**{**PARAMS.__dict__, "importer_type": "legal"}))
+    results.append(_check("ввоз юрлицом: сбор коммерческий, причина — IMPORTER_TYPE, 5 200 ₽ молча не считаются",
+                          legal.util_lgota is False and legal.util_rub > 5_200
+                          and any("IMPORTER_TYPE" in w for w in legal.warnings)))
+    edge = calculate_price(dict(KIA_RAY, price=12_000_000, hp=160), RATES, PARAMS)
+    over = calculate_price(dict(KIA_RAY, price=12_000_000, hp=161), RATES, PARAMS)
+    results.append(_check("граница льготы: 160 л.с. — льгота без предупреждений, 161 л.с. — предупреждение",
+                          edge.util_lgota is True and edge.warnings == [] and over.util_lgota is False and len(over.warnings) == 1))
+    ev = calculate_price({"price": 40_000_000, "cc": 1, "hp": 150, "fuel_code": "elec", "year": 2023, "month": 3}, RATES, PARAMS)
+    results.append(_check("электромобиль: предупреждений про утильсбор нет (у него своя таблица)", ev is not None and ev.warnings == []))
+
+    # ── прочие предупреждения ────────────────────────────────────────────
+    fallback = calculate_price(dict(KIA_RAY, price=12_000_000), {**RATES, "_source": "fallback"}, PARAMS)
+    results.append(_check("запасные курсы ЦБ -> предупреждение, расчёт тот же",
+                          any("курсы ЦБ недоступны" in w for w in fallback.warnings) and fallback.total_rub == p12.total_rub))
+    live = calculate_price(dict(KIA_RAY, price=12_000_000), {**RATES, "_source": "cbr"}, PARAMS)
+    results.append(_check("свежие курсы (_source=cbr) -> без предупреждения", live.warnings == []))
+    no_month = calculate_price({k: v for k, v in dict(KIA_RAY, price=12_000_000).items() if k != "month"}, RATES, PARAMS)
+    results.append(_check("нет месяца выпуска -> предупреждение про возраст", any("месяц выпуска" in w for w in no_month.warnings)))
+    results.append(_check("не хватает данных (нет мощности) -> None, не гадаем",
+                          calculate_price({"price": 12_000_000, "cc": 998, "fuel_code": "petrol", "year": 2022}, RATES, PARAMS) is None))
+
+    # ── обратная совместимость: post_builder и config ─────────────────────
+    saved = {n: getattr(config, n) for n in ("KOREA_COSTS_PCT", "BANK_COMMISSION_PCT", "LOGISTICS_RUB",
+                                              "BROKER_FEE_RUB", "MARGIN_RUB", "IMPORTER_TYPE")}
     try:
-        p12, p13 = _price(12_000_000), _price(13_000_000)
-
-        results.append(_check("12 млн ₩: цена машины по ЦБ 750 000 + надбавка 14% = 855 000",
-                              p12["car_price_rub"] == 855_000 and p12["exchange_spread_rub"] == 105_000))
-        results.append(_check("12 млн ₩: комиссия банка 0,5% от 855 000 = 4 275",
-                              p12["bank_commission_rub"] == 4_275))
-        results.append(_check("таможня Kia Ray (пошлина + сбор + льготный утильсбор 5 200) = 154 684 при евро 95,33",
-                              p12["customs_rub"] == 154_684))
-        results.append(_check("логистика + брокер + наценка = 570 000", p12["extra_costs_rub"] == 570_000))
-        results.append(_check("12 млн ₩: итого под ключ 1 583 959",
-                              p12["total_rub"] == 855_000 + 154_684 + 4_275 + 570_000 == 1_583_959))
-        results.append(_check("13 млн ₩: итого под ключ 1 655 565",
-                              p13["total_rub"] == 926_250 + 154_684 + 4_631 + 570_000 == 1_655_565))
-        results.append(_check("каждый +1 млн ₩ ≈ +71,6 тыс. ₽",
-                              70_000 < p13["total_rub"] - p12["total_rub"] < 73_000))
-        results.append(_check("возрастная категория 3–5 лет", p12["age_bucket"] == "35"))
-
-        config.BANK_COMMISSION_PCT = 0.025
-        results.append(_check("при комиссии 2,5% итог выше на 1,6 тыс. ₽ (контроль, что параметр читается)",
-                              _price(12_000_000)["total_rub"] > p12["total_rub"]))
+        config.KOREA_COSTS_PCT, config.BANK_COMMISSION_PCT = 0.14, 0.005
+        config.LOGISTICS_RUB, config.BROKER_FEE_RUB, config.MARGIN_RUB, config.IMPORTER_TYPE = 320000.0, 100000.0, 150000.0, "phys"
+        legacy = post_builder.calculate_price_details(dict(KIA_RAY, price=12_000_000), RATES)
+        results.append(_check("calculate_price_details(): тот же итог, старые ключи на месте, exchange_spread_rub == korea_costs_rub",
+                              legacy["total_rub"] == 1_583_959 and legacy["exchange_spread_rub"] == legacy["korea_costs_rub"] == 105_000
+                              and all(k in legacy for k in ("car_price_rub", "bank_commission_rub", "customs_rub", "extra_costs_rub", "age_bucket"))))
+        results.append(_check("PricingParams.from_config() читает config на момент вызова",
+                              PricingParams.from_config().korea_costs_pct == 0.14 and PricingParams.from_config().extra_costs_rub == 570_000))
+        results.append(_check("calculate_price_details() без цены -> None",
+                              post_builder.calculate_price_details({"cc": 998, "hp": 76, "fuel_code": "petrol"}, RATES) is None))
     finally:
         for name, value in saved.items():
             setattr(config, name, value)
+    results.append(_check("устаревшее имя config.EXCHANGE_SPREAD_PCT совпадает с KOREA_COSTS_PCT при импорте",
+                          config.EXCHANGE_SPREAD_PCT == config.KOREA_COSTS_PCT))
 
     print()
     if all(results):

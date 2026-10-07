@@ -320,13 +320,10 @@ def _same_model(title_a: Optional[str], title_b: Optional[str]) -> bool:
 
 
 def lot_title(lot: dict) -> str:
-    """brand + model + trim без повторов — как заголовок поста (post_text_builder._build_title)."""
-    parts = []
-    for value in (lot.get("brand"), lot.get("model"), lot.get("trim")):
-        value = (value or "").strip()
-        if value and value not in parts:
-            parts.append(value)
-    return " ".join(parts)
+    """Заголовок лота — тем же сборщиком, что и пост (brand + model + trim без повторов, корейские
+    комплектации переведены по brand_names_ko.TRIM_RU), чтобы сверка шла «латиница с латиницей»."""
+    from post_text_builder import _build_title
+    return _build_title(lot)
 
 
 def find_duplicate(lot: dict, records: Optional[dict] = None) -> Optional[dict]:

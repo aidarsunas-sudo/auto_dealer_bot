@@ -158,14 +158,16 @@ def run() -> None:
         results.append(_check("неизвестный режим -> PostRenderError", _raises(lambda: render_post(_ray(), "reserve", RATES)) is not None))
         results.append(_check("нет цены -> PostRenderError «не хватает данных»",
                               "не хватает данных" in (_raises(lambda: render_post(_ray(price=None), "auction", RATES)) or "")))
-        results.append(_check("корейский текст в названии -> PostRenderError",
-                              "корейский" in (_raises(lambda: render_post(_ray(title="Kia K5 노블레스"), "auction", RATES)) or "")))
+        results.append(_check("НЕИЗВЕСТНЫЙ корейский текст в названии -> PostRenderError",
+                              "корейский" in (_raises(lambda: render_post(_ray(title="Kia K5 스페셜에디션"), "auction", RATES)) or "")))
+        results.append(_check("известный корейский трим (노블레스) переводится: заголовок «Kia K5 Noblesse», ошибки нет",
+                              render_post(_lead_lot(brand="Kia", model="K5", trim="노블레스"), "lead", RATES).text.startswith("🔥 Kia K5 Noblesse —")))
         results.append(_check("lead без фото -> PostRenderError «нет фото»",
                               "нет фото" in (_raises(lambda: render_post(_lead_lot(photos=[]), "lead", RATES)) or "")))
         results.append(_check("история со словом «утильсбор» -> текст не проходит формат канала",
                               "формат канала" in (_raises(lambda: render_post(_ray(history="утильсбор 5 200 ₽"), "auction", RATES)) or "")))
-        results.append(_check("build_lead_post() для корейского названия -> None (прежний контракт)",
-                              build_lead_post(_lead_lot(brand="Kia", model="K5", trim="노블레스"), RATES) is None))
+        results.append(_check("build_lead_post() для неизвестного корейского названия -> None (прежний контракт)",
+                              build_lead_post(_lead_lot(brand="Kia", model="K5", trim="스페셜에디션"), RATES) is None))
         suv = render_post(_lead_lot(brand="Volkswagen", model="Touareg", trim="3.0 TDI", cc=2967, hp=286, fuel_code="diesel",
                                      price=40_000_000, year=2022, month=6), "lead", RATES)
         results.append(_check("мощность 286 л.с.: в предупреждениях коммерческий утильсбор, в тексте поста его нет",

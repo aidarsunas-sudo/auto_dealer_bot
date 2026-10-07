@@ -177,8 +177,11 @@ BROKER_FEE_RUB: float = float(os.getenv("BROKER_FEE_RUB", "0"))
 MARGIN_RUB: float = float(os.getenv("MARGIN_RUB", "0"))
 
 # Комиссия банка за перевод оплаты за саму машину продавцу в Корее — берётся
-# ТОЛЬКО от цены авто (price_rub), не от таможни/доставки/брокера/маржи.
-BANK_COMMISSION_PCT: float = float(os.getenv("BANK_COMMISSION_PCT", "0.025"))
+# ТОЛЬКО от цены авто (не от таможни/доставки/брокера/маржи), но от цены УЖЕ
+# с корейской надбавкой (см. EXCHANGE_SPREAD_PCT и post_builder.calculate_price_details()).
+# 0.5% с 2026-10-07 (раньше 2.5%). ВАЖНО: значение, заданное в .env и в секрете
+# GitHub Actions BANK_COMMISSION_PCT, перекрывает этот default — обновлять там же.
+BANK_COMMISSION_PCT: float = float(os.getenv("BANK_COMMISSION_PCT", "0.005"))
 
 # Банковский спред на курс KRW — доля (не проценты!), на которую реальный
 # курс покупки корейской воны в банке выше официального курса ЦБ РФ.

@@ -160,6 +160,15 @@ SCRIPT_PREVIOUS_HOOKS_N: int = int(os.getenv("SCRIPT_PREVIOUS_HOOKS_N", "10"))
 # Пакетный режим (lot_reel_script_batch.py): лотов в одном запросе к API.
 SCRIPT_BATCH_MAX: int = int(os.getenv("SCRIPT_BATCH_MAX", "8"))
 
+# --- Источники объявлений ---
+# Encar закрыт AWS WAF для IP GitHub (ответы 407/404 -> has_been_cr_blocked_AWS), починить
+# кодом нельзя. false = main_pipeline не обращается к Encar (см. source_health.py). В
+# main_pipeline.yml выставлено false; локально по умолчанию true.
+ENCAR_ENABLED: bool = os.getenv("ENCAR_ENABLED", "true").strip().lower() == "true"
+# «Предохранитель»: столько подряд сбоев загрузки списка у источника (KBChachacha) —
+# и он отключается до конца прогона с одним предупреждением админу (source_health.py).
+SOURCE_FAILURE_THRESHOLD: int = int(os.getenv("SOURCE_FAILURE_THRESHOLD", "3"))
+
 # --- Настройки парсинга ---
 # float() превращает текст "3" в число 3.0, с которым можно делать математику
 REQUEST_DELAY_SECONDS: float = float(os.getenv("REQUEST_DELAY_SECONDS", "3"))

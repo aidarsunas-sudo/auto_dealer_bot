@@ -170,8 +170,11 @@ def check_source_health(cars: list, log, notify_fn=None) -> list:
     if notify_fn is None:
         from notifier import notify_error as notify_fn
 
+    import source_health
     counts = Counter(car.get("source") for car in cars)
-    silent = [s for s in ALL_SOURCES if counts.get(s, 0) == 0]
+    # Отключённые флагом (Encar на GitHub) и срезанные предохранителем источники не «молчат»:
+    # про них уже есть отдельное сообщение — второй раз тревогу не поднимаем.
+    silent = [s for s in ALL_SOURCES if source_health.is_active(s) and counts.get(s, 0) == 0]
 
     if silent:
         message = (f"Источник(и) не дали НИ ОДНОГО объявления за этот прогон "

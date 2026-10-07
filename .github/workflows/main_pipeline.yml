@@ -95,6 +95,10 @@ jobs:
           # Не секреты (режимы работы) — задаются прямо здесь, не через
           # GitHub Secrets. Поменяй на "targeted"/"broad", если нужно.
           SEARCH_MODE: both
+          # Encar закрыт AWS WAF для IP GitHub (ответы 407/404, has_been_cr_blocked_AWS) —
+          # кодом не лечится; не тратим на него время прогона (см. source_health.py).
+          # Включить обратно — когда появится доступ (напр. корейский прокси).
+          ENCAR_ENABLED: "false"
           # Видео (video_generator.py) — включено 2026-07-17 после
           # контрольного прогона test_post+test_video на сети GitHub
           # Actions (run_bot.yml): VK-видеозагрузка на mycdn.me подтверждена

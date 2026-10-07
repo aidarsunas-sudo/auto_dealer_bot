@@ -182,6 +182,11 @@ def run() -> None:
         results.append(_check("запасные курсы ЦБ -> предупреждение в RenderedPost.warnings",
                               any("курсы ЦБ недоступны" in w for w in fallback.warnings)))
 
+        turbo = render_post(_ray(title="Hyundai Casper 1.0 Turbo Inspiration", cc=998, hp=100, engine_note="турбо"), "auction", RATES).text
+        results.append(_check("примечание к двигателю (реальный пост Casper): «1,0 л турбо (998 см³), 100 л.с., бензин»",
+                              "🔧 Двигатель: 1,0 л турбо (998 см³), 100 л.с., бензин" in turbo))
+        results.append(_check("без примечания строка двигателя прежняя", "🔧 Двигатель: 1,0 л (998 см³), 76 л.с., бензин" in t))
+
         # ── источники полей ──────────────────────────────────────────────
         every = [ray, render_post(_lead_lot(), "lead", RATES), render_post(_lead_lot(source="onbid"), "lead", RATES)]
         used = {name for post_ in every for name in post_.used_fields}

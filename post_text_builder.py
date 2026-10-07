@@ -91,11 +91,13 @@ _FUEL_RU = {
 }
 
 
-def format_engine_line(cc, hp, fuel_code=None) -> str:
+def format_engine_line(cc, hp, fuel_code=None, note=None) -> str:
     """
     Строка «Двигатель» для текста поста (post_render.render_post): десятичная ЗАПЯТАЯ,
     объём в см³ и вид топлива, если известны — «1,0 л (998 см³), 76 л.с., бензин».
     Электромобиль без объёма: «электро, 150 л.с.». Нет данных — «не указан».
+    note — необязательное примечание к объёму (например «турбо»): «1,0 л турбо (998 см³), …» —
+    площадки не всегда отдают наддув, поэтому слово задаётся вручную (lot["engine_note"]).
     Отдельно от engine_display (десятичная точка): его читают видео/озвучка/Яндекс-потоки.
     """
     fuel = _FUEL_RU.get(fuel_code or "", "")
@@ -104,7 +106,8 @@ def format_engine_line(cc, hp, fuel_code=None) -> str:
     if not (cc and hp):
         return "не указан"
     liters = f"{cc / 1000:.1f}".replace(".", ",")
-    line = f"{liters} л ({int(cc)} см³), {int(hp)} л.с."
+    suffix = f" {note.strip()}" if note and note.strip() else ""
+    line = f"{liters} л{suffix} ({int(cc)} см³), {int(hp)} л.с."
     return f"{line}, {fuel}" if fuel else line
 
 
@@ -197,7 +200,7 @@ def prepare_post_fields(car: dict, rates: dict, require_photos: bool = True) -> 
         "engine_display": engine_display,
         # Строка двигателя для текста поста (десятичная запятая, см³, топливо) —
         # post_render.render_post(); engine_display выше не трогаем (видео/озвучка/Яндекс).
-        "engine_line": format_engine_line(cc, hp, car.get("fuel_code")),
+        "engine_line": format_engine_line(cc, hp, car.get("fuel_code"), car.get("engine_note")),
         # Не все источники отдают трансмиссию (Charancha — да, Encar/
         # kbchachacha/OnBid — нет без доп. запроса к детальной странице) —
         # честно показываем "не указано", а не гадаем (не баг, см. докстринг).

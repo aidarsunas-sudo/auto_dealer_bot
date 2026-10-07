@@ -88,6 +88,42 @@ def run() -> None:
     results.append(_check("не хватает данных (нет мощности) -> None, не гадаем",
                           calculate_price({"price": 12_000_000, "cc": 998, "fuel_code": "petrol", "year": 2022}, RATES, PARAMS) is None))
 
+    # ── КОНТРОЛЬНЫЙ ЛОТ Kia Ray Signature: фиксированный курс покупки 15,2 ₩/₽ ──────────────
+    # Допуск 1 ₽ (округление курса евро: опубликованное число посчитано при евро ≈ 95,3349).
+    ctrl_rates = {**RATES, "krw_rub": 0.06247, "eur_rub": 95.3349}
+    ctrl = PricingParams(**{**PARAMS.__dict__, "krw_per_rub": 15.2})
+    expected = {0.025: {12: 1_533_901, 13: 1_601_335}, 0.005: {12: 1_518_112, 13: 1_584_230}}
+    for bank, per_bid in expected.items():
+        for mln, wanted in per_bid.items():
+            got = calculate_price(dict(KIA_RAY, price=mln * 1_000_000), ctrl_rates,
+                                  PricingParams(**{**ctrl.__dict__, "bank_commission_pct": bank})).total_rub
+            print(f"     контрольный лот: банк {bank:.1%}, ставка {mln} млн ₩ -> формула {got:,} ₽, ожидается {wanted:,} ₽ (разница {got - wanted:+d})".replace(",", " "))
+            results.append(_check(f"контрольный лот Kia Ray Signature: банк {bank:.1%}, ставка {mln} млн ₩ = {wanted:,} ₽ (допуск 1 ₽)".replace(",", " "),
+                                  abs(got - wanted) <= 1))
+    fixed = calculate_price(dict(KIA_RAY, price=12_000_000), ctrl_rates, ctrl)
+    results.append(_check("режим фиксированного курса: машина = 12 000 000 / 15,2 = 789 473 ₽, надбавка к ЦБ ≈ +5,3% (а не 14%)",
+                          fixed.car_price_rub == 789_473 and 0.05 < fixed.korea_costs_rub / fixed.car_price_cbr_rub < 0.055))
+    results.append(_check("при KOREA_COSTS_PCT режим фиксированного курса его не применяет (цена не зависит от 14%)",
+                          calculate_price(dict(KIA_RAY, price=12_000_000), ctrl_rates, PricingParams(**{**ctrl.__dict__, "korea_costs_pct": 0.50})).total_rub
+                          == fixed.total_rub))
+    default_mode = calculate_price(dict(KIA_RAY, price=12_000_000), ctrl_rates, PricingParams(**{**PARAMS.__dict__, "bank_commission_pct": 0.025}))
+    fixed_25 = calculate_price(dict(KIA_RAY, price=12_000_000), ctrl_rates, PricingParams(**{**ctrl.__dict__, "bank_commission_pct": 0.025}))
+    results.append(_check("при одинаковой комиссии 2,5% режим «ЦБ + 14%» (по умолчанию) даёт цену на ~67 тыс. ₽ выше фиксированного курса 15,2",
+                          60_000 < default_mode.total_rub - fixed_25.total_rub < 75_000))
+    stale = calculate_price(dict(KIA_RAY, price=12_000_000), ctrl_rates, PricingParams(**{**ctrl.__dict__, "krw_per_rub": 17.5}))
+    wild = calculate_price(dict(KIA_RAY, price=12_000_000), ctrl_rates, PricingParams(**{**ctrl.__dict__, "krw_per_rub": 10.0}))
+    results.append(_check("курс покупки выгоднее ЦБ (надбавка < 0) или завышен > 25% -> предупреждение проверить KRW_PER_RUB",
+                          any("KRW_PER_RUB" in w for w in stale.warnings) and any("KRW_PER_RUB" in w for w in wild.warnings)
+                          and not any("KRW_PER_RUB" in w for w in fixed.warnings)))
+    saved_rate = config.KRW_PER_RUB
+    try:
+        config.KRW_PER_RUB = 15.2
+        results.append(_check("PricingParams.from_config() читает config.KRW_PER_RUB", PricingParams.from_config().krw_per_rub == 15.2))
+        config.KRW_PER_RUB = None
+        results.append(_check("KRW_PER_RUB не задан -> None (режим «ЦБ + надбавка»)", PricingParams.from_config().krw_per_rub is None))
+    finally:
+        config.KRW_PER_RUB = saved_rate
+
     # ── обратная совместимость: post_builder и config ─────────────────────
     saved = {n: getattr(config, n) for n in ("KOREA_COSTS_PCT", "BANK_COMMISSION_PCT", "LOGISTICS_RUB",
                                               "BROKER_FEE_RUB", "MARGIN_RUB", "IMPORTER_TYPE")}

@@ -204,6 +204,14 @@ BANK_COMMISSION_PCT: float = float(os.getenv("BANK_COMMISSION_PCT", "0.005"))
 KOREA_COSTS_PCT: float = float(os.getenv("KOREA_COSTS_PCT", os.getenv("EXCHANGE_SPREAD_PCT", "0.14")))
 EXCHANGE_SPREAD_PCT: float = KOREA_COSTS_PCT  # устаревшее имя: оставлено, чтобы старый код не сломался
 
+# Фиксированный курс ПОКУПКИ воны, ₩ за 1 ₽ (например 15.2). Если задан, цена машины считается как
+# цена в ₩ / KRW_PER_RUB (вместо «курс ЦБ × (1 + KOREA_COSTS_PCT)»), KOREA_COSTS_PCT при этом не
+# применяется; таможня по-прежнему по ЦБ. Пусто или 0 = режим «ЦБ + надбавка» (по умолчанию).
+# Режим нужен, чтобы воспроизводить цены, посчитанные по реальному курсу покупки владельца
+# (контрольный лот Kia Ray Signature: 15,2 ₩/₽ и комиссия 2,5% дают 1 533 901 ₽ при ставке 12 млн ₩).
+_KRW_PER_RUB_RAW = os.getenv("KRW_PER_RUB", "").strip()
+KRW_PER_RUB: float | None = float(_KRW_PER_RUB_RAW) if _KRW_PER_RUB_RAW and float(_KRW_PER_RUB_RAW) > 0 else None
+
 # --- Кто ввозит (влияет на расчёт утильсбора) ---
 # 'phys' — физическое лицо (льготный утильсбор при мощности до 160 л.с.
 #          и объёме до 3000 см³), 'legal' — юридическое лицо (коммерческие

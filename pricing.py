@@ -10,6 +10,8 @@ pricing.py — цена «под ключ в Казани»: ОДНА функц
     корейская надбавка  = машина по ЦБ × KOREA_COSTS_PCT        (14%: аукцион, экспортные
                                                                  документы, спред по воне)
     цена машины         = машина по ЦБ + корейская надбавка
+    ИЛИ, если задан KRW_PER_RUB (фиксированный курс покупки, напр. 15,2 ₩/₽):
+    цена машины         = цена в ₩ / KRW_PER_RUB     (надбавка тогда — лишь разница с ценой по ЦБ)
     банковский перевод  = цена машины × BANK_COMMISSION_PCT     (0,5%)
     таможня             = сбор + ЕТС + утильсбор                (по ЦБ, customs_rates.py)
     логистика и прочее  = LOGISTICS_RUB + BROKER_FEE_RUB + MARGIN_RUB
@@ -55,6 +57,7 @@ class PricingParams:
     broker_fee_rub: float
     margin_rub: float
     importer_type: str
+    krw_per_rub: Optional[float] = None   # фиксированный курс покупки ₩ за ₽ (None = режим «ЦБ + надбавка»)
 
     @classmethod
     def from_config(cls) -> "PricingParams":
@@ -65,6 +68,7 @@ class PricingParams:
             broker_fee_rub=config.BROKER_FEE_RUB,
             margin_rub=config.MARGIN_RUB,
             importer_type=config.IMPORTER_TYPE,
+            krw_per_rub=config.KRW_PER_RUB,
         )
 
     @property
@@ -153,14 +157,22 @@ def calculate_price(car: dict, rates: dict, params: Optional[PricingParams] = No
                         who=params.importer_type, rates=rates)
 
     cbr_price = customs["price_rub"]
-    korea_costs = cbr_price * params.korea_costs_pct
-    car_price = cbr_price + korea_costs
+    if params.krw_per_rub:
+        car_price = price_krw / params.krw_per_rub   # фиксированный курс покупки вместо «ЦБ + надбавка»
+        korea_costs = car_price - cbr_price
+    else:
+        korea_costs = cbr_price * params.korea_costs_pct
+        car_price = cbr_price + korea_costs
     bank_commission = car_price * params.bank_commission_pct
     extra = params.extra_costs_rub
     total = int(car_price + customs["with_util"] + bank_commission + extra)
 
     warnings = _util_warnings(customs["util_lgota"], customs["util_rub"], customs["util_coeff"],
                               customs["hp"], cc, fuel, params.importer_type)
+    markup = korea_costs / cbr_price if cbr_price else 0
+    if params.krw_per_rub and (markup < 0 or markup > 0.25):
+        warnings.append(f"фиксированный курс покупки {params.krw_per_rub} ₩/₽ даёт надбавку {markup:+.1%} к курсу ЦБ — "
+                        f"курс устарел или задан неверно, проверьте KRW_PER_RUB")
     if (rates or {}).get("_source") == "fallback":
         warnings.append(f"курсы ЦБ недоступны — использованы запасные (₩ {rates.get('krw_rub')}, € {rates.get('eur_rub')}): "
                         f"цена приблизительная")

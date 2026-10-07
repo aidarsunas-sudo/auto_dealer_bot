@@ -45,6 +45,10 @@ def run() -> None:
     real_log = pv.REJECTED_LOG_PATH
     pv.REJECTED_LOG_PATH = Path(tmp.name) / "rejected_posts.log"
     sent = []
+    # publish_post() с fields и VIDEO_ENABLED двигает счётчик video_state.json (отслеживаемый файл) —
+    # в тесте видео выключено, чтобы он не оставлял следов в репозитории.
+    real_video_enabled = config.VIDEO_ENABLED
+    config.VIDEO_ENABLED = False
     names = ("send_to_telegram", "send_photo_to_telegram", "send_media_group_to_telegram", "send_to_vk")
     originals = {n: getattr(agent_publisher, n) for n in names}
     try:
@@ -117,6 +121,7 @@ def run() -> None:
         for name, fn in originals.items():
             setattr(agent_publisher, name, fn)
         pv.REJECTED_LOG_PATH = real_log
+        config.VIDEO_ENABLED = real_video_enabled
         tmp.cleanup()
 
     print()

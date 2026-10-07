@@ -55,6 +55,7 @@ import video_state
 from telegram_publisher import send_to_telegram, send_photo_to_telegram, send_media_group_to_telegram
 from vk_publisher import send_to_vk
 from post_validator import validate_post_before_publish, PublishBlockedError, ValidatedCar
+import registry
 
 logger = logging.getLogger("agent_publisher")
 
@@ -80,7 +81,7 @@ def _generate_video_safe(car: ValidatedCar, fields: dict) -> dict | None:
 
 
 def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: bool = False,
-                  fields: dict | None = None) -> bool:
+                  fields: dict | None = None, skip_duplicate_check: bool = False) -> bool:
     """
     Публикует готовый текст поста в Telegram (основной канал) и, следом,
     в VK (второй канал, best-effort — см. докстринг файла).
@@ -122,10 +123,18 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
         их не удалось (например, битая ссылка на изображение) — публикация
         БЛОКИРУЕТСЯ целиком (False), а не откатывается на текст без фото.
 
+        skip_duplicate_check: не сверять лот с реестром published.jsonl. Тестовые
+            посты (текст начинается с «[ТЕСТ]», test_post.py) пропускают сверку
+            сами — они публикуются вне дедупа намеренно.
+
     Raises:
         PublishBlockedError: гейт не пройден (см. skip_validation выше).
             Вызывающий код должен ловить её на уровне цикла по машинам
             (продолжить со следующей), а не давать упасть всему прогону.
+        registry.DuplicatePostError (подкласс PublishBlockedError): лот уже есть
+            в реестре published.jsonl — по lot_id/URL либо по сочетанию модель + год
+            + пробег (у ручных постов lot_id может не быть). Ничего не отправляется,
+            причина — в логе и в тексте исключения. Сверка идёт и при dry_run.
     """
     if not skip_validation:
         validated, reason = validate_post_before_publish(car, fields)
@@ -137,6 +146,17 @@ def publish_post(car: dict, text: str, dry_run: bool = False, skip_validation: b
         # используется именно эта проверенная обёртка (см. её докстринг в
         # post_validator.py про то, зачем это физическое разделение типов).
         car = validated
+
+    # Дубли: единое место, как и у гейта выше — вызывающий код сверку не дублирует.
+    # ДО видео/озвучки и до любой отправки. Не мешает записи published_log (его
+    # ведёт вызывающий код), реестр published.jsonl — источник правды о канале.
+    if not skip_duplicate_check and not text.lstrip().startswith("[ТЕСТ]"):
+        duplicate = registry.find_duplicate(car)
+        if duplicate is not None:
+            identifier = car.get("url") or car.get("external_id") or "?"
+            reason = registry.describe_duplicate(duplicate)
+            logger.warning(f"Публикация пропущена: дубль {identifier} — {reason}")
+            raise registry.DuplicatePostError(f"Пост {identifier} пропущен как дубль: {reason}")
 
     photos = car.get("photos") or []
 

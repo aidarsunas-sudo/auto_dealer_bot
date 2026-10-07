@@ -61,11 +61,13 @@ import vk_publisher
 from models_to_watch import sync_to_target_models
 from used_car_scraper import enrich_photos_from_detail
 import yandex_queue
+import registry
 from yandex_publisher import send_yandex_draft
 from yandex_digest_builder import record_published_lot
 from telegram_publisher import send_to_telegram
 
 FRESHNESS_DAYS = 14
+REGISTRY_REFRESH_DAYS = 7  # глубина сверки реестра published.jsonl с каналом в начале прогона
 POST_LIMIT = 5
 DIVERSIFY_BUFFER = 5  # diversify() вернёт до POST_LIMIT * DIVERSIFY_BUFFER кандидатов
 
@@ -158,6 +160,20 @@ def run() -> None:
             notify_error(f"⚠️ VK_TOKEN не прошёл проверку перед прогоном main_pipeline: {vk_reason}")
         else:
             log.info("VK_TOKEN проверен — рабочий" if config.VK_ENABLED else "VK не настроен, пропускаю")
+
+    # Реестр published.jsonl сверяем с публичной страницей канала ДО выбора
+    # кандидатов (источник правды — сам канал, см. registry.py): так посты,
+    # вышедшие вручную с прошлого прогона (без lot_id), попадают в защиту от дублей
+    # (agent_publisher.publish_post -> registry.find_duplicate). Сбой сети не
+    # должен останавливать прогон — работаем по сохранённому в git реестру.
+    try:
+        rows = registry.reconcile(days=REGISTRY_REFRESH_DAYS, apply=not args.dry_run)
+        changed = sum(1 for status, _ in rows if status in ("new", "update"))
+        log.info(f"registry: сверка с каналом за {REGISTRY_REFRESH_DAYS} сут.: постов {len(rows)}, "
+                 f"{'записано' if not args.dry_run else 'нашлось бы'} {changed}")
+    except Exception as error:
+        log.warning(f"registry: не удалось сверить реестр с каналом ({error}) — "
+                    f"работаю по сохранённому published.jsonl")
 
     # Простой список моделей без JSON (models_to_watch.txt) — переносит в
     # target_models.json всё, чего там ещё нет, до того как target_collector.py
@@ -266,6 +282,7 @@ def run() -> None:
     candidates = limit_consecutive_brand(candidates, recent_brands, config.MAX_SAME_BRAND_IN_A_ROW)
 
     posted_count = 0
+    duplicates_skipped = 0
     for car in candidates:
         if posted_count >= post_limit:
             log.info(f"Достигнут лимит {post_limit} постов за запуск — останавливаюсь")
@@ -287,6 +304,12 @@ def run() -> None:
         # — одна отклонённая машина не должна останавливать весь прогон.
         try:
             ok = publish_post(car, post_text, dry_run=args.dry_run, fields=fields)
+        except registry.DuplicatePostError as error:
+            # Лот уже в канале (реестр published.jsonl) — штатный пропуск, не сбой:
+            # не считается за "ошибку публикации" и не поднимает тревогу "0 постов".
+            duplicates_skipped += 1
+            log.info(f"Пропущено как дубль {car.get('brand', '?')} {car.get('model', '?')}: {error}")
+            continue
         except Exception as error:
             log.error(f"Не удалось опубликовать {car.get('brand', '?')} {car.get('model', '?')}: {error}")
             continue
@@ -337,7 +360,9 @@ def run() -> None:
     # определению — это ожидаемо, не сбой) и не касается "кандидатов не
     # нашлось вообще" (early return выше — это нормальный тихий период,
     # не аномалия).
-    if candidates and posted_count == 0 and not args.dry_run:
+    if duplicates_skipped:
+        log.info(f"Пропущено как дубли (реестр published.jsonl): {duplicates_skipped}")
+    if candidates and posted_count == 0 and duplicates_skipped == 0 and not args.dry_run:
         notify_error(
             f"⚠️ main_pipeline: собрано {len(candidates)} кандидат(ов) на публикацию, "
             f"но опубликовано 0 постов за этот прогон. Похоже на тихий сбой "

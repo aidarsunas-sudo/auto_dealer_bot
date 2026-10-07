@@ -50,6 +50,8 @@ from typing import Callable, Optional
 
 import requests
 
+from post_validator import PublishBlockedError
+
 logger = logging.getLogger("registry")
 
 CHANNEL = "auto_generals"
@@ -274,6 +276,100 @@ def build_record(post: dict, lot_urls: dict, now: Optional[datetime] = None) -> 
         record["is_test"] = True
     record["recorded_at"] = (now or datetime.now(timezone.utc)).isoformat(timespec="seconds")
     return record
+
+
+# ── защита от дублей ──────────────────────────────────────────────────────
+
+MILEAGE_TOLERANCE_KM = 50  # один и тот же лот на разных площадках показывает пробег с небольшим расхождением
+
+
+class DuplicatePostError(PublishBlockedError):
+    """Лот уже опубликован в канале (по реестру). Подкласс PublishBlockedError: все
+    вызывающие места, ловящие блокировку гейта, переживут её так же — но main_pipeline
+    ловит её отдельно: пропуск дубля — штатная ситуация, а не сбой."""
+
+
+def _norm_key(value) -> str:
+    text = re.sub(r"^https?://(www\.)?", "", str(value).strip().lower())
+    return text.rstrip("/")
+
+
+def lot_keys(lot: dict) -> set:
+    """Все идентификаторы лота, по которым его можно узнать в реестре: lot_id, URL,
+    пара «площадка:external_id». Пустые значения игнорируются."""
+    keys = {_norm_key(v) for v in (lot.get("lot_id"), lot.get("url"), lot.get("lot_url")) if v}
+    if lot.get("source") and lot.get("external_id"):
+        keys.add(f"{lot['source']}:{lot['external_id']}".lower())
+    return keys
+
+
+def _tokens(title: Optional[str]) -> list:
+    return re.findall(r"[0-9a-zа-яё]+", (title or "").lower())
+
+
+def _same_model(title_a: Optional[str], title_b: Optional[str]) -> bool:
+    """Модели считаются одной, если у более короткого названия два первых слова
+    (марка + первое слово модели) есть в более длинном: «Kia Ray» ⊂ «Kia Ray Signature (The New Ray)»,
+    но «Kia K3» ≠ «Kia K5». Пустое название ничему не равно."""
+    a, b = _tokens(title_a), _tokens(title_b)
+    if len(a) < 2 or len(b) < 2:
+        return False
+    short, long_ = (a, b) if len(a) <= len(b) else (b, a)
+    return all(token in long_ for token in short[:2])
+
+
+def lot_title(lot: dict) -> str:
+    """brand + model + trim без повторов — как заголовок поста (post_text_builder._build_title)."""
+    parts = []
+    for value in (lot.get("brand"), lot.get("model"), lot.get("trim")):
+        value = (value or "").strip()
+        if value and value not in parts:
+            parts.append(value)
+    return " ".join(parts)
+
+
+def find_duplicate(lot: dict, records: Optional[dict] = None) -> Optional[dict]:
+    """
+    Ищет лот в реестре. Возвращает {"record": запись, "rule": ..., "detail": ...} или None.
+
+    1. По идентификатору — lot_id / URL / «площадка:external_id» (точное совпадение
+       после нормализации). Это основной признак: у автопостов он есть всегда.
+    2. Если идентификатор не сошёлся — по сочетанию модель + год + пробег (±MILEAGE_TOLERANCE_KM
+       км): у ручных постов lot_id и URL может не быть, а тот же автомобиль на другой
+       площадке имеет другую ссылку. Нужны год и пробег ОБОИХ (нет пробега — по этому
+       правилу не сравниваем, не гадаем).
+    Шаблон поста значения не имеет: лот, вышедший как «торги», нельзя повторить как
+    «бронирование». Тестовые посты и записи с method=unknown тоже считаются публикацией.
+    """
+    records = load_records() if records is None else records
+    keys = lot_keys(lot)
+    if keys:
+        for record in records.values():
+            record_keys = {_norm_key(v) for v in (record.get("lot_id"), record.get("lot_url")) if v}
+            shared = keys & record_keys
+            if shared:
+                return {"record": record, "rule": "lot_id/url", "detail": sorted(shared)[0]}
+
+    year, mileage, title = lot.get("year"), lot.get("mileage_km"), lot_title(lot)
+    if year is None or mileage is None or not title:
+        return None
+    try:
+        year, mileage = int(year), int(mileage)
+    except (TypeError, ValueError):
+        return None
+    for record in records.values():
+        if record.get("year") != year or record.get("mileage_km") is None:
+            continue
+        if abs(record["mileage_km"] - mileage) <= MILEAGE_TOLERANCE_KM and _same_model(title, record.get("model")):
+            return {"record": record, "rule": "модель+год+пробег",
+                    "detail": f"{record.get('model')} {year} / {record['mileage_km']} км"}
+    return None
+
+
+def describe_duplicate(duplicate: dict) -> str:
+    record = duplicate["record"]
+    return (f"уже опубликован: {record.get('post_url')} ({str(record.get('posted_at'))[:16]} UTC, "
+            f"{record.get('template')}, способ {record.get('method')}); совпадение: {duplicate['rule']} — {duplicate['detail']}")
 
 
 class Rows(list):

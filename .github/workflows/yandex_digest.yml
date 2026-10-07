@@ -62,18 +62,29 @@ jobs:
           YANDEX_DIGEST_ENABLED: "true"
         run: python run_yandex_digest.py
 
-      - name: Сохранить историю дайджеста и лог
-        if: always()  # сохраняем, даже если прогон упал — лог полезен для диагностики
+      - name: Сохранить историю дайджеста
+        if: always()  # сохраняем, даже если прогон упал
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # yandex_digest_history.json появляется только после РЕАЛЬНОЙ
-          # отправки (не после дня без дайджеста) — "git add" на
-          # несуществующий путь падает с exit 128 и (из-за set -e) валит
-          # весь шаг, поэтому проверяем -e перед add (см. main_pipeline.yml,
-          # тот же приём).
-          for f in yandex_digest_history.json logs/yandex_digest.log; do
-            [ -e "$f" ] && git add "$f"
-          done
-          git diff --staged --quiet || git commit -m "Автообновление yandex_digest_history.json [skip ci]"
-          git push
+          # yandex_digest_history.json появляется только после РЕАЛЬНОЙ отправки (не после
+          # дня без дайджеста) — поэтому проверяем -e перед add.
+          # logs/yandex_digest.log сюда НЕ добавляем: он под "*.log" в .gitignore и не
+          # отслеживается, а "git add" такого файла завершается с кодом 1 ("paths are ignored")
+          # и валил весь шаг (подтверждено воспроизведением 2026-10-07: падали ВСЕ ежедневные
+          # прогоны с 23 сентября). Лог доступен артефактом следующего шага.
+          if [ -e yandex_digest_history.json ]; then
+            git add yandex_digest_history.json
+          fi
+          if ! git diff --staged --quiet; then
+            git commit -m "Автообновление yandex_digest_history.json [skip ci]"
+            git push
+          fi
+
+      - name: Выгрузить лог дайджеста артефактом
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yandex-digest-log
+          path: logs/yandex_digest.log
+          if-no-files-found: ignore

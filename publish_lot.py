@@ -42,6 +42,7 @@ from pathlib import Path
 from typing import Optional
 
 import config
+import platforms
 import registry
 import telegram_media
 from post_render import CAPTION_LIMIT, MSK, PostRenderError, RenderedPost, parse_deadline, render_post
@@ -171,6 +172,44 @@ class MediaPlan:
     files: list
     description: str
     errors: list = field(default_factory=list)
+    build: Optional[object] = None      # BuildResult, если ролик собран build_video
+
+
+def make_video_media(draft: "Draft", numbers: list, image_urls: list, tmp_dir: Path, *, voice: Optional[str] = None,
+                     cuts: Optional[list] = None, music: bool = True, avatar: bool = False,
+                     output_dir: Optional[Path] = None) -> MediaPlan:
+    """Собирает ролик build_video по фото лота с указанными номерами (6-8). Гейт уже пройден (draft.validated);
+    не пройден — ролик не собирается."""
+    import build_video
+    if draft.validated is None:
+        return MediaPlan("video", [], "ролик не собран: гейт не пройден", [f"ролик не собран, гейт: {draft.gate_reason}"])
+    if not build_video.MIN_PHOTOS <= len(numbers) <= build_video.MAX_PHOTOS:
+        return MediaPlan("video", [], "неверное число фото", [f"для ролика нужно {build_video.MIN_PHOTOS}-{build_video.MAX_PHOTOS} фото, указано {len(numbers)}"])
+    from vk_publisher import _download_photo
+    files = []
+    for number in numbers:
+        if not 1 <= number <= len(image_urls):
+            return MediaPlan("video", [], "неверный номер фото", [f"--video-photos {number}: в лоте {len(image_urls)} фото"])
+        data = _download_photo(image_urls[number - 1])
+        if not data:
+            return MediaPlan("video", [], "фото не скачалось", [f"не удалось скачать фото №{number} лота"])
+        target = tmp_dir / f"vid_{number:02d}.jpg"
+        target.write_bytes(data)
+        files.append(target)
+    try:
+        result = build_video.build_video(draft.validated, files, voice=voice, cuts=cuts, music=music,
+                                         output_dir=output_dir, avatar=avatar)
+    except (build_video.BuildVideoError, ValueError, NotImplementedError) as error:
+        return MediaPlan("video", [], "ролик не собран", [f"build_video: {error}"])
+    size = result.path.stat().st_size
+    errors = [f"видео {result.size_mb:.1f} МБ > 50 МБ (лимит Bot API)"] if size > telegram_media.VIDEO_MAX_BYTES else []
+    description = (f"ролик {result.path.name}: {result.size_mb:.1f} МБ, 1080×1920, {result.duration:.1f} с; "
+                   f"фото №{', '.join(map(str, numbers))}; смены кадров ({result.cut_source}): "
+                   f"{', '.join(f'{c:.1f}' for c in result.cut_points)} с; звук: {result.audio_method}"
+                   + (f"; музыка {result.music_track}" if result.music_track else "; без музыки"))
+    if result.needs_confirmation:
+        description += " — смены кадров подобраны автоматически, проверьте"
+    return MediaPlan("video", [result.path], description, errors, build=result)
 
 
 def plan_media(*, video: Optional[str], photos: Optional[list], pick: Optional[list], image_urls: list, tmp_dir: Path) -> MediaPlan:
@@ -230,6 +269,10 @@ class Draft:
     gate_reason: str = ""
     duplicate: Optional[dict] = None
     warnings: list = field(default_factory=list)
+    validated: Optional[object] = None          # ValidatedCar — вход для build_video
+    platforms: list = field(default_factory=lambda: ["telegram"])
+    plans: list = field(default_factory=list)   # platforms.PlatformStatus по Instagram/YouTube
+    upload_status: Optional[object] = None      # platforms.UploadStatus
 
     @property
     def blockers(self) -> list:
@@ -243,19 +286,45 @@ class Draft:
         return found
 
 
-def build_draft(lot: dict, rates: dict, *, chat: Optional[str] = None, registry_path: Optional[Path] = None) -> Draft:
-    """Текст (render_post) -> гейт -> дубли. Поднимает PostRenderError, если пост собрать нельзя."""
+def build_draft(lot: dict, rates: dict, *, chat: Optional[str] = None, registry_path: Optional[Path] = None,
+                requested: Optional[list] = None, upload_status=None) -> Draft:
+    """Текст (render_post) -> гейт -> дубли -> готовность площадок. Поднимает PostRenderError, если пост собрать нельзя.
+    upload_status — platforms.UploadStatus (только чтение); для Instagram/YouTube без него площадки считаются не готовыми."""
     post = render_post(lot, "auction", rates)
     car = dict(lot, brand=lot["title"], model="", trim="")  # как делает render_post: название целиком в brand
     validated, reason = validate_post_before_publish(car, post.fields)
-    duplicate = registry.find_duplicate(car, registry.load_records(registry_path))
+    requested = requested or ["telegram"]
+    records = registry.load_records(registry_path)
+    duplicate = None
+    for name in requested:  # дубль проверяется по каждой запрошенной площадке отдельно
+        duplicate = registry.find_duplicate(car, records, channel=name)
+        if duplicate:
+            break
+    plans = platforms.plan_platforms(requested, upload_status or platforms.UploadStatus(False, error="статус upload-post не проверялся"))
     channel = chat or config.TELEGRAM_CHAT_ID
     test_mode = channel != config.TELEGRAM_CHAT_ID
     caption = post.text.strip()
     if test_mode:
         caption = "[ТЕСТ] " + caption
     return Draft(lot=lot, post=post, channel=channel, test_mode=test_mode, caption=caption,
-                 gate_reason="" if validated is not None else reason, duplicate=duplicate, warnings=list(post.warnings))
+                 gate_reason="" if validated is not None else reason, duplicate=duplicate, warnings=list(post.warnings),
+                 validated=validated, platforms=requested, plans=plans, upload_status=upload_status)
+
+
+def platform_captions(draft: Draft) -> dict:
+    """Подписи для Instagram/YouTube — из того же текста поста (для YouTube отдельное название <=100 и #Shorts)."""
+    lot = draft.lot
+    return {"instagram": {"caption": platforms.instagram_caption(draft.caption)},
+            "youtube": {"title": platforms.youtube_title(draft.caption, lot["title"], lot.get("year")),
+                        "description": platforms.youtube_description(draft.caption)}}
+
+
+def problems_of(draft: Draft, media: MediaPlan) -> list:
+    """Всё, что блокирует публикацию: гейт, дубль, длина подписи, медиа; Instagram/YouTube — только с роликом."""
+    found = draft.blockers + media.errors
+    if draft.plans and media.kind != "video":
+        found.append("для Instagram/YouTube нужен ролик (--video-photos или --video)")
+    return found
 
 
 def format_draft(draft: Draft, media: MediaPlan, publish: bool) -> str:
@@ -267,9 +336,29 @@ def format_draft(draft: Draft, media: MediaPlan, publish: bool) -> str:
            f"Лот в реестре: heydealer:{draft.lot['lot_id'].split(':')[-1]}"]
     pc = draft.post.fields
     out.append(f"Цена под ключ: {pc['total_rub']} ₽ при ставке {draft.lot['price']:,} ₩".replace(",", " "))
+    out.append("Площадки: " + ", ".join(draft.platforms))
+    extra = [p for p in draft.plans]
+    if extra:
+        status = draft.upload_status
+        if status is not None and status.configured:
+            left = "неизвестен" if status.remaining is None else str(status.remaining)
+            out.append(f"upload-post: подключено {', '.join(n for n, ok in status.connected.items() if ok) or 'ничего'}; "
+                       f"остаток публикаций: {left}" + (f"; тариф {status.plan}" if status.plan else ""))
+        captions = platform_captions(draft)
+        for plan in extra:
+            if draft.test_mode:
+                out.append(f"  • {plan.channel}: ТЕСТ — не отправляется (только Telegram-чат)")
+            elif plan.ready:
+                out.append(f"  • {plan.channel}: готова к отправке")
+            else:
+                out.append(f"  • {plan.channel}: НЕ ГОТОВА ({plan.reason}) → будет pending_manual (опубликуете вручную)")
+            if plan.channel == "youtube":
+                out.append(f"      название ({len(captions['youtube']['title'])} из {platforms.YOUTUBE_TITLE_LIMIT}): {captions['youtube']['title']}")
+            else:
+                out.append(f"      подпись: {len(captions['instagram']['caption'])} симв. (тот же текст)")
     for warning in draft.warnings:
         out.append(f"⚠ {warning}")
-    problems = draft.blockers + media.errors
+    problems = problems_of(draft, media)
     out.append("-" * 64)
     out += [f"✖ БЛОКИРУЕТ: {p}" for p in problems] or ["✔ гейт пройден, дублей нет, медиа в порядке"]
     out.append("РЕЖИМ: ПУБЛИКАЦИЯ (после подтверждения)" if publish else "РЕЖИМ: DRY-RUN — ничего не отправлено (добавьте --publish)")
@@ -278,40 +367,72 @@ def format_draft(draft: Draft, media: MediaPlan, publish: bool) -> str:
 
 # ── отправка и запись в реестр ────────────────────────────────────────────
 
-def publish(draft: Draft, media: MediaPlan, registry_path: Optional[Path] = None) -> Optional[dict]:
+def publish(draft: Draft, media: MediaPlan, registry_path: Optional[Path] = None, session=None) -> Optional[dict]:
     """Отправляет пост и СРАЗУ записывает его в реестр (кроме тестовой отправки). Возвращает запись
     реестра (либо {"message_id": ...} для теста) или None, если отправка не удалась."""
-    problems = draft.blockers + media.errors
+    problems = problems_of(draft, media)
     if problems:
         raise RuntimeError("публикация заблокирована: " + "; ".join(problems))
-    if media.kind == "video":
-        message_id = telegram_media.send_video_file(media.files[0], draft.caption, draft.channel)
-    else:
-        ids = telegram_media.send_album(media.files, draft.caption, draft.channel)
-        message_id = ids[0] if ids else None
-    if not message_id:
-        return None
-    if draft.test_mode:
-        return {"message_id": message_id, "test": True}
     lot = draft.lot
-    deadline = parse_deadline(lot.get("auction_end_at"))
-    record = {
-        "message_id": message_id, "post_url": f"https://t.me/{registry.CHANNEL}/{message_id}",
-        "posted_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "lot_id": lot["lot_id"], "lot_url": None, "platform": "heydealer", "model": lot["title"],
-        "year": lot["year"], "mileage_km": lot["mileage_km"], "method": "manual", "template": "auction",
-        "source": "publish_lot",
-    }
-    if deadline is not None:
-        record["deadline_msk"] = deadline.astimezone(MSK).strftime("%Y-%m-%dT%H:%M")
-    record["recorded_at"] = record["posted_at"]
-    try:
-        registry.append_record(record, registry_path)
-    except Exception as error:  # пост уже в канале — главное не потерять данные для ручной регистрации
-        print(f"‼ ПОСТ ОПУБЛИКОВАН (message_id {message_id}), но запись в реестр не удалась ({error}). "
-              f"Внесите вручную: python registry.py register-post https://t.me/{registry.CHANNEL}/{message_id} "
-              f"--lot-id {lot['lot_id']} --platform heydealer --template auction --apply")
-    return record
+    message_id = None
+    record = None
+    if "telegram" in draft.platforms:
+        if media.kind == "video":
+            message_id = telegram_media.send_video_file(media.files[0], draft.caption, draft.channel)
+        else:
+            ids = telegram_media.send_album(media.files, draft.caption, draft.channel)
+            message_id = ids[0] if ids else None
+        if not message_id:
+            return None   # Telegram не ушёл — другие площадки не трогаем, в реестр ничего не пишем
+        if draft.test_mode:
+            return {"message_id": message_id, "test": True}
+        deadline = parse_deadline(lot.get("auction_end_at"))
+        record = {
+            "message_id": message_id, "post_url": f"https://t.me/{registry.CHANNEL}/{message_id}",
+            "posted_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "lot_id": lot["lot_id"], "lot_url": None, "platform": "heydealer", "model": lot["title"],
+            "year": lot["year"], "mileage_km": lot["mileage_km"], "method": "manual", "template": "auction",
+            "source": "publish_lot", "channel": "telegram", "status": "published",
+        }
+        if deadline is not None:
+            record["deadline_msk"] = deadline.astimezone(MSK).strftime("%Y-%m-%dT%H:%M")
+        record["recorded_at"] = record["posted_at"]
+        try:
+            registry.append_record(record, registry_path)
+        except Exception as error:  # пост уже в канале — главное не потерять данные для ручной регистрации
+            print(f"‼ ПОСТ ОПУБЛИКОВАН (message_id {message_id}), но запись в реестр не удалась ({error}). "
+                  f"Внесите вручную: python registry.py register-post https://t.me/{registry.CHANNEL}/{message_id} "
+                  f"--lot-id {lot['lot_id']} --platform heydealer --template auction --apply")
+    channels = publish_other_platforms(draft, media, registry_path, session=session) if not draft.test_mode else []
+    if record is None:
+        return {"channels": channels}
+    return dict(record, channels=channels)
+
+
+def publish_other_platforms(draft: Draft, media: MediaPlan, registry_path: Optional[Path] = None, session=None) -> list:
+    """Instagram/YouTube: готовые площадки — отправка через upload-post, остальные — pending_manual. Каждая
+    площадка пишется в реестр отдельной записью. Сбой одной площадки не мешает остальным."""
+    lot, results = draft.lot, []
+    captions = platform_captions(draft)
+    for plan in draft.plans:
+        if plan.ready:
+            info = captions[plan.channel]
+            result = platforms.publish_video(plan.channel, media.files[0], caption=info.get("caption", draft.caption),
+                                             title=info.get("title", ""), description=info.get("description", ""), session=session)
+        else:
+            result = platforms.PlatformResult(plan.channel, "pending_manual", reason=plan.reason)
+        results.append(result)
+        now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        record = {"channel": result.channel, "status": result.status, "message_id": None, "post_url": result.url,
+                  "posted_at": now if result.status == "published" else None, "lot_id": lot["lot_id"], "lot_url": None,
+                  "platform": "heydealer", "model": lot["title"], "year": lot["year"], "mileage_km": lot["mileage_km"],
+                  "method": "manual", "template": "auction", "source": "publish_lot", "recorded_at": now}
+        try:
+            registry.append_record(record, registry_path)
+        except Exception as error:
+            print(f"‼ {result.channel}: статус {result.status}, но запись в реестр не удалась ({error}). Внесите вручную: "
+                  f"python registry.py register-platform {result.channel} {lot['lot_id']} --apply")
+    return results
 
 
 # ── CLI ───────────────────────────────────────────────────────────────────
@@ -342,6 +463,13 @@ def main(argv: Optional[list] = None, rates: Optional[dict] = None) -> int:
     parser.add_argument("--lot-json", dest="lot_json", help="готовый lot_raw.json вместо запроса к API")
     parser.add_argument("--login", action="store_true", help="разрешить вход в HeyDealer, если сессия недействительна")
     parser.add_argument("--video"); parser.add_argument("--photos", nargs="+"); parser.add_argument("--pick", nargs="+", type=int)
+    parser.add_argument("--platforms", default="telegram", help="telegram,instagram,youtube (по умолчанию telegram)")
+    parser.add_argument("--video-photos", dest="video_photos", nargs="+", type=int,
+                        help="номера фото лота (6-8) для ролика build_video; ролик уходит на все выбранные площадки")
+    parser.add_argument("--voice", help="голосовая запись для ролика (иначе тихая музыка из assets)")
+    parser.add_argument("--cuts", nargs="+", type=float, help="секунды смены кадров (n-1 значений); иначе по фразам/паузам")
+    parser.add_argument("--no-music", dest="no_music", action="store_true", help="ролик без фоновой музыки")
+    parser.add_argument("--avatar", action="store_true", help="аватар HeyGen (выключено, пока не реализовано)")
     parser.add_argument("--chat", help="чат назначения; не основной канал = тестовая отправка с пометкой [ТЕСТ]")
     parser.add_argument("--registry", help=argparse.SUPPRESS)
     parser.add_argument("--publish", action="store_true", help="опубликовать (без флага — только черновик)")
@@ -372,14 +500,20 @@ def main(argv: Optional[list] = None, rates: Optional[dict] = None) -> int:
             from rates import fetch_cbr_rates
             rates = fetch_cbr_rates()
         registry_path = Path(args.registry) if args.registry else None
-        draft = build_draft(lot, rates, chat=args.chat, registry_path=registry_path)
-        media = plan_media(video=args.video, photos=args.photos, pick=args.pick, image_urls=lot["photos"], tmp_dir=tmp_dir)
-    except (LotError, PostRenderError) as error:
+        requested = platforms.parse_platforms(args.platforms)
+        upload_status = platforms.check_status() if any(p != "telegram" for p in requested) else None
+        draft = build_draft(lot, rates, chat=args.chat, registry_path=registry_path, requested=requested, upload_status=upload_status)
+        if args.video_photos:
+            media = make_video_media(draft, args.video_photos, lot["photos"], tmp_dir, voice=args.voice, cuts=args.cuts,
+                                     music=not args.no_music, avatar=args.avatar)
+        else:
+            media = plan_media(video=args.video, photos=args.photos, pick=args.pick, image_urls=lot["photos"], tmp_dir=tmp_dir)
+    except (LotError, PostRenderError, platforms.PlatformError) as error:
         print(f"Ошибка: {error}")
         return 2
 
     print(format_draft(draft, media, args.publish))
-    problems = draft.blockers + media.errors
+    problems = problems_of(draft, media)
     if problems:
         return 3
     if not args.publish:
@@ -398,8 +532,11 @@ def main(argv: Optional[list] = None, rates: Optional[dict] = None) -> int:
         return 5
     if result.get("test"):
         print(f"Тестовое сообщение отправлено (message_id {result['message_id']}); в реестр не записано.")
-    else:
+    elif result.get("post_url"):
         print(f"ОПУБЛИКОВАНО: {result['post_url']} — запись в реестр внесена (message_id {result['message_id']}).")
+    for item in result.get("channels", []):
+        tail = f" {item.url}" if item.url else (f" ({item.reason})" if item.reason else "")
+        print(f"{item.channel}: {item.status}{tail} — запись в реестр внесена.")
     return 0
 
 

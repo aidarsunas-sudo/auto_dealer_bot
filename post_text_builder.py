@@ -42,6 +42,7 @@ Encar (поле "Transmission") и Charancha (поле "transmissionName") — �
 import logging
 import re
 
+from brand_names_ko import translate_trims
 from post_builder import calculate_price_details
 
 logger = logging.getLogger("post_text_builder")
@@ -115,7 +116,9 @@ def _build_title(car: dict) -> str:
     """
     parts = []
     for value in (car.get("brand"), car.get("model"), car.get("trim")):
-        value = (value or "").strip()
+        # Корейские названия комплектаций (노블레스, 시그니처…) -> латиница, см.
+        # brand_names_ko.TRIM_RU; неизвестные остаются и логируются (лот отсеется гейтом).
+        value = translate_trims((value or "").strip())
         if value and value not in parts:
             parts.append(value)
     return " ".join(parts)

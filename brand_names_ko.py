@@ -107,3 +107,47 @@ def model_to_korean(model: str) -> str:
     иначе — исходный текст (для моделей-аббревиатур типа K3/Q3 это и есть
     правильный ответ — их не транслитерируют)."""
     return MODEL_KO.get(model.strip().lower(), model)
+
+
+# ── Комплектации (трим) по-корейски -> официальные латинские названия ─────────
+# Корейский трим приходит из Charancha (gradeDetailName), Encar (badge) и OnBid и до
+# 2026-10-07 валил публикацию целиком (гейт: «нет читаемого названия (корейский
+# текст)»): за 10 дней отсеяно 33 лота, названий всего семь. Здесь — ровно эти
+# семь слов (официальные латинские названия Kia/Hyundai). Применяется в ЕДИНОМ
+# сборщике заголовка post_text_builder._build_title() — его видят текст поста, гейт
+# и поиск по model_specs. Неизвестный трим по-прежнему отсеивается (мы не гадаем
+# перевод), но попадает в лог один раз — пополняйте словарь по этим записям.
+TRIM_RU = {
+    "트렌디": "Trendy",
+    "시그니처": "Signature",
+    "노블레스": "Noblesse",
+    "인스퍼레이션": "Inspiration",
+    "익스클루시브": "Exclusive",
+    "프리미엄": "Premium",
+    "프레스티지": "Prestige",
+}
+
+_HANGUL_WORD_RE = None
+_UNKNOWN_TRIMS_LOGGED = set()
+
+
+def translate_trims(text: str) -> str:
+    """Заменяет известные корейские названия комплектаций (TRIM_RU) латинскими.
+    Оставшиеся корейские слова не трогает, но один раз за процесс пишет в лог
+    WARNING с каждым неизвестным словом — пополнить TRIM_RU."""
+    global _HANGUL_WORD_RE
+    import logging
+    import re
+    if not text:
+        return text
+    for korean, latin in TRIM_RU.items():
+        text = text.replace(korean, latin)
+    if _HANGUL_WORD_RE is None:
+        _HANGUL_WORD_RE = re.compile(r"[가-힣ᄀ-ᇿ]+")
+    for word in _HANGUL_WORD_RE.findall(text):
+        if word not in _UNKNOWN_TRIMS_LOGGED:
+            _UNKNOWN_TRIMS_LOGGED.add(word)
+            logging.getLogger("brand_names_ko").warning(
+                f"неизвестное корейское слово в названии: {word!r} (в {text!r}) — лот будет отсеян; "
+                f"добавьте перевод в brand_names_ko.TRIM_RU")
+    return text

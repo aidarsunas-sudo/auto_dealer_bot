@@ -1,0 +1,57 @@
+# ═══════════════════════════════════════════════════════════════════
+# Тесты на каждом pull request (и вручную). Секреты НЕ используются и в job не
+# передаются: тесты работают на заглушках и не должны ничего отправлять или
+# публиковать. Каждый test_*.py — самостоятельный скрипт (без pytest), успех =
+# код возврата 0. Падают все найденные тесты разом, итоговый шаг показывает список.
+#
+# Исключены тесты, которым нужны живые площадки или реальные ключи (в CI они
+# нестабильны или попытались бы что-то отправить); запускайте их вручную:
+#   test_post.py, test_yandex_post.py  — реальная отправка в Telegram/служебный чат
+#   test_k5_sonata_scraper.py          — живой парсинг площадок
+#   test_vk_photo_download.py          — живое скачивание фото с площадок
+# ═══════════════════════════════════════════════════════════════════
+
+name: Tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Скачать код проекта
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Запустить все тесты
+        env:
+          PYTHONUTF8: "1"
+        run: |
+          skip="test_post.py test_yandex_post.py test_k5_sonata_scraper.py test_vk_photo_download.py"
+          failed=""
+          for t in test_*.py; do
+            case " $skip " in *" $t "*) echo "── пропуск (живая сеть/реальная отправка): $t"; continue;; esac
+            echo "══ $t"
+            if ! timeout 300 python "$t"; then
+              failed="$failed $t"
+            fi
+          done
+          if [ -n "$failed" ]; then
+            echo "::error::Упавшие тесты:$failed"
+            exit 1
+          fi
+          echo "Все тесты пройдены"

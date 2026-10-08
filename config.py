@@ -171,15 +171,6 @@ BUILD_VIDEO_TARGET_SEC: float = float(os.getenv("BUILD_VIDEO_TARGET_SEC", "25"))
 BUILD_VIDEO_MUSIC_LUFS: int = int(os.getenv("BUILD_VIDEO_MUSIC_LUFS", "-26"))
 BUILD_VIDEO_MUSIC_UNDER_VOICE_LUFS: int = int(os.getenv("BUILD_VIDEO_MUSIC_UNDER_VOICE_LUFS", "-38"))
 
-# --- Источники объявлений ---
-# Encar закрыт AWS WAF для IP GitHub (ответы 407/404 -> has_been_cr_blocked_AWS), починить
-# кодом нельзя. false = main_pipeline не обращается к Encar (см. source_health.py). В
-# main_pipeline.yml выставлено false; локально по умолчанию true.
-ENCAR_ENABLED: bool = os.getenv("ENCAR_ENABLED", "true").strip().lower() == "true"
-# «Предохранитель»: столько подряд сбоев загрузки списка у источника (KBChachacha) —
-# и он отключается до конца прогона с одним предупреждением админу (source_health.py).
-SOURCE_FAILURE_THRESHOLD: int = int(os.getenv("SOURCE_FAILURE_THRESHOLD", "3"))
-
 # --- Настройки парсинга ---
 # float() превращает текст "3" в число 3.0, с которым можно делать математику
 REQUEST_DELAY_SECONDS: float = float(os.getenv("REQUEST_DELAY_SECONDS", "3"))

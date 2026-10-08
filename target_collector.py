@@ -19,7 +19,6 @@ import kbchachacha_target_adapter
 import encar_scraper
 import charancha_scraper
 import onbid_scraper
-import source_health
 
 NOLOGIN_TARGET_ADAPTERS = {
     "kbchachacha": kbchachacha_target_adapter.search_target_model,
@@ -54,8 +53,6 @@ def collect_target_model_cars(log: logging.Logger) -> list:
             continue
 
         for source_name, search_fn in NOLOGIN_TARGET_ADAPTERS.items():
-            if source_health.should_skip(source_name, log):
-                continue  # отключён флагом (Encar на GitHub) или предохранителем
             log.info(f"── Целевая модель: {target['brand']} {target['model']} ({source_name}) ──")
             try:
                 cars = search_fn(target, log)

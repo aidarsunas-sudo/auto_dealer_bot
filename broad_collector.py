@@ -21,7 +21,6 @@ import kbchachacha_target_adapter
 import encar_scraper
 import charancha_scraper
 import onbid_scraper
-import source_health
 
 BROAD_ADAPTERS = {
     "kbchachacha": kbchachacha_target_adapter.browse_broad,
@@ -45,8 +44,6 @@ def collect_broad_cars(log: logging.Logger) -> list:
     all_cars = []
 
     for source_name, browse_fn in BROAD_ADAPTERS.items():
-        if source_health.should_skip(source_name, log):
-            continue  # отключён флагом (Encar на GitHub) или предохранителем
         log.info(f"── Широкий поиск: {source_name} (hp в [{config.get('min_hp') or 0}, {config['max_hp']}]) ──")
         try:
             cars = browse_fn(config, log)

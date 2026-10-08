@@ -52,6 +52,7 @@ __pycache__/
 !.claude/skills/
 .claude/skills/*
 !.claude/skills/channel-post-automation/
+!.claude/skills/publish-telegram/
 
 # Отладочный файл, который scraper.py создаёт при сбое парсинга
 debug_last_failed_page.txt

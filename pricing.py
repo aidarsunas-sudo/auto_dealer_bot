@@ -37,6 +37,7 @@ pricing.py — цена «под ключ в Казани»: ОДНА функц
 
 import logging
 from dataclasses import dataclass, field
+from datetime import date, datetime, timezone
 from typing import Optional
 
 import config
@@ -58,6 +59,8 @@ class PricingParams:
     margin_rub: float
     importer_type: str
     krw_per_rub: Optional[float] = None   # фиксированный курс покупки ₩ за ₽ (None = режим «ЦБ + надбавка»)
+    krw_rate_updated: Optional[str] = None   # дата обновления курса покупки, YYYY-MM-DD
+    krw_rate_max_age_days: int = 7
 
     @classmethod
     def from_config(cls) -> "PricingParams":
@@ -69,6 +72,8 @@ class PricingParams:
             margin_rub=config.MARGIN_RUB,
             importer_type=config.IMPORTER_TYPE,
             krw_per_rub=config.KRW_PER_RUB,
+            krw_rate_updated=config.KRW_PER_RUB_UPDATED or None,
+            krw_rate_max_age_days=config.KRW_RATE_MAX_AGE_DAYS,
         )
 
     @property
@@ -134,7 +139,23 @@ def _util_warnings(util_lgota: bool, util_rub: int, util_coeff: float, hp: float
     return []
 
 
-def calculate_price(car: dict, rates: dict, params: Optional[PricingParams] = None) -> Optional[PriceResult]:
+def _stale_rate_warning(params: PricingParams, today: Optional[date] = None) -> Optional[str]:
+    """Предупреждение, если фиксированный курс покупки обновляли давно (или дата не задана/нечитаема)."""
+    if not params.krw_rate_updated:
+        return "дата обновления курса покупки KRW_PER_RUB_UPDATED не задана — проверьте, что курс актуален"
+    try:
+        updated = date.fromisoformat(params.krw_rate_updated)
+    except ValueError:
+        return f"дата курса покупки {params.krw_rate_updated!r} не в формате YYYY-MM-DD — проверьте KRW_PER_RUB_UPDATED"
+    age = ((today or datetime.now(timezone.utc).date()) - updated).days
+    if age > params.krw_rate_max_age_days:
+        return (f"курс покупки {params.krw_per_rub} ₩/₽ обновлялся {params.krw_rate_updated} ({age} дн. назад, "
+                f"порог {params.krw_rate_max_age_days}) — проверьте и обновите KRW_PER_RUB и KRW_PER_RUB_UPDATED")
+    return None
+
+
+def calculate_price(car: dict, rates: dict, params: Optional[PricingParams] = None,
+                    today: Optional[date] = None) -> Optional[PriceResult]:
     """
     Цена под ключ в Казани.
 
@@ -173,6 +194,10 @@ def calculate_price(car: dict, rates: dict, params: Optional[PricingParams] = No
     if params.krw_per_rub and (markup < 0 or markup > 0.25):
         warnings.append(f"фиксированный курс покупки {params.krw_per_rub} ₩/₽ даёт надбавку {markup:+.1%} к курсу ЦБ — "
                         f"курс устарел или задан неверно, проверьте KRW_PER_RUB")
+    if params.krw_per_rub:
+        stale = _stale_rate_warning(params, today)
+        if stale:
+            warnings.append(stale)
     if (rates or {}).get("_source") == "fallback":
         warnings.append(f"курсы ЦБ недоступны — использованы запасные (₩ {rates.get('krw_rub')}, € {rates.get('eur_rub')}): "
                         f"цена приблизительная")

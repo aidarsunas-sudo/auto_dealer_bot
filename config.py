@@ -192,9 +192,11 @@ LOG_FILE_PATH: str = os.getenv("LOG_FILE_PATH", "logs/app.log")
 # Это то, что добавляется сверху к цене авто + таможне: доставка из Кореи,
 # услуги брокера, твоя собственная комиссия. Если какая-то статья не нужна —
 # просто оставь 0 (или не указывай строку в .env вообще).
-LOGISTICS_RUB: float = float(os.getenv("LOGISTICS_RUB", "0"))
-BROKER_FEE_RUB: float = float(os.getenv("BROKER_FEE_RUB", "0"))
-MARGIN_RUB: float = float(os.getenv("MARGIN_RUB", "0"))
+# По умолчанию с 2026-10-08: 320 000 + 100 000 + 150 000 = 570 000 ₽ (значения из .env и секретов GitHub
+# Actions перекрывают их — менять там же).
+LOGISTICS_RUB: float = float(os.getenv("LOGISTICS_RUB", "320000"))
+BROKER_FEE_RUB: float = float(os.getenv("BROKER_FEE_RUB", "100000"))
+MARGIN_RUB: float = float(os.getenv("MARGIN_RUB", "150000"))
 
 # Комиссия банка за перевод оплаты за саму машину продавцу в Корее — берётся
 # ТОЛЬКО от цены авто (не от таможни/доставки/брокера/маржи), но от цены УЖЕ
@@ -217,11 +219,16 @@ EXCHANGE_SPREAD_PCT: float = KOREA_COSTS_PCT  # устаревшее имя: о�
 
 # Фиксированный курс ПОКУПКИ воны, ₩ за 1 ₽ (например 15.2). Если задан, цена машины считается как
 # цена в ₩ / KRW_PER_RUB (вместо «курс ЦБ × (1 + KOREA_COSTS_PCT)»), KOREA_COSTS_PCT при этом не
-# применяется; таможня по-прежнему по ЦБ. Пусто или 0 = режим «ЦБ + надбавка» (по умолчанию).
+# применяется; таможня по-прежнему по ЦБ. По умолчанию (переменная не задана) — 15,2 ₩/₽ с 2026-10-08.
+# Явно пустая переменная KRW_PER_RUB= или 0 = режим «ЦБ + надбавка».
 # Режим нужен, чтобы воспроизводить цены, посчитанные по реальному курсу покупки владельца
 # (контрольный лот Kia Ray Signature: 15,2 ₩/₽ и комиссия 2,5% дают 1 533 901 ₽ при ставке 12 млн ₩).
-_KRW_PER_RUB_RAW = os.getenv("KRW_PER_RUB", "").strip()
+_KRW_PER_RUB_RAW = os.getenv("KRW_PER_RUB", "15.2").strip()
 KRW_PER_RUB: float | None = float(_KRW_PER_RUB_RAW) if _KRW_PER_RUB_RAW and float(_KRW_PER_RUB_RAW) > 0 else None
+# Когда курс покупки обновляли в последний раз (YYYY-MM-DD). При смене KRW_PER_RUB обновляйте и дату:
+# старше KRW_RATE_MAX_AGE_DAYS дней -> pricing.calculate_price() добавляет предупреждение в результат.
+KRW_PER_RUB_UPDATED: str = os.getenv("KRW_PER_RUB_UPDATED", "2026-10-08").strip()
+KRW_RATE_MAX_AGE_DAYS: int = int(os.getenv("KRW_RATE_MAX_AGE_DAYS", "7"))
 
 # --- Кто ввозит (влияет на расчёт утильсбора) ---
 # 'phys' — физическое лицо (льготный утильсбор при мощности до 160 л.с.

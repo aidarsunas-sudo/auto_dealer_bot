@@ -25,6 +25,11 @@ import telegram_media
 ROOT = Path(__file__).resolve().parent
 FIXTURE = ROOT / "test_data" / "heydealer" / "lot_nEB6WaPQ.json"
 REAL_REGISTRY = ROOT / "published.jsonl"
+# Тесты не должны зависеть от .env/секретов и дефолтов курса: фиксируем параметры формулы («ЦБ + 14%», банк 0,5%, 570 000 ₽)
+config.KRW_PER_RUB = None
+config.KOREA_COSTS_PCT, config.BANK_COMMISSION_PCT = 0.14, 0.005
+config.LOGISTICS_RUB, config.BROKER_FEE_RUB, config.MARGIN_RUB, config.IMPORTER_TYPE = 320000.0, 100000.0, 150000.0, "phys"
+
 RATES = {"krw_rub": 0.0625, "eur_rub": 95.33, "usd_rub": 85.0, "cny_rub": 12.0, "jpy_rub": 0.55, "_source": "cbr"}
 PARAMS = {"KOREA_COSTS_PCT": 0.14, "BANK_COMMISSION_PCT": 0.005, "LOGISTICS_RUB": 320000.0, "BROKER_FEE_RUB": 100000.0,
           "MARGIN_RUB": 150000.0, "IMPORTER_TYPE": "phys", "TELEGRAM_CHAT_ID": "@main_channel_test"}

@@ -14,6 +14,8 @@ pricing.calculate_price() (python test_price_formula.py, без pytest и без
 Лот: Kia Ray Signature, 998 см³, 76 л.с., бензин, выпуск 12.2022.
 """
 
+from datetime import date, timedelta
+
 import config
 import post_builder
 import pricing
@@ -91,7 +93,7 @@ def run() -> None:
     # ── КОНТРОЛЬНЫЙ ЛОТ Kia Ray Signature: фиксированный курс покупки 15,2 ₩/₽ ──────────────
     # Допуск 1 ₽ (округление курса евро: опубликованное число посчитано при евро ≈ 95,3349).
     ctrl_rates = {**RATES, "krw_rub": 0.06247, "eur_rub": 95.3349}
-    ctrl = PricingParams(**{**PARAMS.__dict__, "krw_per_rub": 15.2})
+    ctrl = PricingParams(**{**PARAMS.__dict__, "krw_per_rub": 15.2, "krw_rate_updated": date.today().isoformat()})
     expected = {0.025: {12: 1_533_901, 13: 1_601_335}, 0.005: {12: 1_518_112, 13: 1_584_230}}
     for bank, per_bid in expected.items():
         for mln, wanted in per_bid.items():
@@ -115,6 +117,20 @@ def run() -> None:
     results.append(_check("курс покупки выгоднее ЦБ (надбавка < 0) или завышен > 25% -> предупреждение проверить KRW_PER_RUB",
                           any("KRW_PER_RUB" in w for w in stale.warnings) and any("KRW_PER_RUB" in w for w in wild.warnings)
                           and not any("KRW_PER_RUB" in w for w in fixed.warnings)))
+    # ── возраст курса покупки: дата обновления и порог 7 дней ───────────────
+    today = date(2026, 10, 15)
+    def with_date(updated):
+        return calculate_price(dict(KIA_RAY, price=12_000_000), ctrl_rates,
+                               PricingParams(**{**ctrl.__dict__, "krw_rate_updated": updated}), today=today)
+    has_rate_warning = lambda r: any("обновлялся" in w or "KRW_PER_RUB_UPDATED" in w for w in r.warnings)
+    results.append(_check("курс обновлён 7 дней назад (порог не превышен) -> предупреждения нет", not has_rate_warning(with_date("2026-10-08"))))
+    results.append(_check("курс старше 7 дней (8 дн.) -> предупреждение с датой и дней назад", any("8 дн." in w and "2026-10-07" in w for w in with_date("2026-10-07").warnings)))
+    results.append(_check("дата курса не задана -> предупреждение", has_rate_warning(with_date(None))))
+    results.append(_check("дата в неверном формате -> предупреждение, расчёт не падает", with_date("вчера").total_rub > 0 and has_rate_warning(with_date("вчера"))))
+    no_fixed = calculate_price(dict(KIA_RAY, price=12_000_000), ctrl_rates, PricingParams(**{**PARAMS.__dict__, "krw_rate_updated": "2020-01-01"}), today=today)
+    results.append(_check("режим «ЦБ + надбавка» (курс не задан) о возрасте курса не предупреждает", not has_rate_warning(no_fixed)))
+    results.append(_check("значения в config по умолчанию: курс 15,2, дата обновления задана, порог 7 дней, расходы 320+100+150 тыс. ₽",
+                          config.KRW_PER_RUB in (15.2, None) and bool(config.KRW_PER_RUB_UPDATED) and config.KRW_RATE_MAX_AGE_DAYS == 7))
     saved_rate = config.KRW_PER_RUB
     try:
         config.KRW_PER_RUB = 15.2
@@ -126,8 +142,9 @@ def run() -> None:
 
     # ── обратная совместимость: post_builder и config ─────────────────────
     saved = {n: getattr(config, n) for n in ("KOREA_COSTS_PCT", "BANK_COMMISSION_PCT", "LOGISTICS_RUB",
-                                              "BROKER_FEE_RUB", "MARGIN_RUB", "IMPORTER_TYPE")}
+                                              "BROKER_FEE_RUB", "MARGIN_RUB", "IMPORTER_TYPE", "KRW_PER_RUB")}
     try:
+        config.KRW_PER_RUB = None  # проверка прежнего режима «ЦБ + 14%»
         config.KOREA_COSTS_PCT, config.BANK_COMMISSION_PCT = 0.14, 0.005
         config.LOGISTICS_RUB, config.BROKER_FEE_RUB, config.MARGIN_RUB, config.IMPORTER_TYPE = 320000.0, 100000.0, 150000.0, "phys"
         legacy = post_builder.calculate_price_details(dict(KIA_RAY, price=12_000_000), RATES)

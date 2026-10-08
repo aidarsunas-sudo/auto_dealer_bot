@@ -35,6 +35,7 @@ import time
 import requests
 from playwright.sync_api import sync_playwright
 
+import config as app_config  # имя config занято параметром browse_broad
 from brand_names_ko import to_korean, model_to_korean, from_korean
 from engine_filter import engine_fuel_hint, FUEL_NAME_KO
 from model_specs import find_spec
@@ -254,11 +255,43 @@ def _normalize_item(item: dict, target: dict) -> dict:
     }
 
 
+def filter_and_normalize(results: list, target: dict) -> list:
+    """
+    Из «сырых» объявлений Encar (элементы SearchResults) оставляет подходящие под target
+    (обычная продажа, топливо, год, пробег) и приводит к общему формату. ЕДИНЫЙ код и для
+    API-режима, и для снимка car.encar.com (encar_snapshot.py) — оба пути дают одинаковые лоты.
+    """
+    fuel_hint = engine_fuel_hint(target.get("engine"))
+    kept = []
+    for item in results:
+        if item.get("SellType") != REGULAR_SALE_TYPE:
+            continue  # аренда/переуступка и т.п. — Price там не цена машины
+        if fuel_hint is not None and item.get("FuelType") != FUEL_NAME_KO[fuel_hint]:
+            continue  # явно другое топливо (например, бензин вместо запрошенного TDI-дизеля)
+
+        normalized = _normalize_item(item, target)
+        year = normalized.get("year")
+        mileage_km = normalized.get("mileage_km")
+        if year is not None and not (target.get("year_from", 0) <= year <= target.get("year_to", 9999)):
+            continue
+        if target.get("mileage_max") is not None and mileage_km is not None and mileage_km > target["mileage_max"]:
+            continue
+        kept.append(normalized)
+    return kept
+
+
 def search_target_model(target: dict, log: logging.Logger) -> list:
     """
     Ищет объявления на Encar по целевой модели (см. target_models.json).
     Возвращает список, совместимый с database.save_car (+ доп. поля).
+
+    ENCAR_SOURCE=snapshot (так задано в main_pipeline.yml): лоты берутся из data/encar_snapshot.json,
+    который собирает локальный encar_snapshot.py (API Encar для GitHub закрыт) — в сеть не ходим.
     """
+    if app_config.ENCAR_SOURCE == "snapshot":
+        import encar_snapshot
+        return encar_snapshot.lots_for_target(target, log)
+
     codes = resolve("encar", target["brand"], target["model"], _lookup_codes, log)
     if codes is None:
         return []
@@ -267,8 +300,6 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
         f"(And.Hidden.N._.CarType.{codes['car_type']}._.Manufacturer.{codes['manufacturer_ko']}."
         f"_.ModelGroup.{codes['model_group']}.)"
     )
-    fuel_hint = engine_fuel_hint(target.get("engine"))
-
     all_items = []
     offset = 0
     for _ in range(MAX_PAGES):
@@ -288,20 +319,7 @@ def search_target_model(target: dict, log: logging.Logger) -> list:
         if not results:
             break
 
-        for item in results:
-            if item.get("SellType") != REGULAR_SALE_TYPE:
-                continue  # аренда/переуступка и т.п. — Price там не цена машины
-            if fuel_hint is not None and item.get("FuelType") != FUEL_NAME_KO[fuel_hint]:
-                continue  # явно другое топливо (например, бензин вместо запрошенного TDI-дизеля)
-
-            normalized = _normalize_item(item, target)
-            year = normalized.get("year")
-            mileage_km = normalized.get("mileage_km")
-            if year is not None and not (target.get("year_from", 0) <= year <= target.get("year_to", 9999)):
-                continue
-            if target.get("mileage_max") is not None and mileage_km is not None and mileage_km > target["mileage_max"]:
-                continue
-            all_items.append(normalized)
+        all_items.extend(filter_and_normalize(results, target))
 
         offset += PAGE_SIZE
         if offset >= data.get("Count", 0):
@@ -374,6 +392,9 @@ def browse_broad(config: dict, log: logging.Logger) -> list:
     browse_broad для объяснения, почему машины с неопределённым hp
     отбрасываются, а не пропускаются с пустым hp.
     """
+    if app_config.ENCAR_SOURCE == "snapshot":
+        log.info("encar: широкий поиск в режиме снимка не поддерживается (снимок собирается по target_models.json) — пропуск")
+        return []
     max_hp = config.get("max_hp")
     min_hp = config.get("min_hp")
     max_pages = config.get("max_pages_per_source", 5)

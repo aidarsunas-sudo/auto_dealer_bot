@@ -168,6 +168,19 @@ ENCAR_ENABLED: bool = os.getenv("ENCAR_ENABLED", "true").strip().lower() == "tru
 # и он отключается до конца прогона с одним предупреждением админу (source_health.py).
 SOURCE_FAILURE_THRESHOLD: int = int(os.getenv("SOURCE_FAILURE_THRESHOLD", "3"))
 
+# --- Encar: снимок для GitHub (encar_snapshot.py) ---
+# api.encar.com закрыт для GitHub (и для РФ-адресов); страницы списка car.encar.com отдают данные в HTML
+# с IP владельца. encar_snapshot.py (запускается на компьютере владельца) собирает их в файл,
+# main_pipeline на GitHub читает лоты из него. ENCAR_SOURCE: "api" (по умолчанию, прямой запрос) | "snapshot".
+ENCAR_SOURCE: str = os.getenv("ENCAR_SOURCE", "api").strip().lower()
+ENCAR_SNAPSHOT_PATH: str = os.getenv("ENCAR_SNAPSHOT_PATH", "data/encar_snapshot.json")
+# Снимок старше этого возраста не используется: админу уходит предупреждение, Encar в прогоне пропускается.
+ENCAR_SNAPSHOT_MAX_AGE_HOURS: float = float(os.getenv("ENCAR_SNAPSHOT_MAX_AGE_HOURS", "36"))
+# Сборщик: не чаще раза в N часов (и после неудачи — тоже), пауза между запросами, потолок запросов за запуск.
+ENCAR_SNAPSHOT_MIN_INTERVAL_HOURS: float = float(os.getenv("ENCAR_SNAPSHOT_MIN_INTERVAL_HOURS", "12"))
+ENCAR_SNAPSHOT_PAUSE_SEC: float = float(os.getenv("ENCAR_SNAPSHOT_PAUSE_SEC", "7"))
+ENCAR_SNAPSHOT_MAX_REQUESTS: int = int(os.getenv("ENCAR_SNAPSHOT_MAX_REQUESTS", "150"))
+
 # --- Настройки парсинга ---
 # float() превращает текст "3" в число 3.0, с которым можно делать математику
 REQUEST_DELAY_SECONDS: float = float(os.getenv("REQUEST_DELAY_SECONDS", "3"))

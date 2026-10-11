@@ -1,51 +1,6 @@
 [
   {
     "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "",
-      "external_id": "01a11497-d7a6-79ab-8c3b-e1c990ac62e1",
-      "year": 2022,
-      "month": 7,
-      "mileage_km": 30807,
-      "cc": 1997,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 17200000,
-      "specs": "1997 см³, 144 л.с.",
-      "url": "https://www.charancha.com/cars/01a11497-d7a6-79ab-8c3b-e1c990ac62e1",
-      "source": "charancha",
-      "photos": [
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-af76-7621-b53b-eeb92298c243.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-af7a-75a2-809b-816f9a526bb0.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-af7e-77b2-a41b-c443721087ba.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-af82-74b8-80c8-533b86241456.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-af86-7e67-bb2c-db414a66c657.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-af8a-76e1-b51b-001c73d9558b.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-af8e-7939-b62e-22ce43f63892.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-af91-7c5c-89ed-7bd90b1538ae.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b349-7c67-9e1a-cb727df352c4.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b34d-74a5-bd71-2b096902bc8e.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b350-7097-b4d2-9699d8ad76e4.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b353-7f35-ace3-a5bdc9e82f28.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b356-78ae-b8d3-13d35f94e015.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b359-760a-97c7-391d140f0594.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b35d-7773-a3b7-880c04a18b34.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b360-767f-a7e4-79eb1a0f9304.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b363-7d78-9a9a-0b4f7c03a216.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b366-7141-a9dc-279c6eddf1a4.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b369-7e07-8891-c6a3c44cc8fa.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a11497-b36c-744e-b581-91408091e2e2.jpg"
-      ],
-      "transmission": "CVT",
-      "is_accident": null,
-      "is_seizure": null,
-      "color": "흰색"
-    },
-    "published_at": "2026-10-07T05:51:10.925317"
-  },
-  {
-    "car": {
       "brand": "Kia",
       "model": "K3",
       "trim": "트렌디",
@@ -178,5 +133,135 @@
       "color": "진주색"
     },
     "published_at": "2026-10-08T11:42:52.146574"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42851866",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 27742,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 20900000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42851866",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture04/pic4284/42841733_027.jpg",
+        "https://ci.encar.com/carpicture04/pic4284/42841733_003.jpg",
+        "https://ci.encar.com/carpicture04/pic4284/42841733_004.jpg",
+        "https://ci.encar.com/carpicture04/pic4284/42841733_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-11T20:17:49.378238"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "42860450",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 15095,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 27500000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42860450",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture05/pic4285/42858015_027.jpg",
+        "https://ci.encar.com/carpicture05/pic4285/42858015_003.jpg",
+        "https://ci.encar.com/carpicture05/pic4285/42858015_004.jpg",
+        "https://ci.encar.com/carpicture05/pic4285/42858015_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-11T20:20:04.087583"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42657534",
+      "year": 2022,
+      "month": 10,
+      "mileage_km": 17202,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 30500000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42657534",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture05/pic4265/42657534_001.jpg",
+        "https://ci.encar.com/carpicture05/pic4265/42657534_003.jpg",
+        "https://ci.encar.com/carpicture05/pic4265/42657534_004.jpg",
+        "https://ci.encar.com/carpicture05/pic4265/42657534_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-11T20:20:23.813889"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "2.0 GDe RE 2WD",
+      "external_id": "42824071",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 25968,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 24900000,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42824071",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture01/pic4281/42815756_001.jpg",
+        "https://ci.encar.com/carpicture01/pic4281/42815756_003.jpg",
+        "https://ci.encar.com/carpicture01/pic4281/42815756_004.jpg",
+        "https://ci.encar.com/carpicture01/pic4281/42815756_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-11T20:20:41.877069"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "SM6",
+      "trim": "1.3 TCe RE",
+      "external_id": "42809217",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 37582,
+      "cc": 1332,
+      "hp": 156,
+      "fuel_code": "petrol",
+      "price": 19400000,
+      "specs": "1332 см³, 156 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42809217",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture10/pic4280/42805325_001.jpg",
+        "https://ci.encar.com/carpicture10/pic4280/42805325_003.jpg",
+        "https://ci.encar.com/carpicture10/pic4280/42805325_004.jpg",
+        "https://ci.encar.com/carpicture10/pic4280/42805325_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-11T20:22:37.465859"
   }
 ]

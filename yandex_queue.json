@@ -1,1 +1,132 @@
-[]
+[
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42851866",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 27742,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 20900000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42851866",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture04/pic4284/42841733_027.jpg",
+        "https://ci.encar.com/carpicture04/pic4284/42841733_003.jpg",
+        "https://ci.encar.com/carpicture04/pic4284/42841733_004.jpg",
+        "https://ci.encar.com/carpicture04/pic4284/42841733_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-11T20:17:49.377702"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "42860450",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 15095,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 27500000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42860450",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture05/pic4285/42858015_027.jpg",
+        "https://ci.encar.com/carpicture05/pic4285/42858015_003.jpg",
+        "https://ci.encar.com/carpicture05/pic4285/42858015_004.jpg",
+        "https://ci.encar.com/carpicture05/pic4285/42858015_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-11T20:20:04.087191"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42657534",
+      "year": 2022,
+      "month": 10,
+      "mileage_km": 17202,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 30500000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42657534",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture05/pic4265/42657534_001.jpg",
+        "https://ci.encar.com/carpicture05/pic4265/42657534_003.jpg",
+        "https://ci.encar.com/carpicture05/pic4265/42657534_004.jpg",
+        "https://ci.encar.com/carpicture05/pic4265/42657534_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-11T20:20:23.813346"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "2.0 GDe RE 2WD",
+      "external_id": "42824071",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 25968,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 24900000,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42824071",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture01/pic4281/42815756_001.jpg",
+        "https://ci.encar.com/carpicture01/pic4281/42815756_003.jpg",
+        "https://ci.encar.com/carpicture01/pic4281/42815756_004.jpg",
+        "https://ci.encar.com/carpicture01/pic4281/42815756_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-11T20:20:41.876512"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "SM6",
+      "trim": "1.3 TCe RE",
+      "external_id": "42809217",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 37582,
+      "cc": 1332,
+      "hp": 156,
+      "fuel_code": "petrol",
+      "price": 19400000,
+      "specs": "1332 см³, 156 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42809217",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture10/pic4280/42805325_001.jpg",
+        "https://ci.encar.com/carpicture10/pic4280/42805325_003.jpg",
+        "https://ci.encar.com/carpicture10/pic4280/42805325_004.jpg",
+        "https://ci.encar.com/carpicture10/pic4280/42805325_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-11T20:22:37.465454"
+  }
+]

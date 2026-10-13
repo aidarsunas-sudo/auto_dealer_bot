@@ -347511,3 +347511,677 @@ Call log:
 2026-10-13 00:29:26,302 [INFO] Уведомление об ошибке отправлено администратору
 2026-10-13 00:29:26,304 [INFO] yandex_queue: очередь пуста (или все лоты протухли)
 2026-10-13 00:29:26,304 [INFO] === Готово: опубликовано 0 постов ===
+2026-10-13 13:56:13,549 [INFO] === Запуск main_pipeline ===
+2026-10-13 13:56:16,111 [ERROR] VK_TOKEN не рабочий — публикация в VK в этом прогоне будет проваливаться: VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4). (токен недействителен/просрочен — нужен новый (см. SETUP_GITHUB_ACTIONS.md, пользовательский токен через Kate Mobile/аналогичное Standalone-приложение, НЕ VK ID confidential-приложение — тот выдаёт токен без прав wall/photos/video))
+2026-10-13 13:56:16,543 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-13 13:56:17,053 [INFO] Получены свежие курсы ЦБ: EUR=94.04 USD=83.92 KRW(за 1000)=62.72
+2026-10-13 13:56:17,054 [INFO] Режим поиска: both
+2026-10-13 13:56:17,054 [INFO] ── Целевая модель: Audi Q3 (kbchachacha) ──
+2026-10-13 13:56:17,054 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:18,103 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:18,103 [INFO] kbchachacha: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-13 13:56:18,103 [INFO] ── Целевая модель: Audi Q3 (encar) ──
+2026-10-13 13:56:18,280 [ERROR] encar: ошибка запроса для Audi Q3: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%EC%95%84%EC%9A%B0%EB%94%94._.ModelGroup.Q3.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 13:56:18,280 [INFO] encar: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-13 13:56:18,281 [INFO] ── Целевая модель: Audi Q3 (charancha) ──
+2026-10-13 13:56:18,952 [INFO] charancha: Audi Q3 -> найдено 2 (после фильтров)
+2026-10-13 13:56:18,954 [INFO] ── Целевая модель: Audi Q3 (onbid) ──
+2026-10-13 13:56:23,005 [INFO] onbid: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-13 13:56:23,007 [INFO] ── Целевая модель: Volkswagen Tiguan (kbchachacha) ──
+2026-10-13 13:56:23,007 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:23,517 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:23,517 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:24,032 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:24,032 [INFO] kbchachacha: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-13 13:56:24,032 [INFO] ── Целевая модель: Volkswagen Tiguan (encar) ──
+2026-10-13 13:56:24,146 [ERROR] encar: ошибка запроса для Volkswagen Tiguan: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%ED%8F%AD%EC%8A%A4%EB%B0%94%EA%B2%90._.ModelGroup.%ED%8B%B0%EA%B5%AC%EC%95%88.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 13:56:24,146 [INFO] encar: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-13 13:56:24,147 [INFO] ── Целевая модель: Volkswagen Tiguan (charancha) ──
+2026-10-13 13:56:25,915 [INFO] charancha: Volkswagen Tiguan -> найдено 2 (после фильтров)
+2026-10-13 13:56:25,916 [INFO] ── Целевая модель: Volkswagen Tiguan (onbid) ──
+2026-10-13 13:56:28,969 [INFO] onbid: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-13 13:56:28,970 [INFO] ── Целевая модель: Kia K3 (kbchachacha) ──
+2026-10-13 13:56:28,971 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:30,018 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:30,018 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:31,261 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:31,261 [INFO] kbchachacha: Kia K3 -> найдено 0 (после фильтров)
+2026-10-13 13:56:31,262 [INFO] ── Целевая модель: Kia K3 (encar) ──
+2026-10-13 13:56:31,316 [ERROR] encar: ошибка запроса для Kia K3: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EA%B8%B0%EC%95%84._.ModelGroup.K3.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 13:56:31,317 [INFO] encar: Kia K3 -> найдено 0 (после фильтров)
+2026-10-13 13:56:31,317 [INFO] ── Целевая модель: Kia K3 (charancha) ──
+2026-10-13 13:56:34,132 [INFO] charancha: Kia K3 -> найдено 9 (после фильтров)
+2026-10-13 13:56:34,133 [INFO] ── Целевая модель: Kia K3 (onbid) ──
+2026-10-13 13:56:38,095 [INFO] onbid: Kia K3 -> найдено 0 (после фильтров)
+2026-10-13 13:56:38,096 [INFO] ── Целевая модель: Kia K5 (kbchachacha) ──
+2026-10-13 13:56:38,097 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:39,116 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:39,116 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:40,207 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:40,207 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:41,305 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:41,305 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:41,826 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:41,826 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:42,322 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:42,322 [INFO] kbchachacha: Kia K5 -> найдено 0 (после фильтров)
+2026-10-13 13:56:42,322 [INFO] ── Целевая модель: Kia K5 (encar) ──
+2026-10-13 13:56:42,423 [ERROR] encar: ошибка запроса для Kia K5: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EA%B8%B0%EC%95%84._.ModelGroup.K5.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 13:56:42,423 [INFO] encar: Kia K5 -> найдено 0 (после фильтров)
+2026-10-13 13:56:42,425 [INFO] ── Целевая модель: Kia K5 (charancha) ──
+2026-10-13 13:56:49,669 [INFO] charancha: Kia K5 -> найдено 14 (после фильтров)
+2026-10-13 13:56:49,670 [INFO] ── Целевая модель: Kia K5 (onbid) ──
+2026-10-13 13:56:52,893 [INFO] onbid: Kia K5 -> найдено 0 (после фильтров)
+2026-10-13 13:56:52,894 [INFO] ── Целевая модель: Hyundai Sonata (kbchachacha) ──
+2026-10-13 13:56:52,894 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:53,997 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:53,997 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:54,658 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:54,658 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:55,157 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:55,157 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:55,656 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:55,656 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:56,164 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:56,164 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 13:56:56,672 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 13:56:56,672 [INFO] kbchachacha: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-13 13:56:56,672 [INFO] ── Целевая модель: Hyundai Sonata (encar) ──
+2026-10-13 13:56:56,837 [ERROR] encar: ошибка запроса для Hyundai Sonata: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%ED%98%84%EB%8C%80._.ModelGroup.%EC%8F%98%EB%82%98%ED%83%80.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 13:56:56,837 [INFO] encar: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-13 13:56:56,838 [INFO] ── Целевая модель: Hyundai Sonata (charancha) ──
+2026-10-13 13:57:04,079 [INFO] charancha: Hyundai Sonata -> найдено 9 (после фильтров)
+2026-10-13 13:57:04,080 [INFO] ── Целевая модель: Hyundai Sonata (onbid) ──
+2026-10-13 13:57:07,595 [INFO] onbid: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-13 13:57:07,597 [INFO] ── Целевая модель: Kia Tasman (kbchachacha) ──
+2026-10-13 13:57:07,597 [INFO] kbchachacha: кэш для Kia Tasman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:57:07,597 [INFO] kbchachacha: резолвлю коды для Kia Tasman (не в кэше)
+2026-10-13 13:57:18,577 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 13:57:18,614 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Kia Tasman
+2026-10-13 13:57:29,513 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 13:57:29,552 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Kia Tasman
+2026-10-13 13:57:29,553 [WARNING] kbchachacha: не удалось найти Kia Tasman на сайте
+2026-10-13 13:57:29,553 [INFO] kbchachacha: Kia Tasman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 13:57:29,553 [INFO] ── Целевая модель: Kia Tasman (encar) ──
+2026-10-13 13:57:29,554 [INFO] encar: кэш для Kia Tasman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:57:29,554 [INFO] encar: резолвлю коды для Kia Tasman (не в кэше)
+2026-10-13 13:57:41,339 [WARNING] encar resolver: не удалось открыть марку 기아: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 13:57:41,389 [WARNING] encar: не удалось найти Kia Tasman на сайте
+2026-10-13 13:57:41,390 [INFO] ── Целевая модель: Kia Tasman (charancha) ──
+2026-10-13 13:57:41,390 [INFO] charancha: кэш для Kia Tasman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:57:41,390 [INFO] charancha: резолвлю коды для Kia Tasman (не в кэше)
+2026-10-13 13:57:42,480 [WARNING] charancha: не удалось найти Kia Tasman на сайте
+2026-10-13 13:57:42,480 [INFO] ── Целевая модель: Kia Tasman (onbid) ──
+2026-10-13 13:57:45,902 [INFO] onbid: Kia Tasman -> найдено 0 (после фильтров)
+2026-10-13 13:57:45,903 [INFO] ── Целевая модель: Hyundai Venue (kbchachacha) ──
+2026-10-13 13:57:45,904 [INFO] kbchachacha: кэш для Hyundai Venue истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:57:45,904 [INFO] kbchachacha: резолвлю коды для Hyundai Venue (не в кэше)
+2026-10-13 13:57:56,762 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 13:57:56,800 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Hyundai Venue
+2026-10-13 13:58:07,729 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 13:58:07,766 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Hyundai Venue
+2026-10-13 13:58:07,767 [WARNING] kbchachacha: не удалось найти Hyundai Venue на сайте
+2026-10-13 13:58:07,767 [INFO] kbchachacha: Hyundai Venue -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 13:58:07,767 [INFO] ── Целевая модель: Hyundai Venue (encar) ──
+2026-10-13 13:58:07,768 [INFO] encar: кэш для Hyundai Venue истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:58:07,768 [INFO] encar: резолвлю коды для Hyundai Venue (не в кэше)
+2026-10-13 13:58:19,341 [WARNING] encar resolver: не удалось открыть марку 현대: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 13:58:19,388 [WARNING] encar: не удалось найти Hyundai Venue на сайте
+2026-10-13 13:58:19,388 [INFO] ── Целевая модель: Hyundai Venue (charancha) ──
+2026-10-13 13:58:19,388 [INFO] charancha: кэш для Hyundai Venue истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:58:19,388 [INFO] charancha: резолвлю коды для Hyundai Venue (не в кэше)
+2026-10-13 13:58:20,464 [WARNING] charancha: не удалось найти Hyundai Venue на сайте
+2026-10-13 13:58:20,465 [INFO] ── Целевая модель: Hyundai Venue (onbid) ──
+2026-10-13 13:58:23,884 [INFO] onbid: Hyundai Venue -> найдено 0 (после фильтров)
+2026-10-13 13:58:23,885 [INFO] ── Целевая модель: Hyundai Casper (kbchachacha) ──
+2026-10-13 13:58:23,886 [INFO] kbchachacha: кэш для Hyundai Casper истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:58:23,886 [INFO] kbchachacha: резолвлю коды для Hyundai Casper (не в кэше)
+2026-10-13 13:58:34,729 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 13:58:34,766 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Hyundai Casper
+2026-10-13 13:58:45,622 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 13:58:45,665 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Hyundai Casper
+2026-10-13 13:58:45,666 [WARNING] kbchachacha: не удалось найти Hyundai Casper на сайте
+2026-10-13 13:58:45,666 [INFO] kbchachacha: Hyundai Casper -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 13:58:45,666 [INFO] ── Целевая модель: Hyundai Casper (encar) ──
+2026-10-13 13:58:45,666 [INFO] encar: кэш для Hyundai Casper истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:58:45,666 [INFO] encar: резолвлю коды для Hyundai Casper (не в кэше)
+2026-10-13 13:58:57,520 [WARNING] encar resolver: не удалось открыть марку 현대: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 13:58:57,575 [WARNING] encar: не удалось найти Hyundai Casper на сайте
+2026-10-13 13:58:57,575 [INFO] ── Целевая модель: Hyundai Casper (charancha) ──
+2026-10-13 13:58:57,575 [INFO] charancha: кэш для Hyundai Casper истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:58:57,575 [INFO] charancha: резолвлю коды для Hyundai Casper (не в кэше)
+2026-10-13 13:58:58,686 [WARNING] charancha: не удалось найти Hyundai Casper на сайте
+2026-10-13 13:58:58,687 [INFO] ── Целевая модель: Hyundai Casper (onbid) ──
+2026-10-13 13:59:01,972 [INFO] onbid: Hyundai Casper -> найдено 0 (после фильтров)
+2026-10-13 13:59:01,973 [INFO] ── Целевая модель: Kia Ray (kbchachacha) ──
+2026-10-13 13:59:01,974 [INFO] kbchachacha: кэш для Kia Ray истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:59:01,974 [INFO] kbchachacha: резолвлю коды для Kia Ray (не в кэше)
+2026-10-13 13:59:12,838 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 13:59:12,878 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Kia Ray
+2026-10-13 13:59:23,723 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 13:59:23,761 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Kia Ray
+2026-10-13 13:59:23,763 [WARNING] kbchachacha: не удалось найти Kia Ray на сайте
+2026-10-13 13:59:23,763 [INFO] kbchachacha: Kia Ray -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 13:59:23,763 [INFO] ── Целевая модель: Kia Ray (encar) ──
+2026-10-13 13:59:23,763 [INFO] encar: кэш для Kia Ray истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:59:23,763 [INFO] encar: резолвлю коды для Kia Ray (не в кэше)
+2026-10-13 13:59:35,514 [WARNING] encar resolver: не удалось открыть марку 기아: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 13:59:35,561 [WARNING] encar: не удалось найти Kia Ray на сайте
+2026-10-13 13:59:35,561 [INFO] ── Целевая модель: Kia Ray (charancha) ──
+2026-10-13 13:59:35,562 [INFO] charancha: кэш для Kia Ray истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:59:35,562 [INFO] charancha: резолвлю коды для Kia Ray (не в кэше)
+2026-10-13 13:59:36,899 [WARNING] charancha: не удалось найти Kia Ray на сайте
+2026-10-13 13:59:36,899 [INFO] ── Целевая модель: Kia Ray (onbid) ──
+2026-10-13 13:59:41,119 [INFO] onbid: Kia Ray -> найдено 0 (после фильтров)
+2026-10-13 13:59:41,120 [INFO] ── Целевая модель: Hyundai IONIQ 5 (kbchachacha) ──
+2026-10-13 13:59:41,120 [INFO] kbchachacha: кэш для Hyundai IONIQ 5 истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 13:59:41,120 [INFO] kbchachacha: резолвлю коды для Hyundai IONIQ 5 (не в кэше)
+2026-10-13 13:59:52,546 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 13:59:52,587 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Hyundai IONIQ 5
+2026-10-13 14:00:03,425 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:00:03,470 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Hyundai IONIQ 5
+2026-10-13 14:00:03,471 [WARNING] kbchachacha: не удалось найти Hyundai IONIQ 5 на сайте
+2026-10-13 14:00:03,471 [INFO] kbchachacha: Hyundai IONIQ 5 -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 14:00:03,471 [INFO] ── Целевая модель: Hyundai IONIQ 5 (encar) ──
+2026-10-13 14:00:03,471 [INFO] encar: кэш для Hyundai IONIQ 5 истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:00:03,471 [INFO] encar: резолвлю коды для Hyundai IONIQ 5 (не в кэше)
+2026-10-13 14:00:15,318 [WARNING] encar resolver: не удалось открыть марку 현대: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 14:00:15,362 [WARNING] encar: не удалось найти Hyundai IONIQ 5 на сайте
+2026-10-13 14:00:15,362 [INFO] ── Целевая модель: Hyundai IONIQ 5 (charancha) ──
+2026-10-13 14:00:15,363 [INFO] charancha: кэш для Hyundai IONIQ 5 истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:00:15,363 [INFO] charancha: резолвлю коды для Hyundai IONIQ 5 (не в кэше)
+2026-10-13 14:00:16,622 [WARNING] charancha: не удалось найти Hyundai IONIQ 5 на сайте
+2026-10-13 14:00:16,622 [INFO] ── Целевая модель: Hyundai IONIQ 5 (onbid) ──
+2026-10-13 14:00:21,460 [INFO] onbid: Hyundai IONIQ 5 -> найдено 0 (после фильтров)
+2026-10-13 14:00:21,461 [INFO] ── Целевая модель: Kia EV9 (kbchachacha) ──
+2026-10-13 14:00:21,461 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:00:22,658 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:00:22,659 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:00:23,766 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:00:23,766 [INFO] kbchachacha: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-13 14:00:23,766 [INFO] ── Целевая модель: Kia EV9 (encar) ──
+2026-10-13 14:00:24,114 [ERROR] encar: ошибка запроса для Kia EV9: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EA%B8%B0%EC%95%84._.ModelGroup.EV9.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 14:00:24,114 [INFO] encar: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-13 14:00:24,114 [INFO] ── Целевая модель: Kia EV9 (charancha) ──
+2026-10-13 14:00:24,735 [INFO] charancha: Kia EV9 -> найдено 1 (после фильтров)
+2026-10-13 14:00:24,735 [INFO] ── Целевая модель: Kia EV9 (onbid) ──
+2026-10-13 14:00:28,103 [INFO] onbid: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-13 14:00:28,104 [INFO] ── Целевая модель: Genesis GV60 (kbchachacha) ──
+2026-10-13 14:00:28,105 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:00:29,088 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:00:29,089 [INFO] kbchachacha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-13 14:00:29,089 [INFO] ── Целевая модель: Genesis GV60 (encar) ──
+2026-10-13 14:00:29,155 [ERROR] encar: ошибка запроса для Genesis GV60: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4._.ModelGroup.GV60.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 14:00:29,155 [INFO] encar: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-13 14:00:29,156 [INFO] ── Целевая модель: Genesis GV60 (charancha) ──
+2026-10-13 14:00:29,736 [INFO] charancha: Genesis GV60 -> найдено 1 (после фильтров)
+2026-10-13 14:00:29,736 [INFO] ── Целевая модель: Genesis GV60 (onbid) ──
+2026-10-13 14:00:33,909 [INFO] onbid: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-13 14:00:33,910 [INFO] ── Целевая модель: BYD SEALION 7 (kbchachacha) ──
+2026-10-13 14:00:33,911 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:00:34,861 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:00:34,861 [INFO] kbchachacha: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-13 14:00:34,861 [INFO] ── Целевая модель: BYD SEALION 7 (encar) ──
+2026-10-13 14:00:34,861 [INFO] encar: кэш для BYD SEALION 7 истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:00:34,861 [INFO] encar: резолвлю коды для BYD SEALION 7 (не в кэше)
+2026-10-13 14:00:46,552 [WARNING] encar resolver: не удалось открыть марку BYD: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 14:00:46,612 [WARNING] encar: не удалось найти BYD SEALION 7 на сайте
+2026-10-13 14:00:46,612 [INFO] ── Целевая модель: BYD SEALION 7 (charancha) ──
+2026-10-13 14:00:46,613 [INFO] charancha: кэш для BYD SEALION 7 истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:00:46,613 [INFO] charancha: резолвлю коды для BYD SEALION 7 (не в кэше)
+2026-10-13 14:00:47,789 [WARNING] charancha: не удалось найти BYD SEALION 7 на сайте
+2026-10-13 14:00:47,789 [INFO] ── Целевая модель: BYD SEALION 7 (onbid) ──
+2026-10-13 14:00:52,805 [INFO] onbid: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-13 14:00:52,806 [INFO] ── Целевая модель: Kia Sportage (kbchachacha) ──
+2026-10-13 14:00:52,807 [INFO] kbchachacha: кэш для Kia Sportage истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:00:52,807 [INFO] kbchachacha: резолвлю коды для Kia Sportage (не в кэше)
+2026-10-13 14:01:03,660 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:01:03,694 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Kia Sportage
+2026-10-13 14:01:14,531 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:01:14,569 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Kia Sportage
+2026-10-13 14:01:14,570 [WARNING] kbchachacha: не удалось найти Kia Sportage на сайте
+2026-10-13 14:01:14,570 [INFO] kbchachacha: Kia Sportage -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 14:01:14,570 [INFO] ── Целевая модель: Kia Sportage (encar) ──
+2026-10-13 14:01:14,570 [INFO] encar: кэш для Kia Sportage истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:01:14,571 [INFO] encar: резолвлю коды для Kia Sportage (не в кэше)
+2026-10-13 14:01:26,314 [WARNING] encar resolver: не удалось открыть марку 기아: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 14:01:26,360 [WARNING] encar: не удалось найти Kia Sportage на сайте
+2026-10-13 14:01:26,360 [INFO] ── Целевая модель: Kia Sportage (charancha) ──
+2026-10-13 14:01:26,361 [INFO] charancha: кэш для Kia Sportage истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:01:26,361 [INFO] charancha: резолвлю коды для Kia Sportage (не в кэше)
+2026-10-13 14:01:27,634 [WARNING] charancha: не удалось найти Kia Sportage на сайте
+2026-10-13 14:01:27,634 [INFO] ── Целевая модель: Kia Sportage (onbid) ──
+2026-10-13 14:01:31,910 [INFO] onbid: Kia Sportage -> найдено 0 (после фильтров)
+2026-10-13 14:01:31,911 [INFO] ── Целевая модель: Renault QM6 (kbchachacha) ──
+2026-10-13 14:01:31,911 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:01:33,011 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:01:33,011 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:01:34,036 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:01:34,037 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:01:35,079 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:01:35,079 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:01:35,604 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:01:35,604 [INFO] kbchachacha: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-13 14:01:35,605 [INFO] ── Целевая модель: Renault QM6 (encar) ──
+2026-10-13 14:01:35,848 [ERROR] encar: ошибка запроса для Renault QM6: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EB%A5%B4%EB%85%B8%EC%BD%94%EB%A6%AC%EC%95%84%28%EC%82%BC%EC%84%B1%29._.ModelGroup.QM6.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 14:01:35,848 [INFO] encar: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-13 14:01:35,849 [INFO] ── Целевая модель: Renault QM6 (charancha) ──
+2026-10-13 14:01:38,807 [INFO] charancha: Renault QM6 -> найдено 2 (после фильтров)
+2026-10-13 14:01:38,808 [INFO] ── Целевая модель: Renault QM6 (onbid) ──
+2026-10-13 14:01:42,719 [INFO] onbid: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-13 14:01:42,720 [INFO] ── Целевая модель: Renault SM6 (kbchachacha) ──
+2026-10-13 14:01:42,721 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:01:43,829 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:01:43,829 [INFO] kbchachacha: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-13 14:01:43,829 [INFO] ── Целевая модель: Renault SM6 (encar) ──
+2026-10-13 14:01:43,910 [ERROR] encar: ошибка запроса для Renault SM6: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EB%A5%B4%EB%85%B8%EC%BD%94%EB%A6%AC%EC%95%84%28%EC%82%BC%EC%84%B1%29._.ModelGroup.SM6.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 14:01:43,910 [INFO] encar: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-13 14:01:43,911 [INFO] ── Целевая модель: Renault SM6 (charancha) ──
+2026-10-13 14:01:45,664 [INFO] charancha: Renault SM6 -> найдено 2 (после фильтров)
+2026-10-13 14:01:45,665 [INFO] ── Целевая модель: Renault SM6 (onbid) ──
+2026-10-13 14:01:48,577 [INFO] onbid: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-13 14:01:48,578 [INFO] ── Целевая модель: Chevrolet Malibu (kbchachacha) ──
+2026-10-13 14:01:48,578 [INFO] kbchachacha: кэш для Chevrolet Malibu истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:01:48,578 [INFO] kbchachacha: резолвлю коды для Chevrolet Malibu (не в кэше)
+2026-10-13 14:01:59,443 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:01:59,488 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Chevrolet Malibu
+2026-10-13 14:02:10,377 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:02:10,415 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Chevrolet Malibu
+2026-10-13 14:02:10,419 [WARNING] kbchachacha: не удалось найти Chevrolet Malibu на сайте
+2026-10-13 14:02:10,419 [INFO] kbchachacha: Chevrolet Malibu -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 14:02:10,419 [INFO] ── Целевая модель: Chevrolet Malibu (encar) ──
+2026-10-13 14:02:10,420 [INFO] encar: кэш для Chevrolet Malibu истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:02:10,420 [INFO] encar: резолвлю коды для Chevrolet Malibu (не в кэше)
+2026-10-13 14:02:22,151 [WARNING] encar resolver: не удалось открыть марку 쉐보레(GM대우): Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 14:02:22,200 [WARNING] encar: не удалось найти Chevrolet Malibu на сайте
+2026-10-13 14:02:22,200 [INFO] ── Целевая модель: Chevrolet Malibu (charancha) ──
+2026-10-13 14:02:22,200 [INFO] charancha: кэш для Chevrolet Malibu истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:02:22,200 [INFO] charancha: резолвлю коды для Chevrolet Malibu (не в кэше)
+2026-10-13 14:02:23,385 [WARNING] charancha: не удалось найти Chevrolet Malibu на сайте
+2026-10-13 14:02:23,385 [INFO] ── Целевая модель: Chevrolet Malibu (onbid) ──
+2026-10-13 14:02:27,724 [INFO] onbid: Chevrolet Malibu -> найдено 0 (после фильтров)
+2026-10-13 14:02:27,725 [INFO] ── Целевая модель: Chevrolet Spark (kbchachacha) ──
+2026-10-13 14:02:27,725 [INFO] kbchachacha: кэш для Chevrolet Spark истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:02:27,725 [INFO] kbchachacha: резолвлю коды для Chevrolet Spark (не в кэше)
+2026-10-13 14:02:38,585 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:02:38,624 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Chevrolet Spark
+2026-10-13 14:02:49,464 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:02:49,502 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Chevrolet Spark
+2026-10-13 14:02:49,503 [WARNING] kbchachacha: не удалось найти Chevrolet Spark на сайте
+2026-10-13 14:02:49,503 [INFO] kbchachacha: Chevrolet Spark -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 14:02:49,503 [INFO] ── Целевая модель: Chevrolet Spark (encar) ──
+2026-10-13 14:02:49,504 [INFO] encar: кэш для Chevrolet Spark истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:02:49,504 [INFO] encar: резолвлю коды для Chevrolet Spark (не в кэше)
+2026-10-13 14:03:01,396 [WARNING] encar resolver: не удалось открыть марку 쉐보레(GM대우): Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 14:03:01,441 [WARNING] encar: не удалось найти Chevrolet Spark на сайте
+2026-10-13 14:03:01,441 [INFO] ── Целевая модель: Chevrolet Spark (charancha) ──
+2026-10-13 14:03:01,441 [INFO] charancha: кэш для Chevrolet Spark истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:03:01,441 [INFO] charancha: резолвлю коды для Chevrolet Spark (не в кэше)
+2026-10-13 14:03:02,564 [WARNING] charancha: не удалось найти Chevrolet Spark на сайте
+2026-10-13 14:03:02,564 [INFO] ── Целевая модель: Chevrolet Spark (onbid) ──
+2026-10-13 14:03:07,041 [INFO] onbid: Chevrolet Spark -> найдено 0 (после фильтров)
+2026-10-13 14:03:07,042 [INFO] ── Целевая модель: Chevrolet Trax (kbchachacha) ──
+2026-10-13 14:03:07,043 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:03:08,294 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:03:08,295 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:03:09,276 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:03:09,276 [INFO] kbchachacha: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-13 14:03:09,276 [INFO] ── Целевая модель: Chevrolet Trax (encar) ──
+2026-10-13 14:03:09,456 [ERROR] encar: ошибка запроса для Chevrolet Trax: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.Y._.Manufacturer.%EC%89%90%EB%B3%B4%EB%A0%88%28GM%EB%8C%80%EC%9A%B0%29._.ModelGroup.%ED%8A%B8%EB%9E%99%EC%8A%A4.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 14:03:09,456 [INFO] encar: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-13 14:03:09,456 [INFO] ── Целевая модель: Chevrolet Trax (charancha) ──
+2026-10-13 14:03:11,009 [INFO] charancha: Chevrolet Trax -> найдено 6 (после фильтров)
+2026-10-13 14:03:11,010 [INFO] ── Целевая модель: Chevrolet Trax (onbid) ──
+2026-10-13 14:03:13,946 [INFO] onbid: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-13 14:03:13,947 [INFO] ── Целевая модель: Chevrolet Trailblazer (kbchachacha) ──
+2026-10-13 14:03:13,947 [INFO] kbchachacha: кэш для Chevrolet Trailblazer истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:03:13,948 [INFO] kbchachacha: резолвлю коды для Chevrolet Trailblazer (не в кэше)
+2026-10-13 14:03:24,791 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:03:24,830 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Chevrolet Trailblazer
+2026-10-13 14:03:35,667 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:03:35,705 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Chevrolet Trailblazer
+2026-10-13 14:03:35,707 [WARNING] kbchachacha: не удалось найти Chevrolet Trailblazer на сайте
+2026-10-13 14:03:35,707 [INFO] kbchachacha: Chevrolet Trailblazer -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 14:03:35,707 [INFO] ── Целевая модель: Chevrolet Trailblazer (encar) ──
+2026-10-13 14:03:35,707 [INFO] encar: кэш для Chevrolet Trailblazer истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:03:35,707 [INFO] encar: резолвлю коды для Chevrolet Trailblazer (не в кэше)
+2026-10-13 14:03:47,394 [WARNING] encar resolver: не удалось открыть марку 쉐보레(GM대우): Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 14:03:47,442 [WARNING] encar: не удалось найти Chevrolet Trailblazer на сайте
+2026-10-13 14:03:47,442 [INFO] ── Целевая модель: Chevrolet Trailblazer (charancha) ──
+2026-10-13 14:03:47,443 [INFO] charancha: кэш для Chevrolet Trailblazer истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:03:47,443 [INFO] charancha: резолвлю коды для Chevrolet Trailblazer (не в кэше)
+2026-10-13 14:03:48,722 [WARNING] charancha: не удалось найти Chevrolet Trailblazer на сайте
+2026-10-13 14:03:48,722 [INFO] ── Целевая модель: Chevrolet Trailblazer (onbid) ──
+2026-10-13 14:03:53,412 [INFO] onbid: Chevrolet Trailblazer -> найдено 0 (после фильтров)
+2026-10-13 14:03:53,413 [INFO] ── Целевая модель: Mini Countryman (kbchachacha) ──
+2026-10-13 14:03:53,414 [INFO] kbchachacha: кэш для Mini Countryman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:03:53,414 [INFO] kbchachacha: резолвлю коды для Mini Countryman (не в кэше)
+2026-10-13 14:04:04,233 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:04:04,272 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Mini Countryman
+2026-10-13 14:04:15,092 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:04:15,125 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Mini Countryman
+2026-10-13 14:04:15,126 [WARNING] kbchachacha: не удалось найти Mini Countryman на сайте
+2026-10-13 14:04:15,126 [INFO] kbchachacha: Mini Countryman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 14:04:15,126 [INFO] ── Целевая модель: Mini Countryman (encar) ──
+2026-10-13 14:04:15,127 [INFO] encar: кэш для Mini Countryman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:04:15,127 [INFO] encar: резолвлю коды для Mini Countryman (не в кэше)
+2026-10-13 14:04:26,966 [WARNING] encar resolver: не удалось открыть марку Mini: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 14:04:27,007 [WARNING] encar: не удалось найти Mini Countryman на сайте
+2026-10-13 14:04:27,007 [INFO] ── Целевая модель: Mini Countryman (charancha) ──
+2026-10-13 14:04:27,007 [INFO] charancha: кэш для Mini Countryman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:04:27,007 [INFO] charancha: резолвлю коды для Mini Countryman (не в кэше)
+2026-10-13 14:04:27,738 [WARNING] charancha: не удалось найти Mini Countryman на сайте
+2026-10-13 14:04:27,739 [INFO] ── Целевая модель: Mini Countryman (onbid) ──
+2026-10-13 14:04:30,980 [INFO] onbid: Mini Countryman -> найдено 0 (после фильтров)
+2026-10-13 14:04:30,981 [INFO] ── Целевая модель: Mini Clubman (kbchachacha) ──
+2026-10-13 14:04:30,982 [INFO] kbchachacha: кэш для Mini Clubman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:04:30,982 [INFO] kbchachacha: резолвлю коды для Mini Clubman (не в кэше)
+2026-10-13 14:04:41,797 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:04:41,831 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Mini Clubman
+2026-10-13 14:04:52,673 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:04:52,712 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Mini Clubman
+2026-10-13 14:04:52,713 [WARNING] kbchachacha: не удалось найти Mini Clubman на сайте
+2026-10-13 14:04:52,713 [INFO] kbchachacha: Mini Clubman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 14:04:52,713 [INFO] ── Целевая модель: Mini Clubman (encar) ──
+2026-10-13 14:04:52,713 [INFO] encar: кэш для Mini Clubman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:04:52,713 [INFO] encar: резолвлю коды для Mini Clubman (не в кэше)
+2026-10-13 14:05:04,417 [WARNING] encar resolver: не удалось открыть марку Mini: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 14:05:04,466 [WARNING] encar: не удалось найти Mini Clubman на сайте
+2026-10-13 14:05:04,466 [INFO] ── Целевая модель: Mini Clubman (charancha) ──
+2026-10-13 14:05:04,467 [INFO] charancha: кэш для Mini Clubman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:05:04,467 [INFO] charancha: резолвлю коды для Mini Clubman (не в кэше)
+2026-10-13 14:05:05,010 [WARNING] charancha: не удалось найти Mini Clubman на сайте
+2026-10-13 14:05:05,010 [INFO] ── Целевая модель: Mini Clubman (onbid) ──
+2026-10-13 14:05:08,235 [INFO] onbid: Mini Clubman -> найдено 0 (после фильтров)
+2026-10-13 14:05:08,236 [INFO] ── Целевая модель: Mini Convertible (kbchachacha) ──
+2026-10-13 14:05:08,237 [INFO] kbchachacha: кэш для Mini Convertible истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:05:08,237 [INFO] kbchachacha: резолвлю коды для Mini Convertible (не в кэше)
+2026-10-13 14:05:19,066 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:05:19,102 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Mini Convertible
+2026-10-13 14:05:29,930 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-13 14:05:30,082 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Mini Convertible
+2026-10-13 14:05:30,084 [WARNING] kbchachacha: не удалось найти Mini Convertible на сайте
+2026-10-13 14:05:30,084 [INFO] kbchachacha: Mini Convertible -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-13 14:05:30,084 [INFO] ── Целевая модель: Mini Convertible (encar) ──
+2026-10-13 14:05:30,084 [INFO] encar: кэш для Mini Convertible истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:05:30,084 [INFO] encar: резолвлю коды для Mini Convertible (не в кэше)
+2026-10-13 14:05:41,977 [WARNING] encar resolver: не удалось открыть марку Mini: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=제조사")
+
+2026-10-13 14:05:42,025 [WARNING] encar: не удалось найти Mini Convertible на сайте
+2026-10-13 14:05:42,025 [INFO] ── Целевая модель: Mini Convertible (charancha) ──
+2026-10-13 14:05:42,026 [INFO] charancha: кэш для Mini Convertible истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-13 14:05:42,026 [INFO] charancha: резолвлю коды для Mini Convertible (не в кэше)
+2026-10-13 14:05:42,605 [WARNING] charancha: не удалось найти Mini Convertible на сайте
+2026-10-13 14:05:42,606 [INFO] ── Целевая модель: Mini Convertible (onbid) ──
+2026-10-13 14:05:45,834 [INFO] onbid: Mini Convertible -> найдено 0 (после фильтров)
+2026-10-13 14:05:45,835 [INFO] ── Целевая модель: Peugeot 3008 (kbchachacha) ──
+2026-10-13 14:05:45,836 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:05:47,054 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:05:47,054 [INFO] kbchachacha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-13 14:05:47,054 [INFO] ── Целевая модель: Peugeot 3008 (encar) ──
+2026-10-13 14:05:47,263 [ERROR] encar: ошибка запроса для Peugeot 3008: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%ED%91%B8%EC%A1%B0._.ModelGroup.3008.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 14:05:47,263 [INFO] encar: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-13 14:05:47,263 [INFO] ── Целевая модель: Peugeot 3008 (charancha) ──
+2026-10-13 14:05:47,867 [INFO] charancha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-13 14:05:47,868 [INFO] ── Целевая модель: Peugeot 3008 (onbid) ──
+2026-10-13 14:05:51,372 [INFO] onbid: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-13 14:05:51,373 [INFO] ── Целевая модель: Peugeot 5008 (kbchachacha) ──
+2026-10-13 14:05:51,373 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:05:52,382 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:05:52,382 [INFO] kbchachacha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-13 14:05:52,382 [INFO] ── Целевая модель: Peugeot 5008 (encar) ──
+2026-10-13 14:05:52,483 [ERROR] encar: ошибка запроса для Peugeot 5008: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N._.CarType.A._.Manufacturer.%ED%91%B8%EC%A1%B0._.ModelGroup.5008.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 14:05:52,483 [INFO] encar: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-13 14:05:52,483 [INFO] ── Целевая модель: Peugeot 5008 (charancha) ──
+2026-10-13 14:05:53,056 [INFO] charancha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-13 14:05:53,057 [INFO] ── Целевая модель: Peugeot 5008 (onbid) ──
+2026-10-13 14:05:55,943 [INFO] onbid: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-13 14:05:55,944 [INFO] filter_year_range (target_collector): отброшено 4 объявлений вне диапазона года 2022-2023 (или без года)
+2026-10-13 14:05:55,944 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f4411-b192-7937-94cf-24935acbf488): цена 40,000,000 ₩ выше 1.3x медианы партии по модели (27,250,000 ₩, 14 лотов) на 46%
+2026-10-13 14:05:55,945 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f497c-8883-78fa-b1b8-ae3ca253c0d9): цена 36,000,000 ₩ выше 1.3x медианы партии по модели (27,250,000 ₩, 14 лотов) на 32%
+2026-10-13 14:05:55,945 [INFO] check_price_vs_batch_median (target_collector): отброшено 2 лотов дороже 1.3x медианы своей модели в партии
+2026-10-13 14:05:55,948 [INFO] broad_search: сегмент этого прогона — мощнее / бизнес-класс (140-160 л.с.) (3/4)
+2026-10-13 14:05:55,948 [INFO] ── Широкий поиск: kbchachacha (hp в [140, 160]) ──
+2026-10-13 14:05:55,948 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-13 14:05:56,973 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-13 14:05:56,973 [INFO] kbchachacha (broad): найдено 0 машин с hp в [140, 160]
+2026-10-13 14:05:56,973 [INFO] ── Широкий поиск: encar (hp в [140, 160]) ──
+2026-10-13 14:05:57,073 [ERROR] encar (broad): ошибка запроса: 404 Client Error: Not Found for url: https://api.encar.com/search/car/list/general?count=true&q=%28And.Hidden.N.%29&sr=%7CModifiedDate%7C0%7C200
+2026-10-13 14:05:57,073 [INFO] encar (broad): найдено 0 машин с hp в [140, 160]
+2026-10-13 14:05:57,073 [INFO] ── Широкий поиск: charancha (hp в [140, 160]) ──
+2026-10-13 14:06:02,658 [INFO] charancha (broad): найдено 0 машин с hp в [140, 160]
+2026-10-13 14:06:02,659 [INFO] ── Широкий поиск: onbid (hp в [140, 160]) ──
+2026-10-13 14:06:26,300 [INFO] onbid (broad): найдено 12 машин с hp в [140, 160]
+2026-10-13 14:06:26,301 [INFO] filter_year_range (broad_collector): отброшено 11 объявлений вне диапазона года 2022-2023 (или без года)
+2026-10-13 14:06:26,301 [WARNING] check_source_health: Источник(и) не дали НИ ОДНОГО объявления за этот прогон main_pipeline.py (targeted+broad суммарно): kbchachacha, encar. Похоже на 'тихую смерть' резолвера/поиска — см. FINAL_STATE.md про инцидент 2026-07-20 (kbchachacha/charancha молчали неделями незамеченными).
+2026-10-13 14:06:26,724 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-13 14:06:26,733 [INFO] Найдено 43 объявлений, кандидатов на публикацию (новые, не старше 14 дн., пробег до 40000 км, ещё не опубликованные): 10
+2026-10-13 14:06:26,733 [INFO] Пре-фильтр причины отсева: {'missing:hp+fuel_code': 2, 'bad_title': 6}
+2026-10-13 14:06:26,733 [INFO] Пре-фильтр: убрано 8 из 10 кандидатов (нет данных для цены / < 3 фото / нечитаемый заголовок)
+2026-10-13 14:06:26,734 [WARNING] check_price_vs_new_krw: модель 'Hyundai Sonata' не распознана в model_specs.py — не могу проверить цену 29,700,000 ₩ относительно цены нового
+2026-10-13 14:06:34,202 [INFO] ✅ Альбом из 10 фото успешно отправлен в Telegram
+2026-10-13 14:06:34,893 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:36,816 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:38,507 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:38,508 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b47a-73af-906d-8ca46fcec738.jpg за 3 попыток(и)
+2026-10-13 14:06:39,123 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:40,753 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:42,410 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:42,411 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b47f-704c-81d5-661d3ff154bc.jpg за 3 попыток(и)
+2026-10-13 14:06:43,062 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:44,750 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:46,377 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:46,378 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b483-7cda-9216-579feee6d980.jpg за 3 попыток(и)
+2026-10-13 14:06:46,849 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:48,780 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:50,287 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:50,287 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b487-7568-b0ec-3b9ac0027730.jpg за 3 попыток(и)
+2026-10-13 14:06:50,990 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:52,520 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:54,193 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:54,194 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b48a-7716-bb87-3c4ec2824a98.jpg за 3 попыток(и)
+2026-10-13 14:06:54,835 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:56,455 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:57,946 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:06:57,946 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b48e-7f0e-8e57-985124f40470.jpg за 3 попыток(и)
+2026-10-13 14:06:58,758 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:00,242 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:01,742 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:01,743 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b492-7878-92cb-faf87238fff3.jpg за 3 попыток(и)
+2026-10-13 14:07:02,249 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:03,773 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:05,437 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:05,438 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b497-7457-93b5-86fcd16d13c5.jpg за 3 попыток(и)
+2026-10-13 14:07:06,020 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:07,649 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:09,131 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:09,132 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b49b-76ce-a2be-a440fbf2135b.jpg за 3 попыток(и)
+2026-10-13 14:07:09,833 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:11,364 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:12,883 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:07:12,884 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b49f-7743-9510-504037c85074.jpg за 3 попыток(и)
+2026-10-13 14:07:12,884 [WARNING] VK: не удалось прикрепить 10/10 фото после ретраев: ['https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b47a-73af-906d-8ca46fcec738.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b47f-704c-81d5-661d3ff154bc.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b483-7cda-9216-579feee6d980.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b487-7568-b0ec-3b9ac0027730.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b48a-7716-bb87-3c4ec2824a98.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b48e-7f0e-8e57-985124f40470.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b492-7878-92cb-faf87238fff3.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b497-7457-93b5-86fcd16d13c5.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b49b-76ce-a2be-a440fbf2135b.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b49f-7743-9510-504037c85074.jpg']
+2026-10-13 14:07:12,884 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-10-13 14:07:12,884 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-10-13 14:07:12,885 [INFO] [1/5] Опубликовано: Hyundai Sonata 
+2026-10-13 14:07:14,885 [WARNING] check_price_vs_new_krw: модель 'Genesis GV60' не распознана в model_specs.py — не могу проверить цену 48,500,000 ₩ относительно цены нового
+2026-10-13 14:08:02,199 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-10-13 14:08:02,211 [INFO] tts_generator: текст подводки сгенерирован (вариант 1, 54 слов, 436 вх. + 172 исх. токенов)
+2026-10-13 14:08:02,211 [INFO] tts_generator: пробую озвучку через edge
+2026-10-13 14:08:02,602 [WARNING] tts_generator: edge-tts не смог синтезировать речь (403, message='Invalid response status', url='wss://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1?TrustedClientToken=6A5AA1D4EAFF4E9FB37E23D68491D6F4&ConnectionId=ef39b202b5444692bf4ac08f9fbd8877&Sec-MS-GEC=4D58867B717AF86B4A0E3569C7FB1D6EB2321559E5964E30348C8BD10EB99B9A&Sec-MS-GEC-Version=1-143.0.3650.75')
+2026-10-13 14:08:02,603 [INFO] tts_generator: пробую озвучку через silero
+2026-10-13 14:08:02,603 [WARNING] tts_generator: библиотека 'torch' не установлена (pip install torch) — silero-фолбэк недоступен
+2026-10-13 14:08:02,603 [WARNING] tts_generator: ни один TTS-движок не сработал — ролик будет без голоса
+2026-10-13 14:08:02,603 [WARNING] video_generator (horizontal): озвучка не собралась — ролик без голоса
+2026-10-13 14:08:38,375 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-10-13 14:08:38,376 [INFO] tts_generator: текст подводки сгенерирован (вариант 1, 45 слов, 436 вх. + 156 исх. токенов)
+2026-10-13 14:08:38,376 [INFO] tts_generator: пробую озвучку через edge
+2026-10-13 14:08:38,736 [WARNING] tts_generator: edge-tts не смог синтезировать речь (403, message='Invalid response status', url='wss://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1?TrustedClientToken=6A5AA1D4EAFF4E9FB37E23D68491D6F4&ConnectionId=d2f5b57716374f81b5a60852e6241401&Sec-MS-GEC=4D58867B717AF86B4A0E3569C7FB1D6EB2321559E5964E30348C8BD10EB99B9A&Sec-MS-GEC-Version=1-143.0.3650.75')
+2026-10-13 14:08:38,736 [INFO] tts_generator: пробую озвучку через silero
+2026-10-13 14:08:38,736 [WARNING] tts_generator: библиотека 'torch' не установлена (pip install torch) — silero-фолбэк недоступен
+2026-10-13 14:08:38,737 [WARNING] tts_generator: ни один TTS-движок не сработал — ролик будет без голоса
+2026-10-13 14:08:38,737 [WARNING] video_generator (vertical): озвучка не собралась — ролик без голоса
+2026-10-13 14:08:55,031 [INFO] ✅ Альбом из 10 фото успешно отправлен в Telegram
+2026-10-13 14:08:55,741 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:08:57,451 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:00,595 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:00,596 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-6496-7a53-9654-6428acff785d.jpg за 3 попыток(и)
+2026-10-13 14:09:03,452 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:05,109 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:06,816 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:06,817 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-649c-7acc-9781-57698d2d5bbe.jpg за 3 попыток(и)
+2026-10-13 14:09:07,508 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:09,190 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:10,885 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:10,887 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64a1-76c5-9a0d-4429fdf526f4.jpg за 3 попыток(и)
+2026-10-13 14:09:12,766 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:14,424 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:15,924 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:15,925 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64a5-79b8-8d07-0f95309723e3.jpg за 3 попыток(и)
+2026-10-13 14:09:16,613 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:18,143 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:19,923 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:19,924 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64aa-7ab9-9a2e-686f0f98cb83.jpg за 3 попыток(и)
+2026-10-13 14:09:20,577 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:22,269 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:23,779 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:23,779 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64af-7854-ab9d-5881ba9917ef.jpg за 3 попыток(и)
+2026-10-13 14:09:24,476 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:25,986 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:27,490 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:27,490 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64b4-72f0-a698-106a2ff3d914.jpg за 3 попыток(и)
+2026-10-13 14:09:28,055 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:29,770 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:31,291 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:31,292 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64b8-7f4c-95c8-4b33067d6144.jpg за 3 попыток(и)
+2026-10-13 14:09:31,916 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:33,420 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:34,955 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:34,956 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64bd-7b5b-b59f-543de1dd7101.jpg за 3 попыток(и)
+2026-10-13 14:09:35,447 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:36,921 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:38,423 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:38,424 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64c2-773c-b5ab-355fddb08918.jpg за 3 попыток(и)
+2026-10-13 14:09:38,424 [WARNING] VK: не удалось прикрепить 10/10 фото после ретраев: ['https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-6496-7a53-9654-6428acff785d.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-649c-7acc-9781-57698d2d5bbe.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64a1-76c5-9a0d-4429fdf526f4.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64a5-79b8-8d07-0f95309723e3.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64aa-7ab9-9a2e-686f0f98cb83.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64af-7854-ab9d-5881ba9917ef.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64b4-72f0-a698-106a2ff3d914.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64b8-7f4c-95c8-4b33067d6144.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64bd-7b5b-b59f-543de1dd7101.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64c2-773c-b5ab-355fddb08918.jpg']
+2026-10-13 14:09:38,424 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-10-13 14:09:38,424 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-10-13 14:09:38,424 [INFO] VK: пробую опубликовать видео отдельным постом, раз основной пост не вышел
+2026-10-13 14:09:39,059 [ERROR] VK API video.save: ошибка 5 — User authorization failed
+2026-10-13 14:09:39,060 [WARNING] VK: не удалось прикрепить видео /tmp/video_gen_cv07t0hv/horizontal_final.mp4 — публикую пост без видео (текст/фото это не блокирует)
+2026-10-13 14:09:39,574 [ERROR] VK API wall.post: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-13 14:09:39,575 [WARNING] VK: не удалось опубликовать видео и отдельным постом тоже
+2026-10-13 14:09:41,517 [INFO] ✅ Видео успешно отправлено в Telegram
+2026-10-13 14:09:41,525 [INFO] [2/5] Опубликовано: Genesis GV60 
+2026-10-13 14:09:43,945 [INFO] ✅ Сообщение успешно отправлено в Telegram
+2026-10-13 14:09:43,946 [INFO] yandex_queue: черновик отправлен (Genesis GV60), в очереди осталось 1
+2026-10-13 14:09:43,946 [INFO] === Готово: опубликовано 2 постов ===

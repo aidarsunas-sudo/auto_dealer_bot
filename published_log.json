@@ -15270,5 +15270,43 @@
   "https://www.charancha.com/cars/01a119cf-7f9d-75ca-aee1-3730d0124b4e": {
     "first_seen": "2026-10-08T05:33:25",
     "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a12dc6-9508-73d3-b74e-5d68280dee59": {
+    "first_seen": "2026-10-12T05:26:12",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a133f0-81ec-7082-ad36-4d8c25101411": {
+    "first_seen": "2026-10-13T14:06:26",
+    "posted_at": "2026-10-13T14:07:12",
+    "brand": "Hyundai",
+    "model": "Sonata"
+  },
+  "https://www.charancha.com/cars/01a13394-8915-7406-9a99-77593612a57f": {
+    "first_seen": "2026-10-13T14:06:26",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a132ce-9656-7b43-a4b9-d2207a66126a": {
+    "first_seen": "2026-10-13T14:06:26",
+    "posted_at": "2026-10-13T14:09:41",
+    "brand": "Genesis",
+    "model": "GV60"
+  },
+  "https://www.charancha.com/cars/01a13423-8fe4-74d7-835c-520499c91b7e": {
+    "first_seen": "2026-10-13T14:06:26",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a132b3-2871-77d8-8db3-de7543394d96": {
+    "first_seen": "2026-10-13T14:06:26",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a13d3d-366a-7892-94bd-6d04e827386b": {
+    "first_seen": "2026-10-15T04:07:58",
+    "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a1438d-c476-738e-98eb-8df38d50d398": {
+    "first_seen": "2026-10-16T11:09:05",
+    "posted_at": "2026-10-16T11:09:50",
+    "brand": "Renault",
+    "model": "QM6"
   }
 }

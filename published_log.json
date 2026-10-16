@@ -15302,5 +15302,11 @@
   "https://www.charancha.com/cars/01a13d3d-366a-7892-94bd-6d04e827386b": {
     "first_seen": "2026-10-15T04:07:58",
     "posted_at": null
+  },
+  "https://www.charancha.com/cars/01a1438d-c476-738e-98eb-8df38d50d398": {
+    "first_seen": "2026-10-16T11:09:05",
+    "posted_at": "2026-10-16T11:09:50",
+    "brand": "Renault",
+    "model": "QM6"
   }
 }

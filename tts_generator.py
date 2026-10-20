@@ -27,6 +27,8 @@ tts_generator.py — озвучка для роликов video_generator.py: к
 
 import asyncio
 import hashlib
+import os
+import time
 import logging
 from pathlib import Path
 from typing import Optional
@@ -40,6 +42,10 @@ CLAUDE_MODEL = "claude-opus-4-8"
 # ru-RU-DmitryNeural (мужской) | ru-RU-SvetlanaNeural (женский) — выбор
 # зафиксирован в config.TTS_VOICE после прослушивания обоих вариантов.
 EDGE_RATE = "+10%"  # чуть выше обычной скорости, см. ТЗ
+# Сервис Edge-TTS нестабилен: примерно каждый второй запрос отвечает «No audio was received» (воспроизведено
+# 2026-10-08, текст при этом корректный) — поэтому синтез повторяется, с паузой и запасным голосом.
+EDGE_ATTEMPTS = 4
+EDGE_RETRY_PAUSE_SEC = 2.0
 
 # 5 вариантов системных промптов с разными зацепками, но идентичные факты.
 # Выбор детерминированный по hash(car_id) % len(SYSTEM_PROMPTS).
@@ -247,7 +253,13 @@ def generate_voiceover_text(fields: dict, min_words: int = 40, max_words: int = 
         return None
 
 
-def _synthesize_edge(text: str, output_path: Path) -> bool:
+def _edge_voices() -> list:
+    """Голос по порядку попыток: основной (config.TTS_VOICE), с 3-й попытки — запасной женский."""
+    fallback = os.getenv("TTS_VOICE_FALLBACK", "ru-RU-SvetlanaNeural")
+    return [config.TTS_VOICE, config.TTS_VOICE] + [fallback] * max(EDGE_ATTEMPTS - 2, 0)
+
+
+def _synthesize_edge(text: str, output_path: Path, sleep=time.sleep) -> bool:
     try:
         import edge_tts
     except ImportError:
@@ -257,20 +269,24 @@ def _synthesize_edge(text: str, output_path: Path) -> bool:
     # Применяем ударения перед синтезом
     text_with_stress = apply_brand_pronunciation(text)
 
-    async def _run():
-        communicate = edge_tts.Communicate(text_with_stress, config.TTS_VOICE, rate=EDGE_RATE)
-        await communicate.save(str(output_path))
+    for attempt, voice in enumerate(_edge_voices()[:EDGE_ATTEMPTS], start=1):
+        async def _run():
+            communicate = edge_tts.Communicate(text_with_stress, voice, rate=EDGE_RATE)
+            await communicate.save(str(output_path))
 
-    try:
-        asyncio.run(_run())
-    except Exception as error:
-        logger.warning(f"tts_generator: edge-tts не смог синтезировать речь ({error})")
-        return False
-
-    if not output_path.exists() or output_path.stat().st_size == 0:
-        logger.warning("tts_generator: edge-tts вернул пустой файл")
-        return False
-    return True
+        try:
+            asyncio.run(_run())
+            if output_path.exists() and output_path.stat().st_size > 0:
+                if attempt > 1:
+                    logger.info(f"tts_generator: edge-tts сработал с попытки {attempt} (голос {voice})")
+                return True
+            logger.warning(f"tts_generator: edge-tts вернул пустой файл (попытка {attempt}/{EDGE_ATTEMPTS})")
+        except Exception as error:
+            logger.warning(f"tts_generator: edge-tts не смог синтезировать речь "
+                           f"(попытка {attempt}/{EDGE_ATTEMPTS}, голос {voice}): {error}")
+        if attempt < EDGE_ATTEMPTS:
+            sleep(EDGE_RETRY_PAUSE_SEC * attempt)
+    return False
 
 
 def synthesize_with_word_timings(text: str, output_path: Path) -> Optional[list]:
@@ -305,8 +321,9 @@ def synthesize_with_word_timings(text: str, output_path: Path) -> Optional[list]
     text_with_stress = apply_brand_pronunciation(text)
     timings: list = []
 
-    async def _run() -> bool:
-        communicate = edge_tts.Communicate(text_with_stress, config.TTS_VOICE, rate=EDGE_RATE)
+    async def _run(voice: str) -> bool:
+        timings.clear()
+        communicate = edge_tts.Communicate(text_with_stress, voice, rate=EDGE_RATE)
         wrote_audio = False
         with open(output_path, "wb") as audio_file:
             async for chunk in communicate.stream():
@@ -319,10 +336,20 @@ def synthesize_with_word_timings(text: str, output_path: Path) -> Optional[list]
                     timings.append({"start": start, "end": end, "word": chunk["text"]})
         return wrote_audio
 
-    try:
-        wrote_audio = asyncio.run(_run())
-    except Exception as error:
-        logger.warning(f"tts_generator: edge-tts stream не смог синтезировать речь ({error})")
+    wrote_audio = False
+    for attempt, voice in enumerate(_edge_voices()[:EDGE_ATTEMPTS], start=1):
+        try:
+            wrote_audio = asyncio.run(_run(voice))
+            if wrote_audio and output_path.exists() and output_path.stat().st_size > 0:
+                break
+            logger.warning(f"tts_generator: edge-tts stream вернул пустой файл (попытка {attempt}/{EDGE_ATTEMPTS})")
+        except Exception as error:
+            logger.warning(f"tts_generator: edge-tts stream не смог синтезировать речь "
+                           f"(попытка {attempt}/{EDGE_ATTEMPTS}, голос {voice}): {error}")
+            wrote_audio = False
+        if attempt < EDGE_ATTEMPTS:
+            time.sleep(EDGE_RETRY_PAUSE_SEC * attempt)
+    else:
         return None
 
     if not wrote_audio or not output_path.exists() or output_path.stat().st_size == 0:

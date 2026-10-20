@@ -97,3 +97,7 @@ avante_monitor/report.html
 avante_monitor/report.xlsx
 avante_monitor/alert_*.html
 avante_monitor/__pycache__/
+
+# Локальные файлы сборщика снимка Encar (encar_snapshot.py): состояние запусков и лог — только на компьютере владельца
+data/encar_snapshot_state.json
+logs/encar_snapshot.log

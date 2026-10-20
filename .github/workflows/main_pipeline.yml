@@ -95,6 +95,10 @@ jobs:
           # Не секреты (режимы работы) — задаются прямо здесь, не через
           # GitHub Secrets. Поменяй на "targeted"/"broad", если нужно.
           SEARCH_MODE: both
+          # Encar: API закрыт для GitHub, лоты берутся из data/encar_snapshot.json, который коммитит
+          # сборщик encar_snapshot.py с компьютера владельца (см. ENCAR_SNAPSHOT.md). Снимок старше
+          # 36 часов не используется — админу уходит предупреждение.
+          ENCAR_SOURCE: snapshot
           # Видео (video_generator.py) — включено 2026-07-17 после
           # контрольного прогона test_post+test_video на сети GitHub
           # Actions (run_bot.yml): VK-видеозагрузка на mycdn.me подтверждена
@@ -161,4 +165,7 @@ jobs:
             [ -e "$f" ] && git add "$f"
           done
           git diff --staged --quiet || git commit -m "Автообновление published_log.json [skip ci]"
+          # Снимок Encar коммитят с компьютера владельца: подтягиваем его перед push, иначе push отклонится
+          # (и журнал публикаций не сохранится -> риск дублей).
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
           git push

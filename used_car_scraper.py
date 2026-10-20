@@ -31,6 +31,7 @@ import requests
 from bs4 import BeautifulSoup
 
 import config
+import source_health
 from model_specs import find_spec
 
 logger = logging.getLogger("used_car_scraper")
@@ -262,6 +263,10 @@ def parse_all_pages(search_params: dict, max_pages: int = 10, delay: float = 1.0
     """
     import time
 
+    if source_health.is_open("kbchachacha"):
+        logger.warning("kbchachacha: источник отключён предохранителем до конца прогона — список не запрашивается")
+        return []
+
     all_cars = []
     seen_ids = set()
 
@@ -270,7 +275,9 @@ def parse_all_pages(search_params: dict, max_pages: int = 10, delay: float = 1.0
             html = fetch_used_car_list(search_params, page)
         except requests.RequestException as error:
             logger.error(f"Страница {page}: не удалось загрузить ({error})")
+            source_health.record_failure("kbchachacha", f"страница {page}: {type(error).__name__}")
             break
+        source_health.record_success("kbchachacha")  # сайт ответил — серия сбоев прервана
 
         cars = parse_used_car_list(html)
         if not cars:

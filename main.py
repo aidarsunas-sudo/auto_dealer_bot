@@ -120,11 +120,13 @@ def process_one_page(url: str, brand: str, model: str, conn, rates: dict, dry_ru
                 # или иначе не хватает данных — молчим, не публикуем неточную
                 # цену и не откатываемся на старый формат.
                 continue
-            # skip_validation=True: новые авто из дилерского каталога
+            # car_kind="new_catalog": новые авто из дилерского каталога
             # (WATCHLIST) — car["year"] намеренно всегда None (см.
-            # scraper.py), фото сайт дилера не отдаёт вовсе. Это другой
-            # класс объявлений, а не брак данных — см. agent_publisher.py.
-            publish_post(car, post_text, dry_run=dry_run, skip_validation=True)
+            # scraper.py), фото сайт дилера не отдаёт вовсе. Это другой класс
+            # объявлений, для него ОТДЕЛЬНЫЙ гейт validate_new_catalog_post()
+            # (название/цена/объём/мощность), а не обход проверок целиком.
+            fields, _ = prepare_post_fields(car, rates)
+            publish_post(car, post_text, dry_run=dry_run, fields=fields, car_kind="new_catalog")
 
             # Небольшая пауза между публикациями, чтобы не отправлять всё
             # одним залпом (и чтобы Telegram не посчитал это спамом).
@@ -133,7 +135,7 @@ def process_one_page(url: str, brand: str, model: str, conn, rates: dict, dry_ru
             # Ошибка с ОДНОЙ конкретной машиной не должна ронять обработку
             # остальных найденных на этой же странице. PublishBlockedError
             # (см. post_validator.py) тоже сюда попадёт — это ожидаемо,
-            # skip_validation=True выше её никогда не поднимет, но общий
+            # гейт new_catalog тоже может её поднять — общий
             # except всё равно должен пережить любую другую ошибку одной машины.
             log.error(f"Ошибка при обработке {car.get('trim', '?')}: {error}")
 

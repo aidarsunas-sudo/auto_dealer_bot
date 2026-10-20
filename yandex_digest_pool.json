@@ -1,141 +1,6 @@
 [
   {
     "car": {
-      "brand": "Hyundai",
-      "model": "Sonata",
-      "trim": "",
-      "external_id": "01a133f0-81ec-7082-ad36-4d8c25101411",
-      "year": 2023,
-      "month": 6,
-      "mileage_km": 36122,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 29700000,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://www.charancha.com/cars/01a133f0-81ec-7082-ad36-4d8c25101411",
-      "source": "charancha",
-      "photos": [
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b47a-73af-906d-8ca46fcec738.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b47f-704c-81d5-661d3ff154bc.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b483-7cda-9216-579feee6d980.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b487-7568-b0ec-3b9ac0027730.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b48a-7716-bb87-3c4ec2824a98.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b48e-7f0e-8e57-985124f40470.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b492-7878-92cb-faf87238fff3.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b497-7457-93b5-86fcd16d13c5.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b49b-76ce-a2be-a440fbf2135b.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b49f-7743-9510-504037c85074.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b852-785c-8cfe-94d2a1cdea0d.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b856-72cd-8aa3-c33e3af973f9.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b859-7905-9d96-228aff49f672.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b85d-7667-8bd2-e97ece705bbd.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b860-7e3d-9a68-f5923c145e85.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b864-7120-bd3b-52b3e70102e7.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b867-7007-b136-068f52283187.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b86a-7aa6-ab73-33eb07db7872.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b86d-79c7-a5d5-04ce26bbb36b.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a133ef-b871-7366-bdfe-81a8ff207232.jpg"
-      ],
-      "transmission": "자동",
-      "is_accident": null,
-      "is_seizure": null,
-      "color": "검정색"
-    },
-    "published_at": "2026-10-13T14:07:12.884977"
-  },
-  {
-    "car": {
-      "brand": "Genesis",
-      "model": "GV60",
-      "trim": "",
-      "external_id": "01a132ce-9656-7b43-a4b9-d2207a66126a",
-      "year": 2023,
-      "month": 3,
-      "mileage_km": 38724,
-      "cc": 111,
-      "hp": 318,
-      "fuel_code": "elec",
-      "price": 48500000,
-      "specs": "111 см³, 318 л.с.",
-      "url": "https://www.charancha.com/cars/01a132ce-9656-7b43-a4b9-d2207a66126a",
-      "source": "charancha",
-      "photos": [
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-6496-7a53-9654-6428acff785d.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-649c-7acc-9781-57698d2d5bbe.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64a1-76c5-9a0d-4429fdf526f4.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64a5-79b8-8d07-0f95309723e3.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64aa-7ab9-9a2e-686f0f98cb83.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64af-7854-ab9d-5881ba9917ef.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64b4-72f0-a698-106a2ff3d914.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64b8-7f4c-95c8-4b33067d6144.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64bd-7b5b-b59f-543de1dd7101.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64c2-773c-b5ab-355fddb08918.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64c7-7ed6-95e6-9d8ce026ce64.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64cb-7671-9a93-366c0b0fcaa3.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64d0-7b52-99dc-ab6ae9ac835f.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64d5-796b-b12a-5ea9b64b6ed2.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64da-7d7e-9eaa-67ba77106cce.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64df-72b7-8dd2-e7051753586e.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64e4-772c-972e-09a3549bb2dd.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64e8-71cf-a7d4-a26191155be6.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64ed-76f6-b559-e266630535ee.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a132cc-64f2-7e26-bfef-0ea7ece16497.jpg"
-      ],
-      "transmission": "자동",
-      "is_accident": null,
-      "is_seizure": null,
-      "color": "검정색"
-    },
-    "published_at": "2026-10-13T14:09:41.525024"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "",
-      "external_id": "01a1438d-c476-738e-98eb-8df38d50d398",
-      "year": 2022,
-      "month": 9,
-      "mileage_km": 34040,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 16300000,
-      "specs": "1998 см³, 144 л.с.",
-      "url": "https://www.charancha.com/cars/01a1438d-c476-738e-98eb-8df38d50d398",
-      "source": "charancha",
-      "photos": [
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc2c-738f-950a-e8e081f8ac64.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc31-7e47-9566-d5f424b99c6b.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc36-77a2-88fe-7cb3e6054302.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc3a-76c2-9a7c-40c561e3ca9b.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc3e-734b-a924-13a46916a392.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc43-74ff-b08c-bed8bd2f95f2.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc47-7d83-8e5e-c3c3ba026176.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc4c-748d-bdf0-84d08232c9aa.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc50-7139-aa49-d6f5046b83b0.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc54-7722-80b7-67806a16386e.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc58-77d0-bd37-9ad5a5458940.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc5d-77de-a980-186997218852.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc61-7243-8550-f0c3ec4f2ff3.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc65-784b-9cda-09394c884a76.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc69-79cc-b581-c9c92e254bf3.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-dc6d-78f3-b56b-d9502b215b74.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-e038-7085-add7-85eeaa65a35c.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-e03c-7d94-9e46-947ca61e709d.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-e046-74b3-8e9c-2c60aec8b034.jpg",
-        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1438c-e04a-7fca-a411-b6368d139557.jpg"
-      ],
-      "transmission": "자동",
-      "is_accident": null,
-      "is_seizure": null,
-      "color": "회색"
-    },
-    "published_at": "2026-10-16T11:09:50.462219"
-  },
-  {
-    "car": {
       "brand": "Kia",
       "model": "K5",
       "trim": "2.0",
@@ -263,5 +128,135 @@
       "transmission": "오토"
     },
     "published_at": "2026-10-16T12:11:46.828426"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42803687",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 27341,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 17900000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42803687",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture09/pic4279/42797481_001.jpg",
+        "https://ci.encar.com/carpicture09/pic4279/42797481_003.jpg",
+        "https://ci.encar.com/carpicture09/pic4279/42797481_004.jpg",
+        "https://ci.encar.com/carpicture09/pic4279/42797481_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-20T11:20:04.771273"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42595434",
+      "year": 2022,
+      "month": 5,
+      "mileage_km": 10800,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 27300000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42595434",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture09/pic4259/42593265_001.jpg",
+        "https://ci.encar.com/carpicture09/pic4259/42593265_003.jpg",
+        "https://ci.encar.com/carpicture09/pic4259/42593265_004.jpg",
+        "https://ci.encar.com/carpicture09/pic4259/42593265_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-20T11:22:33.963935"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "42584999",
+      "year": 2023,
+      "month": 1,
+      "mileage_km": 19645,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 29900000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42584999",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4258/42584566_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4258/42584566_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4258/42584566_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4258/42584566_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-20T11:22:51.717691"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "2.0 GDe RE 2WD",
+      "external_id": "42815756",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 25968,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 24900000,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42815756",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture01/pic4281/42815756_001.jpg",
+        "https://ci.encar.com/carpicture01/pic4281/42815756_003.jpg",
+        "https://ci.encar.com/carpicture01/pic4281/42815756_004.jpg",
+        "https://ci.encar.com/carpicture01/pic4281/42815756_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-20T11:23:09.681595"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 ACTIV",
+      "external_id": "42759548",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 27586,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 20700000,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42759548",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture05/pic4275/42759544_027.jpg",
+        "https://ci.encar.com/carpicture05/pic4275/42759544_003.jpg",
+        "https://ci.encar.com/carpicture05/pic4275/42759544_004.jpg",
+        "https://ci.encar.com/carpicture05/pic4275/42759544_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-20T11:25:30.427077"
   }
 ]

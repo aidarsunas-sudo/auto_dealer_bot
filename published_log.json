@@ -15511,7 +15511,9 @@
   },
   "https://fem.encar.com/cars/detail/42797481": {
     "first_seen": "2026-10-11T20:17:32",
-    "posted_at": null
+    "posted_at": "2026-10-20T16:47:56",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://fem.encar.com/cars/detail/42603181": {
     "first_seen": "2026-10-11T20:17:32",
@@ -15803,7 +15805,9 @@
   },
   "https://fem.encar.com/cars/detail/42584566": {
     "first_seen": "2026-10-11T20:17:32",
-    "posted_at": null
+    "posted_at": "2026-10-20T16:48:13",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://fem.encar.com/cars/detail/42760421": {
     "first_seen": "2026-10-11T20:17:32",
@@ -16385,7 +16389,9 @@
   },
   "https://fem.encar.com/cars/detail/42593265": {
     "first_seen": "2026-10-11T20:17:32",
-    "posted_at": null
+    "posted_at": "2026-10-20T16:50:57",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://fem.encar.com/cars/detail/42821741": {
     "first_seen": "2026-10-11T20:17:32",
@@ -16853,7 +16859,9 @@
   },
   "https://fem.encar.com/cars/detail/42720074": {
     "first_seen": "2026-10-11T20:17:32",
-    "posted_at": null
+    "posted_at": "2026-10-20T16:51:14",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://fem.encar.com/cars/detail/42715561": {
     "first_seen": "2026-10-11T20:17:32",
@@ -17143,7 +17151,9 @@
   },
   "https://fem.encar.com/cars/detail/42848019": {
     "first_seen": "2026-10-11T20:17:32",
-    "posted_at": null
+    "posted_at": "2026-10-20T16:51:31",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://fem.encar.com/cars/detail/42844317": {
     "first_seen": "2026-10-11T20:17:32",

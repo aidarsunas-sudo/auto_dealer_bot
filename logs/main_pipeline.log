@@ -355806,3 +355806,660 @@ Call log:
 2026-10-20 11:25:32,901 [INFO] ✅ Сообщение успешно отправлено в Telegram
 2026-10-20 11:25:32,903 [INFO] yandex_queue: черновик отправлен (Kia K3), в очереди осталось 4
 2026-10-20 11:25:32,903 [INFO] === Готово: опубликовано 5 постов ===
+2026-10-20 16:39:54,642 [INFO] === Запуск main_pipeline ===
+2026-10-20 16:39:55,212 [ERROR] VK_TOKEN не рабочий — публикация в VK в этом прогоне будет проваливаться: VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4). (токен недействителен/просрочен — нужен новый (см. SETUP_GITHUB_ACTIONS.md, пользовательский токен через Kate Mobile/аналогичное Standalone-приложение, НЕ VK ID confidential-приложение — тот выдаёт токен без прав wall/photos/video))
+2026-10-20 16:39:55,711 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-20 16:39:56,236 [INFO] Получены свежие курсы ЦБ: EUR=93.04 USD=82.89 KRW(за 1000)=62.22
+2026-10-20 16:39:56,237 [INFO] Режим поиска: both
+2026-10-20 16:39:56,237 [INFO] ── Целевая модель: Audi Q3 (kbchachacha) ──
+2026-10-20 16:39:56,238 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:39:57,347 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:39:57,347 [INFO] kbchachacha: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-20 16:39:57,347 [INFO] ── Целевая модель: Audi Q3 (encar) ──
+2026-10-20 16:39:57,360 [INFO] encar: Audi Q3 -> 47 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:39:57,361 [INFO] ── Целевая модель: Audi Q3 (charancha) ──
+2026-10-20 16:39:58,045 [INFO] charancha: Audi Q3 -> найдено 1 (после фильтров)
+2026-10-20 16:39:58,046 [INFO] ── Целевая модель: Audi Q3 (onbid) ──
+2026-10-20 16:40:01,523 [INFO] onbid: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-20 16:40:01,524 [INFO] ── Целевая модель: Volkswagen Tiguan (kbchachacha) ──
+2026-10-20 16:40:01,525 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:02,636 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:02,636 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:03,724 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:03,725 [INFO] kbchachacha: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-20 16:40:03,725 [INFO] ── Целевая модель: Volkswagen Tiguan (encar) ──
+2026-10-20 16:40:03,732 [INFO] encar: Volkswagen Tiguan -> 53 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:40:03,732 [INFO] ── Целевая модель: Volkswagen Tiguan (charancha) ──
+2026-10-20 16:40:05,518 [INFO] charancha: Volkswagen Tiguan -> найдено 1 (после фильтров)
+2026-10-20 16:40:05,520 [INFO] ── Целевая модель: Volkswagen Tiguan (onbid) ──
+2026-10-20 16:40:08,945 [INFO] onbid: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-20 16:40:08,946 [INFO] ── Целевая модель: Kia K3 (kbchachacha) ──
+2026-10-20 16:40:08,947 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:10,065 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:10,065 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:11,158 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:11,158 [INFO] kbchachacha: Kia K3 -> найдено 0 (после фильтров)
+2026-10-20 16:40:11,158 [INFO] ── Целевая модель: Kia K3 (encar) ──
+2026-10-20 16:40:11,165 [INFO] encar: Kia K3 -> 253 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:40:11,166 [INFO] ── Целевая модель: Kia K3 (charancha) ──
+2026-10-20 16:40:14,426 [INFO] charancha: Kia K3 -> найдено 9 (после фильтров)
+2026-10-20 16:40:14,427 [INFO] ── Целевая модель: Kia K3 (onbid) ──
+2026-10-20 16:40:18,907 [INFO] onbid: Kia K3 -> найдено 0 (после фильтров)
+2026-10-20 16:40:18,908 [INFO] ── Целевая модель: Kia K5 (kbchachacha) ──
+2026-10-20 16:40:18,909 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:19,454 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:19,454 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:20,021 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:20,021 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:21,163 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:21,163 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:22,267 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:22,267 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:22,838 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:22,838 [INFO] kbchachacha: Kia K5 -> найдено 0 (после фильтров)
+2026-10-20 16:40:22,838 [INFO] ── Целевая модель: Kia K5 (encar) ──
+2026-10-20 16:40:22,845 [INFO] encar: Kia K5 -> 267 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:40:22,846 [INFO] ── Целевая модель: Kia K5 (charancha) ──
+2026-10-20 16:40:30,360 [INFO] charancha: Kia K5 -> найдено 14 (после фильтров)
+2026-10-20 16:40:30,361 [INFO] ── Целевая модель: Kia K5 (onbid) ──
+2026-10-20 16:40:34,024 [INFO] onbid: Kia K5 -> найдено 0 (после фильтров)
+2026-10-20 16:40:34,025 [INFO] ── Целевая модель: Hyundai Sonata (kbchachacha) ──
+2026-10-20 16:40:34,026 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:35,152 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:35,152 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:35,719 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:35,719 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:36,287 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:36,287 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:37,313 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:37,313 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:38,440 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:38,440 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:40:39,016 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:40:39,016 [INFO] kbchachacha: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-20 16:40:39,017 [INFO] ── Целевая модель: Hyundai Sonata (encar) ──
+2026-10-20 16:40:39,024 [INFO] encar: Hyundai Sonata -> 265 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:40:39,025 [INFO] ── Целевая модель: Hyundai Sonata (charancha) ──
+2026-10-20 16:40:46,609 [INFO] charancha: Hyundai Sonata -> найдено 9 (после фильтров)
+2026-10-20 16:40:46,610 [INFO] ── Целевая модель: Hyundai Sonata (onbid) ──
+2026-10-20 16:40:51,003 [INFO] onbid: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-20 16:40:51,004 [INFO] ── Целевая модель: Kia Tasman (kbchachacha) ──
+2026-10-20 16:40:51,005 [INFO] kbchachacha: кэш для Kia Tasman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:40:51,005 [INFO] kbchachacha: резолвлю коды для Kia Tasman (не в кэше)
+2026-10-20 16:41:02,289 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:41:02,343 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Kia Tasman
+2026-10-20 16:41:13,436 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:41:13,490 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Kia Tasman
+2026-10-20 16:41:13,491 [WARNING] kbchachacha: не удалось найти Kia Tasman на сайте
+2026-10-20 16:41:13,492 [INFO] kbchachacha: Kia Tasman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:41:13,492 [INFO] ── Целевая модель: Kia Tasman (encar) ──
+2026-10-20 16:41:13,501 [INFO] encar: Kia Tasman в снимке нет — 0 лотов
+2026-10-20 16:41:13,502 [INFO] ── Целевая модель: Kia Tasman (charancha) ──
+2026-10-20 16:41:13,502 [INFO] charancha: кэш для Kia Tasman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:41:13,502 [INFO] charancha: резолвлю коды для Kia Tasman (не в кэше)
+2026-10-20 16:41:14,816 [WARNING] charancha: не удалось найти Kia Tasman на сайте
+2026-10-20 16:41:14,816 [INFO] ── Целевая модель: Kia Tasman (onbid) ──
+2026-10-20 16:41:18,187 [INFO] onbid: Kia Tasman -> найдено 0 (после фильтров)
+2026-10-20 16:41:18,188 [INFO] ── Целевая модель: Hyundai Venue (kbchachacha) ──
+2026-10-20 16:41:18,189 [INFO] kbchachacha: кэш для Hyundai Venue истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:41:18,189 [INFO] kbchachacha: резолвлю коды для Hyundai Venue (не в кэше)
+2026-10-20 16:41:29,265 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:41:29,324 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Hyundai Venue
+2026-10-20 16:41:40,407 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:41:40,461 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Hyundai Venue
+2026-10-20 16:41:40,463 [WARNING] kbchachacha: не удалось найти Hyundai Venue на сайте
+2026-10-20 16:41:40,463 [INFO] kbchachacha: Hyundai Venue -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:41:40,463 [INFO] ── Целевая модель: Hyundai Venue (encar) ──
+2026-10-20 16:41:40,470 [INFO] encar: Hyundai Venue в снимке нет — 0 лотов
+2026-10-20 16:41:40,471 [INFO] ── Целевая модель: Hyundai Venue (charancha) ──
+2026-10-20 16:41:40,471 [INFO] charancha: кэш для Hyundai Venue истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:41:40,471 [INFO] charancha: резолвлю коды для Hyundai Venue (не в кэше)
+2026-10-20 16:41:41,849 [WARNING] charancha: не удалось найти Hyundai Venue на сайте
+2026-10-20 16:41:41,849 [INFO] ── Целевая модель: Hyundai Venue (onbid) ──
+2026-10-20 16:41:46,132 [INFO] onbid: Hyundai Venue -> найдено 0 (после фильтров)
+2026-10-20 16:41:46,133 [INFO] ── Целевая модель: Hyundai Casper (kbchachacha) ──
+2026-10-20 16:41:46,134 [INFO] kbchachacha: кэш для Hyundai Casper истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:41:46,134 [INFO] kbchachacha: резолвлю коды для Hyundai Casper (не в кэше)
+2026-10-20 16:41:57,202 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:41:57,259 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Hyundai Casper
+2026-10-20 16:42:08,375 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:42:08,431 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Hyundai Casper
+2026-10-20 16:42:08,432 [WARNING] kbchachacha: не удалось найти Hyundai Casper на сайте
+2026-10-20 16:42:08,432 [INFO] kbchachacha: Hyundai Casper -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:42:08,432 [INFO] ── Целевая модель: Hyundai Casper (encar) ──
+2026-10-20 16:42:08,441 [INFO] encar: Hyundai Casper в снимке нет — 0 лотов
+2026-10-20 16:42:08,442 [INFO] ── Целевая модель: Hyundai Casper (charancha) ──
+2026-10-20 16:42:08,442 [INFO] charancha: кэш для Hyundai Casper истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:42:08,442 [INFO] charancha: резолвлю коды для Hyundai Casper (не в кэше)
+2026-10-20 16:42:09,805 [WARNING] charancha: не удалось найти Hyundai Casper на сайте
+2026-10-20 16:42:09,805 [INFO] ── Целевая модель: Hyundai Casper (onbid) ──
+2026-10-20 16:42:13,234 [INFO] onbid: Hyundai Casper -> найдено 0 (после фильтров)
+2026-10-20 16:42:13,235 [INFO] ── Целевая модель: Kia Ray (kbchachacha) ──
+2026-10-20 16:42:13,236 [INFO] kbchachacha: кэш для Kia Ray истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:42:13,236 [INFO] kbchachacha: резолвлю коды для Kia Ray (не в кэше)
+2026-10-20 16:42:24,298 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:42:24,351 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Kia Ray
+2026-10-20 16:42:35,442 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:42:35,498 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Kia Ray
+2026-10-20 16:42:35,499 [WARNING] kbchachacha: не удалось найти Kia Ray на сайте
+2026-10-20 16:42:35,499 [INFO] kbchachacha: Kia Ray -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:42:35,499 [INFO] ── Целевая модель: Kia Ray (encar) ──
+2026-10-20 16:42:35,507 [INFO] encar: Kia Ray в снимке нет — 0 лотов
+2026-10-20 16:42:35,507 [INFO] ── Целевая модель: Kia Ray (charancha) ──
+2026-10-20 16:42:35,508 [INFO] charancha: кэш для Kia Ray истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:42:35,508 [INFO] charancha: резолвлю коды для Kia Ray (не в кэше)
+2026-10-20 16:42:36,852 [WARNING] charancha: не удалось найти Kia Ray на сайте
+2026-10-20 16:42:36,852 [INFO] ── Целевая модель: Kia Ray (onbid) ──
+2026-10-20 16:42:40,675 [INFO] onbid: Kia Ray -> найдено 0 (после фильтров)
+2026-10-20 16:42:40,676 [INFO] ── Целевая модель: Hyundai IONIQ 5 (kbchachacha) ──
+2026-10-20 16:42:40,677 [INFO] kbchachacha: кэш для Hyundai IONIQ 5 истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:42:40,677 [INFO] kbchachacha: резолвлю коды для Hyundai IONIQ 5 (не в кэше)
+2026-10-20 16:42:51,750 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:42:51,803 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Hyundai IONIQ 5
+2026-10-20 16:43:02,875 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:43:02,931 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Hyundai IONIQ 5
+2026-10-20 16:43:02,933 [WARNING] kbchachacha: не удалось найти Hyundai IONIQ 5 на сайте
+2026-10-20 16:43:02,933 [INFO] kbchachacha: Hyundai IONIQ 5 -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:43:02,933 [INFO] ── Целевая модель: Hyundai IONIQ 5 (encar) ──
+2026-10-20 16:43:02,942 [INFO] encar: Hyundai IONIQ 5 в снимке нет — 0 лотов
+2026-10-20 16:43:02,942 [INFO] ── Целевая модель: Hyundai IONIQ 5 (charancha) ──
+2026-10-20 16:43:02,943 [INFO] charancha: кэш для Hyundai IONIQ 5 истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:43:02,943 [INFO] charancha: резолвлю коды для Hyundai IONIQ 5 (не в кэше)
+2026-10-20 16:43:04,315 [WARNING] charancha: не удалось найти Hyundai IONIQ 5 на сайте
+2026-10-20 16:43:04,315 [INFO] ── Целевая модель: Hyundai IONIQ 5 (onbid) ──
+2026-10-20 16:43:07,583 [INFO] onbid: Hyundai IONIQ 5 -> найдено 0 (после фильтров)
+2026-10-20 16:43:07,584 [INFO] ── Целевая модель: Kia EV9 (kbchachacha) ──
+2026-10-20 16:43:07,585 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:43:08,698 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:43:08,698 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:43:09,795 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:43:09,795 [INFO] kbchachacha: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-20 16:43:09,796 [INFO] ── Целевая модель: Kia EV9 (encar) ──
+2026-10-20 16:43:09,803 [INFO] encar: Kia EV9 -> 36 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:43:09,804 [INFO] ── Целевая модель: Kia EV9 (charancha) ──
+2026-10-20 16:43:10,379 [INFO] charancha: Kia EV9 -> найдено 1 (после фильтров)
+2026-10-20 16:43:10,380 [INFO] ── Целевая модель: Kia EV9 (onbid) ──
+2026-10-20 16:43:13,782 [INFO] onbid: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-20 16:43:13,783 [INFO] ── Целевая модель: Genesis GV60 (kbchachacha) ──
+2026-10-20 16:43:13,784 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:43:14,868 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:43:14,869 [INFO] kbchachacha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-20 16:43:14,869 [INFO] ── Целевая модель: Genesis GV60 (encar) ──
+2026-10-20 16:43:14,876 [INFO] encar: Genesis GV60 -> 9 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:43:14,876 [INFO] ── Целевая модель: Genesis GV60 (charancha) ──
+2026-10-20 16:43:15,477 [INFO] charancha: Genesis GV60 -> найдено 1 (после фильтров)
+2026-10-20 16:43:15,479 [INFO] ── Целевая модель: Genesis GV60 (onbid) ──
+2026-10-20 16:43:18,962 [INFO] onbid: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-20 16:43:18,963 [INFO] ── Целевая модель: BYD SEALION 7 (kbchachacha) ──
+2026-10-20 16:43:18,964 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:43:20,083 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:43:20,084 [INFO] kbchachacha: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-20 16:43:20,084 [INFO] ── Целевая модель: BYD SEALION 7 (encar) ──
+2026-10-20 16:43:20,091 [INFO] encar: BYD SEALION 7 в снимке нет — 0 лотов
+2026-10-20 16:43:20,091 [INFO] ── Целевая модель: BYD SEALION 7 (charancha) ──
+2026-10-20 16:43:20,092 [INFO] charancha: кэш для BYD SEALION 7 истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:43:20,092 [INFO] charancha: резолвлю коды для BYD SEALION 7 (не в кэше)
+2026-10-20 16:43:21,395 [WARNING] charancha: не удалось найти BYD SEALION 7 на сайте
+2026-10-20 16:43:21,395 [INFO] ── Целевая модель: BYD SEALION 7 (onbid) ──
+2026-10-20 16:43:24,721 [INFO] onbid: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-20 16:43:24,722 [INFO] ── Целевая модель: Kia Sportage (kbchachacha) ──
+2026-10-20 16:43:24,722 [INFO] kbchachacha: кэш для Kia Sportage истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:43:24,723 [INFO] kbchachacha: резолвлю коды для Kia Sportage (не в кэше)
+2026-10-20 16:43:35,822 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:43:35,881 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Kia Sportage
+2026-10-20 16:43:46,960 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:43:47,020 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Kia Sportage
+2026-10-20 16:43:47,022 [WARNING] kbchachacha: не удалось найти Kia Sportage на сайте
+2026-10-20 16:43:47,022 [INFO] kbchachacha: Kia Sportage -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:43:47,022 [INFO] ── Целевая модель: Kia Sportage (encar) ──
+2026-10-20 16:43:47,029 [INFO] encar: Kia Sportage в снимке нет — 0 лотов
+2026-10-20 16:43:47,030 [INFO] ── Целевая модель: Kia Sportage (charancha) ──
+2026-10-20 16:43:47,030 [INFO] charancha: кэш для Kia Sportage истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:43:47,030 [INFO] charancha: резолвлю коды для Kia Sportage (не в кэше)
+2026-10-20 16:43:48,243 [WARNING] charancha: не удалось найти Kia Sportage на сайте
+2026-10-20 16:43:48,243 [INFO] ── Целевая модель: Kia Sportage (onbid) ──
+2026-10-20 16:43:52,415 [INFO] onbid: Kia Sportage -> найдено 0 (после фильтров)
+2026-10-20 16:43:52,416 [INFO] ── Целевая модель: Renault QM6 (kbchachacha) ──
+2026-10-20 16:43:52,417 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:43:53,544 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:43:53,544 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:43:54,560 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:43:54,560 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:43:55,655 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:43:55,655 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:43:56,776 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:43:56,776 [INFO] kbchachacha: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-20 16:43:56,776 [INFO] ── Целевая модель: Renault QM6 (encar) ──
+2026-10-20 16:43:56,784 [INFO] encar: Renault QM6 -> 115 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:43:56,784 [INFO] ── Целевая модель: Renault QM6 (charancha) ──
+2026-10-20 16:43:59,950 [INFO] charancha: Renault QM6 -> найдено 2 (после фильтров)
+2026-10-20 16:43:59,951 [INFO] ── Целевая модель: Renault QM6 (onbid) ──
+2026-10-20 16:44:04,131 [INFO] onbid: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-20 16:44:04,132 [INFO] ── Целевая модель: Renault SM6 (kbchachacha) ──
+2026-10-20 16:44:04,133 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:44:05,233 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:44:05,233 [INFO] kbchachacha: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-20 16:44:05,234 [INFO] ── Целевая модель: Renault SM6 (encar) ──
+2026-10-20 16:44:05,249 [INFO] encar: Renault SM6 -> 18 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:44:05,250 [INFO] ── Целевая модель: Renault SM6 (charancha) ──
+2026-10-20 16:44:07,024 [INFO] charancha: Renault SM6 -> найдено 2 (после фильтров)
+2026-10-20 16:44:07,025 [INFO] ── Целевая модель: Renault SM6 (onbid) ──
+2026-10-20 16:44:09,897 [INFO] onbid: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-20 16:44:09,898 [INFO] ── Целевая модель: Chevrolet Malibu (kbchachacha) ──
+2026-10-20 16:44:09,898 [INFO] kbchachacha: кэш для Chevrolet Malibu истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:44:09,899 [INFO] kbchachacha: резолвлю коды для Chevrolet Malibu (не в кэше)
+2026-10-20 16:44:20,993 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:44:21,049 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Chevrolet Malibu
+2026-10-20 16:44:32,151 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:44:32,207 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Chevrolet Malibu
+2026-10-20 16:44:32,209 [WARNING] kbchachacha: не удалось найти Chevrolet Malibu на сайте
+2026-10-20 16:44:32,209 [INFO] kbchachacha: Chevrolet Malibu -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:44:32,209 [INFO] ── Целевая модель: Chevrolet Malibu (encar) ──
+2026-10-20 16:44:32,216 [INFO] encar: Chevrolet Malibu в снимке нет — 0 лотов
+2026-10-20 16:44:32,217 [INFO] ── Целевая модель: Chevrolet Malibu (charancha) ──
+2026-10-20 16:44:32,217 [INFO] charancha: кэш для Chevrolet Malibu истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:44:32,217 [INFO] charancha: резолвлю коды для Chevrolet Malibu (не в кэше)
+2026-10-20 16:44:33,429 [WARNING] charancha: не удалось найти Chevrolet Malibu на сайте
+2026-10-20 16:44:33,429 [INFO] ── Целевая модель: Chevrolet Malibu (onbid) ──
+2026-10-20 16:44:36,905 [INFO] onbid: Chevrolet Malibu -> найдено 0 (после фильтров)
+2026-10-20 16:44:36,906 [INFO] ── Целевая модель: Chevrolet Spark (kbchachacha) ──
+2026-10-20 16:44:36,907 [INFO] kbchachacha: кэш для Chevrolet Spark истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:44:36,907 [INFO] kbchachacha: резолвлю коды для Chevrolet Spark (не в кэше)
+2026-10-20 16:44:48,013 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:44:48,068 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Chevrolet Spark
+2026-10-20 16:44:59,148 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:44:59,205 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Chevrolet Spark
+2026-10-20 16:44:59,207 [WARNING] kbchachacha: не удалось найти Chevrolet Spark на сайте
+2026-10-20 16:44:59,207 [INFO] kbchachacha: Chevrolet Spark -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:44:59,207 [INFO] ── Целевая модель: Chevrolet Spark (encar) ──
+2026-10-20 16:44:59,216 [INFO] encar: Chevrolet Spark в снимке нет — 0 лотов
+2026-10-20 16:44:59,217 [INFO] ── Целевая модель: Chevrolet Spark (charancha) ──
+2026-10-20 16:44:59,217 [INFO] charancha: кэш для Chevrolet Spark истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:44:59,217 [INFO] charancha: резолвлю коды для Chevrolet Spark (не в кэше)
+2026-10-20 16:45:00,478 [WARNING] charancha: не удалось найти Chevrolet Spark на сайте
+2026-10-20 16:45:00,478 [INFO] ── Целевая модель: Chevrolet Spark (onbid) ──
+2026-10-20 16:45:04,287 [INFO] onbid: Chevrolet Spark -> найдено 0 (после фильтров)
+2026-10-20 16:45:04,288 [INFO] ── Целевая модель: Chevrolet Trax (kbchachacha) ──
+2026-10-20 16:45:04,288 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:45:05,316 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:45:05,316 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:45:05,874 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:45:05,874 [INFO] kbchachacha: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-20 16:45:05,874 [INFO] ── Целевая модель: Chevrolet Trax (encar) ──
+2026-10-20 16:45:05,882 [INFO] encar: Chevrolet Trax -> 135 лотов из снимка (возраст 5.6 ч)
+2026-10-20 16:45:05,882 [INFO] ── Целевая модель: Chevrolet Trax (charancha) ──
+2026-10-20 16:45:07,773 [INFO] charancha: Chevrolet Trax -> найдено 5 (после фильтров)
+2026-10-20 16:45:07,774 [INFO] ── Целевая модель: Chevrolet Trax (onbid) ──
+2026-10-20 16:45:11,049 [INFO] onbid: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-20 16:45:11,050 [INFO] ── Целевая модель: Chevrolet Trailblazer (kbchachacha) ──
+2026-10-20 16:45:11,050 [INFO] kbchachacha: кэш для Chevrolet Trailblazer истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:45:11,050 [INFO] kbchachacha: резолвлю коды для Chevrolet Trailblazer (не в кэше)
+2026-10-20 16:45:22,126 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:45:22,179 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Chevrolet Trailblazer
+2026-10-20 16:45:33,252 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:45:33,308 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Chevrolet Trailblazer
+2026-10-20 16:45:33,310 [WARNING] kbchachacha: не удалось найти Chevrolet Trailblazer на сайте
+2026-10-20 16:45:33,310 [INFO] kbchachacha: Chevrolet Trailblazer -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:45:33,310 [INFO] ── Целевая модель: Chevrolet Trailblazer (encar) ──
+2026-10-20 16:45:33,318 [INFO] encar: Chevrolet Trailblazer в снимке нет — 0 лотов
+2026-10-20 16:45:33,319 [INFO] ── Целевая модель: Chevrolet Trailblazer (charancha) ──
+2026-10-20 16:45:33,319 [INFO] charancha: кэш для Chevrolet Trailblazer истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:45:33,320 [INFO] charancha: резолвлю коды для Chevrolet Trailblazer (не в кэше)
+2026-10-20 16:45:34,555 [WARNING] charancha: не удалось найти Chevrolet Trailblazer на сайте
+2026-10-20 16:45:34,555 [INFO] ── Целевая модель: Chevrolet Trailblazer (onbid) ──
+2026-10-20 16:45:37,452 [INFO] onbid: Chevrolet Trailblazer -> найдено 0 (после фильтров)
+2026-10-20 16:45:37,453 [INFO] ── Целевая модель: Mini Countryman (kbchachacha) ──
+2026-10-20 16:45:37,454 [INFO] kbchachacha: кэш для Mini Countryman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:45:37,454 [INFO] kbchachacha: резолвлю коды для Mini Countryman (не в кэше)
+2026-10-20 16:45:48,572 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:45:48,626 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Mini Countryman
+2026-10-20 16:45:59,711 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:45:59,768 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Mini Countryman
+2026-10-20 16:45:59,770 [WARNING] kbchachacha: не удалось найти Mini Countryman на сайте
+2026-10-20 16:45:59,770 [INFO] kbchachacha: Mini Countryman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:45:59,770 [INFO] ── Целевая модель: Mini Countryman (encar) ──
+2026-10-20 16:45:59,778 [INFO] encar: Mini Countryman в снимке нет — 0 лотов
+2026-10-20 16:45:59,778 [INFO] ── Целевая модель: Mini Countryman (charancha) ──
+2026-10-20 16:45:59,779 [INFO] charancha: кэш для Mini Countryman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:45:59,779 [INFO] charancha: резолвлю коды для Mini Countryman (не в кэше)
+2026-10-20 16:46:00,525 [WARNING] charancha: не удалось найти Mini Countryman на сайте
+2026-10-20 16:46:00,525 [INFO] ── Целевая модель: Mini Countryman (onbid) ──
+2026-10-20 16:46:03,946 [INFO] onbid: Mini Countryman -> найдено 0 (после фильтров)
+2026-10-20 16:46:03,947 [INFO] ── Целевая модель: Mini Clubman (kbchachacha) ──
+2026-10-20 16:46:03,948 [INFO] kbchachacha: кэш для Mini Clubman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:46:03,948 [INFO] kbchachacha: резолвлю коды для Mini Clubman (не в кэше)
+2026-10-20 16:46:15,028 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:46:15,083 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Mini Clubman
+2026-10-20 16:46:26,691 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:46:26,747 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Mini Clubman
+2026-10-20 16:46:26,749 [WARNING] kbchachacha: не удалось найти Mini Clubman на сайте
+2026-10-20 16:46:26,749 [INFO] kbchachacha: Mini Clubman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:46:26,749 [INFO] ── Целевая модель: Mini Clubman (encar) ──
+2026-10-20 16:46:26,756 [INFO] encar: Mini Clubman в снимке нет — 0 лотов
+2026-10-20 16:46:26,757 [INFO] ── Целевая модель: Mini Clubman (charancha) ──
+2026-10-20 16:46:26,757 [INFO] charancha: кэш для Mini Clubman истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:46:26,757 [INFO] charancha: резолвлю коды для Mini Clubman (не в кэше)
+2026-10-20 16:46:27,470 [WARNING] charancha: не удалось найти Mini Clubman на сайте
+2026-10-20 16:46:27,470 [INFO] ── Целевая модель: Mini Clubman (onbid) ──
+2026-10-20 16:46:31,790 [INFO] onbid: Mini Clubman -> найдено 0 (после фильтров)
+2026-10-20 16:46:31,791 [INFO] ── Целевая модель: Mini Convertible (kbchachacha) ──
+2026-10-20 16:46:31,792 [INFO] kbchachacha: кэш для Mini Convertible истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:46:31,792 [INFO] kbchachacha: резолвлю коды для Mini Convertible (не в кэше)
+2026-10-20 16:46:42,898 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:46:42,950 [WARNING] kbchachacha resolver: попытка 1/2 не удалась для Mini Convertible
+2026-10-20 16:46:54,054 [WARNING] kbchachacha resolver: не удалось открыть меню 차종: Page.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("text=차종")
+
+2026-10-20 16:46:54,115 [WARNING] kbchachacha resolver: попытка 2/2 не удалась для Mini Convertible
+2026-10-20 16:46:54,117 [WARNING] kbchachacha: не удалось найти Mini Convertible на сайте
+2026-10-20 16:46:54,117 [INFO] kbchachacha: Mini Convertible -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-20 16:46:54,117 [INFO] ── Целевая модель: Mini Convertible (encar) ──
+2026-10-20 16:46:54,124 [INFO] encar: Mini Convertible в снимке нет — 0 лотов
+2026-10-20 16:46:54,125 [INFO] ── Целевая модель: Mini Convertible (charancha) ──
+2026-10-20 16:46:54,126 [INFO] charancha: кэш для Mini Convertible истёк (отрицательный результат старше 7 дн.), пробую снова
+2026-10-20 16:46:54,126 [INFO] charancha: резолвлю коды для Mini Convertible (не в кэше)
+2026-10-20 16:46:54,760 [WARNING] charancha: не удалось найти Mini Convertible на сайте
+2026-10-20 16:46:54,760 [INFO] ── Целевая модель: Mini Convertible (onbid) ──
+2026-10-20 16:46:58,938 [INFO] onbid: Mini Convertible -> найдено 0 (после фильтров)
+2026-10-20 16:46:58,939 [INFO] ── Целевая модель: Peugeot 3008 (kbchachacha) ──
+2026-10-20 16:46:58,940 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:47:00,067 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:47:00,067 [INFO] kbchachacha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-20 16:47:00,067 [INFO] ── Целевая модель: Peugeot 3008 (encar) ──
+2026-10-20 16:47:00,076 [INFO] encar: Peugeot 3008 -> 6 лотов из снимка (возраст 5.7 ч)
+2026-10-20 16:47:00,076 [INFO] ── Целевая модель: Peugeot 3008 (charancha) ──
+2026-10-20 16:47:00,789 [INFO] charancha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-20 16:47:00,790 [INFO] ── Целевая модель: Peugeot 3008 (onbid) ──
+2026-10-20 16:47:04,973 [INFO] onbid: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-20 16:47:04,974 [INFO] ── Целевая модель: Peugeot 5008 (kbchachacha) ──
+2026-10-20 16:47:04,975 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:47:06,107 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:47:06,107 [INFO] kbchachacha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-20 16:47:06,108 [INFO] ── Целевая модель: Peugeot 5008 (encar) ──
+2026-10-20 16:47:06,115 [INFO] encar: Peugeot 5008 -> 7 лотов из снимка (возраст 5.7 ч)
+2026-10-20 16:47:06,116 [INFO] ── Целевая модель: Peugeot 5008 (charancha) ──
+2026-10-20 16:47:06,708 [INFO] charancha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-20 16:47:06,710 [INFO] ── Целевая модель: Peugeot 5008 (onbid) ──
+2026-10-20 16:47:10,131 [INFO] onbid: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-20 16:47:10,133 [INFO] filter_year_range (target_collector): отброшено 164 объявлений вне диапазона года 2022-2023 (или без года)
+2026-10-20 16:47:10,133 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42317887): цена 63,500,000 ₩ выше 1.3x медианы партии по модели (48,250,000 ₩, 48 лотов) на 31%
+2026-10-20 16:47:10,133 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42316528): цена 63,500,000 ₩ выше 1.3x медианы партии по модели (48,250,000 ₩, 48 лотов) на 31%
+2026-10-20 16:47:10,133 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42460977): цена 63,200,000 ₩ выше 1.3x медианы партии по модели (48,250,000 ₩, 48 лотов) на 30%
+2026-10-20 16:47:10,134 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42550702): цена 68,000,000 ₩ выше 1.3x медианы партии по модели (48,250,000 ₩, 48 лотов) на 40%
+2026-10-20 16:47:10,134 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42686010): цена 56,990,000 ₩ выше 1.3x медианы партии по модели (43,500,000 ₩, 43 лотов) на 31%
+2026-10-20 16:47:10,134 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42676111): цена 56,990,000 ₩ выше 1.3x медианы партии по модели (43,500,000 ₩, 43 лотов) на 31%
+2026-10-20 16:47:10,134 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42878990): цена 59,900,000 ₩ выше 1.3x медианы партии по модели (43,500,000 ₩, 43 лотов) на 37%
+2026-10-20 16:47:10,134 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42721256): цена 57,500,000 ₩ выше 1.3x медианы партии по модели (43,500,000 ₩, 43 лотов) на 32%
+2026-10-20 16:47:10,134 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42325897): цена 25,800,000 ₩ выше 1.3x медианы партии по модели (17,900,000 ₩, 262 лотов) на 44%
+2026-10-20 16:47:10,134 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42322329): цена 25,800,000 ₩ выше 1.3x медианы партии по модели (17,900,000 ₩, 262 лотов) на 44%
+2026-10-20 16:47:10,135 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42396386): цена 99,900,000 ₩ выше 1.3x медианы партии по модели (17,900,000 ₩, 262 лотов) на 458%
+2026-10-20 16:47:10,135 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42390635): цена 99,900,000 ₩ выше 1.3x медианы партии по модели (17,900,000 ₩, 262 лотов) на 458%
+2026-10-20 16:47:10,135 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42409644): цена 25,700,000 ₩ выше 1.3x медианы партии по модели (17,900,000 ₩, 262 лотов) на 43%
+2026-10-20 16:47:10,135 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42409641): цена 25,700,000 ₩ выше 1.3x медианы партии по модели (17,900,000 ₩, 262 лотов) на 43%
+2026-10-20 16:47:10,135 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42867353): цена 23,500,000 ₩ выше 1.3x медианы партии по модели (17,900,000 ₩, 262 лотов) на 31%
+2026-10-20 16:47:10,135 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42390142): цена 24,500,000 ₩ выше 1.3x медианы партии по модели (17,900,000 ₩, 262 лотов) на 36%
+2026-10-20 16:47:10,135 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42938787): цена 35,500,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 34%
+2026-10-20 16:47:10,135 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42229228): цена 35,500,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 34%
+2026-10-20 16:47:10,136 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42331070): цена 35,500,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 34%
+2026-10-20 16:47:10,136 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42227718): цена 35,500,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 34%
+2026-10-20 16:47:10,136 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/41611856): цена 34,500,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 30%
+2026-10-20 16:47:10,136 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42912425): цена 36,500,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 38%
+2026-10-20 16:47:10,136 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42900506): цена 36,500,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 38%
+2026-10-20 16:47:10,136 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42424820): цена 47,760,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 81%
+2026-10-20 16:47:10,136 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42424360): цена 47,760,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 81%
+2026-10-20 16:47:10,136 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42369113): цена 36,560,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 38%
+2026-10-20 16:47:10,136 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42358488): цена 36,560,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 38%
+2026-10-20 16:47:10,137 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42268242): цена 34,800,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 32%
+2026-10-20 16:47:10,137 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42391803): цена 35,000,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 32%
+2026-10-20 16:47:10,137 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42246077): цена 35,900,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 36%
+2026-10-20 16:47:10,137 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42453499): цена 41,500,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 57%
+2026-10-20 16:47:10,137 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42450340): цена 41,500,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 57%
+2026-10-20 16:47:10,137 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42843486): цена 38,000,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 44%
+2026-10-20 16:47:10,137 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42285194): цена 34,560,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 31%
+2026-10-20 16:47:10,137 [ERROR] Пост отклонён (https://www.charancha.com/cars/019f83d3-4d91-702d-a422-9f8acb2afdbd): цена 34,400,000 ₩ выше 1.3x медианы партии по модели (26,350,000 ₩, 281 лотов) на 30%
+2026-10-20 16:47:10,138 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/40351574): цена 33,330,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 33%
+2026-10-20 16:47:10,138 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/40344890): цена 33,330,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 33%
+2026-10-20 16:47:10,138 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42439847): цена 41,900,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 68%
+2026-10-20 16:47:10,138 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42849482): цена 39,990,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 60%
+2026-10-20 16:47:10,138 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42427753): цена 41,900,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 68%
+2026-10-20 16:47:10,138 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42838015): цена 39,990,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 60%
+2026-10-20 16:47:10,138 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42348417): цена 40,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 62%
+2026-10-20 16:47:10,138 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42345805): цена 40,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 62%
+2026-10-20 16:47:10,139 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42937606): цена 37,700,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 51%
+2026-10-20 16:47:10,139 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42921704): цена 37,700,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 51%
+2026-10-20 16:47:10,139 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42280255): цена 38,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 54%
+2026-10-20 16:47:10,139 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42970153): цена 37,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 50%
+2026-10-20 16:47:10,139 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42962545): цена 37,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 50%
+2026-10-20 16:47:10,139 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42460109): цена 37,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 50%
+2026-10-20 16:47:10,139 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42449053): цена 37,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 50%
+2026-10-20 16:47:10,139 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42854768): цена 36,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 46%
+2026-10-20 16:47:10,139 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42437297): цена 32,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 30%
+2026-10-20 16:47:10,140 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42267532): цена 32,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 30%
+2026-10-20 16:47:10,140 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42433134): цена 32,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 30%
+2026-10-20 16:47:10,140 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42263608): цена 32,500,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 30%
+2026-10-20 16:47:10,140 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42521080): цена 88,990,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 257%
+2026-10-20 16:47:10,140 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42520136): цена 88,990,000 ₩ выше 1.3x медианы партии по модели (24,900,000 ₩, 204 лотов) на 257%
+2026-10-20 16:47:10,140 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42578957): цена 86,000,000 ₩ выше 1.3x медианы партии по модели (61,900,000 ₩, 23 лотов) на 38%
+2026-10-20 16:47:10,140 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42611453): цена 27,450,000 ₩ выше 1.3x медианы партии по модели (21,000,000 ₩, 65 лотов) на 30%
+2026-10-20 16:47:10,140 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42779542): цена 45,500,000 ₩ выше 1.3x медианы партии по модели (22,400,000 ₩, 6 лотов) на 103%
+2026-10-20 16:47:10,141 [ERROR] Пост отклонён (https://fem.encar.com/cars/detail/42779533): цена 45,500,000 ₩ выше 1.3x медианы партии по модели (22,400,000 ₩, 6 лотов) на 103%
+2026-10-20 16:47:10,141 [INFO] check_price_vs_batch_median (target_collector): отброшено 61 лотов дороже 1.3x медианы своей модели в партии
+2026-10-20 16:47:10,142 [INFO] broad_search: сегмент этого прогона — мощнее / бизнес-класс (140-160 л.с.) (3/4)
+2026-10-20 16:47:10,142 [INFO] ── Широкий поиск: kbchachacha (hp в [140, 160]) ──
+2026-10-20 16:47:10,142 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-20 16:47:11,266 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-20 16:47:11,266 [INFO] kbchachacha (broad): найдено 0 машин с hp в [140, 160]
+2026-10-20 16:47:11,266 [INFO] ── Широкий поиск: encar (hp в [140, 160]) ──
+2026-10-20 16:47:11,267 [INFO] encar: широкий поиск в режиме снимка не поддерживается (снимок собирается по target_models.json) — пропуск
+2026-10-20 16:47:11,267 [INFO] ── Широкий поиск: charancha (hp в [140, 160]) ──
+2026-10-20 16:47:17,051 [INFO] charancha (broad): найдено 1 машин с hp в [140, 160]
+2026-10-20 16:47:17,053 [INFO] ── Широкий поиск: onbid (hp в [140, 160]) ──
+2026-10-20 16:47:40,877 [INFO] onbid (broad): найдено 15 машин с hp в [140, 160]
+2026-10-20 16:47:40,879 [INFO] filter_year_range (broad_collector): отброшено 16 объявлений вне диапазона года 2022-2023 (или без года)
+2026-10-20 16:47:40,880 [WARNING] check_source_health: Источник(и) не дали НИ ОДНОГО объявления за этот прогон main_pipeline.py (targeted+broad суммарно): kbchachacha, onbid. Похоже на 'тихую смерть' резолвера/поиска — см. FINAL_STATE.md про инцидент 2026-07-20 (kbchachacha/charancha молчали неделями незамеченными).
+2026-10-20 16:47:41,314 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-20 16:47:41,334 [INFO] Найдено 1031 объявлений, кандидатов на публикацию (новые, не старше 14 дн., пробег до 40000 км, ещё не опубликованные): 521
+2026-10-20 16:47:41,335 [INFO] Пре-фильтр причины отсева: {'missing:hp+fuel_code': 2, 'bad_title': 116, 'missing:cc+hp+fuel_code': 75, 'missing:cc': 24}
+2026-10-20 16:47:41,335 [INFO] Пре-фильтр: убрано 217 из 521 кандидатов (нет данных для цены / < 3 фото / нечитаемый заголовок)
+2026-10-20 16:47:41,336 [INFO] Фильтр недавних моделей: все 304 publishable кандидатов — недавние, используем всех (fallback)
+2026-10-20 16:47:41,563 [WARNING] encar: не удалось получить заводскую цену для 42797481: 404 Client Error: Not Found for url: https://api.encar.com/v1/readside/vehicle/42797481
+2026-10-20 16:47:41,564 [WARNING] check_price_vs_new_krw: нет эталонной цены нового (new_price_max_krw не заполнен) для 'Kia K3 1.6 (база, Смартстрим Гамма-II MPI)' — не могу проверить цену 17,900,000 ₩
+2026-10-20 16:47:42,011 [INFO] ✅ Альбом из 4 фото успешно отправлен в Telegram
+2026-10-20 16:47:42,601 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:44,149 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:45,729 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:45,731 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture09/pic4279/42797481_001.jpg за 3 попыток(и)
+2026-10-20 16:47:46,317 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:47,884 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:49,429 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:49,430 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture09/pic4279/42797481_003.jpg за 3 попыток(и)
+2026-10-20 16:47:49,994 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:51,574 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:53,114 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:53,115 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture09/pic4279/42797481_004.jpg за 3 попыток(и)
+2026-10-20 16:47:53,678 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:55,104 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:56,658 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:47:56,659 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture09/pic4279/42797481_007.jpg за 3 попыток(и)
+2026-10-20 16:47:56,660 [WARNING] VK: не удалось прикрепить 4/4 фото после ретраев: ['https://ci.encar.com/carpicture09/pic4279/42797481_001.jpg', 'https://ci.encar.com/carpicture09/pic4279/42797481_003.jpg', 'https://ci.encar.com/carpicture09/pic4279/42797481_004.jpg', 'https://ci.encar.com/carpicture09/pic4279/42797481_007.jpg']
+2026-10-20 16:47:56,660 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-10-20 16:47:56,660 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-10-20 16:47:56,661 [INFO] [1/5] Опубликовано: Kia K3 1.6
+2026-10-20 16:47:58,758 [WARNING] encar: не удалось получить заводскую цену для 42584566: 404 Client Error: Not Found for url: https://api.encar.com/v1/readside/vehicle/42584566
+2026-10-20 16:47:59,229 [INFO] ✅ Альбом из 4 фото успешно отправлен в Telegram
+2026-10-20 16:47:59,667 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:01,262 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:02,844 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:02,845 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture08/pic4258/42584566_001.jpg за 3 попыток(и)
+2026-10-20 16:48:03,386 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:04,797 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:06,230 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:06,231 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture08/pic4258/42584566_003.jpg за 3 попыток(и)
+2026-10-20 16:48:06,766 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:08,189 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:09,617 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:09,618 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture08/pic4258/42584566_004.jpg за 3 попыток(и)
+2026-10-20 16:48:10,036 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:11,597 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:13,029 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:48:13,030 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture08/pic4258/42584566_007.jpg за 3 попыток(и)
+2026-10-20 16:48:13,030 [WARNING] VK: не удалось прикрепить 4/4 фото после ретраев: ['https://ci.encar.com/carpicture08/pic4258/42584566_001.jpg', 'https://ci.encar.com/carpicture08/pic4258/42584566_003.jpg', 'https://ci.encar.com/carpicture08/pic4258/42584566_004.jpg', 'https://ci.encar.com/carpicture08/pic4258/42584566_007.jpg']
+2026-10-20 16:48:13,030 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-10-20 16:48:13,030 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-10-20 16:48:13,032 [INFO] [2/5] Опубликовано: Kia K5 2.0
+2026-10-20 16:48:15,109 [WARNING] encar: не удалось получить заводскую цену для 42593265: 404 Client Error: Not Found for url: https://api.encar.com/v1/readside/vehicle/42593265
+2026-10-20 16:48:15,110 [WARNING] check_price_vs_new_krw: нет эталонной цены нового (new_price_max_krw не заполнен) для 'Hyundai Sonata The Edge (DN8) 2.0 Gasoline (Smartstream G2.0 MPi)' — не могу проверить цену 27,300,000 ₩
+2026-10-20 16:48:56,034 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-10-20 16:48:56,053 [INFO] tts_generator: текст подводки сгенерирован (вариант 1, 57 слов, 438 вх. + 163 исх. токенов)
+2026-10-20 16:48:56,053 [INFO] tts_generator: пробую озвучку через edge
+2026-10-20 16:49:14,109 [INFO] tts_generator: озвучка готова (edge)
+2026-10-20 16:50:09,427 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-10-20 16:50:09,428 [INFO] tts_generator: текст подводки сгенерирован (вариант 1, 40 слов, 438 вх. + 128 исх. токенов)
+2026-10-20 16:50:09,428 [INFO] tts_generator: пробую озвучку через edge
+2026-10-20 16:50:24,157 [INFO] tts_generator: озвучка готова (edge)
+2026-10-20 16:50:40,866 [INFO] ✅ Альбом из 4 фото успешно отправлен в Telegram
+2026-10-20 16:50:41,436 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:42,978 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:44,523 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:44,524 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture09/pic4259/42593265_001.jpg за 3 попыток(и)
+2026-10-20 16:50:45,061 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:46,688 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:48,251 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:48,252 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture09/pic4259/42593265_003.jpg за 3 попыток(и)
+2026-10-20 16:50:48,653 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:50,210 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:51,772 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:51,773 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture09/pic4259/42593265_004.jpg за 3 попыток(и)
+2026-10-20 16:50:52,364 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:53,900 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:55,314 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:55,315 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture09/pic4259/42593265_007.jpg за 3 попыток(и)
+2026-10-20 16:50:55,316 [WARNING] VK: не удалось прикрепить 4/4 фото после ретраев: ['https://ci.encar.com/carpicture09/pic4259/42593265_001.jpg', 'https://ci.encar.com/carpicture09/pic4259/42593265_003.jpg', 'https://ci.encar.com/carpicture09/pic4259/42593265_004.jpg', 'https://ci.encar.com/carpicture09/pic4259/42593265_007.jpg']
+2026-10-20 16:50:55,316 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-10-20 16:50:55,316 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-10-20 16:50:55,316 [INFO] VK: пробую опубликовать видео отдельным постом, раз основной пост не вышел
+2026-10-20 16:50:55,708 [ERROR] VK API video.save: ошибка 5 — User authorization failed
+2026-10-20 16:50:55,709 [WARNING] VK: не удалось прикрепить видео /tmp/video_gen_so6v507_/horizontal_final.mp4 — публикую пост без видео (текст/фото это не блокирует)
+2026-10-20 16:50:56,367 [ERROR] VK API wall.post: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:50:56,367 [WARNING] VK: не удалось опубликовать видео и отдельным постом тоже
+2026-10-20 16:50:57,895 [INFO] ✅ Видео успешно отправлено в Telegram
+2026-10-20 16:50:57,901 [INFO] [3/5] Опубликовано: Hyundai Sonata 2.0
+2026-10-20 16:51:00,144 [WARNING] encar: не удалось получить заводскую цену для 42720074: 404 Client Error: Not Found for url: https://api.encar.com/v1/readside/vehicle/42720074
+2026-10-20 16:51:00,146 [WARNING] check_price_vs_new_krw: нет эталонной цены нового (new_price_max_krw не заполнен) для 'Renault QM6 2.0 GDe' — не могу проверить цену 21,300,000 ₩
+2026-10-20 16:51:00,814 [INFO] ✅ Альбом из 4 фото успешно отправлен в Telegram
+2026-10-20 16:51:01,367 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:02,791 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:04,368 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:04,369 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture01/pic4271/42715561_001.jpg за 3 попыток(и)
+2026-10-20 16:51:04,864 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:06,414 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:07,878 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:07,880 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture01/pic4271/42715561_003.jpg за 3 попыток(и)
+2026-10-20 16:51:08,412 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:09,835 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:11,258 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:11,259 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture01/pic4271/42715561_004.jpg за 3 попыток(и)
+2026-10-20 16:51:11,795 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:13,347 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:14,771 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:14,772 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture01/pic4271/42715561_007.jpg за 3 попыток(и)
+2026-10-20 16:51:14,772 [WARNING] VK: не удалось прикрепить 4/4 фото после ретраев: ['https://ci.encar.com/carpicture01/pic4271/42715561_001.jpg', 'https://ci.encar.com/carpicture01/pic4271/42715561_003.jpg', 'https://ci.encar.com/carpicture01/pic4271/42715561_004.jpg', 'https://ci.encar.com/carpicture01/pic4271/42715561_007.jpg']
+2026-10-20 16:51:14,772 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-10-20 16:51:14,772 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-10-20 16:51:14,774 [INFO] [4/5] Опубликовано: Renault QM6 2.0 LPe RE 2WD
+2026-10-20 16:51:16,829 [WARNING] encar: не удалось получить заводскую цену для 42848019: 404 Client Error: Not Found for url: https://api.encar.com/v1/readside/vehicle/42848019
+2026-10-20 16:51:16,830 [WARNING] check_price_vs_new_krw: нет эталонной цены нового (new_price_max_krw не заполнен) для 'Chevrolet Trax Crossover 1.2 Turbo' — не могу проверить цену 22,800,000 ₩
+2026-10-20 16:51:17,770 [INFO] ✅ Альбом из 4 фото успешно отправлен в Telegram
+2026-10-20 16:51:18,192 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:19,619 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:21,031 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:21,032 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture04/pic4284/42844317_001.jpg за 3 попыток(и)
+2026-10-20 16:51:21,607 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:23,023 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:24,554 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:24,555 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture04/pic4284/42844317_003.jpg за 3 попыток(и)
+2026-10-20 16:51:24,977 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:26,388 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:27,821 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:27,822 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture04/pic4284/42844317_004.jpg за 3 попыток(и)
+2026-10-20 16:51:28,246 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:29,675 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:31,168 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-20 16:51:31,169 [ERROR] VK: не удалось прикрепить фото https://ci.encar.com/carpicture04/pic4284/42844317_007.jpg за 3 попыток(и)
+2026-10-20 16:51:31,170 [WARNING] VK: не удалось прикрепить 4/4 фото после ретраев: ['https://ci.encar.com/carpicture04/pic4284/42844317_001.jpg', 'https://ci.encar.com/carpicture04/pic4284/42844317_003.jpg', 'https://ci.encar.com/carpicture04/pic4284/42844317_004.jpg', 'https://ci.encar.com/carpicture04/pic4284/42844317_007.jpg']
+2026-10-20 16:51:31,170 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-10-20 16:51:31,170 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-10-20 16:51:31,171 [INFO] [5/5] Опубликовано: Chevrolet Trax 1.2 RS
+2026-10-20 16:51:33,172 [INFO] Достигнут лимит 5 постов за запуск — останавливаюсь
+2026-10-20 16:51:33,187 [INFO] yandex_queue: рано — интервал ещё не прошёл
+2026-10-20 16:51:33,187 [INFO] === Готово: опубликовано 5 постов ===

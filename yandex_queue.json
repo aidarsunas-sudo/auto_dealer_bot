@@ -492,5 +492,135 @@
       "transmission": "오토"
     },
     "added_at": "2026-10-21T04:18:02.630905"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42780507",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 27208,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 17900000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42780507",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4278/42780507_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4278/42780507_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4278/42780507_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4278/42780507_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-21T11:34:52.288836"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0 LPI",
+      "external_id": "42605078",
+      "year": 2023,
+      "month": 2,
+      "mileage_km": 14827,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 22990000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42605078",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture10/pic4260/42605078_001.jpg",
+        "https://ci.encar.com/carpicture10/pic4260/42605078_003.jpg",
+        "https://ci.encar.com/carpicture10/pic4260/42605078_004.jpg",
+        "https://ci.encar.com/carpicture10/pic4260/42605078_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-21T11:35:10.607339"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42825037",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 19253,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 19800000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42825037",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture02/pic4282/42825037_001.jpg",
+        "https://ci.encar.com/carpicture02/pic4282/42825037_003.jpg",
+        "https://ci.encar.com/carpicture02/pic4282/42825037_004.jpg",
+        "https://ci.encar.com/carpicture02/pic4282/42825037_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-21T11:37:54.780094"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "2.0 LPe RE 2WD",
+      "external_id": "42841292",
+      "year": 2023,
+      "month": 3,
+      "mileage_km": 34209,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 22800000,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42841292",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture04/pic4284/42841292_027.jpg",
+        "https://ci.encar.com/carpicture04/pic4284/42841292_003.jpg",
+        "https://ci.encar.com/carpicture04/pic4284/42841292_004.jpg",
+        "https://ci.encar.com/carpicture04/pic4284/42841292_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-21T11:38:12.726503"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 RS",
+      "external_id": "42703783",
+      "year": 2023,
+      "month": 5,
+      "mileage_km": 21505,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 22200000,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42703783",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture10/pic4270/42703783_001.jpg",
+        "https://ci.encar.com/carpicture10/pic4270/42703783_003.jpg",
+        "https://ci.encar.com/carpicture10/pic4270/42703783_004.jpg",
+        "https://ci.encar.com/carpicture10/pic4270/42703783_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-21T11:38:31.036141"
   }
 ]

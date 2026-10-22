@@ -1,6 +1,7 @@
 # Публикация и статистика статей (publish.py / stats.py / report.py)
 telegram_channel: "-1004357171081"     # КУДА публикуется пост; пусто = переменная TELEGRAM_CHANNEL из .env; иначе "@канал" или числовой id
 promo_channel: "@auto_generals"   # канал, на который ведёт именная пригласительная ссылка в блоке «Как заказать»
+notify_chat_id: "1216251219"   # личный чат с ботом: уведомления автоодобрения (id чата не секрет)
 
 schedule:                # публикация только в эти дни и не раньше этого времени, не больше 1 статьи в день
   days: [mon, wed, fri]
@@ -10,3 +11,10 @@ schedule:                # публикация только в эти дни и
 metrika:
   counter_id: 98788601
   utm_source: dzen
+
+auto_approve:                 # publishing/auto_approve.py
+  window_hours: 24            # окно отмены: «опубликовать после» = сейчас + это число часов
+  max_per_7_days: 1           # не больше столько автоматических статей за 7 дней
+  rates_max_age_days: 90      # дата актуальности ставок в customs_rates.py не старше
+  article_min:                # нижняя граница объёма article.md по slug (по умолчанию 6000)
+    utilsbor: 4000

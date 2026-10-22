@@ -9,6 +9,7 @@
 без форматирования.
 """
 import argparse
+import hashlib
 import importlib.util
 import re
 import sys
@@ -146,12 +147,26 @@ def validate(slug, articles_dir=None, article_min=None):
     return res
 
 
+def content_hash(slug, articles_dir=None):
+    """SHA-256 от article.md + post.md (переводы строк нормализованы); None, если файлов нет."""
+    d = Path(articles_dir or ARTICLES) / slug
+    if not (d / "article.md").exists() or not (d / "post.md").exists():
+        return None
+    h = hashlib.sha256()
+    for name in ("article.md", "post.md"):
+        h.update((d / name).read_text(encoding="utf-8").replace("\r\n", "\n").encode("utf-8"))
+    return h.hexdigest()
+
+
 def render(slug, results):
     ok_all = all(r[1] for r in results)
     lines = [f"# Проверки черновика: {slug}", "", f"Итог: {'все проверки пройдены' if ok_all else 'есть проблемы'}", "",
              "| Проверка | Результат |", "|---|---|"]
     for name, ok, detail in results:
         lines.append(f"| {name} | {'ок' if ok else 'проблема'}{(': ' + detail) if detail else ''} |")
+    digest = content_hash(slug)
+    if digest:
+        lines += ["", f"Контрольная сумма (article.md + post.md): {digest}"]
     return "\n".join(lines) + "\n"
 
 

@@ -5,14 +5,19 @@
   python run_chain.py --run --steps collect,topics,analyze
   python run_chain.py --steps publish                   # dry-run одного шага
 
-Шаги (всегда в таком порядке): collect, topics, analyze, publish, stats, report.
+Шаги (всегда в таком порядке): collect, topics, analyze, generate, approve, publish, stats, report.
+  generate — generate_draft.py для следующей свободной темы из selected_topics.csv, только если claude -p залогинен
+             (иначе пропуск с записью в лог)
+  approve  — publishing/auto_approve.py --run: ворота для черновиков, уведомление в личный чат и статус «запланировано»
+             с окном отмены (publishing/publications.csv); публикует запланированное шаг publish
   collect  — wordstat/wordstat_collect.py
   topics   — wordstat/topics_analysis.py topics (перед запуском копия wordstat/topics.csv -> topics.csv.bak;
              selected_topics.csv и competitors.csv шаг не трогает)
   analyze  — wordstat/topics_analysis.py analyze (только темы из wordstat/selected_topics.csv без analysis/<slug>.md,
              адреса из wordstat/competitors.csv; темы без адресов пропускаются, в поиск Яндекса не ходит)
-  publish  — publishing/publish.py --publish (только при --run и только если есть записи «одобрено»;
-             день недели, время и лимит «одна статья в день» проверяет сам publish.py)
+  publish  — publishing/publish.py --publish (только при --run и только если есть записи «одобрено» или
+             «запланировано» со сроком; HOLD, статус «стоп», день недели, время и лимит «одна статья в день» проверяет
+             сам publish.py)
   stats    — publishing/stats.py
   report   — publishing/report.py
 
@@ -39,8 +44,11 @@ ROOT = Path(__file__).resolve().parent
 LOGS = ROOT / "logs"
 LOCK = LOGS / "chain.lock"
 LOCK_MAX_AGE_SEC = 6 * 3600
-STEPS = ["collect", "topics", "analyze", "publish", "stats", "report"]
-TIMEOUT_SEC = {"collect": 1800, "topics": 600, "analyze": 1800, "publish": 600, "stats": 600, "report": 600}
+STEPS = ["collect", "topics", "analyze", "generate", "approve", "publish", "stats", "report"]
+TIMEOUT_SEC = {"collect": 1800, "topics": 600, "analyze": 1800, "generate": 1800, "approve": 600, "publish": 600,
+               "stats": 600, "report": 600}
+HOLD = ROOT / "publishing" / "HOLD"
+ARTICLES_DIR = ROOT / "articles"
 TOPICS_CSV = ROOT / "wordstat" / "topics.csv"
 SELECTED = ROOT / "wordstat" / "selected_topics.csv"
 COMPETITORS = ROOT / "wordstat" / "competitors.csv"
@@ -151,8 +159,46 @@ def analyze_plan():
     return todo, skipped
 
 
-def approved_count():
-    return sum(1 for r in _read_csv(PUBLICATIONS) if (r.get("статус") or "").strip().lower() == "одобрено")
+def _due(value):
+    """«опубликовать после» (YYYY-MM-DD HH:MM, время Москвы) уже наступило?"""
+    from zoneinfo import ZoneInfo
+    try:
+        t = datetime.strptime((value or "").strip(), "%Y-%m-%d %H:%M").replace(tzinfo=ZoneInfo("Europe/Moscow"))
+    except ValueError:
+        return False
+    return t <= datetime.now(ZoneInfo("Europe/Moscow"))
+
+
+def publishable():
+    """(одобрено вручную, запланировано и срок настал). «стоп» не считается; при publishing/HOLD запланированные не публикуются."""
+    rows = _read_csv(PUBLICATIONS)
+    approved = sum(1 for r in rows if (r.get("статус") or "").strip().lower() == "одобрено")
+    due = 0 if HOLD.exists() else sum(1 for r in rows if (r.get("статус") or "").strip().lower() == "запланировано"
+                                       and _due(r.get("опубликовать после")))
+    return approved, due
+
+
+def next_free_topic():
+    """Следующая тема из selected_topics.csv без записи в publications.csv и без articles/<slug>/article.md."""
+    used = {(r.get("slug") or "").strip() for r in _read_csv(PUBLICATIONS)}
+    for t in _read_csv(SELECTED):
+        if t["тема"] not in used and not (ARTICLES_DIR / t["тема"] / "article.md").exists():
+            return t["тема"]
+    return None
+
+
+def claude_logged_in():
+    """claude -p может работать: выполнен вход (claude auth status) или в окружении есть ANTHROPIC_API_KEY."""
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return True
+    exe = shutil.which("claude.cmd") or shutil.which("claude")
+    if not exe:
+        return False
+    try:
+        p = subprocess.run([exe, "auth", "status"], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
+        return bool(json.loads(p.stdout or "{}").get("loggedIn"))
+    except (OSError, ValueError, subprocess.TimeoutExpired):
+        return False
 
 
 def command_for(step):
@@ -170,11 +216,23 @@ def command_for(step):
         env = {"YANDEX_SEARCH_API_KEY": "", "YANDEX_SEARCH_FOLDER_ID": ""}
         return [PY, "wordstat/topics_analysis.py", "analyze", "<временный файл тем>"], env, \
             f"темы: {', '.join(t['тема'] for t in todo)}" + (f"; {note}" if note else "")
+    if step == "generate":
+        slug = next_free_topic()
+        if slug is None:
+            return None, {}, "нет свободных тем в selected_topics.csv"
+        if not claude_logged_in():
+            return None, {}, f"claude -p не залогинен (нужна тема {slug}): черновик не генерируется"
+        return [PY, "generate_draft.py", "--slug", slug], {}, f"тема: {slug}"
+    if step == "approve":
+        drafts = [r["slug"] for r in _read_csv(PUBLICATIONS) if (r.get("статус") or "").strip().lower() == "черновик"]
+        if not drafts:
+            return None, {}, "нет записей со статусом «черновик»"
+        return [PY, "publishing/auto_approve.py", "--run"], {}, f"черновики: {', '.join(drafts)}"
     if step == "publish":
-        n = approved_count()
-        if not n:
-            return None, {}, "нет записей со статусом «одобрено»"
-        return [PY, "publishing/publish.py", "--publish"], {}, f"одобрено: {n}"
+        approved, due = publishable()
+        if not (approved or due):
+            return None, {}, "нет записей «одобрено» и нет «запланировано» со сроком"
+        return [PY, "publishing/publish.py", "--publish"], {}, f"одобрено: {approved}, запланировано со сроком: {due}"
     if step == "stats":
         return [PY, "publishing/stats.py"], {}, ""
     if step == "report":

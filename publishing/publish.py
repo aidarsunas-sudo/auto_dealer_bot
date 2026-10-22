@@ -22,11 +22,12 @@ from zoneinfo import ZoneInfo
 
 import requests
 
-from common import ARTICLES, load_config, mask, read_publications, write_publications
+from common import ARTICLES, HOLD_FILE, load_config, mask, read_publications, write_publications
 
 API = "https://api.telegram.org/bot{token}/{method}"
 APPROVED = "одобрено"
 PUBLISHED = "опубликовано"
+SCHEDULED = "запланировано"   # автоодобрение (auto_approve.py): публикуется после «опубликовать после»
 TG_LIMIT = 4096
 DAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 TG_LINK = re.compile(r"https?://t\.me/(?!\+|joinchat/)([A-Za-z0-9_]{4,})\S*?(?=[\s)\]>]|$)")
@@ -99,6 +100,25 @@ def strip_markdown(text):
     return "".join(parts)
 
 
+def parse_after(value, tz):
+    """«опубликовать после»: YYYY-MM-DD HH:MM (в часовом поясе расписания) -> datetime или None."""
+    value = (value or "").strip().replace("T", " ")
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M"):
+        try:
+            return datetime.strptime(value, fmt).replace(tzinfo=tz)
+        except ValueError:
+            continue
+    return None
+
+
+def due_scheduled(rows, now):
+    """Записи «запланировано», у которых срок настал. Пусто, если есть publishing/HOLD. «стоп» сюда не попадает."""
+    if HOLD_FILE.exists():
+        return []
+    due = [(parse_after(r.get("опубликовать после"), now.tzinfo), r) for r in rows if r["статус"].strip().lower() == SCHEDULED]
+    return [r for t, r in sorted(((t, r) for t, r in due if t and t <= now), key=lambda x: x[0])]
+
+
 def main_channels():
     return {c.strip().lower() for c in (os.getenv("TELEGRAM_CHAT_ID"), "@auto_generals") if c and c.strip()}
 
@@ -116,6 +136,10 @@ def main():
     channel = cfg.get("telegram_channel") or os.getenv("TELEGRAM_CHANNEL")   # куда публикуем
     promo = cfg.get("promo_channel") or "@auto_generals"                      # куда ведёт именная ссылка
     print("Режим:", "ПУБЛИКАЦИЯ" if args.publish else "dry_run (ничего не отправляется)")
+    if HOLD_FILE.exists():
+        print(f"ОСТАНОВКА: найден файл {HOLD_FILE.name} ({HOLD_FILE}). Публикация заблокирована для ВСЕХ записей, "
+              f"включая «одобрено». Ничего не публикую; чтобы снять паузу, удалите файл.")
+        return 0
     is_main = bool(channel) and str(channel).strip().lower() in main_channels()
     if args.publish and is_main and not args.allow_main_channel:
         print(f"Отказ: целевой канал {channel} совпадает с основным (TELEGRAM_CHAT_ID или @auto_generals), "
@@ -127,7 +151,14 @@ def main():
     now = datetime.now(ZoneInfo(cfg["schedule"]["timezone"]))
     ok, why = in_schedule(cfg, rows, now, args.ignore_schedule)
     approved = [r for r in rows if r["статус"].strip().lower() == APPROVED]
-    print(f"Одобрено к публикации: {len(approved)}; расписание: {'можно' if ok else 'нельзя — ' + why}")
+    scheduled_all = [r for r in rows if r["статус"].strip().lower() == SCHEDULED]
+    due = due_scheduled(rows, now)
+    approved = approved + [r for r in due if r not in approved]   # «одобрено» как раньше + «запланировано» со сроком
+    print(f"К публикации: {len(approved)} (одобрено вручную: {len(approved) - len(due)}, запланировано и срок настал: {len(due)}); расписание: {'можно' if ok else 'нельзя — ' + why}")
+    if scheduled_all and HOLD_FILE.exists():
+        print(f"Есть publishing/HOLD: записи «запланировано» ({len(scheduled_all)}) не публикуются")
+    elif len(scheduled_all) > len(due):
+        print(f"Запланировано, но срок «опубликовать после» ещё не настал: {len(scheduled_all) - len(due)}")
     if not approved:
         return 0
     if not ok and args.publish:

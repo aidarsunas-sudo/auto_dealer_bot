@@ -127,8 +127,18 @@ def format_gates(gates):
     return "\n".join(f"{'ок ' if ok else 'НЕТ'} {name}" + (f" — {detail}" if detail else "") for name, ok, detail in gates)
 
 
-def build_message(slug, passed, gates, when, window_h):
+def topic_gate(cfg, slug):
+    """(е): автоодобрение только для тем из auto_approve.allowed_slugs (нет списка = ничего не разрешено)."""
+    ok = slug in (cfg["auto_approve"].get("allowed_slugs") or [])
+    return ("е) тема в списке разрешённых (allowed_slugs)", ok, "" if ok else "тема не в списке разрешённых")
+
+
+def build_message(slug, passed, gates, when, window_h, allowed=True):
     title, preview = title_and_preview(slug)
+    if not allowed:
+        return (f"Нужна ручная проверка: {title} ({slug}), автоодобрение для этой темы выключено\n"
+                f"Причина остановки: тема не в списке разрешённых\n\nИтог ворот:\n{format_gates(gates)}\n\n"
+                f"Статус не изменён (черновик).")
     if passed:
         return (f"Запланирована публикация: «{title}» ({slug})\n"
                 f"Опубликовать после: {when:{FMT}} МСК (окно отмены {window_h} ч)\n\n"
@@ -170,10 +180,11 @@ def main():
         slug = row["slug"]
         gates = global_gates(cfg, rows, now, tz, extra_scheduled=scheduled_now)
         dg, _ = draft_gates(cfg, slug)
-        gates = dg[:1] + gates + dg[1:]          # порядок а, б, в, г, д
+        tg = topic_gate(cfg, slug)
+        gates = dg[:1] + gates + dg[1:] + [tg]   # порядок а, б, в, г, д, е
         passed = all(ok for _, ok, _ in gates)
         when = now + timedelta(hours=window_h)
-        msg = build_message(slug, passed, gates, when, window_h)
+        msg = build_message(slug, passed, gates, when, window_h, allowed=tg[1])
         print(f"\n=== {slug}: {'ВСЕ ВОРОТА ПРОЙДЕНЫ' if passed else 'не пройдено'}\n{format_gates(gates)}")
         print(f"\n--- {'уведомление, которое было бы отправлено' if not args.run else 'отправляю уведомление'} в notify_chat_id:\n{msg}")
         if not args.run:

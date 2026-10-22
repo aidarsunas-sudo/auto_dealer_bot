@@ -1,6 +1,7 @@
 """Автоматические проверки черновика статьи (без сети, без правок статьи).
 
   python validate_draft.py --slug avto-iz-korei-pod-zakaz     # пишет articles/<slug>/checks.md и печатает его
+  python validate_draft.py --slug utilsbor --article-min 4000  # другая нижняя граница объёма article.md (по умолчанию 6000)
 
 Проверки: пометки; запрещённые слова; объём; числа только из facts.md / customs_rates.py / блока примеров / списка разрешённых;
 блок «Как заказать» (ровно 3 ссылки с UTM) и домены ссылок; первое предложение post.md; разметка в post.md.
@@ -80,7 +81,9 @@ def first_sentence(post):
     return (body[:m.start() + (1 if body[m.start()] in ".!?" else 0)] if m else body).strip()
 
 
-def validate(slug, articles_dir=None):
+def validate(slug, articles_dir=None, article_min=None):
+    """article_min — нижняя граница объёма article.md (по умолчанию ARTICLE_RANGE[0] = 6000)."""
+    a_min = article_min if article_min is not None else ARTICLE_RANGE[0]
     d = Path(articles_dir or ARTICLES) / slug
     art = (d / "article.md").read_text(encoding="utf-8") if (d / "article.md").exists() else None
     post = (d / "post.md").read_text(encoding="utf-8") if (d / "post.md").exists() else None
@@ -101,7 +104,7 @@ def validate(slug, articles_dir=None):
 
     # 3. объём
     la, lp = len(art), len(post)
-    res.append((f"article.md {ARTICLE_RANGE[0]}–{ARTICLE_RANGE[1]} знаков", ARTICLE_RANGE[0] <= la <= ARTICLE_RANGE[1], f"{la} знаков"))
+    res.append((f"article.md {a_min}–{ARTICLE_RANGE[1]} знаков", a_min <= la <= ARTICLE_RANGE[1], f"{la} знаков"))
     res.append((f"post.md до {POST_MAX} знаков", lp <= POST_MAX, f"{lp} знаков"))
 
     # 4. числа
@@ -155,11 +158,12 @@ def render(slug, results):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--slug", required=True)
+    ap.add_argument("--article-min", type=int, default=None, help="нижняя граница объёма article.md (по умолчанию 6000)")
     args = ap.parse_args()
     d = ARTICLES / args.slug
     if not d.exists():
         sys.exit(f"нет папки {d}")
-    text = render(args.slug, validate(args.slug))
+    text = render(args.slug, validate(args.slug, article_min=args.article_min))
     (d / "checks.md").write_text(text, encoding="utf-8")
     print(text)
     return 0 if "все проверки пройдены" in text else 1

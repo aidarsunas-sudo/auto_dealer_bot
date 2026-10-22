@@ -182,26 +182,58 @@ def publishable():
 PENDING_TOPIC_ROW = None   # строка из topics.csv, которую шаг generate допишет в selected_topics.csv при реальном запуске
 
 
+def topic_skip_reason(query, slug):
+    """Почему тема заведомо не пройдёт ворота auto_approve: про пошлины/ЕТС/растаможку при невалидной CUSTOMS_VERIFIED_ON,
+    про утильсбор при невалидной RATES_VERIFIED_ON. None — не пропускать. Темы из allowed_slugs не пропускаются."""
+    import yaml
+    sys.path.insert(0, str(ROOT / "publishing"))
+    import gate_rules
+    with open(ROOT / "publishing" / "config.yaml", encoding="utf-8") as f:
+        ac = yaml.safe_load(f)["auto_approve"]
+    if slug in (ac.get("allowed_slugs") or []):
+        return None
+    today, age = datetime.now().date(), ac["rates_max_age_days"]
+    if gate_rules.is_customs_topic(query, slug):
+        ok, why = gate_rules.const_status("CUSTOMS_VERIFIED_ON", today, age)
+        return None if ok else f"про пошлины/ЕТС/растаможку, {why}"
+    if gate_rules.is_util_topic(query, slug):
+        ok, why = gate_rules.const_status("RATES_VERIFIED_ON", today, age)
+        return None if ok else f"про утильсбор, {why}"
+    return None
+
+
 def next_free_topic():
-    """Следующая тема для generate: (slug, строка для дописывания в selected_topics.csv или None).
+    """Следующая тема для generate: (slug, строка для дописывания в selected_topics.csv или None, [(slug, причина пропуска)]).
 
     1) первая тема из selected_topics.csv без записи в publications.csv (в любом статусе) и без articles/<slug>/article.md;
     2) иначе следующая из topics.csv по частоте главного запроса, проходящая белый список и стоп-слова из
-       wordstat/config.yaml (строка допишется в selected_topics.csv; существующие строки не меняются)."""
+       wordstat/config.yaml (строка допишется в selected_topics.csv; существующие строки не меняются).
+    Темы, которые заведомо не пройдут ворота (topic_skip_reason), пропускаются и попадают в третий элемент."""
     used = {(r.get("slug") or "").strip() for r in _read_csv(PUBLICATIONS)}
     selected = _read_csv(SELECTED)
+    skipped = []
     for t in selected:
-        if t["тема"] not in used and not (ARTICLES_DIR / t["тема"] / "article.md").exists():
-            return t["тема"], None
+        if t["тема"] in used or (ARTICLES_DIR / t["тема"] / "article.md").exists():
+            continue
+        why = topic_skip_reason(t["главный запрос"], t["тема"])
+        if why:
+            skipped.append((t["тема"], why))
+            continue
+        return t["тема"], None, skipped
     known = used | {t["тема"] for t in selected}
     sys.path.insert(0, str(ROOT / "wordstat"))
     import topics_analysis
     for t in sorted(_read_csv(TOPICS_CSV), key=lambda r: -int(r.get("частота главного") or 0)):
         if t["тема"] in known or (ARTICLES_DIR / t["тема"] / "article.md").exists():
             continue
-        if topics_analysis.topic_reject_reason(t["главный запрос"]) is None:
-            return t["тема"], t
-    return None, None
+        if topics_analysis.topic_reject_reason(t["главный запрос"]) is not None:
+            continue
+        why = topic_skip_reason(t["главный запрос"], t["тема"])
+        if why:
+            skipped.append((t["тема"], why))
+            continue
+        return t["тема"], t, skipped
+    return None, None, skipped
 
 
 def append_selected(row):
@@ -246,14 +278,15 @@ def command_for(step):
             f"темы: {', '.join(t['тема'] for t in todo)}" + (f"; {note}" if note else "")
     if step == "generate":
         global PENDING_TOPIC_ROW
-        slug, PENDING_TOPIC_ROW = next_free_topic()
+        slug, PENDING_TOPIC_ROW, skipped = next_free_topic()
+        skip_note = ("; пропущены темы: " + "; ".join(f"{s} ({why})" for s, why in skipped)) if skipped else ""
         if slug is None:
-            return None, {}, "нет свободных тем в selected_topics.csv и подходящих в topics.csv"
+            return None, {}, "нет свободных тем в selected_topics.csv и подходящих в topics.csv" + skip_note
         if not claude_logged_in():
             PENDING_TOPIC_ROW = None
-            return None, {}, f"пропуск: нет ANTHROPIC_API_KEY в .env и claude -p не залогинен (нужна тема {slug}): черновик не генерируется"
+            return None, {}, f"пропуск: нет ANTHROPIC_API_KEY в .env и claude -p не залогинен (нужна тема {slug}): черновик не генерируется" + skip_note
         extra = " (будет дописана в selected_topics.csv из topics.csv)" if PENDING_TOPIC_ROW else ""
-        return [PY, "generate_draft.py", "--slug", slug], {}, f"тема: {slug}{extra}"
+        return [PY, "generate_draft.py", "--slug", slug], {}, f"тема: {slug}{extra}{skip_note}"
     if step == "approve":
         drafts = [r["slug"] for r in _read_csv(PUBLICATIONS) if (r.get("статус") or "").strip().lower() == "черновик"]
         if not drafts:

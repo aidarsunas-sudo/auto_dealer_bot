@@ -11,14 +11,16 @@
   в) нет файла publishing/HOLD;
   г) не больше auto_approve.max_per_7_days автоматических статей за 7 дней;
   д) статья не изменилась после последней проверки (контрольная сумма в checks.md совпадает с текущей);
-  е) slug в allowed_slugs («всегда разрешено») или проверка содержания: слова про растаможку/пошлины/ЕТС вне блока примера
-     требуют валидной CUSTOMS_VERIFIED_ON (customs_rates.py).
+  е) slug в allowed_slugs («всегда разрешено») или проверка содержания: валидная CUSTOMS_VERIFIED_ON (customs_rates.py)
+     нужна, если главный запрос/slug темы про растаможку/таможню/пошлины/ЕТС либо в тексте вне блока примера есть числа
+     (%, евро, суммы) в 60 знаках от пошлин*/ЕТС/«таможенный сбор»/«единая ставка». Упоминание растаможки как этапа не блокирует.
 Всё прошло -> уведомление в notify_chat_id, и только после успешной отправки статус «запланировано» и
 «опубликовать после» = сейчас + window_hours. Не прошло -> статус не меняется, уведомление с причиной.
 Остановить запланированную статью: статус «стоп» в publications.csv или файл publishing/HOLD.
 Публикует запланированное publish.py. Токен не печатается.
 """
 import argparse
+import csv
 import hashlib
 import os
 import re
@@ -35,6 +37,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(HERE))
 
 from common import ARTICLES, HOLD_FILE, load_config, mask, read_publications, write_publications  # noqa: E402
+import gate_rules  # noqa: E402
 import validate_draft  # noqa: E402
 from publish import split_cover, strip_markdown  # noqa: E402
 
@@ -129,61 +132,47 @@ def format_gates(gates):
     return "\n".join(f"{'ок ' if ok else 'НЕТ'} {name}" + (f" — {detail}" if detail else "") for name, ok, detail in gates)
 
 
-CUSTOMS_WORDS = re.compile(r"растаможк|таможенн|пошлин|(?<!\w)етс(?!\w)|единая ставка", re.I)
-MD_CHARS = re.compile(r"[*_#>]+")
-
-
-def _norm_line(line):
-    return re.sub(r"\s+", " ", MD_CHARS.sub("", line)).strip().lower()
-
-
 def scan_text(slug):
-    """article.md + post.md без блока примера (example_block.md): строки примера вырезаются по нормализованному тексту."""
+    """article.md + post.md без блока примера (example_block.md и блоки «Пример расчёта на основе лота»)."""
     d = ARTICLES / slug
     ex = d / "example_block.md"
-    skip = {_norm_line(l) for l in ex.read_text(encoding="utf-8").splitlines()} - {""} if ex.exists() else set()
-    parts = []
-    for name in ("article.md", "post.md"):
-        f = d / name
-        if f.exists():
-            parts += [l for l in f.read_text(encoding="utf-8").splitlines() if _norm_line(l) not in skip]
+    example = ex.read_text(encoding="utf-8") if ex.exists() else ""
+    parts = [gate_rules.strip_example((d / n).read_text(encoding="utf-8"), example)
+             for n in ("article.md", "post.md") if (d / n).exists()]
     return "\n".join(parts)
 
 
-def customs_verified_on():
-    """(дата, причина): CUSTOMS_VERIFIED_ON из customs_rates.py; вписывает только владелец после сверки ЕТС и таможенного сбора."""
-    m = re.search(r"(?m)^CUSTOMS_VERIFIED_ON\s*=\s*[\"']([^\"']*)[\"']", CUSTOMS_RATES.read_text(encoding="utf-8"))
-    if not m:
-        return None, "константа CUSTOMS_VERIFIED_ON не найдена в customs_rates.py"
-    raw = m.group(1).strip()
-    if not raw:
-        return None, "CUSTOMS_VERIFIED_ON пуста: ЕТС и таможенный сбор не сверены владельцем с первоисточником"
-    try:
-        return datetime.strptime(raw, "%Y-%m-%d").date(), ""
-    except ValueError:
-        return None, f"CUSTOMS_VERIFIED_ON={raw!r} не разбирается как дата YYYY-MM-DD"
+def topic_query(slug, rows=()):
+    """Главный запрос темы: selected_topics.csv, затем publications.csv; пусто, если не найден."""
+    sel = ROOT / "wordstat" / "selected_topics.csv"
+    if sel.exists():
+        with open(sel, encoding="utf-8-sig", newline="") as f:
+            for r in csv.DictReader(f):
+                if r["тема"] == slug:
+                    return r["главный запрос"]
+    return next((r.get("главный запрос", "") for r in rows if r["slug"] == slug), "")
 
 
-def topic_gate(cfg, slug, now, text=None):
-    """(е): slug из auto_approve.allowed_slugs («всегда разрешено») проходит сразу; иначе проверка содержания. Если в тексте
-    (без блока примера) есть слова про растаможку/пошлины/ЕТС, нужна валидная CUSTOMS_VERIFIED_ON
-    (дата не в будущем и не старше rates_max_age_days). Для остального текста ворота пройдены."""
+def topic_gate(cfg, slug, now, text=None, query=None):
+    """(е): slug из auto_approve.allowed_slugs («всегда разрешено») проходит сразу. Иначе CUSTOMS_VERIFIED_ON (валидная дата,
+    не в будущем, не старше rates_max_age_days) нужна, если главный запрос/slug про растаможку/таможню/пошлины/ЕТС, либо в
+    тексте (без блока примера) есть число с единицей рядом (60 знаков) с пошлин*/ЕТС/«таможенный сбор»/«единая ставка».
+    Простое упоминание растаможки как этапа не блокирует."""
     ac = cfg["auto_approve"]
     name = "е) тема разрешена (allowed_slugs или проверка содержания)"
     if slug in (ac.get("allowed_slugs") or []):
         return name, True, "slug в allowed_slugs"
-    found = sorted({m.group(0).lower() for m in CUSTOMS_WORDS.finditer(scan_text(slug) if text is None else text)})
-    if not found:
-        return name, True, "слов про таможню/пошлины/ЕТС в тексте нет"
-    words = ", ".join(found)
-    d, why = customs_verified_on()
-    if d is None:
-        return name, False, f"в тексте найдено: {words}; {why}"
-    age = (now.date() - d).days
-    if not 0 <= age <= ac["rates_max_age_days"]:
-        return name, False, (f"в тексте найдено: {words}; CUSTOMS_VERIFIED_ON {d:%d.%m.%Y} "
-                             + ("в будущем" if age < 0 else f"старше {ac['rates_max_age_days']} дн."))
-    return name, True, f"в тексте найдено: {words}; CUSTOMS_VERIFIED_ON {d:%d.%m.%Y}, возраст {age} дн."
+    query = topic_query(slug) if query is None else query
+    reasons = []
+    if gate_rules.is_customs_topic(query, slug):
+        reasons.append(f"главный запрос/slug про пошлины, ЕТС или растаможку ({query or slug!r})")
+    hits = gate_rules.numbers_near_terms(scan_text(slug) if text is None else gate_rules.strip_example(text))
+    if hits:
+        reasons.append("в тексте числа рядом с таможенными словами: " + "; ".join(f"«{t}» ~ «{n}»" for t, n in hits[:3]))
+    if not reasons:
+        return name, True, "тема не про пошлины/ЕТС, чисел рядом с ними в тексте нет"
+    ok, why = gate_rules.const_status("CUSTOMS_VERIFIED_ON", now.date(), ac["rates_max_age_days"])
+    return name, ok, "; ".join(reasons) + "; " + why
 
 
 def build_message(slug, passed, gates, when, window_h, topic_reason=None):
@@ -233,7 +222,7 @@ def main():
         slug = row["slug"]
         gates = global_gates(cfg, rows, now, tz, extra_scheduled=scheduled_now)
         dg, _ = draft_gates(cfg, slug)
-        tg = topic_gate(cfg, slug, now)
+        tg = topic_gate(cfg, slug, now, query=topic_query(slug, rows))
         gates = dg[:1] + gates + dg[1:] + [tg]   # порядок а, б, в, г, д, е
         passed = all(ok for _, ok, _ in gates)
         when = now + timedelta(hours=window_h)

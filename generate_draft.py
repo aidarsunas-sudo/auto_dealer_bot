@@ -12,12 +12,15 @@
 """
 import argparse
 import csv
+import os
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+from dotenv import dotenv_values
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
@@ -125,13 +128,23 @@ def build_prompt(topic, slug, analysis, facts, ex_all, sample_article, sample_po
 """
 
 
+def api_key():
+    """ANTHROPIC_API_KEY из .env (или уже заданный в окружении процесса); пустая строка, если нет."""
+    return (dotenv_values(ROOT / ".env").get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or "").strip()
+
+
 def call_claude(prompt):
     exe = shutil.which("claude.cmd") or shutil.which("claude")
     if not exe:
         sys.exit("claude не найден в PATH")
+    key = api_key()
+    env = {**os.environ, "ANTHROPIC_API_KEY": key} if key else None   # ключ только в окружение подпроцесса claude -p
     p = subprocess.run([exe, "-p", "--output-format", "text", "--max-turns", "1"], input=prompt, capture_output=True,
-                       text=True, encoding="utf-8", errors="replace", timeout=CLAUDE_TIMEOUT, cwd=tempfile.gettempdir())
+                       text=True, encoding="utf-8", errors="replace", timeout=CLAUDE_TIMEOUT, cwd=tempfile.gettempdir(),
+                       env=env)
     out = ((p.stdout or "") + (p.stderr or "")).strip()
+    if key:
+        out = out.replace(key, "***")
     if p.returncode != 0:
         if re.search(r"not logged in|/login|authentic|api key", out, re.I):
             print("claude -p вернул ошибку входа: " + out[:200])

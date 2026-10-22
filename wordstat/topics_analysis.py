@@ -112,6 +112,15 @@ def _reject_reason(q, cfg, roots, brands):
     return "нет белого слова"
 
 
+def topic_reject_reason(query):
+    """Причина отсева главного запроса темы белым списком и стоп-словами из config.yaml (None — проходит)."""
+    cfg = _topics_cfg()
+    roots = [r.lower() for r in cfg["whitelist"]] + (sorted(_spec_brands()) if cfg.get("use_model_specs_brands") else [])
+    aliases = {k: [a.lower() for a in v] for k, v in cfg["aliases"].items()}
+    brands = sorted(_spec_brands() | set(aliases) | {a for v in aliases.values() for a in v})
+    return _reject_reason(query, cfg, roots, brands)
+
+
 def _cluster(items, key=lambda q: q):
     """Жадная группировка по основам слов (как раньше): items — [(запрос, частота)] по убыванию частоты."""
     clusters = []

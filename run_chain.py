@@ -6,8 +6,9 @@
   python run_chain.py --steps publish                   # dry-run одного шага
 
 Шаги (всегда в таком порядке): collect, topics, analyze, generate, approve, publish, stats, report.
-  generate — generate_draft.py для следующей свободной темы из selected_topics.csv, только если claude -p залогинен
-             (иначе пропуск с записью в лог)
+  generate — одна статья за запуск: первая тема из selected_topics.csv без записи в publications.csv, иначе следующая
+             из topics.csv по частоте (белый список/стоп-слова; строка дописывается в selected_topics.csv); только если есть
+             ANTHROPIC_API_KEY в .env или claude -p залогинен (иначе пропуск с записью в лог)
   approve  — publishing/auto_approve.py --run: ворота для черновиков, уведомление в личный чат и статус «запланировано»
              с окном отмены (publishing/publications.csv); публикует запланированное шаг publish
   collect  — wordstat/wordstat_collect.py
@@ -178,18 +179,45 @@ def publishable():
     return approved, due
 
 
+PENDING_TOPIC_ROW = None   # строка из topics.csv, которую шаг generate допишет в selected_topics.csv при реальном запуске
+
+
 def next_free_topic():
-    """Следующая тема из selected_topics.csv без записи в publications.csv и без articles/<slug>/article.md."""
+    """Следующая тема для generate: (slug, строка для дописывания в selected_topics.csv или None).
+
+    1) первая тема из selected_topics.csv без записи в publications.csv (в любом статусе) и без articles/<slug>/article.md;
+    2) иначе следующая из topics.csv по частоте главного запроса, проходящая белый список и стоп-слова из
+       wordstat/config.yaml (строка допишется в selected_topics.csv; существующие строки не меняются)."""
     used = {(r.get("slug") or "").strip() for r in _read_csv(PUBLICATIONS)}
-    for t in _read_csv(SELECTED):
+    selected = _read_csv(SELECTED)
+    for t in selected:
         if t["тема"] not in used and not (ARTICLES_DIR / t["тема"] / "article.md").exists():
-            return t["тема"]
-    return None
+            return t["тема"], None
+    known = used | {t["тема"] for t in selected}
+    sys.path.insert(0, str(ROOT / "wordstat"))
+    import topics_analysis
+    for t in sorted(_read_csv(TOPICS_CSV), key=lambda r: -int(r.get("частота главного") or 0)):
+        if t["тема"] in known or (ARTICLES_DIR / t["тема"] / "article.md").exists():
+            continue
+        if topics_analysis.topic_reject_reason(t["главный запрос"]) is None:
+            return t["тема"], t
+    return None, None
+
+
+def append_selected(row):
+    """Дописывает строку темы в конец selected_topics.csv (только добавление)."""
+    with open(SELECTED, encoding="utf-8-sig", newline="") as f:
+        fields = csv.DictReader(f).fieldnames
+    raw = SELECTED.read_bytes()
+    with open(SELECTED, "a", encoding="utf-8", newline="") as f:
+        if raw and not raw.endswith(b"\n"):
+            f.write("\r\n")
+        csv.DictWriter(f, fieldnames=fields, extrasaction="ignore", lineterminator="\r\n").writerow(row)
 
 
 def claude_logged_in():
     """claude -p может работать: выполнен вход (claude auth status) или в окружении есть ANTHROPIC_API_KEY."""
-    if os.environ.get("ANTHROPIC_API_KEY"):
+    if (dotenv_values(ROOT / ".env").get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or "").strip():
         return True
     exe = shutil.which("claude.cmd") or shutil.which("claude")
     if not exe:
@@ -217,12 +245,15 @@ def command_for(step):
         return [PY, "wordstat/topics_analysis.py", "analyze", "<временный файл тем>"], env, \
             f"темы: {', '.join(t['тема'] for t in todo)}" + (f"; {note}" if note else "")
     if step == "generate":
-        slug = next_free_topic()
+        global PENDING_TOPIC_ROW
+        slug, PENDING_TOPIC_ROW = next_free_topic()
         if slug is None:
-            return None, {}, "нет свободных тем в selected_topics.csv"
+            return None, {}, "нет свободных тем в selected_topics.csv и подходящих в topics.csv"
         if not claude_logged_in():
-            return None, {}, f"claude -p не залогинен (нужна тема {slug}): черновик не генерируется"
-        return [PY, "generate_draft.py", "--slug", slug], {}, f"тема: {slug}"
+            PENDING_TOPIC_ROW = None
+            return None, {}, f"пропуск: нет ANTHROPIC_API_KEY в .env и claude -p не залогинен (нужна тема {slug}): черновик не генерируется"
+        extra = " (будет дописана в selected_topics.csv из topics.csv)" if PENDING_TOPIC_ROW else ""
+        return [PY, "generate_draft.py", "--slug", slug], {}, f"тема: {slug}{extra}"
     if step == "approve":
         drafts = [r["slug"] for r in _read_csv(PUBLICATIONS) if (r.get("статус") or "").strip().lower() == "черновик"]
         if not drafts:
@@ -260,6 +291,9 @@ def run_step(step):
             w.writeheader()
             w.writerows(todo)
         cmd = cmd[:-1] + [str(tmp_file)]
+    if step == "generate" and PENDING_TOPIC_ROW:
+        append_selected(PENDING_TOPIC_ROW)
+        log(f"generate | тема {PENDING_TOPIC_ROW['тема']} дописана в selected_topics.csv")
     log(f"{step} | старт: {note}" if note else f"{step} | старт")
     try:
         p = subprocess.run(cmd, cwd=ROOT, env={**CHILD_ENV, **env_extra}, capture_output=True, text=True,

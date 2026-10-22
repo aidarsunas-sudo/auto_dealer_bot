@@ -1,0 +1,12 @@
+# Публикация и статистика статей (publish.py / stats.py / report.py)
+telegram_channel: "-1004357171081"     # КУДА публикуется пост; пусто = переменная TELEGRAM_CHANNEL из .env; иначе "@канал" или числовой id
+promo_channel: "@auto_generals"   # канал, на который ведёт именная пригласительная ссылка в блоке «Как заказать»
+
+schedule:                # публикация только в эти дни и не раньше этого времени, не больше 1 статьи в день
+  days: [mon, wed, fri]
+  time: "10:00"
+  timezone: Europe/Moscow
+
+metrika:
+  counter_id: 98788601
+  utm_source: dzen

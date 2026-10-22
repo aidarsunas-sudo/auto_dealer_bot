@@ -53,6 +53,7 @@ __pycache__/
 .claude/skills/*
 !.claude/skills/channel-post-automation/
 !.claude/skills/publish-telegram/
+!.claude/skills/seo-dzen/
 
 # Отладочный файл, который scraper.py создаёт при сбое парсинга
 debug_last_failed_page.txt
@@ -98,3 +99,4 @@ avante_monitor/report.html
 avante_monitor/report.xlsx
 avante_monitor/alert_*.html
 avante_monitor/__pycache__/
+data/cbr_rates_cache.json

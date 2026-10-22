@@ -79,32 +79,6 @@
   },
   {
     "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "1.2 ACTIV",
-      "external_id": "42759548",
-      "year": 2023,
-      "month": 11,
-      "mileage_km": 27586,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 20700000,
-      "specs": "1198 см³, 139 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42759548",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture05/pic4275/42759544_027.jpg",
-        "https://ci.encar.com/carpicture05/pic4275/42759544_003.jpg",
-        "https://ci.encar.com/carpicture05/pic4275/42759544_004.jpg",
-        "https://ci.encar.com/carpicture05/pic4275/42759544_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "added_at": "2026-10-20T11:25:30.426662"
-  },
-  {
-    "car": {
       "brand": "Kia",
       "model": "K3",
       "trim": "1.6",

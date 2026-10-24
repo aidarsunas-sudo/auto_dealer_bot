@@ -856,5 +856,50 @@
       "transmission": "오토"
     },
     "added_at": "2026-10-21T21:42:35.575954"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "프레스티지",
+      "external_id": "01a15bf5-a220-74d7-8baa-c038c332d8e2",
+      "year": 2022,
+      "month": 9,
+      "mileage_km": 17843,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 18900000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://www.charancha.com/cars/01a15bf5-a220-74d7-8baa-c038c332d8e2",
+      "source": "charancha",
+      "photos": [
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f194-7160-ab68-db5e2a3a5e91.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f199-7607-a538-4b1d06c1d65d.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f19c-7589-b64b-f7f1b07fb814.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1a0-73c2-9103-e32f3734fea7.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1a3-7677-ac80-3a08eba41370.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1a6-7e62-99e2-90a373662808.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1aa-79de-965e-f7a2f1f0e02f.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1ad-7806-b2d3-081e2793973d.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1b0-7d11-98a0-d9e0062ef89d.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1b4-773c-b92a-0fb2e34c3698.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1b8-7400-bbf6-8c1ba2486e0d.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1bb-73d7-ac47-ed0355f0fa12.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1be-7708-b133-29ac97587407.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1c2-77c1-be3c-245d0423d22f.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1c5-7e26-8b50-05d10cc4115c.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1c8-7422-94ee-6b7409ae75ea.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1cb-7773-978c-b7b7b50dd890.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1ce-7088-bd6f-cfa480ca8456.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1d2-778c-ab2c-caa815ec93b6.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a15bf4-f1e4-7519-832b-3ad99a4c642b.jpg"
+      ],
+      "transmission": "CVT",
+      "is_accident": null,
+      "is_seizure": null,
+      "color": "진주색"
+    },
+    "added_at": "2026-10-24T04:10:38.577594"
   }
 ]

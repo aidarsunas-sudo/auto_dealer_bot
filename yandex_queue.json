@@ -27,32 +27,6 @@
   },
   {
     "car": {
-      "brand": "Kia",
-      "model": "K5",
-      "trim": "2.0",
-      "external_id": "42584999",
-      "year": 2023,
-      "month": 1,
-      "mileage_km": 19645,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 29900000,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42584999",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture08/pic4258/42584566_001.jpg",
-        "https://ci.encar.com/carpicture08/pic4258/42584566_003.jpg",
-        "https://ci.encar.com/carpicture08/pic4258/42584566_004.jpg",
-        "https://ci.encar.com/carpicture08/pic4258/42584566_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "added_at": "2026-10-20T11:22:51.717145"
-  },
-  {
-    "car": {
       "brand": "Renault",
       "model": "QM6",
       "trim": "2.0 GDe RE 2WD",

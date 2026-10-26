@@ -3,136 +3,6 @@
     "car": {
       "brand": "Kia",
       "model": "K3",
-      "trim": "1.6",
-      "external_id": "42632716",
-      "year": 2023,
-      "month": 10,
-      "mileage_km": 29745,
-      "cc": 1598,
-      "hp": 123,
-      "fuel_code": "petrol",
-      "price": 16300000,
-      "specs": "1598 см³, 123 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42632716",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture03/pic4263/42630105_001.jpg",
-        "https://ci.encar.com/carpicture03/pic4263/42630105_003.jpg",
-        "https://ci.encar.com/carpicture03/pic4263/42630105_004.jpg",
-        "https://ci.encar.com/carpicture03/pic4263/42630105_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "published_at": "2026-10-21T21:36:26.300342"
-  },
-  {
-    "car": {
-      "brand": "Kia",
-      "model": "K5",
-      "trim": "2.0",
-      "external_id": "42848845",
-      "year": 2022,
-      "month": 10,
-      "mileage_km": 16215,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 24800000,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42848845",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture04/pic4284/42848845_001.jpg",
-        "https://ci.encar.com/carpicture04/pic4284/42848845_003.jpg",
-        "https://ci.encar.com/carpicture04/pic4284/42848845_004.jpg",
-        "https://ci.encar.com/carpicture04/pic4284/42848845_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "published_at": "2026-10-21T21:39:16.888893"
-  },
-  {
-    "car": {
-      "brand": "Hyundai",
-      "model": "Sonata",
-      "trim": "2.0",
-      "external_id": "42817348",
-      "year": 2022,
-      "month": 9,
-      "mileage_km": 14316,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 22900000,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42817348",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture01/pic4281/42817348_001.jpg",
-        "https://ci.encar.com/carpicture01/pic4281/42817348_003.jpg",
-        "https://ci.encar.com/carpicture01/pic4281/42817348_004.jpg",
-        "https://ci.encar.com/carpicture01/pic4281/42817348_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "published_at": "2026-10-21T21:39:33.604676"
-  },
-  {
-    "car": {
-      "brand": "Renault",
-      "model": "QM6",
-      "trim": "2.0 LPe LE 2WD",
-      "external_id": "42566117",
-      "year": 2023,
-      "month": 3,
-      "mileage_km": 34863,
-      "cc": 1998,
-      "hp": 144,
-      "fuel_code": "petrol",
-      "price": 17300000,
-      "specs": "1998 см³, 144 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42566117",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture06/pic4256/42566117_001.jpg",
-        "https://ci.encar.com/carpicture06/pic4256/42566117_003.jpg",
-        "https://ci.encar.com/carpicture06/pic4256/42566117_004.jpg",
-        "https://ci.encar.com/carpicture06/pic4256/42566117_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "published_at": "2026-10-21T21:39:50.287101"
-  },
-  {
-    "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "1.2 ACTIV",
-      "external_id": "42599104",
-      "year": 2023,
-      "month": 4,
-      "mileage_km": 29333,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 21900000,
-      "specs": "1198 см³, 139 л.с.",
-      "url": "https://fem.encar.com/cars/detail/42599104",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture08/pic4258/42584552_001.jpg",
-        "https://ci.encar.com/carpicture08/pic4258/42584552_003.jpg",
-        "https://ci.encar.com/carpicture08/pic4258/42584552_004.jpg",
-        "https://ci.encar.com/carpicture08/pic4258/42584552_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "published_at": "2026-10-21T21:42:35.577095"
-  },
-  {
-    "car": {
-      "brand": "Kia",
-      "model": "K3",
       "trim": "프레스티지",
       "external_id": "01a15bf5-a220-74d7-8baa-c038c332d8e2",
       "year": 2022,
@@ -563,5 +433,135 @@
       "transmission": "오토"
     },
     "published_at": "2026-10-25T20:52:44.335978"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42924040",
+      "year": 2022,
+      "month": 6,
+      "mileage_km": 28278,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 15500000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42924040",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture02/pic4292/42924040_001.jpg",
+        "https://ci.encar.com/carpicture02/pic4292/42924040_003.jpg",
+        "https://ci.encar.com/carpicture02/pic4292/42924040_004.jpg",
+        "https://ci.encar.com/carpicture02/pic4292/42924040_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-26T04:18:30.443688"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "42939440",
+      "year": 2022,
+      "month": 5,
+      "mileage_km": 20776,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 21990000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42939440",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture03/pic4293/42937316_001.jpg",
+        "https://ci.encar.com/carpicture03/pic4293/42937316_003.jpg",
+        "https://ci.encar.com/carpicture03/pic4293/42937316_004.jpg",
+        "https://ci.encar.com/carpicture03/pic4293/42937316_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-26T04:21:20.126946"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42939634",
+      "year": 2022,
+      "month": 7,
+      "mileage_km": 28831,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 19000000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42939634",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture03/pic4293/42939634_001.jpg",
+        "https://ci.encar.com/carpicture03/pic4293/42939634_003.jpg",
+        "https://ci.encar.com/carpicture03/pic4293/42939634_004.jpg",
+        "https://ci.encar.com/carpicture03/pic4293/42939634_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-26T04:21:36.693295"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "2.0 LPe RE 2WD",
+      "external_id": "42872114",
+      "year": 2023,
+      "month": 12,
+      "mileage_km": 32547,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 21500000,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42872114",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture07/pic4287/42872114_027.jpg",
+        "https://ci.encar.com/carpicture07/pic4287/42872114_003.jpg",
+        "https://ci.encar.com/carpicture07/pic4287/42872114_004.jpg",
+        "https://ci.encar.com/carpicture07/pic4287/42872114_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-26T04:21:52.478235"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 ACTIV",
+      "external_id": "42901977",
+      "year": 2023,
+      "month": 8,
+      "mileage_km": 38634,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 16500000,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42901977",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture10/pic4290/42901977_001.jpg",
+        "https://ci.encar.com/carpicture10/pic4290/42901977_003.jpg",
+        "https://ci.encar.com/carpicture10/pic4290/42901977_004.jpg",
+        "https://ci.encar.com/carpicture10/pic4290/42901977_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-10-26T04:24:31.296212"
   }
 ]

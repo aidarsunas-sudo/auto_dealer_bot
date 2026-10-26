@@ -17,8 +17,8 @@ auto_approve:                 # publishing/auto_approve.py
   min_days_between_auto: 3    # не больше 1 автоматической статьи за это число суток
   rates_max_age_days: 90      # дата актуальности ставок в customs_rates.py не старше
   allowed_slugs: [utilsbor]   # автоодобрение только для этих тем; остальные — ручная проверка + уведомление
-  article_min:                # нижняя граница объёма article.md по slug (по умолчанию 6000)
-    utilsbor: 4000
+  article_min_default: 4000   # общая нижняя граница объёма article.md (знаков)
+  article_min: {}             # необязательные исключения по slug, например {some-slug: 3000}
 
 generate_model: claude-opus-5-5     # модель для generate_draft.py (прямой запрос к Anthropic API)
-generate_max_tokens: 16000          # потолок ответа (вместе с мышлением модели); не ниже ~12000 для статьи 6–9 тыс. знаков
+generate_max_tokens: 16000          # потолок ответа (вместе с мышлением модели); не ниже ~12000 для статьи 4–9 тыс. знаков

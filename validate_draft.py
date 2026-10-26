@@ -1,7 +1,7 @@
 """Автоматические проверки черновика статьи (без сети, без правок статьи).
 
   python validate_draft.py --slug avto-iz-korei-pod-zakaz     # пишет articles/<slug>/checks.md и печатает его
-  python validate_draft.py --slug utilsbor --article-min 4000  # другая нижняя граница объёма article.md (по умолчанию 6000)
+  python validate_draft.py --slug utilsbor --article-min 4000  # другая нижняя граница объёма article.md (по умолчанию 4000)
 
 Проверки: пометки; запрещённые слова; объём; числа только из facts.md / customs_rates.py / блока примеров / списка разрешённых;
 блок «Как заказать» (ровно 3 ссылки с UTM) и домены ссылок; первое предложение post.md; разметка в post.md;
@@ -24,7 +24,7 @@ CUSTOMS_RATES = ROOT / "customs_rates.py"   # числа-ставки, номе�
 ALLOWED_DOMAINS = {"pickpluskazan.tb.ru", "wa.me", "t.me"}
 FORBIDDEN = ("мы привезли", "дешевле рынка", "гарантируем")
 MARKS = ("[ДОБАВИТЬ ДАННЫЕ", "[НЕТ ПРИМЕРА]")
-ARTICLE_RANGE, POST_MAX, FIRST_SENTENCE_MAX = (6000, 9000), 3500, 140
+ARTICLE_RANGE, POST_MAX, FIRST_SENTENCE_MAX = (4000, 9000), 3500, 140
 URL_RE = re.compile(r"https?://[^\s)\]>]+")
 # число не начинается внутри слова (Q3, GLB200): иначе «Q3 2023» склеивалось в «3 202»; разделитель тысяч — пробел или
 # неразрывный пробел перед ровно тремя цифрами, за которыми нет ещё цифры («5 052 377» — одно число, «3 039 км» — одно)
@@ -124,7 +124,7 @@ def sections_have_sources(d, article_text):
 
 
 def validate(slug, articles_dir=None, article_min=None):
-    """article_min — нижняя граница объёма article.md (по умолчанию ARTICLE_RANGE[0] = 6000)."""
+    """article_min — нижняя граница объёма article.md (по умолчанию ARTICLE_RANGE[0] = 4000)."""
     a_min = article_min if article_min is not None else ARTICLE_RANGE[0]
     d = Path(articles_dir or ARTICLES) / slug
     art = (d / "article.md").read_text(encoding="utf-8") if (d / "article.md").exists() else None
@@ -218,7 +218,7 @@ def render(slug, results):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--slug", required=True)
-    ap.add_argument("--article-min", type=int, default=None, help="нижняя граница объёма article.md (по умолчанию 6000)")
+    ap.add_argument("--article-min", type=int, default=None, help="нижняя граница объёма article.md (по умолчанию 4000)")
     args = ap.parse_args()
     d = ARTICLES / args.slug
     if not d.exists():

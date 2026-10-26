@@ -42,7 +42,7 @@ import validate_draft  # noqa: E402
 from publish import split_cover, strip_markdown  # noqa: E402
 
 CUSTOMS_RATES = ROOT / "customs_rates.py"
-DEFAULT_ARTICLE_MIN = 6000
+DEFAULT_ARTICLE_MIN = 4000
 FMT = "%Y-%m-%d %H:%M"
 
 
@@ -106,7 +106,7 @@ def global_gates(cfg, rows, now, tz, extra_scheduled=0):
 def draft_gates(cfg, slug):
     """(а) и (д): для конкретного черновика."""
     ac = cfg["auto_approve"]
-    amin = (ac.get("article_min") or {}).get(slug, DEFAULT_ARTICLE_MIN)
+    amin = (ac.get("article_min") or {}).get(slug, ac.get("article_min_default", DEFAULT_ARTICLE_MIN))
     results = validate_draft.validate(slug, article_min=amin)
     bad = [f"{name}: {detail}" if detail else name for name, ok, detail in results if not ok]
     a = ("а) validate_draft.py без проблем" + (f" (article-min {amin})"), not bad, "; ".join(bad))

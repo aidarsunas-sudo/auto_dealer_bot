@@ -14,7 +14,7 @@ metrika:
 
 auto_approve:                 # publishing/auto_approve.py
   window_hours: 24            # окно отмены: «опубликовать после» = сейчас + это число часов
-  max_per_7_days: 1           # не больше столько автоматических статей за 7 дней
+  min_days_between_auto: 3    # не больше 1 автоматической статьи за это число суток
   rates_max_age_days: 90      # дата актуальности ставок в customs_rates.py не старше
   allowed_slugs: [utilsbor]   # автоодобрение только для этих тем; остальные — ручная проверка + уведомление
   article_min:                # нижняя граница объёма article.md по slug (по умолчанию 6000)

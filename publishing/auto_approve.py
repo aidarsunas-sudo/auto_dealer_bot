@@ -9,7 +9,7 @@
   б) дата актуальности ставок в customs_rates.py (строка «Ставки актуальны на:», берётся самая поздняя дата) не старше
      auto_approve.rates_max_age_days;
   в) нет файла publishing/HOLD;
-  г) не больше auto_approve.max_per_7_days автоматических статей за 7 дней;
+  г) не больше одной автоматической статьи за auto_approve.min_days_between_auto суток;
   д) статья не изменилась после последней проверки (контрольная сумма в checks.md совпадает с текущей);
   е) slug в allowed_slugs («всегда разрешено») или проверка содержания: валидная CUSTOMS_VERIFIED_ON (customs_rates.py)
      нужна, если главный запрос/slug темы про растаможку/таможню/пошлины/ЕТС либо в тексте вне блока примера есть числа
@@ -74,12 +74,12 @@ def parse_after(value, tz):
         return None
 
 
-def auto_count(rows, now, window_h, tz):
-    """Сколько статей запланировано автоматически за последние 7 суток (по «опубликовать после» минус окно)."""
+def auto_count(rows, now, window_h, tz, days=3):
+    """Сколько статей запланировано автоматически за последние days суток (по «опубликовать после» минус окно)."""
     n = 0
     for r in rows:
         t = parse_after(r.get("опубликовать после"), tz)
-        if t and t - timedelta(hours=window_h) >= now - timedelta(days=7):
+        if t and t - timedelta(hours=window_h) >= now - timedelta(days=days):
             n += 1
     return n
 
@@ -97,8 +97,9 @@ def global_gates(cfg, rows, now, tz, extra_scheduled=0):
         ok_b = 0 <= age <= ac["rates_max_age_days"]
         out.append((name_b, ok_b, f"сверено {d:%d.%m.%Y}, возраст {age} дн." + ("" if ok_b else (" — дата в будущем" if age < 0 else " — старше допустимого, сверьте ставки заново"))))
     out.append(("в) нет файла publishing/HOLD", not HOLD_FILE.exists(), "файл есть" if HOLD_FILE.exists() else ""))
-    n = auto_count(rows, now, ac["window_hours"], tz) + extra_scheduled
-    out.append((f"г) не больше {ac['max_per_7_days']} авто-статьи за 7 дней", n < ac["max_per_7_days"], f"уже запланировано за 7 дней: {n}"))
+    days = ac["min_days_between_auto"]
+    n = auto_count(rows, now, ac["window_hours"], tz, days) + extra_scheduled
+    out.append((f"г) не больше 1 авто-статьи за {days} дн.", n < 1, f"уже запланировано за {days} дн.: {n}"))
     return out
 
 

@@ -1,25 +1,27 @@
 """Генератор черновиков статей Pick+ Auto (ничего не публикует).
 
-  python generate_draft.py --slug utilsbor            # slug темы из wordstat/selected_topics.csv
-  python generate_draft.py --slug utilsbor --force    # перезаписать существующие article.md / post.md
+  python generate_draft.py --slug utilsbor              # slug темы из wordstat/selected_topics.csv
+  python generate_draft.py --slug utilsbor --force      # перезаписать существующие article.md / post.md
+  python generate_draft.py --slug utilsbor --dry-run    # показать тему, промпт и запрос; ничего не вызывать и не писать
 
 Собирает входные данные (строка темы, wordstat/analysis/<slug>.md, facts.md, блок примеров из cases_source.py,
-курс ЦБ один раз через get_rates), отправляет промпт в `claude -p` через stdin (--output-format text --max-turns 1,
-инструменты Claude не разрешены), сам пишет articles/<slug>/article.md, post.md, example_block.md и checks.md
-(validate_draft.py), добавляет запись «черновик» в publishing/publications.csv.
-Статус «одобрено» не ставится, в Telegram/Яндекс/Метрику ничего не уходит. Если claude -p просит войти (/login),
-скрипт останавливается и ничего не пишет.
+курс ЦБ один раз через get_rates), отправляет их в Anthropic API напрямую: POST https://api.anthropic.com/v1/messages
+(ключ ANTHROPIC_API_KEY из .env, без инструментов, без claude -p, без temperature). Модель и max_tokens — поля
+generate_model и generate_max_tokens в publishing/config.yaml. Правила текста (формат статьи, блоки, запреты) —
+системный промпт; данные темы — сообщение пользователя. Сам пишет articles/<slug>/article.md, post.md,
+example_block.md и checks.md (validate_draft.py), добавляет запись «черновик» в publishing/publications.csv.
+Статус «одобрено» не ставится, в Telegram/Яндекс/Метрику ничего не уходит. Ключ нигде не печатается.
 """
 import argparse
 import csv
 import os
 import re
-import shutil
-import subprocess
 import sys
-import tempfile
+import time
 from pathlib import Path
 
+import requests
+import yaml
 from dotenv import dotenv_values
 
 ROOT = Path(__file__).resolve().parent
@@ -30,9 +32,14 @@ SELECTED = ROOT / "wordstat" / "selected_topics.csv"
 ANALYSIS = ROOT / "wordstat" / "analysis"
 ARTICLES = ROOT / "articles"
 FACTS = ROOT / "facts.md"
+CONFIG = ROOT / "publishing" / "config.yaml"
 SAMPLE_SLUG = "avto-iz-korei-pod-zakaz"
 EX_MARK = "**Пример расчёта на основе лота**"
-CLAUDE_TIMEOUT = 900
+API_URL = "https://api.anthropic.com/v1/messages"
+API_VERSION = "2023-06-01"
+DEFAULT_MODEL = "claude-opus-5-5"     # по документации API на 2026-10: текущая модель Opus и модель по умолчанию
+DEFAULT_MAX_TOKENS = 16000            # несквозной запрос: рекомендованный потолок, чтобы не упереться в HTTP-таймаут
+RETRY_STATUS = (429, 500, 502, 503, 529)
 
 
 def read(path, limit=None):
@@ -67,9 +74,13 @@ def plain(block):
     return "\n".join(re.sub(r"^_(.+)_$", r"\1", l) for l in block.split("\n"))
 
 
-def example_blocks(topic):
+def example_blocks(topic, dry_run=False):
     import cases_source
-    rates = cases_source.get_rates()  # курс ЦБ один раз
+    if dry_run:   # без записи кэша курса на диск
+        import rates as rates_mod
+        rates = rates_mod.fetch_cbr_rates()
+    else:
+        rates = cases_source.get_rates()  # курс ЦБ один раз
     block = cases_source.example_block_for_topic(topic, rates=rates)
     if block.strip() == cases_source.NO_EXAMPLE:
         return cases_source.NO_EXAMPLE, cases_source.NO_EXAMPLE, cases_source.NO_EXAMPLE
@@ -129,36 +140,66 @@ def build_prompt(topic, slug, analysis, facts, ex_all, sample_article, sample_po
 """
 
 
+def split_prompt(prompt):
+    """Системный промпт (роль, правила, формат ответа) и сообщение пользователя (данные темы) — текст прежний."""
+    head, sep, tail = prompt.partition("\nТЕМА\n")
+    if not sep:
+        sys.exit("в промпте не найден раздел ТЕМА; запрос не отправлен")
+    return head.strip(), "ТЕМА\n" + tail
+
+
+def load_generate_settings():
+    cfg = yaml.safe_load(CONFIG.read_text(encoding="utf-8")) or {}
+    return str(cfg.get("generate_model") or DEFAULT_MODEL), int(cfg.get("generate_max_tokens") or DEFAULT_MAX_TOKENS)
+
+
 def api_key():
     """ANTHROPIC_API_KEY из .env (или уже заданный в окружении процесса); пустая строка, если нет."""
     return (dotenv_values(ROOT / ".env").get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or "").strip()
 
 
-def call_claude(prompt):
-    exe = shutil.which("claude.cmd") or shutil.which("claude")
-    if not exe:
-        sys.exit("claude не найден в PATH")
+def call_anthropic(system, user, model, max_tokens):
+    """POST /v1/messages: без инструментов, без temperature. Ключ в вывод и ошибки не попадает."""
     key = api_key()
-    env = {**os.environ, "ANTHROPIC_API_KEY": key} if key else None   # ключ только в окружение подпроцесса claude -p
-    p = subprocess.run([exe, "-p", "--output-format", "text", "--max-turns", "1"], input=prompt, capture_output=True,
-                       text=True, encoding="utf-8", errors="replace", timeout=CLAUDE_TIMEOUT, cwd=tempfile.gettempdir(),
-                       env=env)
-    out = ((p.stdout or "") + (p.stderr or "")).strip()
-    if key:
-        out = out.replace(key, "***")
-    if p.returncode != 0:
-        if re.search(r"not logged in|/login|authentic|api key", out, re.I):
-            print("claude -p вернул ошибку входа: " + out[:200])
-            print("Остановка: выполните вход (claude, затем /login) или задайте ANTHROPIC_API_KEY в окружении; файлы не записаны.")
-            sys.exit(3)
-        sys.exit(f"claude -p завершился с кодом {p.returncode}: {out[:300]}")
-    return out
+    if not key:
+        sys.exit("ANTHROPIC_API_KEY не задан в .env; запрос не отправлен, файлы не записаны")
+    mask = lambda s: str(s).replace(key, "***")
+    body = {"model": model, "max_tokens": max_tokens, "system": system, "messages": [{"role": "user", "content": user}]}
+    headers = {"x-api-key": key, "anthropic-version": API_VERSION, "content-type": "application/json"}
+    r = None
+    for attempt in range(4):
+        try:
+            r = requests.post(API_URL, json=body, headers=headers, timeout=(15, 600))
+        except (requests.ConnectionError, requests.Timeout) as e:
+            if attempt == 3:
+                sys.exit(f"Anthropic API недоступен ({type(e).__name__}) после 3 повторов; файлы не записаны")
+            print(f"  {type(e).__name__}, повтор {attempt + 1}/3 через {5 * (attempt + 1)} с…")
+            time.sleep(5 * (attempt + 1))
+            continue
+        if r.status_code in RETRY_STATUS and attempt < 3:
+            wait = int(r.headers.get("retry-after", 10 * (attempt + 1))) if r.status_code == 429 else 10 * (attempt + 1)
+            print(f"  HTTP {r.status_code}, повтор {attempt + 1}/3 через {wait} с…")
+            time.sleep(wait)
+            continue
+        break
+    if not r.ok:
+        hint = " (проверьте ANTHROPIC_API_KEY в .env)" if r.status_code in (401, 403) else ""
+        sys.exit(f"Anthropic API: HTTP {r.status_code}{hint}: {mask(r.text[:400])}; файлы не записаны")
+    data = r.json()
+    usage = data.get("usage") or {}
+    print(f"Ответ получен: модель {data.get('model')}, request-id {r.headers.get('request-id')}, "
+          f"токены: вход {usage.get('input_tokens')}, выход {usage.get('output_tokens')}, stop_reason {data.get('stop_reason')}")
+    if data.get("stop_reason") == "refusal":
+        sys.exit("модель отказалась отвечать (stop_reason=refusal); файлы не записаны")
+    if data.get("stop_reason") == "max_tokens":
+        sys.exit(f"ответ обрезан по max_tokens={max_tokens}: увеличьте generate_max_tokens в publishing/config.yaml; файлы не записаны")
+    return "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text").strip()
 
 
 def split_output(out):
     m = re.search(r"===ARTICLE===\s*(.*?)\s*===POST===\s*(.*)\Z", out, re.S)
     if not m:
-        sys.exit("в ответе claude нет маркеров ===ARTICLE=== / ===POST===; файлы не записаны")
+        sys.exit("в ответе модели нет маркеров ===ARTICLE=== / ===POST===; файлы не записаны")
     return m.group(1).strip(), m.group(2).strip()
 
 
@@ -188,25 +229,51 @@ def update_publications(slug, topic, force):
     return note
 
 
+def shorten(user, n=300):
+    """Для показа в dry-run: образцы статьи и поста сокращаются до n знаков."""
+    return re.sub(r"(ОБРАЗЕЦ (?:article|post)\.md\n<<<\n)(.*?)(\n>>>)",
+                  lambda m: m.group(1) + m.group(2)[:n] + f"\n… [ещё {max(0, len(m.group(2)) - n)} знаков]" + m.group(3),
+                  user, flags=re.S)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--slug", required=True)
     ap.add_argument("--force", action="store_true", help="перезаписать существующие article.md / post.md")
+    ap.add_argument("--dry-run", action="store_true", help="показать тему, промпт и запрос; ничего не вызывать и не писать")
     args = ap.parse_args()
     slug = args.slug
     out_dir = ARTICLES / slug
     targets = [out_dir / "article.md", out_dir / "post.md"]
     existing = [t.name for t in targets if t.exists()]
-    if existing and not args.force:
+    if existing and not args.force and not args.dry_run:
         sys.exit(f"{', '.join(existing)} уже есть в {out_dir}; для перезаписи добавьте --force")
 
+    model, max_tokens = load_generate_settings()
     topic = topic_row(slug)
-    ex_all, ex_article, ex_post = example_blocks(topic)
+    ex_all, ex_article, ex_post = example_blocks(topic, dry_run=args.dry_run)
     prompt = build_prompt(topic, slug, read(ANALYSIS / f"{slug}.md", 6000), read(FACTS), ex_all,
                           read(ARTICLES / SAMPLE_SLUG / "article.md"), read(ARTICLES / SAMPLE_SLUG / "post.md"))
+    system, user = split_prompt(prompt)
     print(f"Входные данные собраны: тема {slug}, анализ {'есть' if (ANALYSIS / (slug + '.md')).exists() else 'нет'}, "
-          f"примеры {'есть' if '[НЕТ ПРИМЕРА]' not in ex_all else 'нет'}; промпт {len(prompt)} знаков. Вызываю claude -p…")
-    article, post = split_output(call_claude(prompt))
+          f"примеры {'есть' if '[НЕТ ПРИМЕРА]' not in ex_all else 'нет'}; системный промпт {len(system)} знаков, "
+          f"сообщение пользователя {len(user)} знаков.")
+
+    if args.dry_run:
+        print(f"\n[dry-run] запрос НЕ отправлен, файлы не записаны.")
+        if existing and not args.force:
+            print(f"[dry-run] в реальном запуске: {', '.join(existing)} уже есть, потребовался бы --force")
+        print(f"[dry-run] запросил бы: POST {API_URL}")
+        print(f"[dry-run] заголовки: x-api-key: *** (ключ {'задан в .env' if api_key() else 'НЕ ЗАДАН'}, не печатается), "
+              f"anthropic-version: {API_VERSION}, content-type: application/json")
+        print(f"[dry-run] тело: model={model}, max_tokens={max_tokens}, system=<{len(system)} знаков>, "
+              f"messages=[1 сообщение user, {len(user)} знаков]; без tools, без temperature, без thinking-полей")
+        print("\n----- SYSTEM -----\n" + system)
+        print("\n----- USER (образцы сокращены) -----\n" + shorten(user))
+        return 0
+
+    print(f"Вызываю Anthropic API ({model}, max_tokens {max_tokens})…")
+    article, post = split_output(call_anthropic(system, user, model, max_tokens))
 
     article = substitute(substitute(article, "[[ПРИМЕР]]", ex_article, "article"), "[[КАК_ЗАКАЗАТЬ]]", how_to_order(slug, "article"), "article")
     post = substitute(substitute(post, "[[ПРИМЕР]]", plain(ex_post), "post"), "[[КАК_ЗАКАЗАТЬ]]", how_to_order(slug, "post"), "post")

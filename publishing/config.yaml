@@ -19,3 +19,6 @@ auto_approve:                 # publishing/auto_approve.py
   allowed_slugs: [utilsbor]   # автоодобрение только для этих тем; остальные — ручная проверка + уведомление
   article_min:                # нижняя граница объёма article.md по slug (по умолчанию 6000)
     utilsbor: 4000
+
+generate_model: claude-opus-5-5     # модель для generate_draft.py (прямой запрос к Anthropic API)
+generate_max_tokens: 16000          # потолок ответа (вместе с мышлением модели); не ниже ~12000 для статьи 6–9 тыс. знаков

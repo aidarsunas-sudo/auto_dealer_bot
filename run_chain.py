@@ -8,7 +8,8 @@
 Шаги (всегда в таком порядке): collect, topics, analyze, generate, approve, publish, stats, report.
   generate — одна статья за запуск: первая тема из selected_topics.csv без записи в publications.csv, иначе следующая
              из topics.csv по частоте (белый список/стоп-слова; строка дописывается в selected_topics.csv); только если есть
-             ANTHROPIC_API_KEY в .env или claude -p залогинен (иначе пропуск с записью в лог)
+             ANTHROPIC_API_KEY в .env (текст пишет generate_draft.py прямым запросом к Anthropic API, вход claude -p не нужен;
+             иначе пропуск с записью в лог)
   approve  — publishing/auto_approve.py --run: ворота для черновиков, уведомление в личный чат и статус «запланировано»
              с окном отмены (publishing/publications.csv); публикует запланированное шаг publish
   collect  — wordstat/wordstat_collect.py
@@ -24,7 +25,9 @@
 
 Лог: logs/chain_YYYY-MM-DD.log (время, шаг, результат, код выхода; значения токенов и ключей из .env маскируются).
 Упал шаг — остальные всё равно запускаются, итог помечается «с ошибками» (код выхода 1).
-Блокировка logs/chain.lock: если предыдущий запуск ещё идёт, второй завершается с сообщением (код 2).
+Блокировка logs/chain.lock: если предыдущий запуск ещё идёт, второй ждёт до 30 минут (проверка каждые 10 с, в логе
+«ожидаю…»), затем выходит с сообщением и кодом 2. Так недельная и ежедневная задачи, стартовавшие одновременно,
+выполняются по очереди и не портят publications.csv.
 """
 import argparse
 import csv
@@ -133,6 +136,27 @@ def acquire_lock():
 
 def release_lock():
     LOCK.unlink(missing_ok=True)
+
+
+LOCK_WAIT_SEC = 30 * 60   # сколько второй запуск ждёт освобождения блокировки, прежде чем выйти с кодом 2
+LOCK_POLL_SEC = 10
+
+
+def acquire_lock_wait(wait_sec=None, poll_sec=None):
+    """Ждёт освобождения блокировки до wait_sec (по умолчанию 30 минут), проверяя каждые poll_sec секунд.
+    Две задачи Планировщика, стартовавшие одновременно, выполняются по очереди, а не вторая с кодом 2."""
+    wait_sec = LOCK_WAIT_SEC if wait_sec is None else wait_sec
+    poll_sec = LOCK_POLL_SEC if poll_sec is None else poll_sec
+    deadline, last_note = time.time() + wait_sec, 0.0
+    while True:
+        if acquire_lock():
+            return True
+        if time.time() >= deadline:
+            return False
+        if time.time() - last_note >= 60:
+            log(f"цепочка | ожидаю завершения предыдущего запуска ({lock_holder()}), до {int(deadline - time.time())} с")
+            last_note = time.time()
+        time.sleep(poll_sec)
 
 
 # ---------- данные для шагов ----------
@@ -247,18 +271,9 @@ def append_selected(row):
         csv.DictWriter(f, fieldnames=fields, extrasaction="ignore", lineterminator="\r\n").writerow(row)
 
 
-def claude_logged_in():
-    """claude -p может работать: выполнен вход (claude auth status) или в окружении есть ANTHROPIC_API_KEY."""
-    if (dotenv_values(ROOT / ".env").get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or "").strip():
-        return True
-    exe = shutil.which("claude.cmd") or shutil.which("claude")
-    if not exe:
-        return False
-    try:
-        p = subprocess.run([exe, "auth", "status"], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
-        return bool(json.loads(p.stdout or "{}").get("loggedIn"))
-    except (OSError, ValueError, subprocess.TimeoutExpired):
-        return False
+def anthropic_key_set():
+    """generate пишет текст прямым запросом к Anthropic API: нужен ANTHROPIC_API_KEY в .env (или в окружении). Вход claude -p не нужен."""
+    return bool((dotenv_values(ROOT / ".env").get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or "").strip())
 
 
 def command_for(step):
@@ -282,9 +297,9 @@ def command_for(step):
         skip_note = ("; пропущены темы: " + "; ".join(f"{s} ({why})" for s, why in skipped)) if skipped else ""
         if slug is None:
             return None, {}, "нет свободных тем в selected_topics.csv и подходящих в topics.csv" + skip_note
-        if not claude_logged_in():
+        if not anthropic_key_set():
             PENDING_TOPIC_ROW = None
-            return None, {}, f"пропуск: нет ANTHROPIC_API_KEY в .env и claude -p не залогинен (нужна тема {slug}): черновик не генерируется" + skip_note
+            return None, {}, f"пропуск: нет ANTHROPIC_API_KEY в .env (нужна тема {slug}): черновик не генерируется" + skip_note
         extra = " (будет дописана в selected_topics.csv из topics.csv)" if PENDING_TOPIC_ROW else ""
         return [PY, "generate_draft.py", "--slug", slug], {}, f"тема: {slug}{extra}{skip_note}"
     if step == "approve":
@@ -374,8 +389,8 @@ def main():
                 print(f"[dry-run] {step}: {shown}{extra}" + (f" — {note}" if note else ""))
         return 0
 
-    if not acquire_lock():
-        msg = f"Предыдущий запуск ещё идёт ({lock_holder()}) — завершаюсь."
+    if not acquire_lock_wait():
+        msg = f"Предыдущий запуск не закончился за {LOCK_WAIT_SEC // 60} мин ({lock_holder()}) — завершаюсь."
         print(msg)
         LOGS.mkdir(exist_ok=True)
         log("цепочка | " + msg)

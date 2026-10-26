@@ -9,7 +9,8 @@
 (ключ ANTHROPIC_API_KEY из .env, без инструментов, без claude -p, без temperature). Модель и max_tokens — поля
 generate_model и generate_max_tokens в publishing/config.yaml. Правила текста (формат статьи, блоки, запреты) —
 системный промпт; данные темы — сообщение пользователя. Сам пишет articles/<slug>/article.md, post.md,
-example_block.md и checks.md (validate_draft.py), добавляет запись «черновик» в publishing/publications.csv.
+example_block.md, sources.md (разделы статьи с источником: факты / расчёт проекта / этап процесса; «нет» — проблема)
+и checks.md (validate_draft.py), добавляет запись «черновик» в publishing/publications.csv.
 Статус «одобрено» не ставится, в Telegram/Яндекс/Метрику ничего не уходит. Ключ нигде не печатается.
 """
 import argparse
@@ -100,12 +101,16 @@ def build_prompt(topic, slug, analysis, facts, ex_all, sample_article, sample_po
 6. Вместо блока примера поставь маркер [[ПРИМЕР]] (в article и в post), вместо блока «Как заказать» маркер [[КАК_ЗАКАЗАТЬ]] (в конце article и post). Сам текст блоков вставит скрипт, не переписывай их.
 7. post.md начинается строкой «Описание обложки: …» (одно предложение), затем заголовок и текст; первое предложение текста поста не длиннее 140 знаков.
 8. Про таможенные пошлины, ЕТС и таможенный сбор НЕ пиши цифры и условия (ни ставок, ни процентов, ни сумм, ни формул). Растаможку упоминай только как этап процесса и отсылай к блоку примера и к расчёту в нём. Про утильсбор пиши только по данным customs_rates.py (они уже заложены в БЛОК ПРИМЕРОВ и ФАКТЫ): своих ставок, коэффициентов и условий льготы не добавляй.
+9. ЗАПРЕЩЕНО писать разделы и утверждения о том, чего нет в ФАКТАХ: самостоятельный ввоз (без компании), ввоз через другие страны или в другие страны (Беларусь, Китай, Казахстан и т.п.), ограничения по моделям и маркам, условия доставки и оформления, не описанные в ФАКТАХ. Если запросы темы (сопутствующие запросы, хвосты) подразумевают такие разделы, ПРОПУСКАЙ их: не придумывай содержание и не оставляй для них пометок. Пиши только о том, что подтверждено ФАКТАМИ, БЛОКОМ ПРИМЕРОВ и общим описанием этапов процесса из ФАКТОВ.
+10. Вместе с текстом верни список разделов с источником каждого (раздел ===SOURCES=== ниже): по одной строке на каждый заголовок H2 статьи (кроме «Как заказать»), в виде «Заголовок раздела | источник», где источник — ровно одно из: «факты: <дословная строка из ФАКТОВ>», «расчёт проекта», «этап процесса», «нет». Раздел с источником «нет» писать нельзя: если такой раздел всё же получился, удали его из статьи.
 
 ФОРМАТ ОТВЕТА (ровно так, с маркерами на отдельных строках)
 ===ARTICLE===
 <текст article.md>
 ===POST===
 <текст post.md>
+===SOURCES===
+<по строке «Заголовок раздела | источник» на каждый H2-раздел article.md>
 
 ТЕМА
 главный запрос: {topic['главный запрос']}; slug: {slug}
@@ -197,10 +202,24 @@ def call_anthropic(system, user, model, max_tokens):
 
 
 def split_output(out):
-    m = re.search(r"===ARTICLE===\s*(.*?)\s*===POST===\s*(.*)\Z", out, re.S)
+    """(article, post, sources): sources — строки «раздел | источник» или '' (тогда validate_draft.py отметит проблему)."""
+    m = re.search(r"===ARTICLE===\s*(.*?)\s*===POST===\s*(.*?)\s*(?:===SOURCES===\s*(.*))?\Z", out, re.S)
     if not m:
         sys.exit("в ответе модели нет маркеров ===ARTICLE=== / ===POST===; файлы не записаны")
-    return m.group(1).strip(), m.group(2).strip()
+    return m.group(1).strip(), m.group(2).strip(), (m.group(3) or "").strip()
+
+
+def sources_markdown(raw):
+    """Список разделов с источником -> таблица sources.md (по строкам «раздел | источник»); '' если модель ничего не вернула."""
+    rows = []
+    for line in raw.splitlines():
+        line = line.strip().lstrip("-*• ").strip()
+        if "|" in line:
+            head, _, src = line.partition("|")
+            rows.append((head.strip().strip("|").strip(), src.strip().strip("|").strip()))
+    if not rows:
+        return ""
+    return "| Раздел | Источник |\n|---|---|\n" + "\n".join(f"| {h} | {s} |" for h, s in rows) + "\n"
 
 
 def substitute(text, marker, value, name):
@@ -273,7 +292,7 @@ def main():
         return 0
 
     print(f"Вызываю Anthropic API ({model}, max_tokens {max_tokens})…")
-    article, post = split_output(call_anthropic(system, user, model, max_tokens))
+    article, post, sources_raw = split_output(call_anthropic(system, user, model, max_tokens))
 
     article = substitute(substitute(article, "[[ПРИМЕР]]", ex_article, "article"), "[[КАК_ЗАКАЗАТЬ]]", how_to_order(slug, "article"), "article")
     post = substitute(substitute(post, "[[ПРИМЕР]]", plain(ex_post), "post"), "[[КАК_ЗАКАЗАТЬ]]", how_to_order(slug, "post"), "post")
@@ -282,6 +301,11 @@ def main():
     targets[0].write_text(article + "\n", encoding="utf-8")
     targets[1].write_text(post + "\n", encoding="utf-8")
     (out_dir / "example_block.md").write_text(ex_all + "\n", encoding="utf-8")
+    sources_md = sources_markdown(sources_raw)
+    if sources_md:
+        (out_dir / "sources.md").write_text(sources_md, encoding="utf-8")
+    else:
+        print("ВНИМАНИЕ: модель не вернула список разделов с источниками; sources.md не записан, validate_draft.py отметит проблему")
     print(f"Записано: {targets[0]}, {targets[1]}")
     print("publications.csv:", update_publications(slug, topic, args.force))
 

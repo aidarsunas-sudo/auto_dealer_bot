@@ -4,7 +4,8 @@
   python validate_draft.py --slug utilsbor --article-min 4000  # другая нижняя граница объёма article.md (по умолчанию 6000)
 
 Проверки: пометки; запрещённые слова; объём; числа только из facts.md / customs_rates.py / блока примеров / списка разрешённых;
-блок «Как заказать» (ровно 3 ссылки с UTM) и домены ссылок; первое предложение post.md; разметка в post.md.
+блок «Как заказать» (ровно 3 ссылки с UTM) и домены ссылок; первое предложение post.md; разметка в post.md;
+у каждого H2-раздела article.md есть источник в articles/<slug>/sources.md (раздел без источника или с «нет» — проблема).
 Разметка (**, #, _) проверяется только в post.md: article.md — Markdown по формату, а post.md уходит в Telegram
 без форматирования.
 """
@@ -82,6 +83,44 @@ def first_sentence(post):
     return (body[:m.start() + (1 if body[m.start()] in ".!?" else 0)] if m else body).strip()
 
 
+SKIP_SECTIONS = {"как заказать"}   # блок вставляет скрипт (три ссылки с UTM), источник не нужен
+
+
+def _norm_heading(h):
+    return re.sub(r"\s+", " ", h.strip().strip("#").strip().rstrip(":")).lower()
+
+
+def read_sources(path):
+    """sources.md: строки «| Раздел | Источник |» (или «Раздел | Источник»). Возвращает {заголовок(норм.): источник}."""
+    out = {}
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 2 or set(cells[0]) <= set("-: ") or cells[0].lower() in ("раздел", "заголовок раздела"):
+            continue
+        out[_norm_heading(cells[0])] = cells[1]
+    return out
+
+
+def sections_have_sources(d, article_text):
+    """Проблема: нет sources.md, раздел без строки в нём, с пустым источником или с источником «нет»."""
+    headings = [l[3:] for l in article_text.splitlines() if l.startswith("## ")]
+    sp = Path(d) / "sources.md"
+    if not sp.exists():
+        return False, "нет файла sources.md (список разделов с источником: факты / расчёт проекта / этап процесса)"
+    src = read_sources(sp)
+    bad = []
+    for h in headings:
+        key = _norm_heading(h)
+        if key in SKIP_SECTIONS:
+            continue
+        s = (src.get(key) or "").strip()
+        if not s:
+            bad.append(f"«{h}»: без источника")
+        elif s.lower().strip("«» ") == "нет":
+            bad.append(f"«{h}»: источник «нет»")
+    return (not bad), "; ".join(bad)
+
+
 def validate(slug, articles_dir=None, article_min=None):
     """article_min — нижняя граница объёма article.md (по умолчанию ARTICLE_RANGE[0] = 6000)."""
     a_min = article_min if article_min is not None else ARTICLE_RANGE[0]
@@ -144,6 +183,10 @@ def validate(slug, articles_dir=None, article_min=None):
     no_urls = re.sub(r"@\w+", "", URL_RE.sub("", post))  # адреса и @имена каналов (auto_generals) — не разметка
     marks = [s for s, present in (("**", "**" in no_urls), ("#", "#" in no_urls), ("_ вне ссылок", "_" in no_urls)) if present]
     res.append(("post.md: нет символов разметки (**, #, _ вне ссылок)", not marks, ", ".join(marks)))
+
+    # 9. у каждого раздела article.md есть источник в sources.md, и он не «нет»
+    ok_s, detail_s = sections_have_sources(d, art)
+    res.append(("Каждый раздел article.md имеет источник в sources.md (не «нет»)", ok_s, detail_s))
     return res
 
 

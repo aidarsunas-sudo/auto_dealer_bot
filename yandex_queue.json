@@ -1889,5 +1889,50 @@
       "transmission": "오토"
     },
     "added_at": "2026-10-27T12:01:16.165925"
+  },
+  {
+    "car": {
+      "brand": "Renault",
+      "model": "QM6",
+      "trim": "",
+      "external_id": "01a17b1f-414c-790e-87aa-d4a53a2b1ec1",
+      "year": 2022,
+      "month": 10,
+      "mileage_km": 21104,
+      "cc": 1998,
+      "hp": 144,
+      "fuel_code": "petrol",
+      "price": 17900000,
+      "specs": "1998 см³, 144 л.с.",
+      "url": "https://www.charancha.com/cars/01a17b1f-414c-790e-87aa-d4a53a2b1ec1",
+      "source": "charancha",
+      "photos": [
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36ab-756b-858a-3a8ae28b9e55.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36b0-72fc-86ca-4cff79b4857c.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36b3-7ebe-ab88-0b05d7c53b06.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36b7-740b-b9cc-3b5d520ef0e4.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36bb-7034-9850-841e0844c83a.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36bf-76c3-b4f0-5bc4fbfa8185.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36c3-7241-82f6-5d270e2b9d2f.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36c7-7bdc-a7d3-74785c8810a1.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36cb-7f63-af3c-c95173074e76.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36ce-787f-bdaa-eaf6ea805c7f.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36d1-7c04-9ba4-763f3778028d.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36d6-7ba3-8dcf-bdde45103b47.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36d9-76c8-a6fd-f1089fa4d139.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36dd-76b0-90f4-bbbe5a7fe667.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36e1-701c-90b2-d722ff36fbba.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36e5-709c-b6dc-54442d17bd10.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36ea-7d65-8ec9-7333d92a753c.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36ee-7c2f-b689-dc9361377315.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36f2-764e-b0fe-c4d1285099dd.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a17b1f-36f6-7cb7-a6e6-147c99ced82d.jpg"
+      ],
+      "transmission": "CVT",
+      "is_accident": null,
+      "is_seizure": null,
+      "color": "회색"
+    },
+    "added_at": "2026-10-27T17:59:58.497007"
   }
 ]

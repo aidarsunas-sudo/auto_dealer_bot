@@ -18513,11 +18513,15 @@
   },
   "https://fem.encar.com/cars/detail/43003487": {
     "first_seen": "2026-10-25T11:07:23",
-    "posted_at": null
+    "posted_at": "2026-10-29T22:41:08",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://fem.encar.com/cars/detail/42994162": {
     "first_seen": "2026-10-25T11:07:23",
-    "posted_at": null
+    "posted_at": "2026-10-29T22:41:26",
+    "brand": "Renault",
+    "model": "QM6"
   },
   "https://fem.encar.com/cars/detail/42979112": {
     "first_seen": "2026-10-25T11:07:23",

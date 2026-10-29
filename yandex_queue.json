@@ -1083,5 +1083,135 @@
       "color": "회색"
     },
     "added_at": "2026-10-27T17:59:58.497007"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42908436",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 17792,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 15500000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42908436",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture10/pic4290/42902968_001.jpg",
+        "https://ci.encar.com/carpicture10/pic4290/42902968_003.jpg",
+        "https://ci.encar.com/carpicture10/pic4290/42902968_004.jpg",
+        "https://ci.encar.com/carpicture10/pic4290/42902968_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-29T12:43:41.592708"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "42517418",
+      "year": 2022,
+      "month": 3,
+      "mileage_km": 30500,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 26900000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42517418",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture01/pic4251/42517418_001.jpg",
+        "https://ci.encar.com/carpicture01/pic4251/42517418_003.jpg",
+        "https://ci.encar.com/carpicture01/pic4251/42517418_004.jpg",
+        "https://ci.encar.com/carpicture01/pic4251/42517418_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-29T12:45:58.576354"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "42939568",
+      "year": 2022,
+      "month": 11,
+      "mileage_km": 38597,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 21500000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42939568",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture03/pic4293/42936265_001.jpg",
+        "https://ci.encar.com/carpicture03/pic4293/42936265_003.jpg",
+        "https://ci.encar.com/carpicture03/pic4293/42936265_004.jpg",
+        "https://ci.encar.com/carpicture03/pic4293/42936265_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-29T12:46:17.388103"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 ACTIV",
+      "external_id": "42923673",
+      "year": 2023,
+      "month": 6,
+      "mileage_km": 31531,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 17500000,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42923673",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture02/pic4292/42923673_001.jpg",
+        "https://ci.encar.com/carpicture02/pic4292/42923673_003.jpg",
+        "https://ci.encar.com/carpicture02/pic4292/42923673_004.jpg",
+        "https://ci.encar.com/carpicture02/pic4292/42923673_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-29T12:46:36.481831"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "42902968",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 17792,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 15500000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/42902968",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture10/pic4290/42902968_001.jpg",
+        "https://ci.encar.com/carpicture10/pic4290/42902968_003.jpg",
+        "https://ci.encar.com/carpicture10/pic4290/42902968_004.jpg",
+        "https://ci.encar.com/carpicture10/pic4290/42902968_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-10-29T12:49:01.612751"
   }
 ]

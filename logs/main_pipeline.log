@@ -370251,3 +370251,325 @@ Call log:
 2026-10-30 22:11:35,706 [INFO] Уведомление об ошибке отправлено администратору
 2026-10-30 22:11:35,707 [INFO] yandex_queue: рано — интервал ещё не прошёл
 2026-10-30 22:11:35,707 [INFO] === Готово: опубликовано 0 постов ===
+2026-10-31 04:57:55,324 [INFO] === Запуск main_pipeline ===
+2026-10-31 04:57:55,944 [ERROR] VK_TOKEN не рабочий — публикация в VK в этом прогоне будет проваливаться: VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4). (токен недействителен/просрочен — нужен новый (см. SETUP_GITHUB_ACTIONS.md, пользовательский токен через Kate Mobile/аналогичное Standalone-приложение, НЕ VK ID confidential-приложение — тот выдаёт токен без прав wall/photos/video))
+2026-10-31 04:57:56,324 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-31 04:57:56,907 [INFO] Получены свежие курсы ЦБ: EUR=89.66 USD=80.56 KRW(за 1000)=60.33
+2026-10-31 04:57:56,908 [INFO] Режим поиска: both
+2026-10-31 04:57:56,909 [INFO] ── Целевая модель: Audi Q3 (kbchachacha) ──
+2026-10-31 04:57:56,909 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:57:58,017 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:57:58,017 [INFO] kbchachacha: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-31 04:57:58,017 [INFO] ── Целевая модель: Audi Q3 (encar) ──
+2026-10-31 04:57:58,030 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:57:58,393 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-31 04:57:58,395 [INFO] ── Целевая модель: Audi Q3 (charancha) ──
+2026-10-31 04:57:58,965 [INFO] charancha: Audi Q3 -> найдено 1 (после фильтров)
+2026-10-31 04:57:58,966 [INFO] ── Целевая модель: Audi Q3 (onbid) ──
+2026-10-31 04:58:02,598 [INFO] onbid: Audi Q3 -> найдено 0 (после фильтров)
+2026-10-31 04:58:02,600 [INFO] ── Целевая модель: Volkswagen Tiguan (kbchachacha) ──
+2026-10-31 04:58:02,600 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:04,052 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:04,052 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:04,973 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:04,973 [INFO] kbchachacha: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-31 04:58:04,973 [INFO] ── Целевая модель: Volkswagen Tiguan (encar) ──
+2026-10-31 04:58:04,980 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:58:04,980 [INFO] ── Целевая модель: Volkswagen Tiguan (charancha) ──
+2026-10-31 04:58:05,764 [INFO] charancha: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-31 04:58:05,766 [INFO] ── Целевая модель: Volkswagen Tiguan (onbid) ──
+2026-10-31 04:58:09,570 [INFO] onbid: Volkswagen Tiguan -> найдено 0 (после фильтров)
+2026-10-31 04:58:09,572 [INFO] ── Целевая модель: Kia K3 (kbchachacha) ──
+2026-10-31 04:58:09,572 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:10,542 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:10,542 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:11,525 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:11,525 [INFO] kbchachacha: Kia K3 -> найдено 0 (после фильтров)
+2026-10-31 04:58:11,525 [INFO] ── Целевая модель: Kia K3 (encar) ──
+2026-10-31 04:58:11,532 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:58:11,532 [INFO] ── Целевая модель: Kia K3 (charancha) ──
+2026-10-31 04:58:14,242 [INFO] charancha: Kia K3 -> найдено 8 (после фильтров)
+2026-10-31 04:58:14,243 [INFO] ── Целевая модель: Kia K3 (onbid) ──
+2026-10-31 04:58:16,884 [INFO] onbid: Kia K3 -> найдено 0 (после фильтров)
+2026-10-31 04:58:16,885 [INFO] ── Целевая модель: Kia K5 (kbchachacha) ──
+2026-10-31 04:58:16,886 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:17,819 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:17,819 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:18,758 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:18,758 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:19,768 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:19,768 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:20,846 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:20,846 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:21,822 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:21,822 [INFO] kbchachacha: Kia K5 -> найдено 0 (после фильтров)
+2026-10-31 04:58:21,822 [INFO] ── Целевая модель: Kia K5 (encar) ──
+2026-10-31 04:58:21,829 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:58:21,829 [INFO] ── Целевая модель: Kia K5 (charancha) ──
+2026-10-31 04:58:28,127 [INFO] charancha: Kia K5 -> найдено 11 (после фильтров)
+2026-10-31 04:58:28,128 [INFO] ── Целевая модель: Kia K5 (onbid) ──
+2026-10-31 04:58:32,301 [INFO] onbid: Kia K5 -> найдено 0 (после фильтров)
+2026-10-31 04:58:32,302 [INFO] ── Целевая модель: Hyundai Sonata (kbchachacha) ──
+2026-10-31 04:58:32,303 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:32,788 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:32,788 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:33,799 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:33,799 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:34,284 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:34,284 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:34,770 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:34,770 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:35,720 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:35,721 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:58:36,698 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:58:36,698 [INFO] kbchachacha: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-31 04:58:36,699 [INFO] ── Целевая модель: Hyundai Sonata (encar) ──
+2026-10-31 04:58:36,705 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:58:36,706 [INFO] ── Целевая модель: Hyundai Sonata (charancha) ──
+2026-10-31 04:58:43,406 [INFO] charancha: Hyundai Sonata -> найдено 7 (после фильтров)
+2026-10-31 04:58:43,407 [INFO] ── Целевая модель: Hyundai Sonata (onbid) ──
+2026-10-31 04:58:47,561 [INFO] onbid: Hyundai Sonata -> найдено 0 (после фильтров)
+2026-10-31 04:58:47,562 [INFO] ── Целевая модель: Kia Tasman (kbchachacha) ──
+2026-10-31 04:58:47,562 [INFO] kbchachacha: Kia Tasman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:58:47,562 [INFO] ── Целевая модель: Kia Tasman (encar) ──
+2026-10-31 04:58:47,569 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:58:47,569 [INFO] ── Целевая модель: Kia Tasman (charancha) ──
+2026-10-31 04:58:47,570 [INFO] ── Целевая модель: Kia Tasman (onbid) ──
+2026-10-31 04:58:50,701 [INFO] onbid: Kia Tasman -> найдено 0 (после фильтров)
+2026-10-31 04:58:50,702 [INFO] ── Целевая модель: Hyundai Venue (kbchachacha) ──
+2026-10-31 04:58:50,703 [INFO] kbchachacha: Hyundai Venue -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:58:50,703 [INFO] ── Целевая модель: Hyundai Venue (encar) ──
+2026-10-31 04:58:50,709 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:58:50,709 [INFO] ── Целевая модель: Hyundai Venue (charancha) ──
+2026-10-31 04:58:50,710 [INFO] ── Целевая модель: Hyundai Venue (onbid) ──
+2026-10-31 04:58:54,653 [INFO] onbid: Hyundai Venue -> найдено 0 (после фильтров)
+2026-10-31 04:58:54,654 [INFO] ── Целевая модель: Hyundai Casper (kbchachacha) ──
+2026-10-31 04:58:54,655 [INFO] kbchachacha: Hyundai Casper -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:58:54,655 [INFO] ── Целевая модель: Hyundai Casper (encar) ──
+2026-10-31 04:58:54,661 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:58:54,662 [INFO] ── Целевая модель: Hyundai Casper (charancha) ──
+2026-10-31 04:58:54,662 [INFO] ── Целевая модель: Hyundai Casper (onbid) ──
+2026-10-31 04:58:57,783 [INFO] onbid: Hyundai Casper -> найдено 0 (после фильтров)
+2026-10-31 04:58:57,784 [INFO] ── Целевая модель: Kia Ray (kbchachacha) ──
+2026-10-31 04:58:57,785 [INFO] kbchachacha: Kia Ray -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:58:57,785 [INFO] ── Целевая модель: Kia Ray (encar) ──
+2026-10-31 04:58:57,791 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:58:57,792 [INFO] ── Целевая модель: Kia Ray (charancha) ──
+2026-10-31 04:58:57,792 [INFO] ── Целевая модель: Kia Ray (onbid) ──
+2026-10-31 04:59:00,955 [INFO] onbid: Kia Ray -> найдено 0 (после фильтров)
+2026-10-31 04:59:00,956 [INFO] ── Целевая модель: Hyundai IONIQ 5 (kbchachacha) ──
+2026-10-31 04:59:00,957 [INFO] kbchachacha: Hyundai IONIQ 5 -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:59:00,957 [INFO] ── Целевая модель: Hyundai IONIQ 5 (encar) ──
+2026-10-31 04:59:00,963 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:00,964 [INFO] ── Целевая модель: Hyundai IONIQ 5 (charancha) ──
+2026-10-31 04:59:00,964 [INFO] ── Целевая модель: Hyundai IONIQ 5 (onbid) ──
+2026-10-31 04:59:04,163 [INFO] onbid: Hyundai IONIQ 5 -> найдено 0 (после фильтров)
+2026-10-31 04:59:04,164 [INFO] ── Целевая модель: Kia EV9 (kbchachacha) ──
+2026-10-31 04:59:04,164 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:05,135 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:05,135 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:05,621 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:05,621 [INFO] kbchachacha: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-31 04:59:05,621 [INFO] ── Целевая модель: Kia EV9 (encar) ──
+2026-10-31 04:59:05,627 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:05,628 [INFO] ── Целевая модель: Kia EV9 (charancha) ──
+2026-10-31 04:59:06,168 [INFO] charancha: Kia EV9 -> найдено 1 (после фильтров)
+2026-10-31 04:59:06,169 [INFO] ── Целевая модель: Kia EV9 (onbid) ──
+2026-10-31 04:59:10,290 [INFO] onbid: Kia EV9 -> найдено 0 (после фильтров)
+2026-10-31 04:59:10,291 [INFO] ── Целевая модель: Genesis GV60 (kbchachacha) ──
+2026-10-31 04:59:10,292 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:10,775 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:10,775 [INFO] kbchachacha: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-31 04:59:10,775 [INFO] ── Целевая модель: Genesis GV60 (encar) ──
+2026-10-31 04:59:10,782 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:10,782 [INFO] ── Целевая модель: Genesis GV60 (charancha) ──
+2026-10-31 04:59:11,358 [INFO] charancha: Genesis GV60 -> найдено 1 (после фильтров)
+2026-10-31 04:59:11,359 [INFO] ── Целевая модель: Genesis GV60 (onbid) ──
+2026-10-31 04:59:14,274 [INFO] onbid: Genesis GV60 -> найдено 0 (после фильтров)
+2026-10-31 04:59:14,275 [INFO] ── Целевая модель: BYD SEALION 7 (kbchachacha) ──
+2026-10-31 04:59:14,276 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:14,760 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:14,760 [INFO] kbchachacha: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-31 04:59:14,761 [INFO] ── Целевая модель: BYD SEALION 7 (encar) ──
+2026-10-31 04:59:14,767 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:14,768 [INFO] ── Целевая модель: BYD SEALION 7 (charancha) ──
+2026-10-31 04:59:14,768 [INFO] ── Целевая модель: BYD SEALION 7 (onbid) ──
+2026-10-31 04:59:18,905 [INFO] onbid: BYD SEALION 7 -> найдено 0 (после фильтров)
+2026-10-31 04:59:18,906 [INFO] ── Целевая модель: Kia Sportage (kbchachacha) ──
+2026-10-31 04:59:18,907 [INFO] kbchachacha: Kia Sportage -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:59:18,907 [INFO] ── Целевая модель: Kia Sportage (encar) ──
+2026-10-31 04:59:18,913 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:18,914 [INFO] ── Целевая модель: Kia Sportage (charancha) ──
+2026-10-31 04:59:18,915 [INFO] ── Целевая модель: Kia Sportage (onbid) ──
+2026-10-31 04:59:21,533 [INFO] onbid: Kia Sportage -> найдено 0 (после фильтров)
+2026-10-31 04:59:21,534 [INFO] ── Целевая модель: Renault QM6 (kbchachacha) ──
+2026-10-31 04:59:21,534 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:22,024 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:22,024 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:22,507 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:22,507 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:23,483 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:23,483 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:23,971 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:23,971 [INFO] kbchachacha: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-31 04:59:23,971 [INFO] ── Целевая модель: Renault QM6 (encar) ──
+2026-10-31 04:59:23,978 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:23,979 [INFO] ── Целевая модель: Renault QM6 (charancha) ──
+2026-10-31 04:59:26,544 [INFO] charancha: Renault QM6 -> найдено 2 (после фильтров)
+2026-10-31 04:59:26,545 [INFO] ── Целевая модель: Renault QM6 (onbid) ──
+2026-10-31 04:59:29,671 [INFO] onbid: Renault QM6 -> найдено 0 (после фильтров)
+2026-10-31 04:59:29,672 [INFO] ── Целевая модель: Renault SM6 (kbchachacha) ──
+2026-10-31 04:59:29,673 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:30,165 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:30,165 [INFO] kbchachacha: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-31 04:59:30,165 [INFO] ── Целевая модель: Renault SM6 (encar) ──
+2026-10-31 04:59:30,172 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:30,172 [INFO] ── Целевая модель: Renault SM6 (charancha) ──
+2026-10-31 04:59:31,657 [INFO] charancha: Renault SM6 -> найдено 2 (после фильтров)
+2026-10-31 04:59:31,658 [INFO] ── Целевая модель: Renault SM6 (onbid) ──
+2026-10-31 04:59:35,454 [INFO] onbid: Renault SM6 -> найдено 0 (после фильтров)
+2026-10-31 04:59:35,455 [INFO] ── Целевая модель: Chevrolet Malibu (kbchachacha) ──
+2026-10-31 04:59:35,455 [INFO] kbchachacha: Chevrolet Malibu -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:59:35,455 [INFO] ── Целевая модель: Chevrolet Malibu (encar) ──
+2026-10-31 04:59:35,462 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:35,462 [INFO] ── Целевая модель: Chevrolet Malibu (charancha) ──
+2026-10-31 04:59:35,463 [INFO] ── Целевая модель: Chevrolet Malibu (onbid) ──
+2026-10-31 04:59:39,068 [INFO] onbid: Chevrolet Malibu -> найдено 0 (после фильтров)
+2026-10-31 04:59:39,069 [INFO] ── Целевая модель: Chevrolet Spark (kbchachacha) ──
+2026-10-31 04:59:39,070 [INFO] kbchachacha: Chevrolet Spark -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:59:39,070 [INFO] ── Целевая модель: Chevrolet Spark (encar) ──
+2026-10-31 04:59:39,077 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:39,077 [INFO] ── Целевая модель: Chevrolet Spark (charancha) ──
+2026-10-31 04:59:39,078 [INFO] ── Целевая модель: Chevrolet Spark (onbid) ──
+2026-10-31 04:59:43,132 [INFO] onbid: Chevrolet Spark -> найдено 0 (после фильтров)
+2026-10-31 04:59:43,133 [INFO] ── Целевая модель: Chevrolet Trax (kbchachacha) ──
+2026-10-31 04:59:43,134 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:43,618 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:43,619 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 04:59:44,261 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 04:59:44,261 [INFO] kbchachacha: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-31 04:59:44,261 [INFO] ── Целевая модель: Chevrolet Trax (encar) ──
+2026-10-31 04:59:44,267 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:44,268 [INFO] ── Целевая модель: Chevrolet Trax (charancha) ──
+2026-10-31 04:59:45,761 [INFO] charancha: Chevrolet Trax -> найдено 3 (после фильтров)
+2026-10-31 04:59:45,762 [INFO] ── Целевая модель: Chevrolet Trax (onbid) ──
+2026-10-31 04:59:48,351 [INFO] onbid: Chevrolet Trax -> найдено 0 (после фильтров)
+2026-10-31 04:59:48,352 [INFO] ── Целевая модель: Chevrolet Trailblazer (kbchachacha) ──
+2026-10-31 04:59:48,352 [INFO] kbchachacha: Chevrolet Trailblazer -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:59:48,352 [INFO] ── Целевая модель: Chevrolet Trailblazer (encar) ──
+2026-10-31 04:59:48,359 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:48,359 [INFO] ── Целевая модель: Chevrolet Trailblazer (charancha) ──
+2026-10-31 04:59:48,360 [INFO] ── Целевая модель: Chevrolet Trailblazer (onbid) ──
+2026-10-31 04:59:51,508 [INFO] onbid: Chevrolet Trailblazer -> найдено 0 (после фильтров)
+2026-10-31 04:59:51,509 [INFO] ── Целевая модель: Mini Countryman (kbchachacha) ──
+2026-10-31 04:59:51,509 [INFO] kbchachacha: Mini Countryman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:59:51,509 [INFO] ── Целевая модель: Mini Countryman (encar) ──
+2026-10-31 04:59:51,516 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:51,516 [INFO] ── Целевая модель: Mini Countryman (charancha) ──
+2026-10-31 04:59:51,517 [INFO] ── Целевая модель: Mini Countryman (onbid) ──
+2026-10-31 04:59:55,099 [INFO] onbid: Mini Countryman -> найдено 0 (после фильтров)
+2026-10-31 04:59:55,100 [INFO] ── Целевая модель: Mini Clubman (kbchachacha) ──
+2026-10-31 04:59:55,100 [INFO] kbchachacha: Mini Clubman -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:59:55,100 [INFO] ── Целевая модель: Mini Clubman (encar) ──
+2026-10-31 04:59:55,107 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:55,107 [INFO] ── Целевая модель: Mini Clubman (charancha) ──
+2026-10-31 04:59:55,108 [INFO] ── Целевая модель: Mini Clubman (onbid) ──
+2026-10-31 04:59:57,718 [INFO] onbid: Mini Clubman -> найдено 0 (после фильтров)
+2026-10-31 04:59:57,719 [INFO] ── Целевая модель: Mini Convertible (kbchachacha) ──
+2026-10-31 04:59:57,720 [INFO] kbchachacha: Mini Convertible -> найдено 0 (резолвинг марки/модели не удался, см. WARNING выше)
+2026-10-31 04:59:57,720 [INFO] ── Целевая модель: Mini Convertible (encar) ──
+2026-10-31 04:59:57,726 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 04:59:57,727 [INFO] ── Целевая модель: Mini Convertible (charancha) ──
+2026-10-31 04:59:57,728 [INFO] ── Целевая модель: Mini Convertible (onbid) ──
+2026-10-31 05:00:01,179 [INFO] onbid: Mini Convertible -> найдено 0 (после фильтров)
+2026-10-31 05:00:01,180 [INFO] ── Целевая модель: Peugeot 3008 (kbchachacha) ──
+2026-10-31 05:00:01,180 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 05:00:01,656 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 05:00:01,657 [INFO] kbchachacha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-31 05:00:01,657 [INFO] ── Целевая модель: Peugeot 3008 (encar) ──
+2026-10-31 05:00:01,663 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 05:00:01,664 [INFO] ── Целевая модель: Peugeot 3008 (charancha) ──
+2026-10-31 05:00:02,191 [INFO] charancha: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-31 05:00:02,192 [INFO] ── Целевая модель: Peugeot 3008 (onbid) ──
+2026-10-31 05:00:04,812 [INFO] onbid: Peugeot 3008 -> найдено 0 (после фильтров)
+2026-10-31 05:00:04,813 [INFO] ── Целевая модель: Peugeot 5008 (kbchachacha) ──
+2026-10-31 05:00:04,813 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 05:00:05,782 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 05:00:05,782 [INFO] kbchachacha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-31 05:00:05,783 [INFO] ── Целевая модель: Peugeot 5008 (encar) ──
+2026-10-31 05:00:05,789 [WARNING] ⚠️ Encar: снимок устарел (возраст 46 ч, предел 36 ч) — Encar в этом прогоне пропущен. Проверьте задачу сборщика на компьютере владельца.
+2026-10-31 05:00:05,790 [INFO] ── Целевая модель: Peugeot 5008 (charancha) ──
+2026-10-31 05:00:06,408 [INFO] charancha: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-31 05:00:06,410 [INFO] ── Целевая модель: Peugeot 5008 (onbid) ──
+2026-10-31 05:00:10,026 [INFO] onbid: Peugeot 5008 -> найдено 0 (после фильтров)
+2026-10-31 05:00:10,027 [INFO] filter_year_range (target_collector): отброшено 4 объявлений вне диапазона года 2022-2023 (или без года)
+2026-10-31 05:00:10,028 [INFO] broad_search: сегмент этого прогона — мощнее / бизнес-класс (140-160 л.с.) (3/4)
+2026-10-31 05:00:10,028 [INFO] ── Широкий поиск: kbchachacha (hp в [140, 160]) ──
+2026-10-31 05:00:10,028 [INFO] Загружаю список б/у авто, страница 1 (попытка 1/3)
+2026-10-31 05:00:11,057 [INFO] Страница 1: пусто, останавливаюсь
+2026-10-31 05:00:11,057 [INFO] kbchachacha (broad): найдено 0 машин с hp в [140, 160]
+2026-10-31 05:00:11,058 [INFO] ── Широкий поиск: encar (hp в [140, 160]) ──
+2026-10-31 05:00:11,058 [INFO] encar: широкий поиск в режиме снимка не поддерживается (снимок собирается по target_models.json) — пропуск
+2026-10-31 05:00:11,058 [INFO] ── Широкий поиск: charancha (hp в [140, 160]) ──
+2026-10-31 05:00:15,975 [INFO] charancha (broad): найдено 1 машин с hp в [140, 160]
+2026-10-31 05:00:15,976 [INFO] ── Широкий поиск: onbid (hp в [140, 160]) ──
+2026-10-31 05:00:38,165 [INFO] onbid (broad): найдено 5 машин с hp в [140, 160]
+2026-10-31 05:00:38,166 [INFO] filter_year_range (broad_collector): отброшено 6 объявлений вне диапазона года 2022-2023 (или без года)
+2026-10-31 05:00:38,167 [WARNING] check_source_health: Источник(и) не дали НИ ОДНОГО объявления за этот прогон main_pipeline.py (targeted+broad суммарно): kbchachacha, encar, onbid. Похоже на 'тихую смерть' резолвера/поиска — см. FINAL_STATE.md про инцидент 2026-07-20 (kbchachacha/charancha молчали неделями незамеченными).
+2026-10-31 05:00:38,556 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-31 05:00:38,576 [INFO] Найдено 32 объявлений, кандидатов на публикацию (новые, не старше 14 дн., пробег до 40000 км, ещё не опубликованные): 3
+2026-10-31 05:00:38,576 [INFO] Пре-фильтр причины отсева: {'missing:hp+fuel_code': 2, 'bad_title': 1}
+2026-10-31 05:00:38,576 [WARNING] Пре-фильтр: убраны ВСЕ 3 кандидатов — fallback на исходный список (все провалят валидацию)
+2026-10-31 05:00:38,999 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-31 05:00:39,000 [INFO] Фильтр недавних моделей: все 3 publishable кандидатов — недавние, используем всех (fallback)
+2026-10-31 05:00:39,002 [INFO] lead_post_builder: пропущено (не хватает данных для честного расчёта цены под ключ) — Kia K5
+2026-10-31 05:00:39,003 [WARNING] check_price_vs_new_krw: модель 'Hyundai Sonata Inspiration' не распознана в model_specs.py — не могу проверить цену 30,400,000 ₩ относительно цены нового
+2026-10-31 05:00:39,360 [ERROR] ❌ Telegram вернул ошибку (sendMediaGroup): 400 — {"ok":false,"error_code":400,"description":"Bad Request: failed to send message #5 with the error message \"WEBPAGE_CURL_FAILED\""}
+2026-10-31 05:00:39,362 [ERROR] Публикация в Telegram заблокирована — не удалось прикрепить фото
+2026-10-31 05:00:40,152 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:41,780 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:43,422 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:43,423 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-38f8-7e16-b551-d72fc4ec19a5.jpg за 3 попыток(и)
+2026-10-31 05:00:44,218 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:45,843 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:47,576 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:47,577 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-38ff-7cbc-894d-74997d74d399.jpg за 3 попыток(и)
+2026-10-31 05:00:48,333 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:50,127 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:51,618 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:51,620 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3905-735d-b852-de87e5223f88.jpg за 3 попыток(и)
+2026-10-31 05:00:52,378 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:53,834 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:55,322 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:55,323 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-390e-7b03-ba84-68bbd8420d76.jpg за 3 попыток(и)
+2026-10-31 05:00:56,046 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:57,560 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:59,287 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:00:59,288 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3913-7045-9b6a-361f7200a24f.jpg за 3 попыток(и)
+2026-10-31 05:00:59,736 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:01,357 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:03,040 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:03,041 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-391a-783e-bc0e-e193291b1753.jpg за 3 попыток(и)
+2026-10-31 05:01:03,662 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:05,145 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:06,613 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:06,614 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3920-7f09-bdef-f3646359eb5d.jpg за 3 попыток(и)
+2026-10-31 05:01:07,220 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:08,684 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:10,195 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:10,196 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3927-7e60-a569-2c9d279c6913.jpg за 3 попыток(и)
+2026-10-31 05:01:10,981 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:12,458 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:14,092 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:14,093 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3931-76b1-b7b7-e6434d5e1386.jpg за 3 попыток(и)
+2026-10-31 05:01:14,577 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:16,045 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:17,579 [ERROR] VK API photos.getWallUploadServer: ошибка 5 — User authorization failed: invalid access_token (4).
+2026-10-31 05:01:17,580 [ERROR] VK: не удалось прикрепить фото https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3937-7da9-b8ad-13a5498f2ac8.jpg за 3 попыток(и)
+2026-10-31 05:01:17,581 [WARNING] VK: не удалось прикрепить 10/10 фото после ретраев: ['https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-38f8-7e16-b551-d72fc4ec19a5.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-38ff-7cbc-894d-74997d74d399.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3905-735d-b852-de87e5223f88.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-390e-7b03-ba84-68bbd8420d76.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3913-7045-9b6a-361f7200a24f.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-391a-783e-bc0e-e193291b1753.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3920-7f09-bdef-f3646359eb5d.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3927-7e60-a569-2c9d279c6913.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3931-76b1-b7b7-e6434d5e1386.jpg', 'https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a184d5-3937-7da9-b8ad-13a5498f2ac8.jpg']
+2026-10-31 05:01:17,581 [ERROR] VK: успешных фото 0 < порога MIN_PHOTOS_FOR_POST=3 — публикация заблокирована
+2026-10-31 05:01:17,581 [WARNING] Не удалось опубликовать в VK — Telegram это не затрагивает
+2026-10-31 05:01:17,581 [INFO] lead_post_builder: пропущено (не хватает данных для честного расчёта цены под ключ) — Kia K5
+2026-10-31 05:01:18,005 [INFO] Уведомление об ошибке отправлено администратору
+2026-10-31 05:01:18,006 [INFO] yandex_queue: рано — интервал ещё не прошёл
+2026-10-31 05:01:18,006 [INFO] === Готово: опубликовано 0 постов ===

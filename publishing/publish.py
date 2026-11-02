@@ -23,6 +23,8 @@ from zoneinfo import ZoneInfo
 import requests
 
 from common import ARTICLES, HOLD_FILE, load_config, mask, read_publications, write_publications
+import post_journal
+import model_rotation
 
 API = "https://api.telegram.org/bot{token}/{method}"
 APPROVED = "одобрено"
@@ -176,6 +178,19 @@ def main():
         print("Канал не задан: telegram_channel в config.yaml или TELEGRAM_CHANNEL в .env")
         return 1
 
+    prev = post_journal.find_published(slug)
+    if prev:
+        # Пост уже уходил в канал, а статус в CSV не обновился (сбой после отправки).
+        # Повторно не шлём: восстанавливаем статус, фиксируем в логе дублей.
+        row["статус"] = PUBLISHED
+        row["дата"] = prev.get("date") or now.date().isoformat()
+        row["опубликовать после"] = ""
+        write_publications(rows)
+        post_journal.log_duplicate(slug, prev, 1.0, where="publish")
+        print(f"Отказ: пост {slug} уже публиковался {prev.get('date')} — повторная отправка отменена, "
+              f"статус в publications.csv восстановлен, запись в {post_journal.DUP_LOG}")
+        return 1
+
     invite = row["пригласительная ссылка"].strip()
     body, cover = split_cover(text)
     if not args.publish:
@@ -220,10 +235,30 @@ def main():
         print(f"{slug}: итоговый текст {len(final)} символов > лимита Telegram {TG_LIMIT} — не публикую")
         return 1
 
+    dup, dup_ratio = post_journal.find_duplicate(final, exclude_slug=slug)
+    if dup:
+        post_journal.log_duplicate(slug, dup, dup_ratio, where="publish")
+        print(f"Отказ: текст совпадает с «{dup.get('query')}» ({dup.get('slug')}, сходство {dup_ratio:.2f}) "
+              f"— публикация пропущена, запись в {post_journal.DUP_LOG}")
+        return 1
+
+    spent = set(model_rotation.focus_models(final)) & model_rotation.used_models()
+    if spent:
+        model_rotation.log_event(f"{slug}: пост про уже опубликованные модели ({', '.join(sorted(spent))}) "
+                                 f"— публикация пропущена")
+        print(f"Отказ: пост содержит уже опубликованные модели: {', '.join(sorted(spent))} "
+              f"— публикация пропущена, запись в {model_rotation.ROTATION_LOG}")
+        return 1
+
     res = tg(token, "sendMessage", {"chat_id": channel, "text": final})
     if not res.get("ok"):
         print(f"Отправка не удалась: {res.get('description')}")
         return 1
+    try:
+        post_journal.append_entry(slug, row["главный запрос"], final)
+        print(f"Журнал: запись добавлена ({post_journal.JOURNAL.name})")
+    except OSError as e:
+        print(f"Журнал: запись НЕ добавлена ({type(e).__name__}: {e}) — дубль следующего поста может не определиться")
     row["статус"], row["дата"] = PUBLISHED, now.date().isoformat()
     write_publications(rows)
     print(f"Опубликовано: {slug}, message_id {res['result']['message_id']}")

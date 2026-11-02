@@ -232,23 +232,35 @@ def next_free_topic():
     1) первая тема из selected_topics.csv без записи в publications.csv (в любом статусе) и без articles/<slug>/article.md;
     2) иначе следующая из topics.csv по частоте главного запроса, проходящая белый список и стоп-слова из
        wordstat/config.yaml (строка допишется в selected_topics.csv; существующие строки не меняются).
-    Темы, которые заведомо не пройдут ворота (topic_skip_reason), пропускаются и попадают в третий элемент."""
-    used = {(r.get("slug") or "").strip() for r in _read_csv(PUBLICATIONS)}
+    Темы, которые заведомо не пройдут ворота (topic_skip_reason), пропускаются и попадают в третий элемент.
+    Темы, чей запрос содержит модель из уже опубликованных (ротация моделей), пропускаются с причиной."""
+    sys.path.insert(0, str(ROOT / "publishing"))
+    import model_rotation
+    used_slugs = {(r.get("slug") or "").strip() for r in _read_csv(PUBLICATIONS)}
+    spent_models = model_rotation.used_models()
     selected = _read_csv(SELECTED)
     skipped = []
     for t in selected:
-        if t["тема"] in used or (ARTICLES_DIR / t["тема"] / "article.md").exists():
+        if t["тема"] in used_slugs or (ARTICLES_DIR / t["тема"] / "article.md").exists():
+            continue
+        spent = set(model_rotation.find_models(f"{t['главный запрос']} {t.get('сопутствующие', '')}")) & spent_models
+        if spent:
+            skipped.append((t["тема"], f"модели уже публиковались: {', '.join(sorted(spent))}"))
             continue
         why = topic_skip_reason(t["главный запрос"], t["тема"])
         if why:
             skipped.append((t["тема"], why))
             continue
         return t["тема"], None, skipped
-    known = used | {t["тема"] for t in selected}
+    known = used_slugs | {t["тема"] for t in selected}
     sys.path.insert(0, str(ROOT / "wordstat"))
     import topics_analysis
     for t in sorted(_read_csv(TOPICS_CSV), key=lambda r: -int(r.get("частота главного") or 0)):
         if t["тема"] in known or (ARTICLES_DIR / t["тема"] / "article.md").exists():
+            continue
+        spent = set(model_rotation.find_models(f"{t['главный запрос']} {t.get('сопутствующие', '')}")) & spent_models
+        if spent:
+            skipped.append((t["тема"], f"модели уже публиковались: {', '.join(sorted(spent))}"))
             continue
         if topics_analysis.topic_reject_reason(t["главный запрос"]) is not None:
             continue
@@ -293,6 +305,12 @@ def command_for(step):
             f"темы: {', '.join(t['тема'] for t in todo)}" + (f"; {note}" if note else "")
     if step == "generate":
         global PENDING_TOPIC_ROW
+        sys.path.insert(0, str(ROOT / "publishing"))
+        import model_rotation
+        if model_rotation.exhausted():
+            msg = model_rotation.exhaustion_message()
+            model_rotation.log_event(msg)
+            return None, {}, "СТОП ПУБЛИКАЦИИ: " + msg
         slug, PENDING_TOPIC_ROW, skipped = next_free_topic()
         skip_note = ("; пропущены темы: " + "; ".join(f"{s} ({why})" for s, why in skipped)) if skipped else ""
         if slug is None:

@@ -23,6 +23,7 @@ import os
 import random
 import re
 import sqlite3
+import sys
 import time
 from contextlib import contextmanager
 from datetime import date
@@ -192,12 +193,14 @@ def _render(car: dict, res: "pricing.PriceResult", rates: dict, today: date) -> 
 
 def example_block(brand: str | None = None, model: str | None = None,
                   country: str = COUNTRY_DEFAULT, rates: dict | None = None,
-                  require_photos: bool = False) -> str:
+                  require_photos: bool = False, exclude_models: set | None = None) -> str:
     """Блок(и) «Пример расчёта на основе лота» (до MAX_EXAMPLES) или NO_EXAMPLE.
 
     require_photos=False (по умолчанию) — в cars.db фото нет, поэтому порог фото в
     validate_post_before_publish снимается ТОЛЬКО на время вызовов отсюда; True — как в боте.
     Остальные проверки (медиана партии, цена, пробег, год, полнота данных) всегда включены.
+    exclude_models — множество имён «brand model» (lower) из ротации моделей: лоты этих
+    моделей в пример не берутся (модель уже была фокусом опубликованного поста).
     """
     if country.strip().lower() != COUNTRY_DEFAULT.lower():
         return NO_EXAMPLE  # в базе только корейские площадки
@@ -220,6 +223,14 @@ def example_block(brand: str | None = None, model: str | None = None,
         kept = post_validator.check_price_vs_batch_median(cars, log, "cases_source")
         pool = [c for c in kept if _named(c) and _matches(c, brand, model)
                 and c.get("price") and c.get("mileage_km") is not None]
+        if exclude_models:
+            sys.path.insert(0, str(Path(__file__).resolve().parent / "publishing"))
+            import model_rotation
+            before = len(pool)
+            pool = [c for c in pool
+                    if (model_rotation.canonicalize(c["brand"], c["model"]) or f"{c['brand']} {c['model']}".strip().lower())
+                    not in exclude_models]
+            log.info(f"ротация моделей: из пула исключено лотов израсходованных моделей: {before - len(pool)}")
         pool.sort(key=lambda c: (-(c["year"] or 0), c["mileage_km"]))
         for car in pool:
             key = (car["brand"], car["model"], car["year"], car["mileage_km"], car["price"])
@@ -246,10 +257,10 @@ def example_block(brand: str | None = None, model: str | None = None,
     return "\n\n".join(chosen) if chosen else NO_EXAMPLE
 
 
-def example_block_for_topic(topic: dict, rates: dict | None = None) -> str:
+def example_block_for_topic(topic: dict, rates: dict | None = None, exclude_models: set | None = None) -> str:
     """По строке wordstat/topics.csv: марка/модель — латинские слова запроса, которые есть в базе;
     страна — только по главному запросу: Китай, если в нём китай/китайск/changan/чанган; Корея — если есть
-    корея/кореи/корейск или нет ни тех, ни других слов."""
+    корея/кореи/корейск или нет ни тех, ни других слов. exclude_models — см. example_block()."""
     text = f"{topic.get('главный запрос', '')} {topic.get('сопутствующие', '')}".lower()
     main = (topic.get("главный запрос") or "").lower()
     country = "Китай" if re.search(r"китай|китайск|changan|чанган", main) else COUNTRY_DEFAULT
@@ -264,4 +275,4 @@ def example_block_for_topic(topic: dict, rates: dict | None = None) -> str:
     if brand:
         models = {t for c in cars if c["brand"].lower() == brand for t in re.findall(r"[a-z0-9\-]+", c["model"].lower())}
         model = " ".join(sorted(words & models)) or None
-    return example_block(brand, model, country, rates)
+    return example_block(brand, model, country, rates, exclude_models=exclude_models)

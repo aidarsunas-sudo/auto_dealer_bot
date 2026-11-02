@@ -29,6 +29,9 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "publishing"))
 
+import post_journal  # noqa: E402  журнал публикаций + защита от дублей (publishing/)
+import model_rotation  # noqa: E402  каталог и ротация моделей автомобилей (publishing/)
+
 SELECTED = ROOT / "wordstat" / "selected_topics.csv"
 ANALYSIS = ROOT / "wordstat" / "analysis"
 ARTICLES = ROOT / "articles"
@@ -75,21 +78,21 @@ def plain(block):
     return "\n".join(re.sub(r"^_(.+)_$", r"\1", l) for l in block.split("\n"))
 
 
-def example_blocks(topic, dry_run=False):
+def example_blocks(topic, dry_run=False, exclude_models=None):
     import cases_source
     if dry_run:   # без записи кэша курса на диск
         import rates as rates_mod
         rates = rates_mod.fetch_cbr_rates()
     else:
         rates = cases_source.get_rates()  # курс ЦБ один раз
-    block = cases_source.example_block_for_topic(topic, rates=rates)
+    block = cases_source.example_block_for_topic(topic, rates=rates, exclude_models=exclude_models)
     if block.strip() == cases_source.NO_EXAMPLE:
         return cases_source.NO_EXAMPLE, cases_source.NO_EXAMPLE, cases_source.NO_EXAMPLE
     parts = [(EX_MARK + p) if i else p for i, p in enumerate(block.split("\n\n" + EX_MARK))]
     return block, "\n\n".join(parts[:2]), parts[0]   # всё, для статьи (до 2), для поста (1)
 
 
-def build_prompt(topic, slug, analysis, facts, ex_all, sample_article, sample_post):
+def build_prompt(topic, slug, analysis, facts, ex_all, sample_article, sample_post, history=""):
     return f"""Ты пишешь черновик статьи для компании Pick+ Auto (авто из Кореи под заказ, Казань). Верни ТОЛЬКО текст в формате ниже, без пояснений.
 
 ПРАВИЛА
@@ -103,6 +106,8 @@ def build_prompt(topic, slug, analysis, facts, ex_all, sample_article, sample_po
 8. Про таможенные пошлины, ЕТС и таможенный сбор НЕ пиши цифры и условия (ни ставок, ни процентов, ни сумм, ни формул). Растаможку упоминай только как этап процесса и отсылай к блоку примера и к расчёту в нём. Про утильсбор пиши только по данным customs_rates.py (они уже заложены в БЛОК ПРИМЕРОВ и ФАКТЫ): своих ставок, коэффициентов и условий льготы не добавляй.
 9. ЗАПРЕЩЕНО писать разделы и утверждения о том, чего нет в ФАКТАХ: самостоятельный ввоз (без компании), ввоз через другие страны или в другие страны (Беларусь, Китай, Казахстан и т.п.), ограничения по моделям и маркам, условия доставки и оформления, не описанные в ФАКТАХ. Если запросы темы (сопутствующие запросы, хвосты) подразумевают такие разделы, ПРОПУСКАЙ их: не придумывай содержание и не оставляй для них пометок. Пиши только о том, что подтверждено ФАКТАМИ, БЛОКОМ ПРИМЕРОВ и общим описанием этапов процесса из ФАКТОВ.
 10. Вместе с текстом верни список разделов с источником каждого (раздел ===SOURCES=== ниже): по одной строке на каждый заголовок H2 статьи (кроме «Как заказать»), в виде «Заголовок раздела | источник», где источник — ровно одно из: «факты: <дословная строка из ФАКТОВ>», «расчёт проекта», «этап процесса», «нет». Раздел с источником «нет» писать нельзя: если такой раздел всё же получился, удали его из статьи.
+11. Ниже в разделе УЖЕ ОПУБЛИКОВАНО — посты канала за последнее время (дата, тема, начало текста) и список ИЗРАСХОДОВАННЫЕ МОДЕЛИ. Эти темы, заголовки, наборы разделов и формулировки уже использовались. Не повторяй их: для новой темы придумай другой заголовок, другую структуру разделов и другие формулировки. Текст не должен быть похож ни на один перечисленный пост.
+12. О моделях из списка ИЗРАСХОДОВАННЫЕ МОДЕЛИ писать нельзя: не посвящай им пост, разделы и примеры расчёта. Пример расчёта строится только на неопубликованной модели.
 
 ФОРМАТ ОТВЕТА (ровно так, с маркерами на отдельных строках)
 ===ARTICLE===
@@ -141,6 +146,11 @@ def build_prompt(topic, slug, analysis, facts, ex_all, sample_article, sample_po
 ОБРАЗЕЦ post.md
 <<<
 {sample_post}
+>>>
+
+УЖЕ ОПУБЛИКОВАНО (не повторять темы и формулировки)
+<<<
+{history or 'публикаций пока не было'}
 >>>
 """
 
@@ -270,9 +280,20 @@ def main():
 
     model, max_tokens = load_generate_settings()
     topic = topic_row(slug)
-    ex_all, ex_article, ex_post = example_blocks(topic, dry_run=args.dry_run)
+    prev = post_journal.find_published(slug)
+    if prev:
+        sys.exit(f"тема {slug} уже публиковалась {prev.get('date')} — повторная генерация не имеет смысла; "
+                 f"файлы не записаны")
+    used = model_rotation.used_models()
+    if model_rotation.exhausted():
+        msg = model_rotation.exhaustion_message()
+        model_rotation.log_event(msg)
+        sys.exit(msg + "; файлы не записаны")
+    ex_all, ex_article, ex_post = example_blocks(topic, dry_run=args.dry_run, exclude_models=used)
+    history = post_journal.history_block()
     prompt = build_prompt(topic, slug, read(ANALYSIS / f"{slug}.md", 6000), read(FACTS), ex_all,
-                          read(ARTICLES / SAMPLE_SLUG / "article.md"), read(ARTICLES / SAMPLE_SLUG / "post.md"))
+                          read(ARTICLES / SAMPLE_SLUG / "article.md"), read(ARTICLES / SAMPLE_SLUG / "post.md"),
+                          history=history)
     system, user = split_prompt(prompt)
     print(f"Входные данные собраны: тема {slug}, анализ {'есть' if (ANALYSIS / (slug + '.md')).exists() else 'нет'}, "
           f"примеры {'есть' if '[НЕТ ПРИМЕРА]' not in ex_all else 'нет'}; системный промпт {len(system)} знаков, "
@@ -293,6 +314,29 @@ def main():
 
     print(f"Вызываю Anthropic API ({model}, max_tokens {max_tokens})…")
     article, post, sources_raw = split_output(call_anthropic(system, user, model, max_tokens))
+
+    cancel_reason, dup, dup_ratio, model_hit = None, None, 0.0, set()
+    for attempt in range(2):
+        dup, dup_ratio = post_journal.find_duplicate(post)
+        model_hit = set(model_rotation.focus_models(post)) & used
+        if not dup and not model_hit:
+            break
+        reasons = []
+        if dup:
+            reasons.append(f"текст похож на «{dup.get('query')}» ({dup.get('slug')}, сходство {dup_ratio:.2f})")
+        if model_hit:
+            reasons.append(f"модели уже публиковались: {', '.join(sorted(model_hit))}")
+        if attempt == 1:
+            cancel_reason = "; ".join(reasons)
+            break
+        print("; ".join(reasons) + " — генерирую заново")
+        article, post, sources_raw = split_output(call_anthropic(system, user, model, max_tokens))
+    if cancel_reason:
+        if dup:
+            post_journal.log_duplicate(slug, dup, dup_ratio, where="generate")
+        if model_hit:
+            model_rotation.log_event(f"{slug}: {cancel_reason} — файлы не записаны, публикация отменена")
+        sys.exit(f"ОТМЕНА: {cancel_reason}; файлы не записаны, публикация отменена")
 
     article = substitute(substitute(article, "[[ПРИМЕР]]", ex_article, "article"), "[[КАК_ЗАКАЗАТЬ]]", how_to_order(slug, "article"), "article")
     post = substitute(substitute(post, "[[ПРИМЕР]]", plain(ex_post), "post"), "[[КАК_ЗАКАЗАТЬ]]", how_to_order(slug, "post"), "post")

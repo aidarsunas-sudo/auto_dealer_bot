@@ -1,0 +1,241 @@
+{
+  "updated": "2026-11-02",
+  "source": "target_models.json + data/cars.db + темы wordstat",
+  "models": [
+    {
+      "brand": "Peugeot",
+      "model": "3008",
+      "aliases": [
+        "3008",
+        "peugeot 3008"
+      ]
+    },
+    {
+      "brand": "Peugeot",
+      "model": "5008",
+      "aliases": [
+        "5008",
+        "peugeot 5008"
+      ]
+    },
+    {
+      "brand": "Audi",
+      "model": "Q3",
+      "aliases": [
+        "audi q3",
+        "q3"
+      ]
+    },
+    {
+      "brand": "BMW",
+      "model": "New X6",
+      "aliases": [
+        "bmw new x6",
+        "bmw x6",
+        "new x6",
+        "x6",
+        "новый x6",
+        "нью икс6"
+      ]
+    },
+    {
+      "brand": "BYD",
+      "model": "SEALION 7",
+      "aliases": [
+        "byd sealion 7",
+        "sealion 7"
+      ]
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Casper",
+      "aliases": [
+        "casper",
+        "hyundai casper"
+      ]
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Malibu",
+      "aliases": [
+        "chevrolet malibu",
+        "malibu"
+      ]
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Spark",
+      "aliases": [
+        "chevrolet spark",
+        "spark"
+      ]
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Trailblazer",
+      "aliases": [
+        "chevrolet trailblazer",
+        "trailblazer"
+      ]
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "aliases": [
+        "chevrolet trax",
+        "trax"
+      ]
+    },
+    {
+      "brand": "Mini",
+      "model": "Clubman",
+      "aliases": [
+        "clubman",
+        "mini clubman"
+      ]
+    },
+    {
+      "brand": "Mini",
+      "model": "Convertible",
+      "aliases": [
+        "convertible",
+        "mini convertible"
+      ]
+    },
+    {
+      "brand": "Mini",
+      "model": "Countryman",
+      "aliases": [
+        "countryman",
+        "mini countryman"
+      ]
+    },
+    {
+      "brand": "Kia",
+      "model": "EV9",
+      "aliases": [
+        "ev9",
+        "kia ev9"
+      ]
+    },
+    {
+      "brand": "Genesis",
+      "model": "GV60",
+      "aliases": [
+        "genesis gv60",
+        "gv60"
+      ]
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "GLB-Class",
+      "aliases": [
+        "glb",
+        "glb 200d",
+        "glb-class",
+        "mercedes glb",
+        "mercedes-benz glb",
+        "mercedes-benz glb-class",
+        "мерседес glb"
+      ]
+    },
+    {
+      "brand": "Hyundai",
+      "model": "i30",
+      "aliases": [
+        "hyundai i30",
+        "i30",
+        "ай30",
+        "хендай ай30"
+      ]
+    },
+    {
+      "brand": "Hyundai",
+      "model": "IONIQ 5",
+      "aliases": [
+        "hyundai ioniq 5",
+        "ioniq 5"
+      ]
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "aliases": [
+        "hyundai sonata",
+        "sonata"
+      ]
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Venue",
+      "aliases": [
+        "hyundai venue",
+        "venue"
+      ]
+    },
+    {
+      "brand": "Kia",
+      "model": "K3",
+      "aliases": [
+        "k3",
+        "kia k3"
+      ]
+    },
+    {
+      "brand": "Kia",
+      "model": "K5",
+      "aliases": [
+        "k5",
+        "kia k5"
+      ]
+    },
+    {
+      "brand": "Kia",
+      "model": "Ray",
+      "aliases": [
+        "kia ray",
+        "ray"
+      ]
+    },
+    {
+      "brand": "Kia",
+      "model": "Sportage",
+      "aliases": [
+        "kia sportage",
+        "sportage"
+      ]
+    },
+    {
+      "brand": "Kia",
+      "model": "Tasman",
+      "aliases": [
+        "kia tasman",
+        "tasman"
+      ]
+    },
+    {
+      "brand": "Renault",
+      "model": "QM6",
+      "aliases": [
+        "qm6",
+        "renault qm6"
+      ]
+    },
+    {
+      "brand": "Renault",
+      "model": "SM6",
+      "aliases": [
+        "renault sm6",
+        "sm6"
+      ]
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Tiguan",
+      "aliases": [
+        "tiguan",
+        "volkswagen tiguan"
+      ]
+    }
+  ]
+}

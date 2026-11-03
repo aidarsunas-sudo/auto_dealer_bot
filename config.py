@@ -181,6 +181,17 @@ ENCAR_SNAPSHOT_MIN_INTERVAL_HOURS: float = float(os.getenv("ENCAR_SNAPSHOT_MIN_I
 ENCAR_SNAPSHOT_PAUSE_SEC: float = float(os.getenv("ENCAR_SNAPSHOT_PAUSE_SEC", "7"))
 ENCAR_SNAPSHOT_MAX_REQUESTS: int = int(os.getenv("ENCAR_SNAPSHOT_MAX_REQUESTS", "150"))
 
+# --- build_video.py (ролик по лоту: publish_lot.py) ---
+# Папка готовых роликов (в .gitignore): output/<lot_id>.mp4
+VIDEO_OUTPUT_DIR: str = os.getenv("VIDEO_OUTPUT_DIR", "output")
+# Лёгкий наезд, % (не больше 5): фото растёт от (100-N)% до 100% рамки — края не обрезаются.
+BUILD_VIDEO_ZOOM_PCT: float = float(os.getenv("BUILD_VIDEO_ZOOM_PCT", "3"))
+# Длина ролика БЕЗ голосовой записи, сек (в итоге зажата в 20-30); с записью длина = длине записи.
+BUILD_VIDEO_TARGET_SEC: float = float(os.getenv("BUILD_VIDEO_TARGET_SEC", "25"))
+# Громкость музыки, LUFS: когда она единственный звук / когда подложена под голос (голос -16 LUFS).
+BUILD_VIDEO_MUSIC_LUFS: int = int(os.getenv("BUILD_VIDEO_MUSIC_LUFS", "-26"))
+BUILD_VIDEO_MUSIC_UNDER_VOICE_LUFS: int = int(os.getenv("BUILD_VIDEO_MUSIC_UNDER_VOICE_LUFS", "-38"))
+
 # --- Настройки парсинга ---
 # float() превращает текст "3" в число 3.0, с которым можно делать математику
 REQUEST_DELAY_SECONDS: float = float(os.getenv("REQUEST_DELAY_SECONDS", "3"))
@@ -193,23 +204,43 @@ LOG_FILE_PATH: str = os.getenv("LOG_FILE_PATH", "logs/app.log")
 # Это то, что добавляется сверху к цене авто + таможне: доставка из Кореи,
 # услуги брокера, твоя собственная комиссия. Если какая-то статья не нужна —
 # просто оставь 0 (или не указывай строку в .env вообще).
-LOGISTICS_RUB: float = float(os.getenv("LOGISTICS_RUB", "0"))
-BROKER_FEE_RUB: float = float(os.getenv("BROKER_FEE_RUB", "0"))
-MARGIN_RUB: float = float(os.getenv("MARGIN_RUB", "0"))
+# По умолчанию с 2026-10-08: 320 000 + 100 000 + 150 000 = 570 000 ₽ (значения из .env и секретов GitHub
+# Actions перекрывают их — менять там же).
+LOGISTICS_RUB: float = float(os.getenv("LOGISTICS_RUB", "320000"))
+BROKER_FEE_RUB: float = float(os.getenv("BROKER_FEE_RUB", "100000"))
+MARGIN_RUB: float = float(os.getenv("MARGIN_RUB", "150000"))
 
 # Комиссия банка за перевод оплаты за саму машину продавцу в Корее — берётся
-# ТОЛЬКО от цены авто (price_rub), не от таможни/доставки/брокера/маржи.
-BANK_COMMISSION_PCT: float = float(os.getenv("BANK_COMMISSION_PCT", "0.025"))
+# ТОЛЬКО от цены авто (не от таможни/доставки/брокера/маржи), но от цены УЖЕ
+# с корейской надбавкой (см. EXCHANGE_SPREAD_PCT и post_builder.calculate_price_details()).
+# 0.5% с 2026-10-07 (раньше 2.5%). ВАЖНО: значение, заданное в .env и в секрете
+# GitHub Actions BANK_COMMISSION_PCT, перекрывает этот default — обновлять там же.
+BANK_COMMISSION_PCT: float = float(os.getenv("BANK_COMMISSION_PCT", "0.005"))
 
-# Банковский спред на курс KRW — доля (не проценты!), на которую реальный
-# курс покупки корейской воны в банке выше официального курса ЦБ РФ.
-# KRW — экзотическая валюта для российских банков, спред 10-15% (типично
-# ~14%, то есть при ЦБ 1₽≈16.2₩ реальный банковский 1₽≈14.2₩). Таможенные
-# платежи (ЕТС, сбор, утильсбор) рассчитываются по ОФИЦИАЛЬНОМУ курсу ЦБ
-# (закон), но ЦЕНА САМОЙ МАШИНЫ для покупателя — по реальному банковскому.
-# Спред прибавляется к стоимости авто в post_builder.calculate_price_details().
-# 0.0 = спред не учитывается (старое поведение).
-EXCHANGE_SPREAD_PCT: float = float(os.getenv("EXCHANGE_SPREAD_PCT", "0.14"))
+# Корейская надбавка к цене машины — доля (не проценты!), которая прибавляется к
+# цене авто, пересчитанной по курсу ЦБ. С 2026-10-07 это не только «спред по воне»,
+# а всё, что платится на корейской стороне сверх цены: процент аукциона, экспортные
+# документы и банковский спред на KRW (типично 14%: при ЦБ 1₽≈16,2₩ эффективный
+# курс 1₽≈14,2₩). Банковский ПЕРЕВОД (BANK_COMMISSION_PCT) и логистика — отдельные
+# статьи. Таможенные платежи (ЕТС, сбор, утильсбор) считаются по ОФИЦИАЛЬНОМУ курсу
+# ЦБ РФ (закон) и надбавку не включают. Формула — pricing.calculate_price().
+# 0.0 = надбавка не учитывается. Старое имя переменной EXCHANGE_SPREAD_PCT
+# поддерживается (если KOREA_COSTS_PCT не задана).
+KOREA_COSTS_PCT: float = float(os.getenv("KOREA_COSTS_PCT", os.getenv("EXCHANGE_SPREAD_PCT", "0.14")))
+EXCHANGE_SPREAD_PCT: float = KOREA_COSTS_PCT  # устаревшее имя: оставлено, чтобы старый код не сломался
+
+# Фиксированный курс ПОКУПКИ воны, ₩ за 1 ₽ (например 15.2). Если задан, цена машины считается как
+# цена в ₩ / KRW_PER_RUB (вместо «курс ЦБ × (1 + KOREA_COSTS_PCT)»), KOREA_COSTS_PCT при этом не
+# применяется; таможня по-прежнему по ЦБ. По умолчанию (переменная не задана) — 15,2 ₩/₽ с 2026-10-08.
+# Явно пустая переменная KRW_PER_RUB= или 0 = режим «ЦБ + надбавка».
+# Режим нужен, чтобы воспроизводить цены, посчитанные по реальному курсу покупки владельца
+# (контрольный лот Kia Ray Signature: 15,2 ₩/₽ и комиссия 2,5% дают 1 533 901 ₽ при ставке 12 млн ₩).
+_KRW_PER_RUB_RAW = os.getenv("KRW_PER_RUB", "15.2").strip()
+KRW_PER_RUB: float | None = float(_KRW_PER_RUB_RAW) if _KRW_PER_RUB_RAW and float(_KRW_PER_RUB_RAW) > 0 else None
+# Когда курс покупки обновляли в последний раз (YYYY-MM-DD). При смене KRW_PER_RUB обновляйте и дату:
+# старше KRW_RATE_MAX_AGE_DAYS дней -> pricing.calculate_price() добавляет предупреждение в результат.
+KRW_PER_RUB_UPDATED: str = os.getenv("KRW_PER_RUB_UPDATED", "2026-10-08").strip()
+KRW_RATE_MAX_AGE_DAYS: int = int(os.getenv("KRW_RATE_MAX_AGE_DAYS", "7"))
 
 # --- Кто ввозит (влияет на расчёт утильсбора) ---
 # 'phys' — физическое лицо (льготный утильсбор при мощности до 160 л.с.

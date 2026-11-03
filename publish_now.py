@@ -39,6 +39,7 @@ from published_log import load_log, save_log, select_candidates, mark_posted
 from main_pipeline import FRESHNESS_DAYS
 from lead_post_builder import build_lead_post
 from post_validator import PublishBlockedError
+from registry import DuplicatePostError
 from agent_publisher import publish_post
 from add_model import YEAR_FROM_DEFAULT, YEAR_TO_DEFAULT
 from rates import fetch_cbr_rates
@@ -115,6 +116,8 @@ def publish_car(car: dict, post_text: str, pub_log: dict, dry_run: bool, force: 
     # дать чистое сообщение в консоли, а не сырой traceback.
     try:
         ok = publish_post(car, post_text, dry_run=dry_run)
+    except DuplicatePostError as error:
+        raise SystemExit(str(error))  # дубль по реестру published.jsonl, rejected_posts.log тут ни при чём
     except PublishBlockedError as error:
         raise SystemExit(f"{error} (см. rejected_posts.log)")
 

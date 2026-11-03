@@ -30,7 +30,9 @@ def fetch_cbr_rates() -> dict:
         Словарь курсов в формате, который ожидает customs_calculator.calc_full():
         {"krw_rub": ..., "eur_rub": ..., "usd_rub": ..., "cny_rub": ..., "jpy_rub": ...}
         Если запрос не удался — вернёт сохранённые запасные значения
-        (DEFAULT_RATES из customs_calculator.py), программа не упадёт.
+        (DEFAULT_RATES из customs_calculator.py), программа не упадёт. Ключ "_source"
+        в результате: "cbr" (свежие) или "fallback" (запасные) — по нему pricing.py
+        добавляет предупреждение к цене; на расчёт пошлин ключ не влияет.
     """
     try:
         response = requests.get(
@@ -55,11 +57,12 @@ def fetch_cbr_rates() -> dict:
             f"Получены свежие курсы ЦБ: EUR={rates['eur_rub']:.2f} "
             f"USD={rates['usd_rub']:.2f} KRW(за 1000)={rates['krw_rub']*1000:.2f}"
         )
+        rates["_source"] = "cbr"
         return rates
 
     except requests.RequestException as error:
         logger.warning(f"Не удалось получить курсы ЦБ ({error}), использую сохранённые значения")
-        return dict(DEFAULT_RATES)
+        return {**DEFAULT_RATES, "_source": "fallback"}  # pricing.calculate_price() предупредит о запасных курсах
     except (KeyError, ValueError) as error:
         logger.warning(f"Не удалось разобрать ответ ЦБ ({error}), использую сохранённые значения")
-        return dict(DEFAULT_RATES)
+        return {**DEFAULT_RATES, "_source": "fallback"}  # pricing.calculate_price() предупредит о запасных курсах

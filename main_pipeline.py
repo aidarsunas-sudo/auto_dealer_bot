@@ -32,8 +32,9 @@ diversify() — round-robin по (brand, model) работает одинако�
 
 Расписание: каждые 6 часов (см. cron/GitHub Actions). Свежесть объявления —
 14 дней от даты, когда МЫ САМИ его впервые увидели (published_log.json;
-не все источники отдают дату размещения на сайте). Лимит — 5 постов за
-один запуск (см. FRESHNESS_DAYS / POST_LIMIT ниже).
+не все источники отдают дату размещения на сайте). Лимит — 2 поста за
+один запуск, модельные повторы запрещены (см. FRESHNESS_DAYS / POST_LIMIT
+ниже и filter_recent_models без fallback).
 """
 
 import argparse
@@ -44,6 +45,10 @@ import traceback
 from datetime import datetime
 
 import config
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent / "publishing"))
+import post_journal  # noqa: E402  единый журнал: история перед генерацией
 from target_collector import collect_target_model_cars
 from broad_collector import collect_broad_cars
 from published_log import (
@@ -61,12 +66,14 @@ import vk_publisher
 from models_to_watch import sync_to_target_models
 from used_car_scraper import enrich_photos_from_detail
 import yandex_queue
+import registry
 from yandex_publisher import send_yandex_draft
 from yandex_digest_builder import record_published_lot
 from telegram_publisher import send_to_telegram
 
 FRESHNESS_DAYS = 14
-POST_LIMIT = 5
+REGISTRY_REFRESH_DAYS = 7  # глубина сверки реестра published.jsonl с каналом в начале прогона
+POST_LIMIT = 2  # постов за запуск — канал реже, но строго без модельных повторов
 DIVERSIFY_BUFFER = 5  # diversify() вернёт до POST_LIMIT * DIVERSIFY_BUFFER кандидатов
 
 LOG_FILE_PATH = "logs/main_pipeline.log"
@@ -159,6 +166,20 @@ def run() -> None:
         else:
             log.info("VK_TOKEN проверен — рабочий" if config.VK_ENABLED else "VK не настроен, пропускаю")
 
+    # Реестр published.jsonl сверяем с публичной страницей канала ДО выбора
+    # кандидатов (источник правды — сам канал, см. registry.py): так посты,
+    # вышедшие вручную с прошлого прогона (без lot_id), попадают в защиту от дублей
+    # (agent_publisher.publish_post -> registry.find_duplicate). Сбой сети не
+    # должен останавливать прогон — работаем по сохранённому в git реестру.
+    try:
+        rows = registry.reconcile(days=REGISTRY_REFRESH_DAYS, apply=not args.dry_run)
+        changed = sum(1 for status, _ in rows if status in ("new", "update"))
+        log.info(f"registry: сверка с каналом за {REGISTRY_REFRESH_DAYS} сут.: постов {len(rows)}, "
+                 f"{'записано' if not args.dry_run else 'нашлось бы'} {changed}")
+    except Exception as error:
+        log.warning(f"registry: не удалось сверить реестр с каналом ({error}) — "
+                    f"работаю по сохранённому published.jsonl")
+
     # Простой список моделей без JSON (models_to_watch.txt) — переносит в
     # target_models.json всё, чего там ещё нет, до того как target_collector.py
     # его прочитает. См. models_to_watch.py/CONTROL.md.
@@ -235,9 +256,9 @@ def run() -> None:
                   f"нечитаемый заголовок)")
 
     # Модели, опубликованные за последние RECENT_MODEL_DAYS дней, — убираем
-    # среди publishable, если есть альтернативы. filter_recent_models
-    # возвращает все publishable без изменений, если после удаления недавних
-    # не осталось ни одного — лучше повтор модели, чем пустой прогон.
+    # среди publishable без fallback: модельные повторы запрещены (03.11),
+    # канал молчит до свежих моделей. Если не осталось ни одного кандидата —
+    # честный тихий прогон (не «сбой»: guard ниже не должен тревожить).
     recent_models = recently_posted_models(pub_log, config.RECENT_MODEL_DAYS)
     before_recent_filter = len(publishable)
     candidates = filter_recent_models(publishable, recent_models)
@@ -245,9 +266,13 @@ def run() -> None:
         log.info(f"Фильтр недавних моделей: убрано {before_recent_filter - len(candidates)} "
                   f"из {before_recent_filter} кандидатов (за последние "
                   f"{config.RECENT_MODEL_DAYS} дн.): {recent_models}")
-    elif recent_models and len(candidates) == before_recent_filter:
-        log.info(f"Фильтр недавних моделей: все {before_recent_filter} publishable "
-                  f"кандидатов — недавние, используем всех (fallback)")
+    if not candidates:
+        log.info("Все publishable кандидаты — недавно опубликованные модели; "
+                 "по решению владельца повторы моделей не публикуем — пропускаем прогон")
+        save_log(pub_log)
+        _dispatch_yandex_draft(rates, log, args.dry_run)
+        log.info("=== Готово: опубликовано 0 постов (намеренный пропуск) ===")
+        return
 
     # Без этого шага все POST_LIMIT постов могут оказаться одной моделью с
     # одного источника (см. разбор бага: при первом запуске у всех кандидатов
@@ -266,10 +291,21 @@ def run() -> None:
     candidates = limit_consecutive_brand(candidates, recent_brands, config.MAX_SAME_BRAND_IN_A_ROW)
 
     posted_count = 0
+    duplicates_skipped = 0
+    recent_journal_models = post_journal.recent_focus_models(config.RECENT_MODEL_DAYS)
     for car in candidates:
         if posted_count >= post_limit:
             log.info(f"Достигнут лимит {post_limit} постов за запуск — останавливаюсь")
             break
+
+        # История единого журнала ПЕРЕД генерацией: модель, бывшая фокусом
+        # поста за последние RECENT_MODEL_DAYS дней (в любой цепочке проекта:
+        # лидоген/SEO/ручные публикации), — пропускаем, не генерируя текст.
+        model_key = f"{car.get('brand', '')} {car.get('model', '')}".strip().lower()
+        if model_key and model_key in recent_journal_models:
+            log.info(f"Пропуск (единый журнал): {car.get('brand', '')} {car.get('model', '')} "
+                     f"уже в канале за последние {config.RECENT_MODEL_DAYS} дн.")
+            continue
 
         post_text = build_lead_post(car, rates)
         if post_text is None:
@@ -287,6 +323,12 @@ def run() -> None:
         # — одна отклонённая машина не должна останавливать весь прогон.
         try:
             ok = publish_post(car, post_text, dry_run=args.dry_run, fields=fields)
+        except registry.DuplicatePostError as error:
+            # Лот уже в канале (реестр published.jsonl) — штатный пропуск, не сбой:
+            # не считается за "ошибку публикации" и не поднимает тревогу "0 постов".
+            duplicates_skipped += 1
+            log.info(f"Пропущено как дубль {car.get('brand', '?')} {car.get('model', '?')}: {error}")
+            continue
         except Exception as error:
             log.error(f"Не удалось опубликовать {car.get('brand', '?')} {car.get('model', '?')}: {error}")
             continue
@@ -337,7 +379,9 @@ def run() -> None:
     # определению — это ожидаемо, не сбой) и не касается "кандидатов не
     # нашлось вообще" (early return выше — это нормальный тихий период,
     # не аномалия).
-    if candidates and posted_count == 0 and not args.dry_run:
+    if duplicates_skipped:
+        log.info(f"Пропущено как дубли (реестр published.jsonl): {duplicates_skipped}")
+    if candidates and posted_count == 0 and duplicates_skipped == 0 and not args.dry_run:
         notify_error(
             f"⚠️ main_pipeline: собрано {len(candidates)} кандидат(ов) на публикацию, "
             f"но опубликовано 0 постов за этот прогон. Похоже на тихий сбой "

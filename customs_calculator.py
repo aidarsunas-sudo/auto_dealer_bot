@@ -5,7 +5,9 @@
 там же нужно поправить и здесь (или прислать новый customs_calc.html —
 можно будет пересобрать этот файл заново).
 
-Ставки актуальны на: ПП №1291 (ред. №1713 от 01.11.2025), ПП №1638 от 23.10.2025
+ВСЕ ЧИСЛА (таблицы сбора, ЕТС, утильсбора, пороги льготы) лежат в customs_rates.py —
+здесь только их применение. Ставки актуальны на: ПП №1291 (ред. №1713 от
+01.11.2025), ПП №1638 от 23.10.2025.
 
 Использование:
     from customs_calculator import calc_full
@@ -24,23 +26,23 @@
 
 from typing import Optional
 
+from customs_rates import (
+    ETS_ELEC_SHARE, ETS_PER_CC, ETS_UNDER_3Y_BANDS, FEE_ABOVE, FEE_BANDS,
+    UTIL_BASE_RUB, UTIL_COMMERCIAL, UTIL_COMMERCIAL_TOP, UTIL_ELEC_30MIN_FACTOR,
+    UTIL_ELEC_KW_PER_HP, UTIL_ELEC_LGOTA_COEFF, UTIL_ELEC_LGOTA_MAX_HP30,
+    UTIL_ELEC_NEW, UTIL_ELEC_OLD, UTIL_LGOTA_COEFF, UTIL_LGOTA_MAX_CC, UTIL_LGOTA_MAX_HP,
+)
+
 
 # ═══════════════════════════════════════════════════════════
 # ТАМОЖЕННЫЙ СБОР — ПП №1638 от 23.10.2025 (с 01.01.2026)
 # Проверено: 1 777 125 руб → 13 541 руб
 # ═══════════════════════════════════════════════════════════
 def fee(rub: float) -> int:
-    if rub <= 200_000:   return 1693
-    if rub <= 450_000:   return 3387
-    if rub <= 1_200_000: return 6775
-    if rub <= 2_700_000: return 13541
-    if rub <= 4_200_000: return 19044
-    if rub <= 5_500_000: return 24598
-    if rub <= 7_000_000: return 31740
-    if rub <= 8_000_000: return 36501
-    if rub <= 9_000_000: return 39675
-    if rub <= 10_000_000: return 49240
-    return 73860
+    for limit, value in FEE_BANDS:
+        if rub <= limit:
+            return value
+    return FEE_ABOVE
 
 
 # ═══════════════════════════════════════════════════════════
@@ -65,31 +67,18 @@ def fee(rub: float) -> int:
 def ets_calc(cc: float, age: str, price_eur: float, eur_rub: float,
              fuel: str = "petrol", price_rub: float = 0) -> dict:
     if fuel == "elec":
-        return {"rub": price_rub * 0.15,
+        return {"rub": price_rub * ETS_ELEC_SHARE,
                 "note": "электромобиль: 15% от стоимости (фиксированная ставка, без см³ и без деления по возрасту)"}
 
     if age == "u3":
-        bands = [
-            (8500,    0.54, 2.5),
-            (16700,   0.48, 3.5),
-            (42300,   0.48, 5.5),
-            (84500,   0.48, 7.5),
-            (169000,  0.48, 15),
-            (float("inf"), 0.48, 20),
-        ]
-        for lim, pct, min_r in bands:
+        for lim, pct, min_r in ETS_UNDER_3Y_BANDS:
             if price_eur <= lim:
                 return {
                     "rub": max(price_eur * pct, cc * min_r) * eur_rub,
                     "note": "до 3 лет: % или мин €/см³",
                 }
 
-    tbl = {
-        "35": [(1000, 1.5), (1500, 1.7), (1800, 2.5), (2300, 2.7), (3000, 3.0), (float("inf"), 3.6)],
-        "57": [(1000, 3.0), (1500, 3.2), (1800, 3.5), (2300, 4.8), (3000, 5.0), (float("inf"), 5.7)],
-        "o7": [(1000, 3.0), (1500, 3.2), (1800, 3.5), (2300, 4.8), (3000, 5.0), (float("inf"), 5.7)],
-    }
-    for lim, rate in tbl[age]:
+    for lim, rate in ETS_PER_CC[age]:
         if cc <= lim:
             return {"rub": cc * rate * eur_rub, "note": f"{rate} €/см³ × {cc:.0f} см³"}
 
@@ -97,68 +86,50 @@ def ets_calc(cc: float, age: str, price_eur: float, eur_rub: float,
 
 
 # ═══════════════════════════════════════════════════════════
-# УТИЛИЗАЦИОННЫЙ СБОР — ПП №1291 (ред. №1713), с 01.01.2026
+# УТИЛИЗАЦИОННЫЙ СБОР — ПП №1291 (ред. №1713), с 01.12.2025
 # ═══════════════════════════════════════════════════════════
 
-# Порог льготного утильсбора для физлица (см. lgota ниже) — вынесен в
-# именованную константу, а не оставлен магическим числом 160, потому что
+# Порог льготного утильсбора для физлица (см. lgota ниже) — именованная
+# константа (значение в customs_rates.UTIL_LGOTA_MAX_HP), потому что
 # yandex_post_validator.py (own-lot витрина) сверяется с ЭТИМ ЖЕ порогом
 # при проверке "для этой модели есть известная версия в пределах льготы"
 # (см. model_specs.model_has_privileged_hp_variant()) — один источник
 # правды на число, а не два синхронизируемых вручную.
-MAX_HP_FOR_PHYS_LGOTA = 160
+MAX_HP_FOR_PHYS_LGOTA = UTIL_LGOTA_MAX_HP
 
 
 def util_calc(cc: float, hp: float, age_util: str, fuel: str, who: str) -> dict:
-    B = 20000
+    B = UTIL_BASE_RUB
     is_new = age_util == "u3"
 
     if fuel == "elec":
-        kw30 = hp * 0.45 * 0.7355
-        hp30 = round(hp * 0.45)
-        lgota_elec = who == "phys" and hp30 <= 80
+        kw30 = hp * UTIL_ELEC_30MIN_FACTOR * UTIL_ELEC_KW_PER_HP
+        hp30 = round(hp * UTIL_ELEC_30MIN_FACTOR)
+        lgota_elec = who == "phys" and hp30 <= UTIL_ELEC_LGOTA_MAX_HP30
         if lgota_elec:
-            k = 0.17
+            k = UTIL_ELEC_LGOTA_COEFF
             return {"rub": round(B * k), "coeff": k, "lgota": True,
                     "note30": f"30-мин: {hp30} л.с. ({hp} × 0.45)"}
-        t = [
-            (58.85, 33.37), (73.55, 33.37), (95.61, 40.04), (117.68, 45.00),
-            (139.75, 47.64), (161.81, 50.52), (183.88, 57.12), (205.94, 64.56),
-            (float("inf"), 72.96),
-        ] if is_new else [
-            (58.85, 58.70), (73.55, 58.70), (95.61, 70.44), (117.68, 74.64),
-            (139.75, 79.20), (161.81, 83.88), (183.88, 91.92), (205.94, 100.56),
-            (float("inf"), 110.16),
-        ]
-        for lim, k in t:
+        for lim, k in (UTIL_ELEC_NEW if is_new else UTIL_ELEC_OLD):
             if kw30 <= lim:
                 return {"rub": round(B * k), "coeff": k, "lgota": False,
                         "note30": f"30-мин: {hp30} л.с. ({hp} × 0.45)"}
 
-    lgota = who == "phys" and hp <= MAX_HP_FOR_PHYS_LGOTA and cc <= 3000
+    lgota = who == "phys" and hp <= MAX_HP_FOR_PHYS_LGOTA and cc <= UTIL_LGOTA_MAX_CC
     if lgota:
-        k = 0.17 if is_new else 0.26
+        k = UTIL_LGOTA_COEFF["u3" if is_new else "o3"]
         return {"rub": round(B * k), "coeff": k, "lgota": True}
 
-    comm = [
-        (160, 40.04, 70.44), (190, 45.00, 74.64), (220, 47.64, 79.20),
-        (250, 50.52, 83.88), (280, 57.12, 91.92), (310, 64.56, 100.56),
-        (340, 72.96, 110.16), (370, 83.16, 120.60), (400, 94.80, 132.00),
-        (430, 108.00, 144.60), (460, 123.24, 158.40), (500, 140.40, 173.40),
-        (9999, 160.08, 189.84),
-    ]
-
-    if cc <= 3000:
-        for lim, k0, k3 in comm:
+    top = UTIL_COMMERCIAL_TOP[0 if is_new else 1]
+    if cc <= UTIL_LGOTA_MAX_CC:
+        for lim, k0, k3 in UTIL_COMMERCIAL:
             if hp <= lim:
                 k = k0 if is_new else k3
                 return {"rub": round(B * k), "coeff": k, "lgota": False}
     else:
-        k = 160.08 if is_new else 189.84
-        return {"rub": round(B * k), "coeff": k, "lgota": False}
+        return {"rub": round(B * top), "coeff": top, "lgota": False}
 
-    k = 160.08 if is_new else 189.84
-    return {"rub": round(B * k), "coeff": k, "lgota": False}
+    return {"rub": round(B * top), "coeff": top, "lgota": False}
 
 
 DEFAULT_RATES = {

@@ -17,6 +17,7 @@ import brand_names_ko as bk
 import config
 import post_text_builder as ptb
 import post_validator as pv
+import registry as reg
 
 RATES = {"krw_rub": 0.0625, "eur_rub": 95.33, "usd_rub": 85.0, "cny_rub": 12.0, "jpy_rub": 0.55, "_source": "cbr"}
 
@@ -103,6 +104,13 @@ def run() -> None:
                               and ptb._build_title({}) == ""))
         results.append(_check("повтор бренда/модели в trim по-прежнему схлопывается",
                               ptb._build_title({"brand": "Kia", "model": "K5", "trim": "K5"}) == "Kia K5"))
+        results.append(_check("registry.lot_title использует тот же сборщик (сверка «латиница с латиницей»)",
+                              reg.lot_title({"brand": "Kia", "model": "K5", "trim": "노블레스"}) == "Kia K5 Noblesse"))
+        # реестр: лот с корейским тримом опознаётся как уже опубликованный пост с латинским названием
+        records = {1: {"message_id": 1, "model": "Kia K5 Noblesse", "year": 2022, "mileage_km": 24000, "lot_id": None, "lot_url": None,
+                       "method": "auto", "template": "lead", "post_url": "https://t.me/auto_generals/1", "posted_at": "2026-10-01T00:00:00+00:00"}}
+        results.append(_check("защита от дублей: корейский лот находит уже вышедший пост «Kia K5 Noblesse»",
+                              reg.find_duplicate(_car("노블레스", year=2022, url="https://example.com/other"), records) is not None))
     finally:
         bk_logger.removeHandler(capture)
         pv.REJECTED_LOG_PATH = real_log

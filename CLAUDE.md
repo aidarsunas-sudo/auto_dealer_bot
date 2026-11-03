@@ -77,12 +77,15 @@
   `target_models.json`/`main_pipeline.py` (лидогенерирующие посты).
 - Публикация текста: `post_text_builder.prepare_post_fields()` — ЕДИНАЯ
   функция подготовки полей поста (расчёт цены, заголовок, проверки на
-  хангыль/пустое название), используется вообще всеми путями. Два тонких
-  builder'а поверх неё, отличаются только шаблоном и парой полей:
-  `lead_post_builder.build_lead_post()` (main_pipeline.py, CTA на
-  `@korea_auto_kazan_bot`) и `price_alert_builder.build_price_alert_post()`
-  (main.py, статус "новое поступление"/"цена изменилась"). Готовой функции
-  `build_post_text()` в проекте нет — не путать с этими двумя.
+  хангыль/пустое название), используется вообще всеми путями. Поверх неё —
+  ЕДИНЫЙ шаблон `post_render.render_post(lot, mode)` с режимами `lead`
+  (бронирование) и `auction` (торги): `lead_post_builder.build_lead_post()`
+  (main_pipeline.py/publish_now.py, CTA на `@korea_auto_kazan_bot`) — тонкая
+  обёртка над режимом lead, `publish_lot.py` — режим auction. Отдельно от них
+  `price_alert_builder.build_price_alert_post()` (main.py, статус "новое
+  поступление"/"цена изменилась", свой шаблон 📊). Готовой функции
+  `build_post_text()` в проекте нет — не путать. Прежнего
+  `lead_post_template.txt` больше нет (перенесён в `post_render.py`).
 - Тесты в бою: workflow `run_bot.yml`, галочка `test_post` (форс-публикация
   одного поста в оба канала, дедуп игнорируется) — текст получает префикс
   `[ТЕСТ] `. Галочка `test_video` (только вместе с `test_post`) —
@@ -101,9 +104,15 @@
      `post_text_builder.py`, формат `post_format_schema.py`) — посты про
      ЧУЖИЕ объявления с корейских площадок (Encar/KBChachacha/Charancha/
      OnBid/Heydealer), CTA на бота `@korea_auto_kazan_bot`, публикация в
-     `config.TELEGRAM_CHAT_ID` (публичный канал). Формат ЗАФИКСИРОВАН (хук
-     🔥/📊, блок "📋 Характеристики", CTA `👉 ... @бот`) — не трогать.
-     Единственное добавление сюда — хэштеги в конце (см. ниже).
+     `config.TELEGRAM_CHAT_ID` (публичный канал). Формат единый для режимов lead
+     и auction (`post_render.py`, каждый текст проходит
+     `post_format_schema.validate_post_format()`): хук 🔥 (у price_alert —
+     📊), блок "📋 Характеристики", десятичная ЗАПЯТАЯ ("1,0 л"), CTA
+     `👉 ... @бот`, один набор хэштегов (см. ниже). Блок "📄 История" — только
+     если есть данные (слово "чистая" не писать никогда); время окончания
+     торгов — всегда в двух поясах (Сеул и МСК); слова "утильсбор"/"ЕТС" и
+     ссылки в тексте поста запрещены. Менять формат — только через
+     `post_render.py` + `post_format_schema.py` + тесты (`test_post_render.py`).
   2. **Яндекс/Дзен-витрина** (`yandex_post_builder.py`/
      `yandex_post_validator.py`/`yandex_publisher.py`) — посты про СВОИ
      лоты дилера (реально куплено/заказано), CTA на телефон/сообщение в
@@ -209,6 +218,35 @@
   - Первая строка черновика в чате — `{дата} · Черновик для Яндекса · в
     очереди ещё {N} лотов` (`yandex_publisher.send_yandex_draft(...,
     extra_header=...)`).
+
+## Единый реестр, цена, ручные публикации
+- **Реестр `published.jsonl`** (`registry.py`) — все посты канала
+  @auto_generals; источник правды — САМ канал (публичная страница
+  `t.me/s/auto_generals`). `python registry.py reconcile [--apply]` (dry-run по
+  умолчанию), `register-post <ссылка> [--lot-id ...] [--apply]` — пост,
+  вышедший вне системы. Коммитится из Actions вместе с `published_log.json`;
+  файл защищён хуком `guard_state.py` (локальный, в git не лежит).
+- **Защита от дублей** — в `agent_publisher.publish_post()` (единая точка), ПОСЛЕ
+  гейта и ДО видео/отправки: `registry.find_duplicate()` — сначала по
+  lot_id/URL, затем по "модель + год + пробег (±50 км)" (у ручных постов lot_id
+  может не быть); шаблон поста значения не имеет. Дубль = `DuplicatePostError`
+  (подкласс `PublishBlockedError`), штатный пропуск, не сбой. Посты `[ТЕСТ]` и
+  `skip_duplicate_check=True` обходят сверку. `main_pipeline.py` в начале прогона
+  сверяет реестр с каналом за 7 суток.
+- **Цена под ключ** — одна формула `pricing.calculate_price()`; параметры в
+  `config.py`: `KOREA_COSTS_PCT` (14% = аукцион + экспортные документы + спред по
+  воне; старое имя `EXCHANGE_SPREAD_PCT` работает), `BANK_COMMISSION_PCT`
+  (0,5% — банковский перевод, от цены с надбавкой), `LOGISTICS_RUB`/
+  `BROKER_FEE_RUB`/`MARGIN_RUB`, `IMPORTER_TYPE`. Таможенные ставки — данные в
+  `customs_rates.py`. ⚠️ Значения из `.env` и секретов GitHub Actions
+  перекрывают default в config.py — менять их там же. Функция возвращает
+  `warnings`: коммерческий утильсбор (мощность > 160 л.с., объём > 3000 см³,
+  юрлицо — льготные 5 200 ₽ неприменимы), запасные курсы ЦБ, возраст без месяца.
+- **Ручная публикация лота HeyDealer** — ТОЛЬКО через `publish_lot.py`: по
+  умолчанию dry-run (черновик, канал, размер медиа, дубли, гейт); `--publish`
+  ждёт "да" оператора (`--yes` — только после согласия в чате); `--chat` не
+  основной канал = тестовая отправка с `[ТЕСТ] ` и БЕЗ записи в реестр; вход в
+  HeyDealer — только с `--login`. После отправки пост сразу попадает в реестр.
 
 ## Стиль работы
 - Новые фичи — за флагами в `.env` (`X_ENABLED=false` по умолчанию;

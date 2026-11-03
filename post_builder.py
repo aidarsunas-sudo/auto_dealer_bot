@@ -5,6 +5,10 @@ post_builder.py — calculate_price_details(): общий расчёт цены 
 lead_post_builder.py (main_pipeline.py) и price_alert_builder.py (main.py) —
 чтобы цифры не расходились между разными типами постов.
 
+С 2026-10-07 сама формула живёт в pricing.py (параметры — в config.py, ставки
+пошлин — в customs_rates.py), здесь осталась тонкая обёртка со старым именем и
+старым форматом словаря: все прежние вызовы работают без изменений.
+
 Раньше здесь же был build_telegram_post() — собственный шаблонный генератор
 текста поста (со ссылкой на источник и построчной разбивкой расходов).
 Убран как мёртвый код при аудите 2026-07-06: ни один активный путь публикации
@@ -12,17 +16,13 @@ lead_post_builder.py (main_pipeline.py) и price_alert_builder.py (main.py) —
 lead_post_builder.py — единый компактный формат, см. post_format_schema.py).
 """
 
-import config
-from customs_calculator import calc_full
-from age_calculator import age_bucket_from_year, age_bucket_for_new_catalog_car
+from pricing import calculate_price
 
 
 def calculate_price_details(car: dict, rates: dict) -> dict | None:
     """
     Считает точную цену "под ключ Казань" для машины — общая функция для
-    ЛЮБОГО генератора поста (шаблонного здесь, или через Claude API в
-    post_generator.py), чтобы оба варианта показывали ОДИНАКОВЫЕ, честные
-    цифры, а не каждый считал по-своему.
+    ЛЮБОГО генератора поста, чтобы все показывали ОДИНАКОВЫЕ, честные цифры.
 
     Args:
         car: словарь с полями price, cc, hp, fuel_code, year, month (см.
@@ -35,63 +35,12 @@ def calculate_price_details(car: dict, rates: dict) -> dict | None:
         None, если данных не хватает для расчёта (нет цены/объёма/
         мощности/топлива) — тогда вызывающий код должен показать
         "не хватает данных", а не гадать.
-        Иначе — словарь с результатом расчёта:
-            {
-                "total_rub": итоговая цена под ключ (целое число, рубли),
-                "car_price_rub": цена самой машины в рублях,
-                "bank_commission_rub": комиссия банка за перевод (% от car_price_rub),
-                "customs_rub": пошлина+ЕТС+утильсбор суммарно,
-                "extra_costs_rub": логистика+брокер+наценка суммарно,
-                "age_bucket": использованная возрастная категория,
-            }
+        Иначе — словарь (см. pricing.PriceResult.as_legacy_dict()):
+            total_rub, car_price_rub (с корейской надбавкой), bank_commission_rub,
+            customs_rub (сбор+ЕТС+утильсбор), extra_costs_rub (логистика+брокер+наценка),
+            exchange_spread_rub / korea_costs_rub (надбавка), car_price_cbr_rub,
+            fee_rub, duty_rub, util_rub, util_lgota, util_coeff, age_bucket,
+            warnings — список предупреждений (утильсбор не льготный, запасные курсы и т.п.).
     """
-    price_krw = car.get("price")
-    cc = car.get("cc")
-    hp = car.get("hp")
-    fuel_code = car.get("fuel_code")
-    manufacture_year = car.get("year")
-    manufacture_month = car.get("month")  # см. age_calculator.py — точность по месяцу
-
-    if not all([price_krw, cc, hp, fuel_code]):
-        return None
-
-    # Возраст считаем по реальному году выпуска, если он известен (машина
-    # с пробегом). Если года нет — это каталог НОВЫХ авто у дилера, и мы
-    # точно знаем, что машина актуального модельного года.
-    age = (age_bucket_from_year(manufacture_year, manufacture_month) if manufacture_year
-           else age_bucket_for_new_catalog_car())
-
-    result = calc_full(
-        price=price_krw,
-        currency="krw",
-        cc=cc,
-        power=hp,
-        age=age,
-        fuel=fuel_code,
-        who=config.IMPORTER_TYPE,
-        rates=rates,
-    )
-
-    # Банковский спред на KRW: реальный курс покупки воны в банке выше ЦБ
-    # на EXCHANGE_SPREAD_PCT (типично ~14%). Таможня считается по ЦБ (закон),
-    # а ЗА МАШИНУ покупатель платит по банковскому — разница ложится сюда.
-    exchange_spread = result["price_rub"] * config.EXCHANGE_SPREAD_PCT
-    car_price_real = result["price_rub"] + exchange_spread
-
-    # Банк.комиссия — от РЕАЛЬНОЙ цены перевода (с учётом спреда),
-    # НЕ от таможни/утильсбора/доставки/брокера/наценки.
-    bank_commission = car_price_real * config.BANK_COMMISSION_PCT
-    extra_costs = config.LOGISTICS_RUB + config.BROKER_FEE_RUB + config.MARGIN_RUB
-    total_rub = int(car_price_real + result["with_util"] + bank_commission + extra_costs)
-
-    return {
-        "total_rub": total_rub,
-        "car_price_rub": int(car_price_real),
-        "bank_commission_rub": int(bank_commission),
-        "customs_rub": int(result["with_util"]),
-        "extra_costs_rub": int(extra_costs),
-        "exchange_spread_rub": int(exchange_spread),
-        "age_bucket": age,
-    }
-
-
+    result = calculate_price(car, rates)
+    return result.as_legacy_dict() if result else None

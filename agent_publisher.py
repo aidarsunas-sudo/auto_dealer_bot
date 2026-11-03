@@ -46,16 +46,22 @@ send_video_to_telegram() — использует метод Bot API sendVideo. 
 import logging
 import os
 import shutil
+import sys
+from pathlib import Path
 
 import requests
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "publishing"))
 
 import config
 import video_generator
 import video_state
+import post_journal  # noqa: E402  единый журнал публикаций (все цепочки проекта)
 from telegram_publisher import send_to_telegram, send_photo_to_telegram, send_media_group_to_telegram
 from vk_publisher import send_to_vk
 from post_validator import (validate_post_before_publish, validate_new_catalog_post,
                             PublishBlockedError, ValidatedCar)
+import registry
 
 logger = logging.getLogger("agent_publisher")
 
@@ -84,7 +90,8 @@ CAR_KINDS = ("used", "new_catalog")
 
 
 def publish_post(car: dict, text: str, dry_run: bool = False,
-                  fields: dict | None = None, car_kind: str = "used") -> bool:
+                  fields: dict | None = None, skip_duplicate_check: bool = False,
+                  car_kind: str = "used") -> bool:
     """
     Публикует готовый текст поста в Telegram (основной канал) и, следом,
     в VK (второй канал, best-effort — см. докстринг файла).
@@ -126,11 +133,19 @@ def publish_post(car: dict, text: str, dry_run: bool = False,
         их не удалось (например, битая ссылка на изображение) — публикация
         БЛОКИРУЕТСЯ целиком (False), а не откатывается на текст без фото.
 
+        skip_duplicate_check: не сверять лот с реестром published.jsonl. Тестовые
+            посты (текст начинается с «[ТЕСТ]», test_post.py) пропускают сверку
+            сами — они публикуются вне дедупа намеренно.
+
     Raises:
         PublishBlockedError: гейт не пройден (см. car_kind выше).
         ValueError: неизвестный car_kind.
             Вызывающий код должен ловить её на уровне цикла по машинам
             (продолжить со следующей), а не давать упасть всему прогону.
+        registry.DuplicatePostError (подкласс PublishBlockedError): лот уже есть
+            в реестре published.jsonl — по lot_id/URL либо по сочетанию модель + год
+            + пробег (у ручных постов lot_id может не быть). Ничего не отправляется,
+            причина — в логе и в тексте исключения. Сверка идёт и при dry_run.
     """
     if car_kind not in CAR_KINDS:
         raise ValueError(f"car_kind должен быть одним из {CAR_KINDS}, получено {car_kind!r}")
@@ -144,6 +159,40 @@ def publish_post(car: dict, text: str, dry_run: bool = False,
     # используется именно эта проверенная обёртка (см. её докстринг в
     # post_validator.py про то, зачем это физическое разделение типов).
     car = validated
+
+    # Дубли: единое место, как и у гейта выше — вызывающий код сверку не дублирует.
+    # ДО видео/озвучки и до любой отправки. Не мешает записи published_log (его
+    # ведёт вызывающий код), реестр published.jsonl — источник правды о канале.
+    if not skip_duplicate_check and not text.lstrip().startswith("[ТЕСТ]"):
+        duplicate = registry.find_duplicate(car)
+        if duplicate is not None:
+            identifier = car.get("url") or car.get("external_id") or "?"
+            reason = registry.describe_duplicate(duplicate)
+            logger.warning(f"Публикация пропущена: дубль {identifier} — {reason}")
+            raise registry.DuplicatePostError(f"Пост {identifier} пропущен как дубль: {reason}")
+
+        # Единый журнал публикаций (SEO-цепочка + лидоген + ручные посты):
+        # (1) дубль-текст — шаблонный пост той же модели с другим лотом;
+        # (2) модель, бывшая фокусом поста за последние RECENT_MODEL_DAYS дней.
+        model_key = f"{car.get('brand', '')} {car.get('model', '')}".strip().lower()
+        dup_entry, dup_ratio = post_journal.find_duplicate(
+            text, exclude_slug=car.get("url") or car.get("external_id"))
+        if dup_entry is not None:
+            dup_models = set(dup_entry.get("focus_models") or [])
+            if not dup_models:
+                dup_models = {(dup_entry.get("query") or "").split(" [")[0].strip().lower()}
+            if model_key and model_key in dup_models:
+                reason = (f"текст поста похож на «{dup_entry.get('query')}» "
+                          f"(slug {dup_entry.get('slug')}, сходство {dup_ratio:.2f})")
+                logger.warning(f"Публикация пропущена (единый журнал): {reason}")
+                post_journal.log_duplicate(model_key, dup_entry, dup_ratio, where="lead-gate")
+                raise registry.DuplicatePostError(f"Пост пропущен: {reason}")
+        recent_models = post_journal.recent_focus_models(config.RECENT_MODEL_DAYS)
+        if model_key and model_key in recent_models:
+            reason = f"модель {model_key} уже была в канале за последние {config.RECENT_MODEL_DAYS} дн."
+            logger.warning(f"Публикация пропущена (единый журнал): {reason}")
+            post_journal.log_duplicate(model_key, None, 1.0, where="lead-gate")
+            raise registry.DuplicatePostError(f"Пост пропущен: {reason}")
 
     photos = car.get("photos") or []
 
@@ -170,6 +219,17 @@ def publish_post(car: dict, text: str, dry_run: bool = False,
 
     if not ok:
         logger.error("Публикация в Telegram заблокирована — не удалось прикрепить фото")
+    elif not dry_run:
+        # Запись в ЕДИНЫЙ журнал сразу после успешной отправки (все цепочки
+        # проекта пишут сюда же — SEO-цепочка, лидоген, ручные публикации).
+        # Сбой записи не должен блокировать уже состоявшуюся публикацию.
+        try:
+            post_journal.append_entry(
+                slug=car.get("url") or str(car.get("external_id") or "lead-post"),
+                query=f"{car.get('brand', '')} {car.get('model', '')} [lead]",
+                text=text)
+        except OSError as error:
+            logger.warning(f"Журнал published_posts.jsonl: запись не добавлена ({error})")
 
     try:
         if not send_to_vk(text, photos, dry_run=dry_run, video_path=inline_video, video_name=video_name):

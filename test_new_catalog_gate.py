@@ -87,15 +87,15 @@ def run() -> None:
             setattr(agent_publisher, name, lambda *a, **k: sent.append("send") or True)
         fields = {"total_rub_raw": 4_000_000, "title": "Kia Sportage Prestige", "year": "не указан"}
         sent.clear()
-        ok = agent_publisher.publish_post(_new_car(), "текст", fields=fields, car_kind="new_catalog")
+        ok = agent_publisher.publish_post(_new_car(), "текст", fields=fields, car_kind="new_catalog", skip_duplicate_check=True)
         results.append(_check("publish_post(car_kind='new_catalog'): лот без года и фото проходит свой гейт и публикуется", ok is True and "send" in sent))
         sent.clear()
         results.append(_check("новый авто с битыми данными блокируется (PublishBlockedError), ничего не отправлено",
                               _raises(PublishBlockedError, lambda: agent_publisher.publish_post(_new_car(cc=None), "текст", fields=fields,
-                                                                                               car_kind="new_catalog"))
+                                                                                               car_kind="new_catalog", skip_duplicate_check=True))
                               and sent == []))
         results.append(_check("тот же лот как «used» (полный гейт) блокируется: нет фото и года — старая строгость не ослаблена",
-                              _raises(PublishBlockedError, lambda: agent_publisher.publish_post(_new_car(), "текст", fields=fields))
+                              _raises(PublishBlockedError, lambda: agent_publisher.publish_post(_new_car(), "текст", fields=fields, skip_duplicate_check=True))
                               and sent == []))
         results.append(_check("неизвестный car_kind -> ValueError", _raises(ValueError, lambda: agent_publisher.publish_post(_new_car(), "т", car_kind="used_new"))))
         results.append(_check("параметра skip_validation больше нет: попытка передать его -> TypeError",

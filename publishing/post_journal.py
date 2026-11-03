@@ -99,6 +99,21 @@ def find_published(slug: str) -> dict | None:
     return None
 
 
+def recent_focus_models(days: int = 2) -> set:
+    """Модели (focus_models), бывшие фокусом постов за последние `days` дней — для гейта повторов."""
+    from datetime import timedelta
+    cutoff = datetime.now() - timedelta(days=days)
+    recent_set = set()
+    for e in read_journal():
+        try:
+            entry_date = datetime.fromisoformat(e.get("date") or e.get("ts", "")).date()
+        except ValueError:
+            continue
+        if entry_date >= cutoff.date():
+            recent_set |= set(e.get("focus_models") or [])
+    return recent_set
+
+
 def append_entry(slug: str, query: str, post_text: str, date: str | None = None) -> dict:
     """Пишет запись в журнал. Вызывать только после успешной (не dry-run) публикации."""
     now = datetime.now()
@@ -109,6 +124,7 @@ def append_entry(slug: str, query: str, post_text: str, date: str | None = None)
         "query": query,
         "sha256": _sha(post_text),
         "body_sha256": _sha(normalize(post_text)),
+        "body": normalize(post_text)[:1200],
         "models": model_rotation.find_models(post_text),
         "focus_models": model_rotation.focus_models(post_text),
         "preview": re.sub(r"\s+", " ", COVER_RE.sub("", post_text or "")).strip()[:PREVIEW_LEN],
@@ -133,9 +149,12 @@ def find_duplicate(post_text: str, exclude_slug: str | None = None,
         if not slug or slug == exclude_slug:
             continue
         path = ARTICLES / slug / "post.md"
-        if not path.exists():
-            continue
-        old_body = normalize(path.read_text(encoding="utf-8"))
+        if path.exists():
+            old_body = normalize(path.read_text(encoding="utf-8"))
+        else:
+            # записи без статьи на диске (напр. лидоген @auto_generals, slug = url лота) —
+            # сравниваем с телом, сохранённым прямо в записи журнала
+            old_body = entry.get("body") or ""
         if not old_body:
             continue
         if _sha(old_body) == body_hash:

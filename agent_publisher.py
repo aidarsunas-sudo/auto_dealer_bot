@@ -46,12 +46,17 @@ send_video_to_telegram() — использует метод Bot API sendVideo. 
 import logging
 import os
 import shutil
+import sys
+from pathlib import Path
 
 import requests
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "publishing"))
 
 import config
 import video_generator
 import video_state
+import post_journal  # noqa: E402  единый журнал публикаций (все цепочки проекта)
 from telegram_publisher import send_to_telegram, send_photo_to_telegram, send_media_group_to_telegram
 from vk_publisher import send_to_vk
 from post_validator import (validate_post_before_publish, validate_new_catalog_post,
@@ -166,6 +171,29 @@ def publish_post(car: dict, text: str, dry_run: bool = False,
             logger.warning(f"Публикация пропущена: дубль {identifier} — {reason}")
             raise registry.DuplicatePostError(f"Пост {identifier} пропущен как дубль: {reason}")
 
+        # Единый журнал публикаций (SEO-цепочка + лидоген + ручные посты):
+        # (1) дубль-текст — шаблонный пост той же модели с другим лотом;
+        # (2) модель, бывшая фокусом поста за последние RECENT_MODEL_DAYS дней.
+        model_key = f"{car.get('brand', '')} {car.get('model', '')}".strip().lower()
+        dup_entry, dup_ratio = post_journal.find_duplicate(
+            text, exclude_slug=car.get("url") or car.get("external_id"))
+        if dup_entry is not None:
+            dup_models = set(dup_entry.get("focus_models") or [])
+            if not dup_models:
+                dup_models = {(dup_entry.get("query") or "").split(" [")[0].strip().lower()}
+            if model_key and model_key in dup_models:
+                reason = (f"текст поста похож на «{dup_entry.get('query')}» "
+                          f"(slug {dup_entry.get('slug')}, сходство {dup_ratio:.2f})")
+                logger.warning(f"Публикация пропущена (единый журнал): {reason}")
+                post_journal.log_duplicate(model_key, dup_entry, dup_ratio, where="lead-gate")
+                raise registry.DuplicatePostError(f"Пост пропущен: {reason}")
+        recent_models = post_journal.recent_focus_models(config.RECENT_MODEL_DAYS)
+        if model_key and model_key in recent_models:
+            reason = f"модель {model_key} уже была в канале за последние {config.RECENT_MODEL_DAYS} дн."
+            logger.warning(f"Публикация пропущена (единый журнал): {reason}")
+            post_journal.log_duplicate(model_key, None, 1.0, where="lead-gate")
+            raise registry.DuplicatePostError(f"Пост пропущен: {reason}")
+
     photos = car.get("photos") or []
 
     # Видео — ДО отправки текста/фото, а не после: в режиме VIDEO_POST_MODE=
@@ -191,6 +219,17 @@ def publish_post(car: dict, text: str, dry_run: bool = False,
 
     if not ok:
         logger.error("Публикация в Telegram заблокирована — не удалось прикрепить фото")
+    elif not dry_run:
+        # Запись в ЕДИНЫЙ журнал сразу после успешной отправки (все цепочки
+        # проекта пишут сюда же — SEO-цепочка, лидоген, ручные публикации).
+        # Сбой записи не должен блокировать уже состоявшуюся публикацию.
+        try:
+            post_journal.append_entry(
+                slug=car.get("url") or str(car.get("external_id") or "lead-post"),
+                query=f"{car.get('brand', '')} {car.get('model', '')} [lead]",
+                text=text)
+        except OSError as error:
+            logger.warning(f"Журнал published_posts.jsonl: запись не добавлена ({error})")
 
     try:
         if not send_to_vk(text, photos, dry_run=dry_run, video_path=inline_video, video_name=video_name):

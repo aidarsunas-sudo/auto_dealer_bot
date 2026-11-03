@@ -44,6 +44,10 @@ import traceback
 from datetime import datetime
 
 import config
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent / "publishing"))
+import post_journal  # noqa: E402  единый журнал: история перед генерацией
 from target_collector import collect_target_model_cars
 from broad_collector import collect_broad_cars
 from published_log import (
@@ -283,10 +287,20 @@ def run() -> None:
 
     posted_count = 0
     duplicates_skipped = 0
+    recent_journal_models = post_journal.recent_focus_models(config.RECENT_MODEL_DAYS)
     for car in candidates:
         if posted_count >= post_limit:
             log.info(f"Достигнут лимит {post_limit} постов за запуск — останавливаюсь")
             break
+
+        # История единого журнала ПЕРЕД генерацией: модель, бывшая фокусом
+        # поста за последние RECENT_MODEL_DAYS дней (в любой цепочке проекта:
+        # лидоген/SEO/ручные публикации), — пропускаем, не генерируя текст.
+        model_key = f"{car.get('brand', '')} {car.get('model', '')}".strip().lower()
+        if model_key and model_key in recent_journal_models:
+            log.info(f"Пропуск (единый журнал): {car.get('brand', '')} {car.get('model', '')} "
+                     f"уже в канале за последние {config.RECENT_MODEL_DAYS} дн.")
+            continue
 
         post_text = build_lead_post(car, rates)
         if post_text is None:

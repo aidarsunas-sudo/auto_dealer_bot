@@ -158,7 +158,7 @@ jobs:
           # опубликовано/отправлено) — "git add" на несуществующий путь падает
           # с exit 128 и (из-за set -e в GitHub Actions) валит весь шаг.
           # published.jsonl — единый реестр опубликованного (registry.py), та же причина.
-          for f in published_log.json published.jsonl logs/main_pipeline.log target_models_cache.json video_state.json yandex_queue.json yandex_published.json yandex_digest_pool.json; do
+          for f in published_log.json published.jsonl publishing/published_posts.jsonl logs/main_pipeline.log target_models_cache.json video_state.json yandex_queue.json yandex_published.json yandex_digest_pool.json; do
             [ -e "$f" ] && git add "$f"
           done
           git diff --staged --quiet || git commit -m "Автообновление published_log.json [skip ci]"

@@ -32,8 +32,9 @@ diversify() — round-robin по (brand, model) работает одинако�
 
 Расписание: каждые 6 часов (см. cron/GitHub Actions). Свежесть объявления —
 14 дней от даты, когда МЫ САМИ его впервые увидели (published_log.json;
-не все источники отдают дату размещения на сайте). Лимит — 5 постов за
-один запуск (см. FRESHNESS_DAYS / POST_LIMIT ниже).
+не все источники отдают дату размещения на сайте). Лимит — 2 поста за
+один запуск, модельные повторы запрещены (см. FRESHNESS_DAYS / POST_LIMIT
+ниже и filter_recent_models без fallback).
 """
 
 import argparse
@@ -72,7 +73,7 @@ from telegram_publisher import send_to_telegram
 
 FRESHNESS_DAYS = 14
 REGISTRY_REFRESH_DAYS = 7  # глубина сверки реестра published.jsonl с каналом в начале прогона
-POST_LIMIT = 5
+POST_LIMIT = 2  # постов за запуск — канал реже, но строго без модельных повторов
 DIVERSIFY_BUFFER = 5  # diversify() вернёт до POST_LIMIT * DIVERSIFY_BUFFER кандидатов
 
 LOG_FILE_PATH = "logs/main_pipeline.log"
@@ -255,9 +256,9 @@ def run() -> None:
                   f"нечитаемый заголовок)")
 
     # Модели, опубликованные за последние RECENT_MODEL_DAYS дней, — убираем
-    # среди publishable, если есть альтернативы. filter_recent_models
-    # возвращает все publishable без изменений, если после удаления недавних
-    # не осталось ни одного — лучше повтор модели, чем пустой прогон.
+    # среди publishable без fallback: модельные повторы запрещены (03.11),
+    # канал молчит до свежих моделей. Если не осталось ни одного кандидата —
+    # честный тихий прогон (не «сбой»: guard ниже не должен тревожить).
     recent_models = recently_posted_models(pub_log, config.RECENT_MODEL_DAYS)
     before_recent_filter = len(publishable)
     candidates = filter_recent_models(publishable, recent_models)
@@ -265,9 +266,13 @@ def run() -> None:
         log.info(f"Фильтр недавних моделей: убрано {before_recent_filter - len(candidates)} "
                   f"из {before_recent_filter} кандидатов (за последние "
                   f"{config.RECENT_MODEL_DAYS} дн.): {recent_models}")
-    elif recent_models and len(candidates) == before_recent_filter:
-        log.info(f"Фильтр недавних моделей: все {before_recent_filter} publishable "
-                  f"кандидатов — недавние, используем всех (fallback)")
+    if not candidates:
+        log.info("Все publishable кандидаты — недавно опубликованные модели; "
+                 "по решению владельца повторы моделей не публикуем — пропускаем прогон")
+        save_log(pub_log)
+        _dispatch_yandex_draft(rates, log, args.dry_run)
+        log.info("=== Готово: опубликовано 0 постов (намеренный пропуск) ===")
+        return
 
     # Без этого шага все POST_LIMIT постов могут оказаться одной моделью с
     # одного источника (см. разбор бага: при первом запуске у всех кандидатов

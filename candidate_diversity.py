@@ -19,7 +19,7 @@ main_pipeline.py, чтобы за один запуск не улетело по
 
 from collections import Counter, defaultdict, deque
 
-MAX_PER_MODEL = 2
+MAX_PER_MODEL = 1  # одна модель — максимум один пост за прогон (без модельных повторов)
 
 # Полный список источников без логина — та же четвёрка, что в
 # target_collector.NOLOGIN_TARGET_ADAPTERS/broad_collector.BROAD_ADAPTERS.
@@ -135,17 +135,15 @@ def limit_consecutive_brand(candidates: list, recent_brand_tail: list, max_in_a_
 def filter_recent_models(candidates: list, recent_models: set) -> list:
     """
     Убирает кандидатов моделей (brand, model), которые уже публиковались
-    недавно (см. published_log.recently_posted_models) — ЕСЛИ после этого
-    остаются другие кандидаты. Если после фильтра список пуст (то есть
-    доступны ТОЛЬКО недавно опубликованные модели, альтернатив нет) —
-    возвращает исходный список без изменений: лучше повтор модели, чем
-    вообще не публиковать ничего за весь прогон.
+    недавно (см. published_log.recently_posted_models). Если после фильтра
+    список пуст (доступны ТОЛЬКО недавно опубликованные модели) — возвращаем
+    ПУСТОЙ список: модельные повторы запрещены по решению владельца (03.11),
+    канал молчит до появления свежих моделей, а не дублирует недавние.
     """
     if not recent_models:
         return candidates
 
-    filtered = [c for c in candidates if (c.get("brand"), c.get("model")) not in recent_models]
-    return filtered if filtered else candidates
+    return [c for c in candidates if (c.get("brand"), c.get("model")) not in recent_models]
 
 
 def check_source_health(cars: list, log, notify_fn=None) -> list:

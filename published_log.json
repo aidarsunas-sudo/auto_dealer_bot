@@ -19113,10 +19113,14 @@
   },
   "https://www.charancha.com/cars/01a19fd9-e11d-7753-9699-9a8cf4f66a73": {
     "first_seen": "2026-11-07T08:19:46",
-    "posted_at": null
+    "posted_at": "2026-11-07T12:00:00",
+    "brand": "Volkswagen",
+    "model": "Tiguan"
   },
   "https://www.charancha.com/cars/01a19fc7-b116-7885-9f44-30d3bf608a39": {
     "first_seen": "2026-11-07T08:19:46",
-    "posted_at": null
+    "posted_at": "2026-11-07T12:00:00",
+    "brand": "Renault",
+    "model": "SM6"
   }
 }

@@ -227,8 +227,8 @@ def publish_post(car: dict, text: str, dry_run: bool = False,
             post_journal.append_entry(
                 slug=car.get("url") or str(car.get("external_id") or "lead-post"),
                 query=f"{car.get('brand', '')} {car.get('model', '')} [lead]",
-                text=text)
-        except OSError as error:
+                post_text=text)
+        except Exception as error:
             logger.warning(f"Журнал published_posts.jsonl: запись не добавлена ({error})")
 
     try:

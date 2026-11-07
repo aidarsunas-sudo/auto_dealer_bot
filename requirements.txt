@@ -1,6 +1,9 @@
 requests
 beautifulsoup4
 python-dotenv
+# Единый журнал публикаций publishing/post_journal.py (общий для лидогена,
+# SEO-цепочки и ручных постов) читает publishing/common.py -> yaml.
+PyYAML
 
 # Нужен main_pipeline.py (kbchachacha_target_adapter.py, encar_scraper.py) —
 # одноразовый Playwright-резолвинг кодов марки/модели по target_models.json.

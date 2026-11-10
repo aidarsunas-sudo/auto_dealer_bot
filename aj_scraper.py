@@ -49,8 +49,13 @@ USER_AGENT = (
 )
 
 LIST_API_URL = "https://api.ahsellcar.co.kr/auction/external/rest/api/v1/entry/list/paging"
+# 2026-11-10: площадка переехала autohubauction.co.kr -> sellcarauction.co.kr
+# (старый домен TCP-доступен, но Playwright виснет на событии 'load'; новый
+# домен отвечает на 'domcontentloaded' — по нему же логинится пользователь).
+LOGIN_URL = "https://www.sellcarauction.co.kr/"
+DETAIL_URL_TEMPLATE = "https://www.sellcarauction.co.kr/auction/detail?entryNo={entryNo}"
 PAGE_SIZE = 100
-MAX_PAGES = 50  # защитный потолок (на момент разведки площадка ~1600-2000 машин)
+MAX_PAGES = 50  # защитный потолок (на момент разведки площадка ~1600-2000 машин; 2026-11: 2260)
 
 
 def _login_and_save_session(creds: dict, log: logging.Logger) -> None:
@@ -59,10 +64,12 @@ def _login_and_save_session(creds: dict, log: logging.Logger) -> None:
         ctx = browser.new_context(user_agent=USER_AGENT)
         page = ctx.new_page()
         try:
-            page.goto("https://www.autohubauction.co.kr/", wait_until="load", timeout=45000)
+            # 'domcontentloaded', а не 'load': старый домен/новый фронт виснут
+            # на догрузке ресурсов до 'load' (проверено вживую 2026-11-10)
+            page.goto(LOGIN_URL, wait_until="domcontentloaded", timeout=45000)
         except Exception as error:
             log.warning(f"aj: goto warning: {error}")
-        time.sleep(6)  # сайт на Next.js, меню дорисовывается уже после события 'load'
+        time.sleep(6)  # сайт на Next.js, меню дорисовывается уже после события загрузки DOM
 
         page.click("text=로그인", timeout=8000)
         time.sleep(3)
@@ -70,12 +77,19 @@ def _login_and_save_session(creds: dict, log: logging.Logger) -> None:
         page.fill('input[placeholder="비밀번호 입력"]', creds["password"])
         time.sleep(1)
         page.keyboard.press("Enter")
-        time.sleep(4)
+        time.sleep(5)
 
-        body = page.inner_text("body", timeout=15000)
-        if "로그아웃" not in body:
-            browser.close()
-            raise RuntimeError("aj: логин не удался — проверь credentials.json")
+        # Проверка успеха — по куке user-info с accessToken, а не по тексту
+        # "로그아웃": на новом домене sellcarauction.co.kr разметка кабинета
+        # другая и текстовая проверка молча давала ложный "логин не удался",
+        # хотя токен выдавался и API с ним работал (проверено вживую 2026-11-10).
+        cookies = {c["name"]: c["value"] for c in ctx.cookies()}
+        user_info = cookies.get("user-info")
+        if not user_info or "accessToken" not in unquote(user_info):
+            body = page.inner_text("body", timeout=15000)
+            if "로그아웃" not in body:  # старая проверка — как запасной вариант
+                browser.close()
+                raise RuntimeError("aj: логин не удался — проверь credentials.json")
 
         ctx.storage_state(path=str(SESSION_PATH))
         browser.close()
@@ -174,7 +188,7 @@ def _normalize_item(item: dict, target: dict) -> dict:
         "fuel_code": spec.fuel if spec else None,
         "specs": f"{spec.cc} см³, {spec.hp} л.с." if spec else "",
         "price": price * 10000,  # 만원 -> вон
-        "url": f"https://www.autohubauction.co.kr/auction/detail?entryNo={item.get('entryNo')}",
+        "url": DETAIL_URL_TEMPLATE.format(entryNo=item.get("entryNo")),
         "source": "aj",
         "photos": [thumbnail] if thumbnail else [],
         "accident_free": accident_free,

@@ -929,5 +929,24 @@
   "charancha:Kia:Seltos": {
     "result": null,
     "resolved_at": "2026-07-26T19:11:09"
+  },
+  "encar:BMW:X4": {
+    "result": {
+      "car_type": "A",
+      "manufacturer_ko": "BMW",
+      "model_group": "X4"
+    },
+    "resolved_at": "2026-11-10T16:35:22"
+  },
+  "charancha:BMW:X4": {
+    "result": {
+      "makerCode": "001",
+      "modelCode": "0023"
+    },
+    "resolved_at": "2026-11-10T16:35:29"
+  },
+  "kbchachacha:BMW:X4": {
+    "result": null,
+    "resolved_at": "2026-11-10T17:07:31"
   }
 }

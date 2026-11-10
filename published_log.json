@@ -19025,7 +19025,9 @@
   },
   "https://fem.encar.com/cars/detail/43056600": {
     "first_seen": "2026-10-31T12:04:26",
-    "posted_at": null
+    "posted_at": "2026-11-10T14:06:21",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://fem.encar.com/cars/detail/43058816": {
     "first_seen": "2026-10-31T12:04:26",

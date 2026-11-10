@@ -140,7 +140,7 @@ def render_card(car: dict, car_idx: int, local_photos: list) -> str:
     if local_photos:
         photos_html = "".join(
             f'<img src="{escape(p)}" data-full="{escape(p)}" data-idx="{i}" '
-            f'class="lightbox-trigger" loading="lazy" alt="фото {i+1}">'
+            f'class="lightbox-trigger" loading="lazy" alt="фото {i+1}" title="Клик — увеличить">'
             for i, p in enumerate(local_photos)
         )
     else:
@@ -197,7 +197,7 @@ def render_card(car: dict, car_idx: int, local_photos: list) -> str:
 
 LIGHTBOX_CSS = """
   .photo-strip { display: flex; gap: 2px; overflow-x: auto; background: #ddd; }
-  .photo-strip img { width: 90px; height: 90px; object-fit: cover; flex: 0 0 auto; cursor: pointer; display: block; }
+  .photo-strip img { width: 90px; height: 90px; object-fit: cover; flex: 0 0 auto; cursor: zoom-in; display: block; }
   .no-photo { padding: 30px; text-align: center; color: #999; width: 100%; background: #eee; }
   #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000;
               align-items: center; justify-content: center; flex-direction: column; }
@@ -209,6 +209,10 @@ LIGHTBOX_CSS = """
   #lightbox .lb-prev { left: 10px; }
   #lightbox .lb-next { right: 10px; }
   #lightbox .lb-close { position: absolute; top: 20px; right: 20px; font-size: 32px; color: #fff; cursor: pointer; }
+  #lightbox .lb-open { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+                        color: #9ecbff; font-size: 14px; background: rgba(0,0,0,0.5); padding: 8px 14px;
+                        border-radius: 8px; text-decoration: none; }
+  #lightbox .lb-open:hover { color: #fff; text-decoration: underline; }
 """
 
 LIGHTBOX_JS = """
@@ -229,6 +233,8 @@ LIGHTBOX_JS = """
   function show() {
     lbImg.src = currentGroup[currentIdx];
     lbCounter.textContent = (currentIdx + 1) + ' / ' + currentGroup.length;
+    var lbOpen = document.getElementById('lb-open');
+    if (lbOpen) lbOpen.href = currentGroup[currentIdx];
   }
   function next() { currentIdx = (currentIdx + 1) % currentGroup.length; show(); }
   function prev() { currentIdx = (currentIdx - 1 + currentGroup.length) % currentGroup.length; show(); }
@@ -328,6 +334,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <img id="lb-img" src="" alt="">
   <span class="lb-arrow lb-next">›</span>
   <div class="lb-counter" id="lb-counter"></div>
+  <a id="lb-open" class="lb-open" href="#" target="_blank" rel="noopener">Открыть в полном размере ↗</a>
 </div>
 <script>
 {lightbox_js}

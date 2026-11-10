@@ -50,7 +50,7 @@ SOURCE_LABELS = {
 
 _COLOR_DISPLAY_RU = {
     "흰색": "белый", "화이트": "белый", "펄화이트": "жемчужно-белый",
-    "검정색": "чёрный", "검은색": "чёрный", "블랙": "чёрный",
+    "검정색": "чёрный", "검은색": "чёрный", "블랙": "чёрный", "블랙 사파이어": "чёрный сапфир",
     "파란색": "синий", "블루": "синий", "남색": "тёмно-синий",
     "회색": "серый", "쥐색": "серый", "그레이": "серый",
     "은색": "серебристый", "실버": "серебристый",
@@ -114,7 +114,7 @@ CARD_TEMPLATE = """
     <div class="row">📅 {year}{month} &nbsp;|&nbsp; 🛣 {mileage} &nbsp;|&nbsp; 🎨 {color} &nbsp;|&nbsp; ⚙ {transmission}</div>
     <div class="row">🔧 {cc_hp}</div>
     <div class="row condition {condition_class}">{condition_icon} {condition_note}</div>
-    <div class="row price">💰 Цена на площадке: {price_krw} ₩</div>
+    <div class="row price">💰 Цена на площадке: {price_krw}</div>
     <div class="row total">💵 В рублях по курсу ЦБ: {price_rub}</div>
     <details class="breakdown">
       <summary>🏁 «Под ключ» в Казани: <b>{total}</b> (разбивка)</summary>
@@ -158,6 +158,7 @@ def render_card(car: dict, car_idx: int, local_photos: list) -> str:
     details = car.get("_price_details") or {}
     price_rub = car.get("_price_rub")
     price_rub_text = f"<b>{format_money(price_rub)} ₽</b>" if price_rub is not None else "цена не указана площадкой"
+    price_krw_text = (format_money(car.get("price")) + " ₩") if car.get("price") else "не указана (торги)"
     month = f".{car['month']:02d}" if car.get("month") else ""
 
     return CARD_TEMPLATE.format(
@@ -176,7 +177,7 @@ def render_card(car: dict, car_idx: int, local_photos: list) -> str:
         condition_class=condition_class,
         condition_icon=condition_icon,
         condition_note=escape(car.get("_condition_note", "")),
-        price_krw=format_money(car.get("price")),
+        price_krw=price_krw_text,
         price_rub=price_rub_text,
         total=format_money(details.get("total_rub")),
         car_price_rub=format_money(details.get("car_price_rub")),

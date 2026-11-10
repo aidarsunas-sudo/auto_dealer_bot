@@ -43,5 +43,57 @@
       "color": "검정색"
     },
     "published_at": "2026-11-09T14:54:20.913807"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "43026643",
+      "year": 2022,
+      "month": 12,
+      "mileage_km": 36426,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 19300000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/43026643",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture02/pic4302/43026204_027.jpg",
+        "https://ci.encar.com/carpicture02/pic4302/43026204_003.jpg",
+        "https://ci.encar.com/carpicture02/pic4302/43026204_004.jpg",
+        "https://ci.encar.com/carpicture02/pic4302/43026204_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-11-10T01:09:45.439991"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 ACTIV",
+      "external_id": "43027402",
+      "year": 2023,
+      "month": 4,
+      "mileage_km": 27158,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 22500000,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/43027402",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture02/pic4302/43024067_027.jpg",
+        "https://ci.encar.com/carpicture02/pic4302/43024067_003.jpg",
+        "https://ci.encar.com/carpicture02/pic4302/43024067_004.jpg",
+        "https://ci.encar.com/carpicture02/pic4302/43024067_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-11-10T01:10:09.567585"
   }
 ]

@@ -115,13 +115,14 @@ CARD_TEMPLATE = """
     <div class="row">🔧 {cc_hp}</div>
     <div class="row condition {condition_class}">{condition_icon} {condition_note}</div>
     <div class="row price">💰 Цена на площадке: {price_krw}</div>
+    {price_note_html}
     <div class="row total">💵 В рублях по курсу ЦБ: {price_rub}</div>
     <details class="breakdown">
       <summary>🏁 «Под ключ» в Казани: <b>{total}</b> (разбивка)</summary>
       <table class="breakdown-table">
-        <tr><td>Цена авто</td><td>{price_krw} ₩ → {car_price_rub} ₽</td></tr>
-        <tr><td>Пошлина (сбор)</td><td>{fee_rub} ₽</td></tr>
-        <tr><td>ЕТС</td><td>{ets_rub} ₽</td></tr>
+        <tr><td>Цена авто (инвойс)</td><td>{price_krw_num} ₩ → {car_price_rub} ₽</td></tr>
+        <tr><td>Таможенный сбор (за оформление)</td><td>{fee_rub} ₽</td></tr>
+        <tr><td>Пошлина — ЕТС, до 3 лет = 48% от стоимости</td><td>{ets_rub} ₽</td></tr>
         <tr><td>Утильсбор</td><td>{util_rub} ₽</td></tr>
         <tr><td>Банк.комиссия</td><td>{bank_commission_rub} ₽</td></tr>
         <tr><td>Логистика+брокер</td><td>{logistics_broker_rub} ₽</td></tr>
@@ -159,6 +160,8 @@ def render_card(car: dict, car_idx: int, local_photos: list) -> str:
     price_rub = car.get("_price_rub")
     price_rub_text = f"<b>{format_money(price_rub)} ₽</b>" if price_rub is not None else "цена не указана площадкой"
     price_krw_text = (format_money(car.get("price")) + " ₩") if car.get("price") else "не указана (торги)"
+    price_note_html = (f'<div class="row" style="color:#b26a00;font-size:11px">⚠ {escape(car["_price_note"])}</div>'
+                       if car.get("_price_note") else "")
     month = f".{car['month']:02d}" if car.get("month") else ""
 
     return CARD_TEMPLATE.format(
@@ -178,6 +181,8 @@ def render_card(car: dict, car_idx: int, local_photos: list) -> str:
         condition_icon=condition_icon,
         condition_note=escape(car.get("_condition_note", "")),
         price_krw=price_krw_text,
+        price_note_html=price_note_html,
+        price_krw_num=format_money(car.get("price")) if car.get("price") else "—",
         price_rub=price_rub_text,
         total=format_money(details.get("total_rub")),
         car_price_rub=format_money(details.get("car_price_rub")),
@@ -292,6 +297,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   .breakdown-table {{ width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 11px; color: #555; }}
   .breakdown-table td {{ padding: 2px 4px; border-bottom: 1px solid #f0f0f0; }}
   .breakdown-table .total-row td {{ border-top: 2px solid #ccc; color: #1a1a1a; }}
+  .ets-note {{ color: #999; }}
   a {{ color: #2f80ed; text-decoration: none; font-size: 13px; }}
   a:hover {{ text-decoration: underline; }}
   .open-btn {{ display: inline-block; margin-top: 6px; padding: 6px 10px; background: #2f80ed; color: #fff !important;
@@ -380,8 +386,12 @@ def build_html(data: dict) -> None:
         "(детальная диагностика Encar недоступна для этих карточек). По вашему правилу они НЕ "
         "вошли в основной список.",
         "<b>Цены</b>: «В рублях» — перевод цены площадки по живому курсу ЦБ; «Под ключ в Казани» — "
-        "полная разбивка (пошлина+ЕТС+утильсбор+банк+логистика+брокер) той же логикой, что боевые "
-        "посты (customs_calculator.py), наценка — отдельной справочной строкой.",
+        "полная разбивка той же логикой, что боевые посты (customs_calculator.py), наценка — отдельной "
+        "справочной строкой. <b>Пошлина для авто до 3 лет — это ЕТС по Решению Совета ЕЭК №107: "
+        "48% от таможенной стоимости</b> (инвойс в пересчёте на €; для всех машин отчёта диапазон "
+        "€16 700–42 300, минимум 5,5 €/см³ не превышает 48%-ю сумму). В разбивке это строка "
+        "«Пошлина — ЕТС»; строка «Таможенный сбор» — отдельно, это только сбор за оформление "
+        "декларации (ПП №1638), а не пошлина.",
         "<b>Двигатель</b>: все найденные машины — xDrive20i 2.0 бензин (1998 см³, 184 л.с.), "
         "спека добавлена в model_specs.py со ссылкой на источник.",
         "<b>KB Chachacha</b> — из этой сети отдаёт антибот-заглушку вместо страницы фильтров "

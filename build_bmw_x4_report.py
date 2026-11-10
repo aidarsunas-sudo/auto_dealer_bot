@@ -102,6 +102,7 @@ def calc_price(car: dict, rates: dict) -> dict | None:
         "bank_commission_rub": int(bank_commission),
         "fee_rub": int(result["fee_rub"]),
         "ets_rub": int(result["ets_rub"]),
+        "ets_note": result.get("ets_note", ""),
         "util_rub": int(result["util_rub"]),
         "logistics_broker_rub": int(extra_costs),
         "margin_rub": int(config.MARGIN_RUB),

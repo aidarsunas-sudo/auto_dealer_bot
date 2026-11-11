@@ -948,5 +948,17 @@
   "kbchachacha:BMW:X4": {
     "result": null,
     "resolved_at": "2026-11-10T17:07:31"
+  },
+  "encar:BMW:X6": {
+    "result": {
+      "car_type": "A",
+      "manufacturer_ko": "BMW",
+      "model_group": "X6"
+    },
+    "resolved_at": "2026-11-11T11:56:47.342794+00:00"
+  },
+  "kbchachacha:BMW:X6": {
+    "result": null,
+    "resolved_at": "2026-11-11T14:52:49"
   }
 }

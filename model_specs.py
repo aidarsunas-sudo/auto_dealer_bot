@@ -121,6 +121,22 @@ SPECS = [
         source="bikecaronline.com/kr — BMW X6 xDrive40i South Korea (2998 см³, 375 л.с.)",
     ),
 
+    # ─── BMW X5 (G05 LCI; добавлено для отчёта bmw_x5_report) ───────────────
+    # Те же силовые установки, что у G06: B57 (30d) и B58 (40i, KR 375 л.с.).
+    ModelSpec(
+        match=("x5", "30d"),
+        cc=2993, hp=298, fuel="diesel",
+        label="BMW X5 xDrive30d (G05 LCI)",
+        source="carnoon.co.kr (2026) — B57, та же установка, что X6 xDrive30d LCI",
+        year_min=2023,
+    ),
+    ModelSpec(
+        match=("x5", "40i"),
+        cc=2998, hp=375, fuel="petrol",
+        label="BMW X5 xDrive40i (G05 LCI)",
+        source="BMW of Loveland — 2026 X5 xDrive40i 375 hp; B58, тот же, что X6 xDrive40i KR",
+    ),
+
     # ─── Kia Sportage (NQ5, 5-е поколение, 2021.07~) ───────────────────────
     # Внимание: три силовые установки при (почти) одном модельном ряде —
     # смотри по наличию "디젤"/"가솔린"/"하이브리드"/"터보" в названии.

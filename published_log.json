@@ -19177,7 +19177,9 @@
   },
   "https://fem.encar.com/cars/detail/43115750": {
     "first_seen": "2026-11-10T01:07:25",
-    "posted_at": null
+    "posted_at": "2026-11-12T14:31:08",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://fem.encar.com/cars/detail/43101000": {
     "first_seen": "2026-11-10T01:07:25",

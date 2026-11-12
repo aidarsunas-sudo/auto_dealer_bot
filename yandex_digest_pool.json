@@ -121,5 +121,31 @@
       "transmission": "오토"
     },
     "published_at": "2026-11-10T14:06:21.567687"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "43115750",
+      "year": 2023,
+      "month": 4,
+      "mileage_km": 9165,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 19200000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/43115750",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture01/pic4311/43115750_001.jpg",
+        "https://ci.encar.com/carpicture01/pic4311/43115750_003.jpg",
+        "https://ci.encar.com/carpicture01/pic4311/43115750_004.jpg",
+        "https://ci.encar.com/carpicture01/pic4311/43115750_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-11-12T14:31:08.670093"
   }
 ]

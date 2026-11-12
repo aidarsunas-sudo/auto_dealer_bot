@@ -16,7 +16,10 @@ bmw_x5_report/collected.json (см. build_bmw_x5_report.py).
     python render_bmw_x5_report.py
 """
 
+import argparse
+import base64
 import csv
+import io
 import json
 import logging
 from datetime import datetime
@@ -24,6 +27,12 @@ from html import escape
 from pathlib import Path
 
 import requests
+
+try:
+    from PIL import Image
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("render_bmw_x5_report")
@@ -95,6 +104,37 @@ def download_photos_local(car: dict) -> list:
                 continue
         local_paths.append(f"photos/{subdir}/{fname}")
     return local_paths
+
+
+
+def _resize_jpeg(content: bytes, max_width: int = 1200, quality: int = 82) -> bytes:
+    """Ужимает фото для embed-режима (иначе файл распухает сверх разумного)."""
+    if not HAS_PIL:
+        return content
+    try:
+        img = Image.open(io.BytesIO(content)).convert("RGB")
+        if img.width > max_width:
+            ratio = max_width / img.width
+            img = img.resize((max_width, int(img.height * ratio)))
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=quality)
+        return buf.getvalue()
+    except Exception as error:
+        logger.warning(f"Не удалось ужать фото: {error}")
+        return content
+
+
+def photos_to_embed(local_paths: list) -> list:
+    """Локальные jpg -> data:-URI (самодостаточный report_embed.html для телефона)."""
+    data_uris = []
+    for rel in local_paths:
+        f = OUT_DIR / rel.replace("/", "\\")
+        try:
+            content = _resize_jpeg(f.read_bytes())
+            data_uris.append("data:image/jpeg;base64," + base64.b64encode(content).decode("ascii"))
+        except Exception as error:
+            logger.warning(f"Не удалось встроить фото {f}: {error}")
+    return data_uris
 
 
 def format_money(value) -> str:
@@ -353,11 +393,13 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 """
 
 
-def _cards(cars: list, car_idx: int) -> tuple:
+def _cards(cars: list, car_idx: int, embed: bool = False) -> tuple:
     parts = []
     for c in cars:
         car_idx += 1
-        parts.append(render_card(c, car_idx, download_photos_local(c)))
+        local = download_photos_local(c)
+        photos = photos_to_embed(local) if embed else local
+        parts.append(render_card(c, car_idx, photos))
     return "".join(parts), car_idx
 
 
@@ -379,7 +421,7 @@ def _excluded_table(items: list) -> str:
             + "".join(rows) + "</table>")
 
 
-def build_html(data: dict) -> None:
+def build_html(data: dict, embed: bool = False) -> Path:
     main = data.get("main_2026", {})
     alt = data.get("alt_2025", {})
     main_kept = main.get("kept", [])
@@ -445,7 +487,7 @@ def build_html(data: dict) -> None:
     car_idx = 0
     main_html = '<div class="grid">'
     if main_kept:
-        cards, car_idx = _cards(main_kept, car_idx)
+        cards, car_idx = _cards(main_kept, car_idx, embed)
         main_html += cards + '</div>'
     else:
         main_html = ('<div class="empty">Предложений BMW X5 2026 MY по критериям нет. '
@@ -453,13 +495,13 @@ def build_html(data: dict) -> None:
                      '≤10 000 км и чистой историей на момент сбора не нашлось — см. блок 2025.</div>')
 
     if alt_kept:
-        cards, car_idx = _cards(alt_kept, car_idx)
+        cards, car_idx = _cards(alt_kept, car_idx, embed)
         alt_html = f'<div class="grid">{cards}</div>'
     else:
         alt_html = '<div class="empty">По 2025 MY тоже ничего не найдено.</div>'
 
     if check:
-        cards, car_idx = _cards(check, car_idx)
+        cards, car_idx = _cards(check, car_idx, embed)
         check_html = f'<div class="grid">{cards}</div>'
     else:
         check_html = '<div class="empty">Не проверенных карточек нет.</div>'
@@ -488,8 +530,10 @@ def build_html(data: dict) -> None:
         lightbox_css=LIGHTBOX_CSS,
         lightbox_js=LIGHTBOX_JS,
     )
-    HTML_PATH.write_text(html, encoding="utf-8")
-    logger.info(f"HTML готов: {HTML_PATH}")
+    out_path = OUT_DIR / "report_embed.html" if embed else HTML_PATH
+    out_path.write_text(html, encoding="utf-8")
+    logger.info(f"HTML готов: {out_path}")
+    return out_path
 
 
 CSV_COLUMNS = ["year_block", "source", "external_id", "year", "month", "mileage_km", "trim",
@@ -527,8 +571,12 @@ def export_json_csv(data: dict) -> None:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--embed-photos", action="store_true",
+                        help="самодостаточный report_embed.html — фото внутри файла (base64)")
+    args = parser.parse_args()
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     PHOTOS_DIR.mkdir(parents=True, exist_ok=True)
-    build_html(data)
+    out_path = build_html(data, embed=args.embed_photos)
     export_json_csv(data)
-    print(f"Готово: {HTML_PATH}")
+    print(f"Готово: {out_path}")

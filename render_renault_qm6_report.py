@@ -125,6 +125,10 @@ def _resize_jpeg(content: bytes, max_width: int = 1200, quality: int = 82) -> by
         return content
 
 
+def _to_data_uri(content: bytes) -> str:
+    return "data:image/jpeg;base64," + base64.b64encode(content).decode("ascii")
+
+
 def photos_to_embed(local_paths: list) -> list:
     """Локальные jpg -> data:-URI (самодостаточный report_embed.html для телефона)."""
     data_uris = []
@@ -395,12 +399,18 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 """
 
 
-def _cards(cars: list, car_idx: int, embed: bool = False) -> tuple:
+def _cards(cars: list, car_idx: int, embed: bool = False, embed_max: int = 5) -> tuple:
     parts = []
     for c in cars:
         car_idx += 1
         local = download_photos_local(c)
-        photos = photos_to_embed(local) if embed else local
+        if embed and embed_max < 5:
+            photos = []
+            for rel in local[:embed_max]:
+                f = OUT_DIR / rel.replace("/", "\\")
+                photos.append(_to_data_uri(_resize_jpeg(f.read_bytes(), 900, 75)))
+        else:
+            photos = photos_to_embed(local[:embed_max]) if embed else local
         parts.append(render_card(c, car_idx, photos))
     return "".join(parts), car_idx
 
@@ -423,7 +433,7 @@ def _excluded_table(items: list) -> str:
             + "".join(rows) + "</table>")
 
 
-def build_html(data: dict, embed: bool = False) -> Path:
+def build_html(data: dict, embed: bool = False, embed_max: int = 5) -> Path:
     main = data.get("main_2026", {})
     alt = data.get("alt_2025", {})
     main_kept = main.get("kept", [])
@@ -489,19 +499,19 @@ def build_html(data: dict, embed: bool = False) -> Path:
     car_idx = 0
     main_html = '<div class="grid">'
     if main_kept:
-        cards, car_idx = _cards(main_kept, car_idx, embed)
+        cards, car_idx = _cards(main_kept, car_idx, embed, embed_max)
         main_html += cards + '</div>'
     else:
         main_html = ('<div class="empty">По 2023 году с пробегом ≤50 000 км и подтверждённо чистой историей (без ДТП/страховых выплат/окрасов) на момент сбора ничего не найдено — см. блок 2022.</div>')
 
     if alt_kept:
-        cards, car_idx = _cards(alt_kept, car_idx, embed)
+        cards, car_idx = _cards(alt_kept, car_idx, embed, embed_max)
         alt_html = f'<div class="grid">{cards}</div>'
     else:
         alt_html = '<div class="empty">По 2022 году тоже ничего не найдено.</div>'
 
     if check:
-        cards, car_idx = _cards(check, car_idx, embed)
+        cards, car_idx = _cards(check, car_idx, embed, embed_max)
         check_html = f'<div class="grid">{cards}</div>'
     else:
         check_html = '<div class="empty">Не проверенных карточек нет.</div>'
@@ -530,7 +540,10 @@ def build_html(data: dict, embed: bool = False) -> Path:
         lightbox_css=LIGHTBOX_CSS,
         lightbox_js=LIGHTBOX_JS,
     )
-    out_path = OUT_DIR / "report_embed.html" if embed else HTML_PATH
+    if embed:
+        out_path = OUT_DIR / ("report_embed_slim.html" if embed_max < 5 else "report_embed.html")
+    else:
+        out_path = HTML_PATH
     out_path.write_text(html, encoding="utf-8")
     logger.info(f"HTML готов: {out_path}")
     return out_path
@@ -574,9 +587,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--embed-photos", action="store_true",
                         help="самодостаточный report_embed.html — фото внутри файла (base64)")
+    parser.add_argument("--embed-slim", action="store_true",
+                        help="облегчённый report_embed_slim.html — 3 фото на машину (для телефона/мессенджеров)")
     args = parser.parse_args()
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     PHOTOS_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = build_html(data, embed=args.embed_photos)
+    out_path = build_html(data, embed=args.embed_photos or args.embed_slim,
+                          embed_max=3 if args.embed_slim else 5)
     export_json_csv(data)
     print(f"Готово: {out_path}")

@@ -163,7 +163,7 @@ CARD_TEMPLATE = """
         <tr><td>Услуги в Корее (агент, инспекция, документы) — в составе логистики</td><td>вкл. ниже</td></tr>
         <tr><td>Доставка + страховка (порт → Владивосток → Казань)</td><td>{logistics_rub} ₽</td></tr>
         <tr><td>Таможенный сбор (за оформление)</td><td>{fee_rub} ₽</td></tr>
-        <tr><td>Пошлина — ЕТС, до 3 лет = 48% от стоимости</td><td>{ets_rub} ₽</td></tr>
+        <tr><td>{ets_label}</td><td>{ets_rub} ₽</td></tr>
         <tr><td>Утильсбор</td><td>{util_rub} ₽</td></tr>
         <tr><td>Брокер, СБКТС/ЭПТС, таможенное оформление</td><td>{broker_rub} ₽</td></tr>
         <tr><td>Банковская комиссия (перевод)</td><td>{bank_commission_rub} ₽</td></tr>
@@ -204,6 +204,11 @@ def render_card(car: dict, car_idx: int, local_photos: list) -> str:
     pod_klyuch_text = format_money(pod_klyuch) if pod_klyuch else "не рассчитана"
     month = f".{car['month']:02d}" if car.get("month") else ""
 
+    age_bucket = details.get("age_bucket")
+    ets_label = {"u3": "Пошлина — ЕТС (до 3 лет: 48% от стоимости)",
+                 "35": "Пошлина — ЕТС (3–5 лет: € за см³ × объём)",
+                 "57": "Пошлина — ЕТС (5–7 лет: € за см³ × объём)",
+                 "o7": "Пошлина — ЕТС (старше 7 лет: € за см³ × объём)"}.get(age_bucket, "Пошлина — ЕТС")
     return CARD_TEMPLATE.format(
         car_idx=car_idx,
         photos_html=photos_html,
@@ -229,6 +234,7 @@ def render_card(car: dict, car_idx: int, local_photos: list) -> str:
         logistics_rub=format_money(details.get("logistics_rub")),
         fee_rub=format_money(details.get("fee_rub")),
         ets_rub=format_money(details.get("ets_rub")),
+        ets_label=ets_label,
         util_rub=format_money(details.get("util_rub")),
         broker_rub=format_money(details.get("broker_rub")),
         bank_commission_rub=format_money(details.get("bank_commission_rub")),

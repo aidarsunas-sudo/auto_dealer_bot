@@ -137,6 +137,16 @@ SPECS = [
         source="BMW of Loveland — 2026 X5 xDrive40i 375 hp; B58, тот же, что X6 xDrive40i KR",
     ),
 
+    # ─── Renault Samsung QM6 2.0 GDe G (для отчёта renault_qm6_report) ───────
+    # GDe — БЕНЗИН (M5R 2.0, 144 л.с., льготный утильсбор ≤160 л.с.);
+    # LPe (ГБО) отсекается отсутствием 'gde' в match.
+    ModelSpec(
+        match=("qm6", "gde"),
+        cc=1997, hp=144, fuel="petrol",
+        label="Renault Samsung QM6 2.0 GDe",
+        source="The Korea Herald (2.0 GDe, 144 л.с.) + reinwell.kz (двигатель QM6 2.0 GDe)",
+    ),
+
     # ─── Kia Sportage (NQ5, 5-е поколение, 2021.07~) ───────────────────────
     # Внимание: три силовые установки при (почти) одном модельном ряде —
     # смотри по наличию "디젤"/"가솔린"/"하이브리드"/"터보" в названии.

@@ -457,7 +457,7 @@
   },
   "kbchachacha:Kia:Tasman": {
     "result": null,
-    "resolved_at": "2026-11-07T08:13:49"
+    "resolved_at": "2026-11-14T12:49:59"
   },
   "encar:Kia:Tasman": {
     "result": null,
@@ -465,11 +465,11 @@
   },
   "charancha:Kia:Tasman": {
     "result": null,
-    "resolved_at": "2026-11-07T08:13:50"
+    "resolved_at": "2026-11-14T12:50:00"
   },
   "kbchachacha:Hyundai:Venue": {
     "result": null,
-    "resolved_at": "2026-11-07T08:14:15"
+    "resolved_at": "2026-11-14T12:50:26"
   },
   "encar:Hyundai:Venue": {
     "result": null,
@@ -477,11 +477,11 @@
   },
   "charancha:Hyundai:Venue": {
     "result": null,
-    "resolved_at": "2026-11-07T08:14:16"
+    "resolved_at": "2026-11-14T12:50:27"
   },
   "kbchachacha:Hyundai:Casper": {
     "result": null,
-    "resolved_at": "2026-11-07T08:14:41"
+    "resolved_at": "2026-11-14T12:50:53"
   },
   "encar:Hyundai:Casper": {
     "result": null,
@@ -489,11 +489,11 @@
   },
   "charancha:Hyundai:Casper": {
     "result": null,
-    "resolved_at": "2026-11-07T08:14:42"
+    "resolved_at": "2026-11-14T12:50:55"
   },
   "kbchachacha:Kia:Ray": {
     "result": null,
-    "resolved_at": "2026-11-07T08:15:08"
+    "resolved_at": "2026-11-14T12:51:21"
   },
   "encar:Kia:Ray": {
     "result": null,
@@ -501,11 +501,11 @@
   },
   "charancha:Kia:Ray": {
     "result": null,
-    "resolved_at": "2026-11-07T08:15:09"
+    "resolved_at": "2026-11-14T12:51:22"
   },
   "kbchachacha:Hyundai:IONIQ 5": {
     "result": null,
-    "resolved_at": "2026-11-07T08:15:34"
+    "resolved_at": "2026-11-14T12:51:47"
   },
   "encar:Hyundai:IONIQ 5": {
     "result": null,
@@ -513,7 +513,7 @@
   },
   "charancha:Hyundai:IONIQ 5": {
     "result": null,
-    "resolved_at": "2026-11-07T08:15:35"
+    "resolved_at": "2026-11-14T12:51:48"
   },
   "kbchachacha:Kia:EV9": {
     "result": {
@@ -602,11 +602,11 @@
   },
   "charancha:BYD:SEALION 7": {
     "result": null,
-    "resolved_at": "2026-11-07T08:15:49"
+    "resolved_at": "2026-11-14T12:52:05"
   },
   "kbchachacha:Kia:Sportage": {
     "result": null,
-    "resolved_at": "2026-11-07T08:16:14"
+    "resolved_at": "2026-11-14T12:52:30"
   },
   "encar:Kia:Sportage": {
     "result": null,
@@ -614,7 +614,7 @@
   },
   "charancha:Kia:Sportage": {
     "result": null,
-    "resolved_at": "2026-11-07T08:16:15"
+    "resolved_at": "2026-11-14T12:52:31"
   },
   "encar:Renault:QM6": {
     "result": {
@@ -652,7 +652,7 @@
   },
   "charancha:Chevrolet:Malibu": {
     "result": null,
-    "resolved_at": "2026-11-07T08:16:53"
+    "resolved_at": "2026-11-14T12:53:13"
   },
   "encar:Chevrolet:Spark": {
     "result": null,
@@ -660,7 +660,7 @@
   },
   "charancha:Chevrolet:Spark": {
     "result": null,
-    "resolved_at": "2026-11-07T08:17:19"
+    "resolved_at": "2026-11-14T12:53:40"
   },
   "encar:Chevrolet:Trax": {
     "result": {
@@ -683,11 +683,11 @@
   },
   "charancha:Chevrolet:Trailblazer": {
     "result": null,
-    "resolved_at": "2026-11-07T08:17:49"
+    "resolved_at": "2026-11-14T12:54:12"
   },
   "kbchachacha:Mini:Countryman": {
     "result": null,
-    "resolved_at": "2026-11-07T08:18:15"
+    "resolved_at": "2026-11-14T12:54:37"
   },
   "encar:Mini:Countryman": {
     "result": null,
@@ -695,11 +695,11 @@
   },
   "charancha:Mini:Countryman": {
     "result": null,
-    "resolved_at": "2026-11-07T08:18:15"
+    "resolved_at": "2026-11-14T12:54:38"
   },
   "kbchachacha:Mini:Clubman": {
     "result": null,
-    "resolved_at": "2026-11-07T08:18:41"
+    "resolved_at": "2026-11-14T12:55:04"
   },
   "encar:Mini:Clubman": {
     "result": null,
@@ -707,11 +707,11 @@
   },
   "charancha:Mini:Clubman": {
     "result": null,
-    "resolved_at": "2026-11-07T08:18:41"
+    "resolved_at": "2026-11-14T12:55:05"
   },
   "kbchachacha:Mini:Convertible": {
     "result": null,
-    "resolved_at": "2026-11-07T08:19:05"
+    "resolved_at": "2026-11-14T12:55:30"
   },
   "encar:Mini:Convertible": {
     "result": null,
@@ -719,7 +719,7 @@
   },
   "charancha:Mini:Convertible": {
     "result": null,
-    "resolved_at": "2026-11-07T08:19:06"
+    "resolved_at": "2026-11-14T12:55:30"
   },
   "kbchachacha:Peugeot:3008": {
     "result": {
@@ -861,11 +861,11 @@
   },
   "kbchachacha:Chevrolet:Malibu": {
     "result": null,
-    "resolved_at": "2026-11-07T08:16:52"
+    "resolved_at": "2026-11-14T12:53:12"
   },
   "kbchachacha:Chevrolet:Spark": {
     "result": null,
-    "resolved_at": "2026-11-07T08:17:18"
+    "resolved_at": "2026-11-14T12:53:38"
   },
   "kbchachacha:Chevrolet:Trax": {
     "result": {
@@ -896,7 +896,7 @@
   },
   "kbchachacha:Chevrolet:Trailblazer": {
     "result": null,
-    "resolved_at": "2026-11-07T08:17:48"
+    "resolved_at": "2026-11-14T12:54:11"
   },
   "kbchachacha:Hyundai:Avante": {
     "result": null,

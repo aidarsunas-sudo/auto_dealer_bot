@@ -19161,7 +19161,9 @@
   },
   "https://fem.encar.com/cars/detail/43085550": {
     "first_seen": "2026-11-10T01:07:25",
-    "posted_at": null
+    "posted_at": "2026-11-17T08:42:23",
+    "brand": "Kia",
+    "model": "K3"
   },
   "https://fem.encar.com/cars/detail/43080782": {
     "first_seen": "2026-11-10T01:07:25",
@@ -19391,7 +19393,9 @@
   },
   "https://fem.encar.com/cars/detail/43081556": {
     "first_seen": "2026-11-10T01:07:25",
-    "posted_at": null
+    "posted_at": "2026-11-17T08:44:10",
+    "brand": "Hyundai",
+    "model": "Sonata"
   },
   "https://fem.encar.com/cars/detail/43067436": {
     "first_seen": "2026-11-10T01:07:25",
@@ -19975,6 +19979,114 @@
   },
   "https://www.charancha.com/cars/01a1e741-1b97-7dc9-917c-7ba3a236ba09": {
     "first_seen": "2026-11-17T08:02:12",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43155541": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43156061": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43147062": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43170571": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43166935": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43161959": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43161489": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43167322": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43166660": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43160025": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43157064": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43157708": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43155049": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43170336": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43160134": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43165186": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43155788": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43146985": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43157476": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43152887": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43156270": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43167233": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43161697": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43161505": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43161109": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43156739": {
+    "first_seen": "2026-11-17T08:40:37",
+    "posted_at": null
+  },
+  "https://fem.encar.com/cars/detail/43156735": {
+    "first_seen": "2026-11-17T08:40:37",
     "posted_at": null
   }
 }

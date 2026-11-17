@@ -50,5 +50,57 @@
       "transmission": "오토"
     },
     "added_at": "2026-11-12T14:31:08.669698"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K3",
+      "trim": "1.6",
+      "external_id": "43085550",
+      "year": 2023,
+      "month": 10,
+      "mileage_km": 25365,
+      "cc": 1598,
+      "hp": 123,
+      "fuel_code": "petrol",
+      "price": 17900000,
+      "specs": "1598 см³, 123 л.с.",
+      "url": "https://fem.encar.com/cars/detail/43085550",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture08/pic4308/43080782_001.jpg",
+        "https://ci.encar.com/carpicture08/pic4308/43080782_003.jpg",
+        "https://ci.encar.com/carpicture08/pic4308/43080782_004.jpg",
+        "https://ci.encar.com/carpicture08/pic4308/43080782_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-11-17T08:42:23.189514"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "2.0",
+      "external_id": "43081556",
+      "year": 2023,
+      "month": 5,
+      "mileage_km": 16821,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 30300000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/43081556",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture06/pic4306/43067436_001.jpg",
+        "https://ci.encar.com/carpicture06/pic4306/43067436_003.jpg",
+        "https://ci.encar.com/carpicture06/pic4306/43067436_004.jpg",
+        "https://ci.encar.com/carpicture06/pic4306/43067436_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "added_at": "2026-11-17T08:44:10.408410"
   }
 ]

@@ -19273,7 +19273,9 @@
   },
   "https://fem.encar.com/cars/detail/43073475": {
     "first_seen": "2026-11-10T01:07:25",
-    "posted_at": null
+    "posted_at": "2026-11-17T15:25:41",
+    "brand": "Kia",
+    "model": "K5"
   },
   "https://fem.encar.com/cars/detail/43070192": {
     "first_seen": "2026-11-10T01:07:25",
@@ -19543,7 +19545,9 @@
   },
   "https://fem.encar.com/cars/detail/43098966": {
     "first_seen": "2026-11-10T01:07:25",
-    "posted_at": null
+    "posted_at": "2026-11-17T15:27:33",
+    "brand": "Chevrolet",
+    "model": "Trax"
   },
   "https://fem.encar.com/cars/detail/43091155": {
     "first_seen": "2026-11-10T01:07:25",

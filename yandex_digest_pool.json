@@ -50,5 +50,57 @@
       "transmission": "오토"
     },
     "published_at": "2026-11-17T08:44:10.408904"
+  },
+  {
+    "car": {
+      "brand": "Kia",
+      "model": "K5",
+      "trim": "2.0",
+      "external_id": "43073475",
+      "year": 2023,
+      "month": 6,
+      "mileage_km": 23997,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 26900000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://fem.encar.com/cars/detail/43073475",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture07/pic4307/43070192_027.jpg",
+        "https://ci.encar.com/carpicture07/pic4307/43070192_003.jpg",
+        "https://ci.encar.com/carpicture07/pic4307/43070192_004.jpg",
+        "https://ci.encar.com/carpicture07/pic4307/43070192_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-11-17T15:25:41.812955"
+  },
+  {
+    "car": {
+      "brand": "Chevrolet",
+      "model": "Trax",
+      "trim": "1.2 RS",
+      "external_id": "43098966",
+      "year": 2023,
+      "month": 7,
+      "mileage_km": 35850,
+      "cc": 1198,
+      "hp": 139,
+      "fuel_code": "petrol",
+      "price": 20500000,
+      "specs": "1198 см³, 139 л.с.",
+      "url": "https://fem.encar.com/cars/detail/43098966",
+      "source": "encar",
+      "photos": [
+        "https://ci.encar.com/carpicture09/pic4309/43098966_001.jpg",
+        "https://ci.encar.com/carpicture09/pic4309/43098966_003.jpg",
+        "https://ci.encar.com/carpicture09/pic4309/43098966_004.jpg",
+        "https://ci.encar.com/carpicture09/pic4309/43098966_007.jpg"
+      ],
+      "transmission": "오토"
+    },
+    "published_at": "2026-11-17T15:27:33.302296"
   }
 ]

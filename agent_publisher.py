@@ -172,21 +172,15 @@ def publish_post(car: dict, text: str, dry_run: bool = False,
             raise registry.DuplicatePostError(f"Пост {identifier} пропущен как дубль: {reason}")
 
         # Единый журнал публикаций (SEO-цепочка + лидоген + ручные посты):
-        # (1) дубль-текст — шаблонный пост той же модели с другим лотом;
-        # (2) модель, бывшая фокусом поста за последние RECENT_MODEL_DAYS дней.
+        # модель, бывшая фокусом поста за последние RECENT_MODEL_DAYS дней, — пропуск.
+        # Сверка сходства ТЕКСТА с журналом здесь намеренно отсутствует: lead/auction-
+        # посты шаблонные, пост той же модели с ДРУГИМ лотом даёт сходство ~0.96,
+        # и гейт блокировал бы все публикации модели навсегда (инцидент 2026-11-12…17:
+        # канал молчал 5 суток при «успешных» прогонах). Дубль-лота ловит реестр
+        # published.jsonl (lot_id/URL и модель+год+пробег) выше, а сходство текста
+        # остаётся гейтом уникальных текстов SEO-цепочки (run_chain.py ->
+        # validate_draft), где посты действительно уникальны.
         model_key = f"{car.get('brand', '')} {car.get('model', '')}".strip().lower()
-        dup_entry, dup_ratio = post_journal.find_duplicate(
-            text, exclude_slug=car.get("url") or car.get("external_id"))
-        if dup_entry is not None:
-            dup_models = set(dup_entry.get("focus_models") or [])
-            if not dup_models:
-                dup_models = {(dup_entry.get("query") or "").split(" [")[0].strip().lower()}
-            if model_key and model_key in dup_models:
-                reason = (f"текст поста похож на «{dup_entry.get('query')}» "
-                          f"(slug {dup_entry.get('slug')}, сходство {dup_ratio:.2f})")
-                logger.warning(f"Публикация пропущена (единый журнал): {reason}")
-                post_journal.log_duplicate(model_key, dup_entry, dup_ratio, where="lead-gate")
-                raise registry.DuplicatePostError(f"Пост пропущен: {reason}")
         recent_models = post_journal.recent_focus_models(config.RECENT_MODEL_DAYS)
         if model_key and model_key in recent_models:
             reason = f"модель {model_key} уже была в канале за последние {config.RECENT_MODEL_DAYS} дн."

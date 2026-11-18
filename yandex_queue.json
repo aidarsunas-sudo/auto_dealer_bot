@@ -1,58 +1,6 @@
 [
   {
     "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "1.2 ACTIV",
-      "external_id": "43027402",
-      "year": 2023,
-      "month": 4,
-      "mileage_km": 27158,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 22500000,
-      "specs": "1198 см³, 139 л.с.",
-      "url": "https://fem.encar.com/cars/detail/43027402",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture02/pic4302/43024067_027.jpg",
-        "https://ci.encar.com/carpicture02/pic4302/43024067_003.jpg",
-        "https://ci.encar.com/carpicture02/pic4302/43024067_004.jpg",
-        "https://ci.encar.com/carpicture02/pic4302/43024067_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "added_at": "2026-11-10T01:10:09.566954"
-  },
-  {
-    "car": {
-      "brand": "Kia",
-      "model": "K3",
-      "trim": "1.6",
-      "external_id": "43115750",
-      "year": 2023,
-      "month": 4,
-      "mileage_km": 9165,
-      "cc": 1598,
-      "hp": 123,
-      "fuel_code": "petrol",
-      "price": 19200000,
-      "specs": "1598 см³, 123 л.с.",
-      "url": "https://fem.encar.com/cars/detail/43115750",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture01/pic4311/43115750_001.jpg",
-        "https://ci.encar.com/carpicture01/pic4311/43115750_003.jpg",
-        "https://ci.encar.com/carpicture01/pic4311/43115750_004.jpg",
-        "https://ci.encar.com/carpicture01/pic4311/43115750_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "added_at": "2026-11-12T14:31:08.669698"
-  },
-  {
-    "car": {
       "brand": "Kia",
       "model": "K3",
       "trim": "1.6",

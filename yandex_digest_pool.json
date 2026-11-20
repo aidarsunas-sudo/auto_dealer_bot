@@ -102,5 +102,50 @@
       "transmission": "오토"
     },
     "published_at": "2026-11-17T15:27:33.302296"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "01a1ed87-72b0-76ee-a1c3-5776ceaa4565",
+      "year": 2023,
+      "month": 3,
+      "mileage_km": 19907,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 19500000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://www.charancha.com/cars/01a1ed87-72b0-76ee-a1c3-5776ceaa4565",
+      "source": "charancha",
+      "photos": [
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdcb-729f-8ea7-e607bb37603f.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdcf-7a26-a898-eb057e10730e.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdd3-761e-81af-001cfd8900f3.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdd6-7b49-9834-db0313fc9d8a.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdda-7d95-83ab-6d61d1a31332.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdde-75c6-88c8-b9d4129fa659.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bde1-7f45-a6e7-0b7b6cdeb196.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bde5-79c3-8fa5-58fe055fc9df.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bde9-737a-b07a-10b050265af1.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdec-72f7-aa15-5b5d9587fd22.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdf0-7b50-9343-1be6a4cc04bb.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdf4-7b4c-aa4b-d034b4295e0f.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdf7-7a0f-8591-c85a6e312123.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdfb-72ee-a921-5789d08d18df.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-bdfe-77da-a19d-405c2427e430.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-be02-7813-b247-2f4640678a2a.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-be06-7892-a6f7-c60cfdddd64f.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-be0a-7ffb-bedb-c164c465c5c1.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-be0e-7901-abf7-4aa15eb0a831.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1ed86-be12-7093-9e6f-29749a7c98a1.jpg"
+      ],
+      "transmission": "자동",
+      "is_accident": null,
+      "is_seizure": null,
+      "color": "검정색"
+    },
+    "published_at": "2026-11-20T00:33:55.768982"
   }
 ]

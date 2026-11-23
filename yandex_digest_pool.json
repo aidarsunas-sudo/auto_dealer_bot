@@ -1,110 +1,6 @@
 [
   {
     "car": {
-      "brand": "Kia",
-      "model": "K3",
-      "trim": "1.6",
-      "external_id": "43085550",
-      "year": 2023,
-      "month": 10,
-      "mileage_km": 25365,
-      "cc": 1598,
-      "hp": 123,
-      "fuel_code": "petrol",
-      "price": 17900000,
-      "specs": "1598 см³, 123 л.с.",
-      "url": "https://fem.encar.com/cars/detail/43085550",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture08/pic4308/43080782_001.jpg",
-        "https://ci.encar.com/carpicture08/pic4308/43080782_003.jpg",
-        "https://ci.encar.com/carpicture08/pic4308/43080782_004.jpg",
-        "https://ci.encar.com/carpicture08/pic4308/43080782_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "published_at": "2026-11-17T08:42:23.190016"
-  },
-  {
-    "car": {
-      "brand": "Hyundai",
-      "model": "Sonata",
-      "trim": "2.0",
-      "external_id": "43081556",
-      "year": 2023,
-      "month": 5,
-      "mileage_km": 16821,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 30300000,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://fem.encar.com/cars/detail/43081556",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture06/pic4306/43067436_001.jpg",
-        "https://ci.encar.com/carpicture06/pic4306/43067436_003.jpg",
-        "https://ci.encar.com/carpicture06/pic4306/43067436_004.jpg",
-        "https://ci.encar.com/carpicture06/pic4306/43067436_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "published_at": "2026-11-17T08:44:10.408904"
-  },
-  {
-    "car": {
-      "brand": "Kia",
-      "model": "K5",
-      "trim": "2.0",
-      "external_id": "43073475",
-      "year": 2023,
-      "month": 6,
-      "mileage_km": 23997,
-      "cc": 1999,
-      "hp": 160,
-      "fuel_code": "petrol",
-      "price": 26900000,
-      "specs": "1999 см³, 160 л.с.",
-      "url": "https://fem.encar.com/cars/detail/43073475",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture07/pic4307/43070192_027.jpg",
-        "https://ci.encar.com/carpicture07/pic4307/43070192_003.jpg",
-        "https://ci.encar.com/carpicture07/pic4307/43070192_004.jpg",
-        "https://ci.encar.com/carpicture07/pic4307/43070192_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "published_at": "2026-11-17T15:25:41.812955"
-  },
-  {
-    "car": {
-      "brand": "Chevrolet",
-      "model": "Trax",
-      "trim": "1.2 RS",
-      "external_id": "43098966",
-      "year": 2023,
-      "month": 7,
-      "mileage_km": 35850,
-      "cc": 1198,
-      "hp": 139,
-      "fuel_code": "petrol",
-      "price": 20500000,
-      "specs": "1198 см³, 139 л.с.",
-      "url": "https://fem.encar.com/cars/detail/43098966",
-      "source": "encar",
-      "photos": [
-        "https://ci.encar.com/carpicture09/pic4309/43098966_001.jpg",
-        "https://ci.encar.com/carpicture09/pic4309/43098966_003.jpg",
-        "https://ci.encar.com/carpicture09/pic4309/43098966_004.jpg",
-        "https://ci.encar.com/carpicture09/pic4309/43098966_007.jpg"
-      ],
-      "transmission": "오토"
-    },
-    "published_at": "2026-11-17T15:27:33.302296"
-  },
-  {
-    "car": {
       "brand": "Hyundai",
       "model": "Sonata",
       "trim": "",
@@ -147,5 +43,50 @@
       "color": "검정색"
     },
     "published_at": "2026-11-20T00:33:55.768982"
+  },
+  {
+    "car": {
+      "brand": "Hyundai",
+      "model": "Sonata",
+      "trim": "",
+      "external_id": "01a1f652-4077-7276-b0af-c9049b13c51b",
+      "year": 2023,
+      "month": 11,
+      "mileage_km": 9861,
+      "cc": 1999,
+      "hp": 160,
+      "fuel_code": "petrol",
+      "price": 27800000,
+      "specs": "1999 см³, 160 л.с.",
+      "url": "https://www.charancha.com/cars/01a1f652-4077-7276-b0af-c9049b13c51b",
+      "source": "charancha",
+      "photos": [
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-159e-7a87-a4a4-200819047cc1.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15a1-7e1e-990d-3f271c9cc016.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15a4-7bae-a9cc-18939e65b473.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15a7-7690-9b60-7a00f35a18c8.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15ab-752d-b160-dff2a4b7f9e9.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15ae-7103-885f-ac508f4fe282.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15b1-7e93-9c6c-b088cd3d5a7d.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15b4-7c6c-80a0-e069f9183343.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15b7-77b5-8bd2-0b21ef1382a3.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15ba-7caa-9a31-9d0ef94b0f22.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15bd-7865-a29f-3da369178636.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15c0-7065-a83b-80a522517184.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15c3-77d6-948f-fdda09406664.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15c6-780d-902c-17fee6c47a97.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15c9-769c-83f4-5f25102b6361.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15cc-75af-88b6-6e013da3f995.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15cf-7a75-865a-a62962159541.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15d2-777c-83bf-fc97aa867a43.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15d5-7821-a879-cb14a0cd5a13.jpg",
+        "https://cdn.charancha.com/thumbnails/uploads/carimg/xxlarge/2026/01a1f651-15d8-7d32-b9b3-268c311800ba.jpg"
+      ],
+      "transmission": "자동",
+      "is_accident": null,
+      "is_seizure": null,
+      "color": "검정색"
+    },
+    "published_at": "2026-11-23T05:08:01.664603"
   }
 ]
